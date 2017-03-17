@@ -1,0 +1,70 @@
+//
+//  PrefixHeader.pch
+//  GWClient
+//
+//  Created by guiping on 2017/3/17.
+//  Copyright © 2017年 guiping. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//#import "FMDB.h"
+//#import "DataBaseManager.h"
+//#import "BimarDevice.h"
+//#import "UILabel+GPAligment.h"
+//#import "MBProgressHUD.h"
+//#import "GPUtil.h"
+//#import "ChangeLanguage.h"
+
+
+#ifndef W_H_
+#define W_H_
+#define KSCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
+#define KSCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#endif
+
+
+#define UICOLOR_RGBA(r, g, b, a) [UIColor colorWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:a]
+#define THEME_COLOR                        UICOLOR_RGBA(250, 126, 20, 1.0);
+//#define BTN_ENABLED_BGCOLOR                UICOLOR_RGBA(130, 131, 130, 1.0);
+
+//#define CURRENT_LANGUAGE(key) [ChangeLanguage getContentWithKey:key]
+//
+//#define LABEL_RECT(labelText,limitW,limitH,option,font) [labelText boundingRectWithSize:CGSizeMake(limitW, limitH) options:option attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]} context:nil]
+
+//#define CURRENTLANGUAGE                     @"currentLanguage"
+//#define SOUND                               @"SettingTypeSound"
+//#define VIBRATE                             @"SettingTypeVibrate"
+//#define LEFTCELL                            @"LeftVCTableViewCell"
+//#define SETTINGCELL                         @"SettingTableViewCell"
+//#define LANGUAGECELL                        @"SetLanguageTableViewCell"
+//#define DEVICEINFOCELL                      @"DeviceInfoTableViewCell"
+//#define DEVICELISTCELL                      @"DeviceListTableViewCell"
+//#define LANGUAGE                            @"language"
+//#define CHINESE                             @"zh-Hans"
+//#define LANGUAGE_NOTIFICATION               @"languageNotification"
+
+
+//
+//#define BTN_DEVICE_MORE_TAG     201
+//
+//#define BTN_RENAME_TAG          230
+//#define BTN_PASSWORD_TAG        231
+//#define BTN_DELETE_TAG          232
+//
+//#define BTN_WAIT_TAG            240
+//#define BTN_OK_TAG              241
+//
+//#define BTN_TIME_TAG            800
+//#define BTN_ONOFF_TAG           801
+//#define BTN_INCREASE_TAG        802
+//#define BTN_WIND_TAG            803
+//#define BTN_MODE_TAG            804
+//#define BTN_DECREASE_TAG        805
+
+
+#endif /* PrefixHeader_pch */

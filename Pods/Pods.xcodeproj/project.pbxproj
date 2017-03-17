@@ -1,0 +1,1176 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		025AACA095398188727601421D89908C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D67AC30769732F1FF0BD1854B2E225 /* Foundation.framework */; };
+		029EDBAE8B356E3095B6E1798A844CB1 /* MutableExtensionRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 75217EB5F30D5FA51A72E5C84C05BA1B /* MutableExtensionRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0605459C2AE376C0B75FC73C10DF718E /* ObjectivecDescriptor.pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C77576C75D358ACAA42A0791A1E0565 /* ObjectivecDescriptor.pb.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		06F3E8AEA1CBF0EDC405695E81D08AED /* Descriptor.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3E3220286F0A430F104D8F13F146B /* Descriptor.pb.m */; };
+		0BA6C31DFA3F7FF12A1CA3ED5D168DE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D67AC30769732F1FF0BD1854B2E225 /* Foundation.framework */; };
+		0BA9673C6FECBE87702829FDE0A6EE6A /* ForwardDeclarations.h in Headers */ = {isa = PBXBuildFile; fileRef = B82497A5DFEE7B62ECFDBBBAC39D5DA8 /* ForwardDeclarations.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1446E5E21FF30E1C4BB3285A45FFE263 /* PBArray.h in Headers */ = {isa = PBXBuildFile; fileRef = DDF573EEC8118B6222371FA59236A6DC /* PBArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1BA6AC4C60BFE2322FC4BC50EE3EEAB9 /* ExtendableMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8F84DD766CB2E95CDEFAEDD1A991FC /* ExtendableMessageBuilder.m */; };
+		1CE76AC6C56CE83D7153E17AEF965D63 /* Bootstrap.h in Headers */ = {isa = PBXBuildFile; fileRef = D7A01C358227CA38BC424C42CBA242DD /* Bootstrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F2B19B94BBA512E1D3EA6CF08C759D0 /* AbstractMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = FE12978AF1CCA694FEEB6993AA896BED /* AbstractMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2268832F49032D5D1442B742233B9C44 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D25DBC9E78B606AB60D0F1AD310077AD /* EXTScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		278573DE1BF1FC7CBAE00D7239AD2265 /* GeneratedMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD69FECA337215C05C6D2F0025B4791 /* GeneratedMessage.m */; };
+		2967CCC140CED9EBAF0462C5545E9D94 /* UnknownFieldSetBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2EF6AD54CD679486484C5A2FB1238C /* UnknownFieldSetBuilder.m */; };
+		2EBBB5D1616C045F19DC059279DEB219 /* UnknownFieldSet.h in Headers */ = {isa = PBXBuildFile; fileRef = F9EEFE13212687874A420C0C3573ECDA /* UnknownFieldSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		367278A65BD54BA16A633C830C658CDA /* GeneratedMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 153D7F78C522562646E9CF23CE35FF1C /* GeneratedMessageBuilder.m */; };
+		3EFF88354281D35421ADD2AC2A39A2E6 /* ExtendableMessageBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F7A2073368EE50B6E8B4E7915AB39A4F /* ExtendableMessageBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		466F63038FBDB3A9C9F634E7256A0F8D /* RingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = ED3AEDD7D695ED0D1484790936EF5557 /* RingBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46C3AB53539824DA311F22F8EBAD5960 /* UnknownFieldSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 59560DA9EBF58648A0A8D4228F6506C3 /* UnknownFieldSet.m */; };
+		47F3AB06A7D50D04B68EEA6B2E526EE1 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A6777EBA089ADB4D8496FE865738718 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		493BB819C10976B3C1B7394C5BD7BCCC /* GCDAsyncUdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 142D60B9F13664C87313A940BCF03B5B /* GCDAsyncUdpSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DA796D41F157612451B234445CD10F8 /* WireFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4174896A4F29D01836C218FD3591D6 /* WireFormat.m */; };
+		518E208CEC9B5265FEBFE18AD026C854 /* Field.h in Headers */ = {isa = PBXBuildFile; fileRef = E0D6327F3396A8A7BBE9F46FD7C02FB6 /* Field.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		52654C481032101EE0ABF4CDE4AE2105 /* ConcreteExtensionField.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D03750B3C440E5D1BB4CCE947D9A3 /* ConcreteExtensionField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		54F6B6C12022242F312E9E415788085E /* MSWeakTimer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB20624571DE3B30B40A382C1F66B04 /* MSWeakTimer-dummy.m */; };
+		553CED8320A5CDE7F918FD4B0F1EB3DB /* AbstractMessageBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7814A1CF206693F83136CB2D53B2749F /* AbstractMessageBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57793B0D6152073EA0CAB195C07CB87A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D67AC30769732F1FF0BD1854B2E225 /* Foundation.framework */; };
+		5E71BB4B00BA0EC89661430265DE8224 /* AbstractMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C90429718F4342D1BD8F162C81D3D3 /* AbstractMessageBuilder.m */; };
+		65F488BFAED2F07D7569A8ED15E5CBB5 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E45535641DA220FA0B3198F6A235AF /* GCDAsyncUdpSocket.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		6849D7656DE1DB9BDAA96583BEAE2DB7 /* PBArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C599F2E87E38319DC8FDCE3AD4F2FE /* PBArray.m */; };
+		69FFF1D5A35D84448E705670AEA1D9E2 /* ProtocolBuffers-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF0D487D83C039C79A3D83773752ABA /* ProtocolBuffers-dummy.m */; };
+		6DCAFD110D8D2CF8677F6E05BF7484DE /* CodedOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B95656CAE9F69026AD8AF5B0DD1F83C /* CodedOutputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6F2AEEE7CEEFB9E8118587359B90AE38 /* Descriptor.pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 306B1D99559F43B6633225CD7F59D0BD /* Descriptor.pb.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6F679DED0368F4F34FBC8CEC73734543 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898EE84856EB5E52F00A964689E9F67E /* CFNetwork.framework */; };
+		7279F4947CFE1F72B962637F71093A86 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2304220C1A35BD0FB1341DEBDF1E4B /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		772C27A5153D9FB13F75D75E39AD6444 /* MessageBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = BA7D4E934A9C50E17F6AA21450AFE21E /* MessageBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79675FBB8F3C139022DE5001181923B8 /* ExtensionField.h in Headers */ = {isa = PBXBuildFile; fileRef = FEE5F2CE3B51401200FC2825476AD444 /* ExtensionField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BA0CEC054CCB02016F5A8C98518F450 /* ExtendableMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 451635335DF16B113AB1BDEE4CAC04E4 /* ExtendableMessage.m */; };
+		814F6024F5736E09730B396735B3B865 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 2062A314F528BCACAA9DEF39278650F8 /* Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		825C1FAC5A15288B871AC1B9E928EFC4 /* CodedInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = EE14A65497734CB0DBE303291ED14490 /* CodedInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8A89ACC4D3141FAF2D46AAA7AC445DFD /* MutableExtensionRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 1220C442E41B6B55EC03C2C524060115 /* MutableExtensionRegistry.m */; };
+		8E7E84AF2FB4345C44FC8548153DB835 /* WireFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = DC5B7B5569C945B4602A78F13FD52ECF /* WireFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FC4B5D425DB6638482168602F8350EB /* libextobjc-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AFF17F41D34BF817A7DBD07387E1D1 /* libextobjc-dummy.m */; };
+		90AFCF29F6BBB82116AEA6FF2BB5A2B4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D67AC30769732F1FF0BD1854B2E225 /* Foundation.framework */; };
+		91AD654709EB6F262878CA7ED07FF611 /* ExtendableMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 073BBC24EB7063EDE0605CEA541338D1 /* ExtendableMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		92A4C6B2D55D41F605F90EAF19DCD27A /* TextFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = BC482DF7F154FA93E6F21CD7F18DAF53 /* TextFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		92DD86DC0DBE1C361B264EA0180EF534 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C11DDD6C99211A13798F77CA585AA7D /* EXTScope.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		94235DD06D11D1E1DDFAB475271CB0CB /* CodedInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 018C409750CF8E439C72A80711791579 /* CodedInputStream.m */; };
+		959381401B744F88DB615BB662B355B0 /* AbstractMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7BEF36AD0971BB9BD85F9D66986010 /* AbstractMessage.m */; };
+		9638A33521581A1CF2866310B30E8261 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 71767F281D3CC41DDFF09474C8D7993F /* AsyncUdpSocket.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		974CB84D4D8F37FDAF07DE1F9DDC7A4C /* RingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F322053BCDB5C17DE45E3360E1737D /* RingBuffer.m */; };
+		9B8D45B49484987CCD428461C3466F0B /* ConcreteExtensionField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D30CA2AE7D203C8588989B7241CB7B /* ConcreteExtensionField.m */; };
+		9E85F5A949AEDD8914955D6DD38DBD3D /* ObjectivecDescriptor.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4460C564828E3D252F53B237B7A681 /* ObjectivecDescriptor.pb.m */; };
+		9E8BCCD17C61B98FD4B44CDB1842BF40 /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = A28FD5213D3851271C3B92DDABC2FB33 /* GCDAsyncSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A2A9E0C26E0E87EFE11249D23D8FB4DB /* MSWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 006DB6108A670F348FED1DF6EA660F73 /* MSWeakTimer.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A2BB29196011A7F3C269A5E1B15045F7 /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FFEC819A8A917890AE1460B4687845 /* EXTRuntimeExtensions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A47B438A20CC41E59BB6919D64CC6FE2 /* AsyncUdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B300BDEB6D8A484929B7EA99F63300 /* AsyncUdpSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A656B0DBD3647F80CC3D24C544F7E498 /* MutableField.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B49770528A5AC53ABFCEF014D7C11 /* MutableField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA272A959EB3A6321549E31FCD6F9789 /* TextFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE077E33551CFC62B8954B93F7E23 /* TextFormat.m */; };
+		AC43D05C2E8FC55786AC178D128785EE /* CodedOutputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 1543FC42D6602FC69220C5585E34F4E5 /* CodedOutputStream.m */; };
+		B58DAF6F99848DD590351E5AA2702AFC /* CocoaAsyncSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C442E7227F07D9B8D80962F9FBBA07 /* CocoaAsyncSocket-dummy.m */; };
+		B90118299A1B5E67280636BD159CD60A /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = AC97C3612872F4F1A98B4D7109273E2C /* Field.m */; };
+		BC53ACC1733D5C86EED68B977DF9E16F /* MutableField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3438BAE9554A150CF97E07F1387FC /* MutableField.m */; };
+		BD01FB26CCC17CF378D4AE780F347FA1 /* EXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 069E89F40BD9333AD5A67B7DCB9E9F07 /* EXTRuntimeExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1ED88448FC10C2F2FA6FCD1D608C687 /* GeneratedMessageBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B11A16EED3BDA6664FA96328F10FFD2 /* GeneratedMessageBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CAC81E38DD919E9E1D18D82201C1E76B /* ExtensionRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F9695690C4E98B2C2E6FDDAEFCCC77B /* ExtensionRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD39E8579ECDB1CF635C5174D295B582 /* MSWeakTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = B404799DFB70EC82D68A8886C4CF02BC /* MSWeakTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D036294C07D6E12E70E1433151FD16F4 /* ProtocolBuffers.h in Headers */ = {isa = PBXBuildFile; fileRef = A74090401E3E8ADC66C9FF9C11F031B8 /* ProtocolBuffers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DB3BEBDFE9508978484B1CC745D37AA1 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E52AC6AA4A72D080D03EC8DBED08A400 /* AsyncSocket.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		DD8FAAEADD9EE55387531B44C1DB8BE7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D67AC30769732F1FF0BD1854B2E225 /* Foundation.framework */; };
+		E270614D2FEA9CB5134027EE0DE92C11 /* GeneratedMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BBE0557F6CFC65419A558CF45F1ABC4 /* GeneratedMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E386904EF0702EA1CC9A35F954EECD72 /* UnknownFieldSetBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = D679E0877D7CA2764432AAF4554B4A27 /* UnknownFieldSetBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E41CF8B5967B502B596543EB27601374 /* Pods-GWClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C14193B372A4E46E44FE7E573EF4756A /* Pods-GWClient-dummy.m */; };
+		E4FF2FE44D46B322C6C2908839C245CA /* AsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 17501F00CD8400FAB6A6321AB79D8216 /* AsyncSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E75441A04D2A1F8F4DF18A2D9FAB1272 /* ExtensionRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5275D7D801C731E2BD7E551E51CCDAD6 /* ExtensionRegistry.m */; };
+		EAB87E1C8B1478872E07BA757AE1AFB0 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 03EEB0BCBFC4C76268FBD55E17754BD4 /* Utilities.m */; };
+		EBFB53134959ECE0381E0B7505637156 /* Message.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CE6744CB36499619AE5FAA6C8C8DA23 /* Message.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FCEB75DE44F7B55597D60556622D20CA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC76A27B6AC5FF40DBB7B0E2B8BF8014 /* Security.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		73469D3DD3BCCB8F9804C866D6D45E76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A18FA2319CDAD40C16A6D84B6513550;
+			remoteInfo = ProtocolBuffers;
+		};
+		7CDA741201BBFD78ED754555CBDBBC10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2DF45F79772046883B169490C8F114D5;
+			remoteInfo = libextobjc;
+		};
+		9EBB6DA5C397FF380AF4E704B9EE26AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA69D72DC702AD788CEA6A5DC3545B47;
+			remoteInfo = CocoaAsyncSocket;
+		};
+		A90CF3417EF030FFBB4C044FC2BDEE38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03166DD62238C599BC28CAB59C0E0557;
+			remoteInfo = MSWeakTimer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		006DB6108A670F348FED1DF6EA660F73 /* MSWeakTimer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MSWeakTimer.m; sourceTree = "<group>"; };
+		018C409750CF8E439C72A80711791579 /* CodedInputStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CodedInputStream.m; path = src/runtime/Classes/CodedInputStream.m; sourceTree = "<group>"; };
+		03EEB0BCBFC4C76268FBD55E17754BD4 /* Utilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Utilities.m; path = src/runtime/Classes/Utilities.m; sourceTree = "<group>"; };
+		043F41B3576F4306FDD9D6D04AA74CF2 /* libCocoaAsyncSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libCocoaAsyncSocket.a; path = libCocoaAsyncSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		069E89F40BD9333AD5A67B7DCB9E9F07 /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTRuntimeExtensions.h; path = extobjc/EXTRuntimeExtensions.h; sourceTree = "<group>"; };
+		073BBC24EB7063EDE0605CEA541338D1 /* ExtendableMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ExtendableMessage.h; path = src/runtime/Classes/ExtendableMessage.h; sourceTree = "<group>"; };
+		0CA3B9EAC00B9CE9282EEE4D2448612C /* ProtocolBuffers.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ProtocolBuffers.xcconfig; sourceTree = "<group>"; };
+		0E4174896A4F29D01836C218FD3591D6 /* WireFormat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WireFormat.m; path = src/runtime/Classes/WireFormat.m; sourceTree = "<group>"; };
+		0F852244094611B24568CC88F67ED1BD /* Pods-GWClient-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-GWClient-acknowledgements.plist"; sourceTree = "<group>"; };
+		1220C442E41B6B55EC03C2C524060115 /* MutableExtensionRegistry.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MutableExtensionRegistry.m; path = src/runtime/Classes/MutableExtensionRegistry.m; sourceTree = "<group>"; };
+		142D60B9F13664C87313A940BCF03B5B /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GCDAsyncUdpSocket.h; path = Source/GCD/GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		153D7F78C522562646E9CF23CE35FF1C /* GeneratedMessageBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GeneratedMessageBuilder.m; path = src/runtime/Classes/GeneratedMessageBuilder.m; sourceTree = "<group>"; };
+		1543FC42D6602FC69220C5585E34F4E5 /* CodedOutputStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CodedOutputStream.m; path = src/runtime/Classes/CodedOutputStream.m; sourceTree = "<group>"; };
+		17501F00CD8400FAB6A6321AB79D8216 /* AsyncSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AsyncSocket.h; path = Source/RunLoop/AsyncSocket.h; sourceTree = "<group>"; };
+		18D30CA2AE7D203C8588989B7241CB7B /* ConcreteExtensionField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ConcreteExtensionField.m; path = src/runtime/Classes/ConcreteExtensionField.m; sourceTree = "<group>"; };
+		1BD3E3220286F0A430F104D8F13F146B /* Descriptor.pb.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Descriptor.pb.m; path = src/runtime/Classes/Descriptor.pb.m; sourceTree = "<group>"; };
+		1C5DEE18EA7661630FA5B294E88E0BF3 /* liblibextobjc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = liblibextobjc.a; path = liblibextobjc.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2062A314F528BCACAA9DEF39278650F8 /* Utilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = src/runtime/Classes/Utilities.h; sourceTree = "<group>"; };
+		25C442E7227F07D9B8D80962F9FBBA07 /* CocoaAsyncSocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaAsyncSocket-dummy.m"; sourceTree = "<group>"; };
+		2A6777EBA089ADB4D8496FE865738718 /* metamacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = metamacros.h; path = extobjc/metamacros.h; sourceTree = "<group>"; };
+		2DD3438BAE9554A150CF97E07F1387FC /* MutableField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MutableField.m; path = src/runtime/Classes/MutableField.m; sourceTree = "<group>"; };
+		2F9695690C4E98B2C2E6FDDAEFCCC77B /* ExtensionRegistry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ExtensionRegistry.h; path = src/runtime/Classes/ExtensionRegistry.h; sourceTree = "<group>"; };
+		306B1D99559F43B6633225CD7F59D0BD /* Descriptor.pb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Descriptor.pb.h; path = src/runtime/Classes/Descriptor.pb.h; sourceTree = "<group>"; };
+		31C90429718F4342D1BD8F162C81D3D3 /* AbstractMessageBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AbstractMessageBuilder.m; path = src/runtime/Classes/AbstractMessageBuilder.m; sourceTree = "<group>"; };
+		37004C4C00A45FC373C92A8340D40919 /* MSWeakTimer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSWeakTimer-prefix.pch"; sourceTree = "<group>"; };
+		3BBE0557F6CFC65419A558CF45F1ABC4 /* GeneratedMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GeneratedMessage.h; path = src/runtime/Classes/GeneratedMessage.h; sourceTree = "<group>"; };
+		3D17D26768FE043C565DA30F7FA4B422 /* libMSWeakTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMSWeakTimer.a; path = libMSWeakTimer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E22B49F0ADFDFAA55540A1743B7AF6E /* libextobjc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = libextobjc.xcconfig; sourceTree = "<group>"; };
+		3F7BEF36AD0971BB9BD85F9D66986010 /* AbstractMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AbstractMessage.m; path = src/runtime/Classes/AbstractMessage.m; sourceTree = "<group>"; };
+		451635335DF16B113AB1BDEE4CAC04E4 /* ExtendableMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ExtendableMessage.m; path = src/runtime/Classes/ExtendableMessage.m; sourceTree = "<group>"; };
+		4B11A16EED3BDA6664FA96328F10FFD2 /* GeneratedMessageBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GeneratedMessageBuilder.h; path = src/runtime/Classes/GeneratedMessageBuilder.h; sourceTree = "<group>"; };
+		5275D7D801C731E2BD7E551E51CCDAD6 /* ExtensionRegistry.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ExtensionRegistry.m; path = src/runtime/Classes/ExtensionRegistry.m; sourceTree = "<group>"; };
+		54179C0AE0DE9A459FDCC993E9C240D3 /* libextobjc-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "libextobjc-prefix.pch"; sourceTree = "<group>"; };
+		59560DA9EBF58648A0A8D4228F6506C3 /* UnknownFieldSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UnknownFieldSet.m; path = src/runtime/Classes/UnknownFieldSet.m; sourceTree = "<group>"; };
+		5C77576C75D358ACAA42A0791A1E0565 /* ObjectivecDescriptor.pb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ObjectivecDescriptor.pb.h; path = src/runtime/Classes/ObjectivecDescriptor.pb.h; sourceTree = "<group>"; };
+		5E2EF6AD54CD679486484C5A2FB1238C /* UnknownFieldSetBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UnknownFieldSetBuilder.m; path = src/runtime/Classes/UnknownFieldSetBuilder.m; sourceTree = "<group>"; };
+		69B300BDEB6D8A484929B7EA99F63300 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AsyncUdpSocket.h; path = Source/RunLoop/AsyncUdpSocket.h; sourceTree = "<group>"; };
+		6D4460C564828E3D252F53B237B7A681 /* ObjectivecDescriptor.pb.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjectivecDescriptor.pb.m; path = src/runtime/Classes/ObjectivecDescriptor.pb.m; sourceTree = "<group>"; };
+		71767F281D3CC41DDFF09474C8D7993F /* AsyncUdpSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AsyncUdpSocket.m; path = Source/RunLoop/AsyncUdpSocket.m; sourceTree = "<group>"; };
+		75217EB5F30D5FA51A72E5C84C05BA1B /* MutableExtensionRegistry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MutableExtensionRegistry.h; path = src/runtime/Classes/MutableExtensionRegistry.h; sourceTree = "<group>"; };
+		7814A1CF206693F83136CB2D53B2749F /* AbstractMessageBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AbstractMessageBuilder.h; path = src/runtime/Classes/AbstractMessageBuilder.h; sourceTree = "<group>"; };
+		79E45535641DA220FA0B3198F6A235AF /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncUdpSocket.m; path = Source/GCD/GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		7B95656CAE9F69026AD8AF5B0DD1F83C /* CodedOutputStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CodedOutputStream.h; path = src/runtime/Classes/CodedOutputStream.h; sourceTree = "<group>"; };
+		84F322053BCDB5C17DE45E3360E1737D /* RingBuffer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RingBuffer.m; path = src/runtime/Classes/RingBuffer.m; sourceTree = "<group>"; };
+		877B49770528A5AC53ABFCEF014D7C11 /* MutableField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MutableField.h; path = src/runtime/Classes/MutableField.h; sourceTree = "<group>"; };
+		898EE84856EB5E52F00A964689E9F67E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9AF0D487D83C039C79A3D83773752ABA /* ProtocolBuffers-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ProtocolBuffers-dummy.m"; sourceTree = "<group>"; };
+		9C11DDD6C99211A13798F77CA585AA7D /* EXTScope.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTScope.m; path = extobjc/EXTScope.m; sourceTree = "<group>"; };
+		9CB20624571DE3B30B40A382C1F66B04 /* MSWeakTimer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MSWeakTimer-dummy.m"; sourceTree = "<group>"; };
+		9CE6744CB36499619AE5FAA6C8C8DA23 /* Message.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Message.h; path = src/runtime/Classes/Message.h; sourceTree = "<group>"; };
+		A28FD5213D3851271C3B92DDABC2FB33 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = Source/GCD/GCDAsyncSocket.h; sourceTree = "<group>"; };
+		A2C599F2E87E38319DC8FDCE3AD4F2FE /* PBArray.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PBArray.m; path = src/runtime/Classes/PBArray.m; sourceTree = "<group>"; };
+		A74090401E3E8ADC66C9FF9C11F031B8 /* ProtocolBuffers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ProtocolBuffers.h; path = src/runtime/Classes/ProtocolBuffers.h; sourceTree = "<group>"; };
+		A8ACC615482F3AE5AF4F7FEFA11E701C /* CocoaAsyncSocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaAsyncSocket-prefix.pch"; sourceTree = "<group>"; };
+		A9E9918ACAEE714C2C41E9F5C0E1F0D3 /* Pods-GWClient-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-GWClient-frameworks.sh"; sourceTree = "<group>"; };
+		AB7FE077E33551CFC62B8954B93F7E23 /* TextFormat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TextFormat.m; path = src/runtime/Classes/TextFormat.m; sourceTree = "<group>"; };
+		AC97C3612872F4F1A98B4D7109273E2C /* Field.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Field.m; path = src/runtime/Classes/Field.m; sourceTree = "<group>"; };
+		AD2699E93A0B106540277A7EB77BEA56 /* libProtocolBuffers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libProtocolBuffers.a; path = libProtocolBuffers.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B404799DFB70EC82D68A8886C4CF02BC /* MSWeakTimer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MSWeakTimer.h; sourceTree = "<group>"; };
+		B5D67AC30769732F1FF0BD1854B2E225 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		B7E294D0CE9BFDC591822D66ACDE9514 /* Pods-GWClient-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-GWClient-resources.sh"; sourceTree = "<group>"; };
+		B82497A5DFEE7B62ECFDBBBAC39D5DA8 /* ForwardDeclarations.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ForwardDeclarations.h; path = src/runtime/Classes/ForwardDeclarations.h; sourceTree = "<group>"; };
+		BA7D4E934A9C50E17F6AA21450AFE21E /* MessageBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MessageBuilder.h; path = src/runtime/Classes/MessageBuilder.h; sourceTree = "<group>"; };
+		BAD69FECA337215C05C6D2F0025B4791 /* GeneratedMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GeneratedMessage.m; path = src/runtime/Classes/GeneratedMessage.m; sourceTree = "<group>"; };
+		BC482DF7F154FA93E6F21CD7F18DAF53 /* TextFormat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TextFormat.h; path = src/runtime/Classes/TextFormat.h; sourceTree = "<group>"; };
+		BC76A27B6AC5FF40DBB7B0E2B8BF8014 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		BC7D03750B3C440E5D1BB4CCE947D9A3 /* ConcreteExtensionField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ConcreteExtensionField.h; path = src/runtime/Classes/ConcreteExtensionField.h; sourceTree = "<group>"; };
+		C14193B372A4E46E44FE7E573EF4756A /* Pods-GWClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-GWClient-dummy.m"; sourceTree = "<group>"; };
+		CC6983D16EAA58EB21E86C2727AA3B49 /* MSWeakTimer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MSWeakTimer.xcconfig; sourceTree = "<group>"; };
+		D25DBC9E78B606AB60D0F1AD310077AD /* EXTScope.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTScope.h; path = extobjc/EXTScope.h; sourceTree = "<group>"; };
+		D2FFEC819A8A917890AE1460B4687845 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTRuntimeExtensions.m; path = extobjc/EXTRuntimeExtensions.m; sourceTree = "<group>"; };
+		D679E0877D7CA2764432AAF4554B4A27 /* UnknownFieldSetBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnknownFieldSetBuilder.h; path = src/runtime/Classes/UnknownFieldSetBuilder.h; sourceTree = "<group>"; };
+		D6C1898C2CFA0861C3DDF2C16AC83FC7 /* CocoaAsyncSocket.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CocoaAsyncSocket.xcconfig; sourceTree = "<group>"; };
+		D7A01C358227CA38BC424C42CBA242DD /* Bootstrap.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Bootstrap.h; path = src/runtime/Classes/Bootstrap.h; sourceTree = "<group>"; };
+		D7B4953BEFA2BC33DA5956E81245D7D6 /* Pods-GWClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-GWClient.debug.xcconfig"; sourceTree = "<group>"; };
+		DC5B7B5569C945B4602A78F13FD52ECF /* WireFormat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WireFormat.h; path = src/runtime/Classes/WireFormat.h; sourceTree = "<group>"; };
+		DDF573EEC8118B6222371FA59236A6DC /* PBArray.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PBArray.h; path = src/runtime/Classes/PBArray.h; sourceTree = "<group>"; };
+		DE8F84DD766CB2E95CDEFAEDD1A991FC /* ExtendableMessageBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ExtendableMessageBuilder.m; path = src/runtime/Classes/ExtendableMessageBuilder.m; sourceTree = "<group>"; };
+		E0D6327F3396A8A7BBE9F46FD7C02FB6 /* Field.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Field.h; path = src/runtime/Classes/Field.h; sourceTree = "<group>"; };
+		E52AC6AA4A72D080D03EC8DBED08A400 /* AsyncSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AsyncSocket.m; path = Source/RunLoop/AsyncSocket.m; sourceTree = "<group>"; };
+		E786D61D4ABEA4B46771398A64EAF46A /* ProtocolBuffers-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-prefix.pch"; sourceTree = "<group>"; };
+		E942B967BA7F117F4DDE81099140A1C5 /* Pods-GWClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-GWClient.release.xcconfig"; sourceTree = "<group>"; };
+		EAE5EE68ABD071FE9C348F0000E013E7 /* Pods-GWClient-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-GWClient-acknowledgements.markdown"; sourceTree = "<group>"; };
+		EC2304220C1A35BD0FB1341DEBDF1E4B /* GCDAsyncSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = Source/GCD/GCDAsyncSocket.m; sourceTree = "<group>"; };
+		ED3AEDD7D695ED0D1484790936EF5557 /* RingBuffer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RingBuffer.h; path = src/runtime/Classes/RingBuffer.h; sourceTree = "<group>"; };
+		EE14A65497734CB0DBE303291ED14490 /* CodedInputStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CodedInputStream.h; path = src/runtime/Classes/CodedInputStream.h; sourceTree = "<group>"; };
+		F0AFF17F41D34BF817A7DBD07387E1D1 /* libextobjc-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "libextobjc-dummy.m"; sourceTree = "<group>"; };
+		F4597CA90602C99A1787C7904FC9DFF0 /* libPods-GWClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-GWClient.a"; path = "libPods-GWClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7A2073368EE50B6E8B4E7915AB39A4F /* ExtendableMessageBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ExtendableMessageBuilder.h; path = src/runtime/Classes/ExtendableMessageBuilder.h; sourceTree = "<group>"; };
+		F9EEFE13212687874A420C0C3573ECDA /* UnknownFieldSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnknownFieldSet.h; path = src/runtime/Classes/UnknownFieldSet.h; sourceTree = "<group>"; };
+		FE12978AF1CCA694FEEB6993AA896BED /* AbstractMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AbstractMessage.h; path = src/runtime/Classes/AbstractMessage.h; sourceTree = "<group>"; };
+		FEE5F2CE3B51401200FC2825476AD444 /* ExtensionField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ExtensionField.h; path = src/runtime/Classes/ExtensionField.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		79B6E9C8BD757085A14B5C23A7F1FD74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				025AACA095398188727601421D89908C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B841E5DA51791AECD83438604D5A20AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F679DED0368F4F34FBC8CEC73734543 /* CFNetwork.framework in Frameworks */,
+				0BA6C31DFA3F7FF12A1CA3ED5D168DE1 /* Foundation.framework in Frameworks */,
+				FCEB75DE44F7B55597D60556622D20CA /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0CA653144A5540C9DCB36ED3F088312 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90AFCF29F6BBB82116AEA6FF2BB5A2B4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7E59C08023F1696CBC583DF6B181E5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD8FAAEADD9EE55387531B44C1DB8BE7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8D92BC6B6CDB812D103A1E5D17999AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57793B0D6152073EA0CAB195C07CB87A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		040A39E73C9A09BCB35983A98307CC7A /* ProtocolBuffers */ = {
+			isa = PBXGroup;
+			children = (
+				FE12978AF1CCA694FEEB6993AA896BED /* AbstractMessage.h */,
+				3F7BEF36AD0971BB9BD85F9D66986010 /* AbstractMessage.m */,
+				7814A1CF206693F83136CB2D53B2749F /* AbstractMessageBuilder.h */,
+				31C90429718F4342D1BD8F162C81D3D3 /* AbstractMessageBuilder.m */,
+				D7A01C358227CA38BC424C42CBA242DD /* Bootstrap.h */,
+				EE14A65497734CB0DBE303291ED14490 /* CodedInputStream.h */,
+				018C409750CF8E439C72A80711791579 /* CodedInputStream.m */,
+				7B95656CAE9F69026AD8AF5B0DD1F83C /* CodedOutputStream.h */,
+				1543FC42D6602FC69220C5585E34F4E5 /* CodedOutputStream.m */,
+				BC7D03750B3C440E5D1BB4CCE947D9A3 /* ConcreteExtensionField.h */,
+				18D30CA2AE7D203C8588989B7241CB7B /* ConcreteExtensionField.m */,
+				306B1D99559F43B6633225CD7F59D0BD /* Descriptor.pb.h */,
+				1BD3E3220286F0A430F104D8F13F146B /* Descriptor.pb.m */,
+				073BBC24EB7063EDE0605CEA541338D1 /* ExtendableMessage.h */,
+				451635335DF16B113AB1BDEE4CAC04E4 /* ExtendableMessage.m */,
+				F7A2073368EE50B6E8B4E7915AB39A4F /* ExtendableMessageBuilder.h */,
+				DE8F84DD766CB2E95CDEFAEDD1A991FC /* ExtendableMessageBuilder.m */,
+				FEE5F2CE3B51401200FC2825476AD444 /* ExtensionField.h */,
+				2F9695690C4E98B2C2E6FDDAEFCCC77B /* ExtensionRegistry.h */,
+				5275D7D801C731E2BD7E551E51CCDAD6 /* ExtensionRegistry.m */,
+				E0D6327F3396A8A7BBE9F46FD7C02FB6 /* Field.h */,
+				AC97C3612872F4F1A98B4D7109273E2C /* Field.m */,
+				B82497A5DFEE7B62ECFDBBBAC39D5DA8 /* ForwardDeclarations.h */,
+				3BBE0557F6CFC65419A558CF45F1ABC4 /* GeneratedMessage.h */,
+				BAD69FECA337215C05C6D2F0025B4791 /* GeneratedMessage.m */,
+				4B11A16EED3BDA6664FA96328F10FFD2 /* GeneratedMessageBuilder.h */,
+				153D7F78C522562646E9CF23CE35FF1C /* GeneratedMessageBuilder.m */,
+				9CE6744CB36499619AE5FAA6C8C8DA23 /* Message.h */,
+				BA7D4E934A9C50E17F6AA21450AFE21E /* MessageBuilder.h */,
+				75217EB5F30D5FA51A72E5C84C05BA1B /* MutableExtensionRegistry.h */,
+				1220C442E41B6B55EC03C2C524060115 /* MutableExtensionRegistry.m */,
+				877B49770528A5AC53ABFCEF014D7C11 /* MutableField.h */,
+				2DD3438BAE9554A150CF97E07F1387FC /* MutableField.m */,
+				5C77576C75D358ACAA42A0791A1E0565 /* ObjectivecDescriptor.pb.h */,
+				6D4460C564828E3D252F53B237B7A681 /* ObjectivecDescriptor.pb.m */,
+				DDF573EEC8118B6222371FA59236A6DC /* PBArray.h */,
+				A2C599F2E87E38319DC8FDCE3AD4F2FE /* PBArray.m */,
+				A74090401E3E8ADC66C9FF9C11F031B8 /* ProtocolBuffers.h */,
+				ED3AEDD7D695ED0D1484790936EF5557 /* RingBuffer.h */,
+				84F322053BCDB5C17DE45E3360E1737D /* RingBuffer.m */,
+				BC482DF7F154FA93E6F21CD7F18DAF53 /* TextFormat.h */,
+				AB7FE077E33551CFC62B8954B93F7E23 /* TextFormat.m */,
+				F9EEFE13212687874A420C0C3573ECDA /* UnknownFieldSet.h */,
+				59560DA9EBF58648A0A8D4228F6506C3 /* UnknownFieldSet.m */,
+				D679E0877D7CA2764432AAF4554B4A27 /* UnknownFieldSetBuilder.h */,
+				5E2EF6AD54CD679486484C5A2FB1238C /* UnknownFieldSetBuilder.m */,
+				2062A314F528BCACAA9DEF39278650F8 /* Utilities.h */,
+				03EEB0BCBFC4C76268FBD55E17754BD4 /* Utilities.m */,
+				DC5B7B5569C945B4602A78F13FD52ECF /* WireFormat.h */,
+				0E4174896A4F29D01836C218FD3591D6 /* WireFormat.m */,
+				44DA1D3695A0B3C79DE0B675AD15338F /* Support Files */,
+			);
+			name = ProtocolBuffers;
+			path = ProtocolBuffers;
+			sourceTree = "<group>";
+		};
+		122DA2E5084A4393C29BE363C764795C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A9D6FF81BFBB1B195CCEBC8D335E2CF /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1F681941D0303C24D863C6AD7CD057F7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2AE7F618A4CB2B6AFE3949883BA0FF37 /* CocoaAsyncSocket */,
+				20A258AC2B5C98EC518FD6E8E6F2F58A /* libextobjc */,
+				5F42ED2851F0E65A957C288BE37BBDFE /* MSWeakTimer */,
+				040A39E73C9A09BCB35983A98307CC7A /* ProtocolBuffers */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		20A258AC2B5C98EC518FD6E8E6F2F58A /* libextobjc */ = {
+			isa = PBXGroup;
+			children = (
+				FFD03F53C1F2A37DB2748B9CBE1A4631 /* EXTScope */,
+				8E3947CA69A609D17B7CB4E634118B3C /* RuntimeExtensions */,
+				AE15D4AE5333E6D042EC0821E175316F /* Support Files */,
+			);
+			name = libextobjc;
+			path = libextobjc;
+			sourceTree = "<group>";
+		};
+		2AE7F618A4CB2B6AFE3949883BA0FF37 /* CocoaAsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				748A1989D25017A3671F172CFCB956B9 /* GCD */,
+				98EB9DF6D72EEEB4393BB58C926A6AF1 /* RunLoop */,
+				748FB5A48477C3792B4F933312006FB2 /* Support Files */,
+			);
+			name = CocoaAsyncSocket;
+			path = CocoaAsyncSocket;
+			sourceTree = "<group>";
+		};
+		44DA1D3695A0B3C79DE0B675AD15338F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0CA3B9EAC00B9CE9282EEE4D2448612C /* ProtocolBuffers.xcconfig */,
+				9AF0D487D83C039C79A3D83773752ABA /* ProtocolBuffers-dummy.m */,
+				E786D61D4ABEA4B46771398A64EAF46A /* ProtocolBuffers-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ProtocolBuffers";
+			sourceTree = "<group>";
+		};
+		4A9D6FF81BFBB1B195CCEBC8D335E2CF /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				898EE84856EB5E52F00A964689E9F67E /* CFNetwork.framework */,
+				B5D67AC30769732F1FF0BD1854B2E225 /* Foundation.framework */,
+				BC76A27B6AC5FF40DBB7B0E2B8BF8014 /* Security.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		5F42ED2851F0E65A957C288BE37BBDFE /* MSWeakTimer */ = {
+			isa = PBXGroup;
+			children = (
+				B404799DFB70EC82D68A8886C4CF02BC /* MSWeakTimer.h */,
+				006DB6108A670F348FED1DF6EA660F73 /* MSWeakTimer.m */,
+				B6E6071B1790E793F41F61A656C66CAC /* Support Files */,
+			);
+			name = MSWeakTimer;
+			path = MSWeakTimer;
+			sourceTree = "<group>";
+		};
+		6980A3816243D7F8A3D4672CACBC23C1 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E0921761E7D753BBE0A6FF24646712E9 /* Pods-GWClient */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		748A1989D25017A3671F172CFCB956B9 /* GCD */ = {
+			isa = PBXGroup;
+			children = (
+				A28FD5213D3851271C3B92DDABC2FB33 /* GCDAsyncSocket.h */,
+				EC2304220C1A35BD0FB1341DEBDF1E4B /* GCDAsyncSocket.m */,
+				142D60B9F13664C87313A940BCF03B5B /* GCDAsyncUdpSocket.h */,
+				79E45535641DA220FA0B3198F6A235AF /* GCDAsyncUdpSocket.m */,
+			);
+			name = GCD;
+			sourceTree = "<group>";
+		};
+		748FB5A48477C3792B4F933312006FB2 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D6C1898C2CFA0861C3DDF2C16AC83FC7 /* CocoaAsyncSocket.xcconfig */,
+				25C442E7227F07D9B8D80962F9FBBA07 /* CocoaAsyncSocket-dummy.m */,
+				A8ACC615482F3AE5AF4F7FEFA11E701C /* CocoaAsyncSocket-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/CocoaAsyncSocket";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
+				1F681941D0303C24D863C6AD7CD057F7 /* Pods */,
+				978EE51BBE1DD9678DAD49A7CFB94002 /* Products */,
+				6980A3816243D7F8A3D4672CACBC23C1 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8E3947CA69A609D17B7CB4E634118B3C /* RuntimeExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				069E89F40BD9333AD5A67B7DCB9E9F07 /* EXTRuntimeExtensions.h */,
+				D2FFEC819A8A917890AE1460B4687845 /* EXTRuntimeExtensions.m */,
+				2A6777EBA089ADB4D8496FE865738718 /* metamacros.h */,
+			);
+			name = RuntimeExtensions;
+			sourceTree = "<group>";
+		};
+		978EE51BBE1DD9678DAD49A7CFB94002 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				043F41B3576F4306FDD9D6D04AA74CF2 /* libCocoaAsyncSocket.a */,
+				1C5DEE18EA7661630FA5B294E88E0BF3 /* liblibextobjc.a */,
+				3D17D26768FE043C565DA30F7FA4B422 /* libMSWeakTimer.a */,
+				F4597CA90602C99A1787C7904FC9DFF0 /* libPods-GWClient.a */,
+				AD2699E93A0B106540277A7EB77BEA56 /* libProtocolBuffers.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		98EB9DF6D72EEEB4393BB58C926A6AF1 /* RunLoop */ = {
+			isa = PBXGroup;
+			children = (
+				17501F00CD8400FAB6A6321AB79D8216 /* AsyncSocket.h */,
+				E52AC6AA4A72D080D03EC8DBED08A400 /* AsyncSocket.m */,
+				69B300BDEB6D8A484929B7EA99F63300 /* AsyncUdpSocket.h */,
+				71767F281D3CC41DDFF09474C8D7993F /* AsyncUdpSocket.m */,
+			);
+			name = RunLoop;
+			sourceTree = "<group>";
+		};
+		AE15D4AE5333E6D042EC0821E175316F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3E22B49F0ADFDFAA55540A1743B7AF6E /* libextobjc.xcconfig */,
+				F0AFF17F41D34BF817A7DBD07387E1D1 /* libextobjc-dummy.m */,
+				54179C0AE0DE9A459FDCC993E9C240D3 /* libextobjc-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/libextobjc";
+			sourceTree = "<group>";
+		};
+		B6E6071B1790E793F41F61A656C66CAC /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				CC6983D16EAA58EB21E86C2727AA3B49 /* MSWeakTimer.xcconfig */,
+				9CB20624571DE3B30B40A382C1F66B04 /* MSWeakTimer-dummy.m */,
+				37004C4C00A45FC373C92A8340D40919 /* MSWeakTimer-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/MSWeakTimer";
+			sourceTree = "<group>";
+		};
+		E0921761E7D753BBE0A6FF24646712E9 /* Pods-GWClient */ = {
+			isa = PBXGroup;
+			children = (
+				EAE5EE68ABD071FE9C348F0000E013E7 /* Pods-GWClient-acknowledgements.markdown */,
+				0F852244094611B24568CC88F67ED1BD /* Pods-GWClient-acknowledgements.plist */,
+				C14193B372A4E46E44FE7E573EF4756A /* Pods-GWClient-dummy.m */,
+				A9E9918ACAEE714C2C41E9F5C0E1F0D3 /* Pods-GWClient-frameworks.sh */,
+				B7E294D0CE9BFDC591822D66ACDE9514 /* Pods-GWClient-resources.sh */,
+				D7B4953BEFA2BC33DA5956E81245D7D6 /* Pods-GWClient.debug.xcconfig */,
+				E942B967BA7F117F4DDE81099140A1C5 /* Pods-GWClient.release.xcconfig */,
+			);
+			name = "Pods-GWClient";
+			path = "Target Support Files/Pods-GWClient";
+			sourceTree = "<group>";
+		};
+		FFD03F53C1F2A37DB2748B9CBE1A4631 /* EXTScope */ = {
+			isa = PBXGroup;
+			children = (
+				D25DBC9E78B606AB60D0F1AD310077AD /* EXTScope.h */,
+				9C11DDD6C99211A13798F77CA585AA7D /* EXTScope.m */,
+			);
+			name = EXTScope;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		7ADF520587C5DBD483EC963BB6CF705A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD01FB26CCC17CF378D4AE780F347FA1 /* EXTRuntimeExtensions.h in Headers */,
+				2268832F49032D5D1442B742233B9C44 /* EXTScope.h in Headers */,
+				47F3AB06A7D50D04B68EEA6B2E526EE1 /* metamacros.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71B4BD93400C0398383161DB236B611 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD39E8579ECDB1CF635C5174D295B582 /* MSWeakTimer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEE5E4CE391213AB2123B553D5648421 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F2B19B94BBA512E1D3EA6CF08C759D0 /* AbstractMessage.h in Headers */,
+				553CED8320A5CDE7F918FD4B0F1EB3DB /* AbstractMessageBuilder.h in Headers */,
+				1CE76AC6C56CE83D7153E17AEF965D63 /* Bootstrap.h in Headers */,
+				825C1FAC5A15288B871AC1B9E928EFC4 /* CodedInputStream.h in Headers */,
+				6DCAFD110D8D2CF8677F6E05BF7484DE /* CodedOutputStream.h in Headers */,
+				52654C481032101EE0ABF4CDE4AE2105 /* ConcreteExtensionField.h in Headers */,
+				6F2AEEE7CEEFB9E8118587359B90AE38 /* Descriptor.pb.h in Headers */,
+				91AD654709EB6F262878CA7ED07FF611 /* ExtendableMessage.h in Headers */,
+				3EFF88354281D35421ADD2AC2A39A2E6 /* ExtendableMessageBuilder.h in Headers */,
+				79675FBB8F3C139022DE5001181923B8 /* ExtensionField.h in Headers */,
+				CAC81E38DD919E9E1D18D82201C1E76B /* ExtensionRegistry.h in Headers */,
+				518E208CEC9B5265FEBFE18AD026C854 /* Field.h in Headers */,
+				0BA9673C6FECBE87702829FDE0A6EE6A /* ForwardDeclarations.h in Headers */,
+				E270614D2FEA9CB5134027EE0DE92C11 /* GeneratedMessage.h in Headers */,
+				C1ED88448FC10C2F2FA6FCD1D608C687 /* GeneratedMessageBuilder.h in Headers */,
+				EBFB53134959ECE0381E0B7505637156 /* Message.h in Headers */,
+				772C27A5153D9FB13F75D75E39AD6444 /* MessageBuilder.h in Headers */,
+				029EDBAE8B356E3095B6E1798A844CB1 /* MutableExtensionRegistry.h in Headers */,
+				A656B0DBD3647F80CC3D24C544F7E498 /* MutableField.h in Headers */,
+				0605459C2AE376C0B75FC73C10DF718E /* ObjectivecDescriptor.pb.h in Headers */,
+				1446E5E21FF30E1C4BB3285A45FFE263 /* PBArray.h in Headers */,
+				D036294C07D6E12E70E1433151FD16F4 /* ProtocolBuffers.h in Headers */,
+				466F63038FBDB3A9C9F634E7256A0F8D /* RingBuffer.h in Headers */,
+				92A4C6B2D55D41F605F90EAF19DCD27A /* TextFormat.h in Headers */,
+				2EBBB5D1616C045F19DC059279DEB219 /* UnknownFieldSet.h in Headers */,
+				E386904EF0702EA1CC9A35F954EECD72 /* UnknownFieldSetBuilder.h in Headers */,
+				814F6024F5736E09730B396735B3B865 /* Utilities.h in Headers */,
+				8E7E84AF2FB4345C44FC8548153DB835 /* WireFormat.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E87C8ADE3C4855EB5594610BA2B3507E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4FF2FE44D46B322C6C2908839C245CA /* AsyncSocket.h in Headers */,
+				A47B438A20CC41E59BB6919D64CC6FE2 /* AsyncUdpSocket.h in Headers */,
+				9E8BCCD17C61B98FD4B44CDB1842BF40 /* GCDAsyncSocket.h in Headers */,
+				493BB819C10976B3C1B7394C5BD7BCCC /* GCDAsyncUdpSocket.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		03166DD62238C599BC28CAB59C0E0557 /* MSWeakTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C86299C3B766E2AA9615377A047E6BBC /* Build configuration list for PBXNativeTarget "MSWeakTimer" */;
+			buildPhases = (
+				14A4C15718909822AEDD81CA78EDC20D /* Sources */,
+				F8D92BC6B6CDB812D103A1E5D17999AB /* Frameworks */,
+				A71B4BD93400C0398383161DB236B611 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MSWeakTimer;
+			productName = MSWeakTimer;
+			productReference = 3D17D26768FE043C565DA30F7FA4B422 /* libMSWeakTimer.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		2DF45F79772046883B169490C8F114D5 /* libextobjc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10307B4A394B984083F6541BD3D52511 /* Build configuration list for PBXNativeTarget "libextobjc" */;
+			buildPhases = (
+				AA679C725B5CBB38C794664311A812B8 /* Sources */,
+				79B6E9C8BD757085A14B5C23A7F1FD74 /* Frameworks */,
+				7ADF520587C5DBD483EC963BB6CF705A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libextobjc;
+			productName = libextobjc;
+			productReference = 1C5DEE18EA7661630FA5B294E88E0BF3 /* liblibextobjc.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		9A18FA2319CDAD40C16A6D84B6513550 /* ProtocolBuffers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 39D7B697DBFF1F1ADC99AEDD3E82322B /* Build configuration list for PBXNativeTarget "ProtocolBuffers" */;
+			buildPhases = (
+				FDB623F00A1525FBEC12512BF2939587 /* Sources */,
+				D0CA653144A5540C9DCB36ED3F088312 /* Frameworks */,
+				BEE5E4CE391213AB2123B553D5648421 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ProtocolBuffers;
+			productName = ProtocolBuffers;
+			productReference = AD2699E93A0B106540277A7EB77BEA56 /* libProtocolBuffers.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		CA69D72DC702AD788CEA6A5DC3545B47 /* CocoaAsyncSocket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D786DDFB3F47769D50BFD4EDAFAAB0AB /* Build configuration list for PBXNativeTarget "CocoaAsyncSocket" */;
+			buildPhases = (
+				1A6A8B10D4173220090E638677351A08 /* Sources */,
+				B841E5DA51791AECD83438604D5A20AC /* Frameworks */,
+				E87C8ADE3C4855EB5594610BA2B3507E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CocoaAsyncSocket;
+			productName = CocoaAsyncSocket;
+			productReference = 043F41B3576F4306FDD9D6D04AA74CF2 /* libCocoaAsyncSocket.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DB489F8B60756F83E93D675C42834B3E /* Pods-GWClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB24EB06DB74F0DB9CDE66924C21ED1B /* Build configuration list for PBXNativeTarget "Pods-GWClient" */;
+			buildPhases = (
+				331D8E7C2855E3F8B461C0BAD567D186 /* Sources */,
+				D7E59C08023F1696CBC583DF6B181E5D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6E534C0C4B1B8BE6E3566198EBC1401C /* PBXTargetDependency */,
+				1F2E452424F08BBE58AF1D7BC3326D9D /* PBXTargetDependency */,
+				A205AC34330C70C1A58C60CFC0FFEA7A /* PBXTargetDependency */,
+				A19281FD42513F57CEA4A81C45E304C8 /* PBXTargetDependency */,
+			);
+			name = "Pods-GWClient";
+			productName = "Pods-GWClient";
+			productReference = F4597CA90602C99A1787C7904FC9DFF0 /* libPods-GWClient.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 978EE51BBE1DD9678DAD49A7CFB94002 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CA69D72DC702AD788CEA6A5DC3545B47 /* CocoaAsyncSocket */,
+				2DF45F79772046883B169490C8F114D5 /* libextobjc */,
+				03166DD62238C599BC28CAB59C0E0557 /* MSWeakTimer */,
+				DB489F8B60756F83E93D675C42834B3E /* Pods-GWClient */,
+				9A18FA2319CDAD40C16A6D84B6513550 /* ProtocolBuffers */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		14A4C15718909822AEDD81CA78EDC20D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54F6B6C12022242F312E9E415788085E /* MSWeakTimer-dummy.m in Sources */,
+				A2A9E0C26E0E87EFE11249D23D8FB4DB /* MSWeakTimer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A6A8B10D4173220090E638677351A08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB3BEBDFE9508978484B1CC745D37AA1 /* AsyncSocket.m in Sources */,
+				9638A33521581A1CF2866310B30E8261 /* AsyncUdpSocket.m in Sources */,
+				B58DAF6F99848DD590351E5AA2702AFC /* CocoaAsyncSocket-dummy.m in Sources */,
+				7279F4947CFE1F72B962637F71093A86 /* GCDAsyncSocket.m in Sources */,
+				65F488BFAED2F07D7569A8ED15E5CBB5 /* GCDAsyncUdpSocket.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		331D8E7C2855E3F8B461C0BAD567D186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E41CF8B5967B502B596543EB27601374 /* Pods-GWClient-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA679C725B5CBB38C794664311A812B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2BB29196011A7F3C269A5E1B15045F7 /* EXTRuntimeExtensions.m in Sources */,
+				92DD86DC0DBE1C361B264EA0180EF534 /* EXTScope.m in Sources */,
+				8FC4B5D425DB6638482168602F8350EB /* libextobjc-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDB623F00A1525FBEC12512BF2939587 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				959381401B744F88DB615BB662B355B0 /* AbstractMessage.m in Sources */,
+				5E71BB4B00BA0EC89661430265DE8224 /* AbstractMessageBuilder.m in Sources */,
+				94235DD06D11D1E1DDFAB475271CB0CB /* CodedInputStream.m in Sources */,
+				AC43D05C2E8FC55786AC178D128785EE /* CodedOutputStream.m in Sources */,
+				9B8D45B49484987CCD428461C3466F0B /* ConcreteExtensionField.m in Sources */,
+				06F3E8AEA1CBF0EDC405695E81D08AED /* Descriptor.pb.m in Sources */,
+				7BA0CEC054CCB02016F5A8C98518F450 /* ExtendableMessage.m in Sources */,
+				1BA6AC4C60BFE2322FC4BC50EE3EEAB9 /* ExtendableMessageBuilder.m in Sources */,
+				E75441A04D2A1F8F4DF18A2D9FAB1272 /* ExtensionRegistry.m in Sources */,
+				B90118299A1B5E67280636BD159CD60A /* Field.m in Sources */,
+				278573DE1BF1FC7CBAE00D7239AD2265 /* GeneratedMessage.m in Sources */,
+				367278A65BD54BA16A633C830C658CDA /* GeneratedMessageBuilder.m in Sources */,
+				8A89ACC4D3141FAF2D46AAA7AC445DFD /* MutableExtensionRegistry.m in Sources */,
+				BC53ACC1733D5C86EED68B977DF9E16F /* MutableField.m in Sources */,
+				9E85F5A949AEDD8914955D6DD38DBD3D /* ObjectivecDescriptor.pb.m in Sources */,
+				6849D7656DE1DB9BDAA96583BEAE2DB7 /* PBArray.m in Sources */,
+				69FFF1D5A35D84448E705670AEA1D9E2 /* ProtocolBuffers-dummy.m in Sources */,
+				974CB84D4D8F37FDAF07DE1F9DDC7A4C /* RingBuffer.m in Sources */,
+				AA272A959EB3A6321549E31FCD6F9789 /* TextFormat.m in Sources */,
+				46C3AB53539824DA311F22F8EBAD5960 /* UnknownFieldSet.m in Sources */,
+				2967CCC140CED9EBAF0462C5545E9D94 /* UnknownFieldSetBuilder.m in Sources */,
+				EAB87E1C8B1478872E07BA757AE1AFB0 /* Utilities.m in Sources */,
+				4DA796D41F157612451B234445CD10F8 /* WireFormat.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1F2E452424F08BBE58AF1D7BC3326D9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MSWeakTimer;
+			target = 03166DD62238C599BC28CAB59C0E0557 /* MSWeakTimer */;
+			targetProxy = A90CF3417EF030FFBB4C044FC2BDEE38 /* PBXContainerItemProxy */;
+		};
+		6E534C0C4B1B8BE6E3566198EBC1401C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaAsyncSocket;
+			target = CA69D72DC702AD788CEA6A5DC3545B47 /* CocoaAsyncSocket */;
+			targetProxy = 9EBB6DA5C397FF380AF4E704B9EE26AC /* PBXContainerItemProxy */;
+		};
+		A19281FD42513F57CEA4A81C45E304C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libextobjc;
+			target = 2DF45F79772046883B169490C8F114D5 /* libextobjc */;
+			targetProxy = 7CDA741201BBFD78ED754555CBDBBC10 /* PBXContainerItemProxy */;
+		};
+		A205AC34330C70C1A58C60CFC0FFEA7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ProtocolBuffers;
+			target = 9A18FA2319CDAD40C16A6D84B6513550 /* ProtocolBuffers */;
+			targetProxy = 73469D3DD3BCCB8F9804C866D6D45E76 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		015A368F878AC3E2CEAE21DDE8026304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		44CDBB6D11DE06DB64D6268622BDC47E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4A434ED750DEBFFCA949324668DB299D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E22B49F0ADFDFAA55540A1743B7AF6E /* libextobjc.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/libextobjc/libextobjc-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		67AAB970F2F57BF3DAC7F19BEB90098A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0CA3B9EAC00B9CE9282EEE4D2448612C /* ProtocolBuffers.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers/ProtocolBuffers-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		725D5DCBD0FD2A0AFD4DC89EB4A11D2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E22B49F0ADFDFAA55540A1743B7AF6E /* libextobjc.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/libextobjc/libextobjc-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8BC9D1F514468E2A53CAA52168742465 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E942B967BA7F117F4DDE81099140A1C5 /* Pods-GWClient.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		AE0E7F369A43C8B1BC41D8E2D0207894 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6C1898C2CFA0861C3DDF2C16AC83FC7 /* CocoaAsyncSocket.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaAsyncSocket/CocoaAsyncSocket-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		AE20F91DC95E3A559EB3EF7BF198F205 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC6983D16EAA58EB21E86C2727AA3B49 /* MSWeakTimer.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MSWeakTimer/MSWeakTimer-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CD6AC74A145702E58E9BE31BB78D3969 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6C1898C2CFA0861C3DDF2C16AC83FC7 /* CocoaAsyncSocket.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaAsyncSocket/CocoaAsyncSocket-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		EC4ABB0E9DCB18E70D650EA738F36774 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC6983D16EAA58EB21E86C2727AA3B49 /* MSWeakTimer.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MSWeakTimer/MSWeakTimer-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F34EFBE5B23EA8E117440B300C1A84CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0CA3B9EAC00B9CE9282EEE4D2448612C /* ProtocolBuffers.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers/ProtocolBuffers-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		F35B847EC16ACB45D89FC8344CA0D57F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7B4953BEFA2BC33DA5956E81245D7D6 /* Pods-GWClient.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		10307B4A394B984083F6541BD3D52511 /* Build configuration list for PBXNativeTarget "libextobjc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				725D5DCBD0FD2A0AFD4DC89EB4A11D2F /* Debug */,
+				4A434ED750DEBFFCA949324668DB299D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				015A368F878AC3E2CEAE21DDE8026304 /* Debug */,
+				44CDBB6D11DE06DB64D6268622BDC47E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		39D7B697DBFF1F1ADC99AEDD3E82322B /* Build configuration list for PBXNativeTarget "ProtocolBuffers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67AAB970F2F57BF3DAC7F19BEB90098A /* Debug */,
+				F34EFBE5B23EA8E117440B300C1A84CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C86299C3B766E2AA9615377A047E6BBC /* Build configuration list for PBXNativeTarget "MSWeakTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC4ABB0E9DCB18E70D650EA738F36774 /* Debug */,
+				AE20F91DC95E3A559EB3EF7BF198F205 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D786DDFB3F47769D50BFD4EDAFAAB0AB /* Build configuration list for PBXNativeTarget "CocoaAsyncSocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD6AC74A145702E58E9BE31BB78D3969 /* Debug */,
+				AE0E7F369A43C8B1BC41D8E2D0207894 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB24EB06DB74F0DB9CDE66924C21ED1B /* Build configuration list for PBXNativeTarget "Pods-GWClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F35B847EC16ACB45D89FC8344CA0D57F /* Debug */,
+				8BC9D1F514468E2A53CAA52168742465 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
