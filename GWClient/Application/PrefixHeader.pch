@@ -12,13 +12,7 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
-//#import "FMDB.h"
-//#import "DataBaseManager.h"
-//#import "BimarDevice.h"
-//#import "UILabel+GPAligment.h"
-//#import "MBProgressHUD.h"
-//#import "GPUtil.h"
-//#import "ChangeLanguage.h"
+#import "UIImage+RTTint.h"
 
 
 #ifndef W_H_
@@ -48,7 +42,7 @@
 //#define CHINESE                             @"zh-Hans"
 //#define LANGUAGE_NOTIFICATION               @"languageNotification"
 
-
+#define LEFTVC_WIDTH               KSCREEN_WIDTH * 2 / 3
 //
 //#define BTN_DEVICE_MORE_TAG     201
 //

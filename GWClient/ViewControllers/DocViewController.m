@@ -1,12 +1,16 @@
 //
-//  ViewController.m
+//  DocViewController.m
 //  GWClient
 //
-//  Created by guiping on 17/3/16.
+//  Created by guiping on 2017/3/17.
 //  Copyright © 2017年 guiping. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "DocViewController.h"
+#import "UIViewController+MMDrawerController.h"
+
+
+
 #import "RHSocketChannel.h"
 
 #import "RHSocketStringEncoder.h"
@@ -55,38 +59,36 @@
 //
 #import "RHWebSocket.h"
 
-@interface ViewController ()
+
+@interface DocViewController ()
 
 @end
 
-@implementation ViewController
+@implementation DocViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    
-    
-    NSLog(@"客户端测试");
+    [self addNavigationItemImageName:@"bimar关于" target:self action:@selector(back:) isLeft:YES];
     
     // 添加按钮
     UIButton *btnSearch = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:btnSearch];
-    btnSearch.frame = CGRectMake(100, 400, 80, 40);
+    btnSearch.frame = CGRectMake(0, 0, 80, 40);
+    btnSearch.center = CGPointMake(KSCREEN_WIDTH / 2, KSCREEN_HEIGHT *4 / 5);
     btnSearch.layer.cornerRadius = 5;
     btnSearch.layer.masksToBounds = YES;
-    [btnSearch setTitle:@"开始搜索" forState:UIControlStateNormal];
+    [btnSearch setTitle:@"测试连接" forState:UIControlStateNormal];
     btnSearch.titleLabel.font = [UIFont systemFontOfSize:14];
     btnSearch.backgroundColor = THEME_COLOR;
     [btnSearch addTarget:self action:@selector(btnSearchClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (void) btnSearchClicked:(UIButton *) sender{
     [self doTestJsonCodecButtonAction];
 }
-
 
 #pragma mark - test json codec
 
@@ -153,11 +155,22 @@
     //发送，并等待返回
     [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
 }
-
+- (void) back:(UIButton *)sender{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

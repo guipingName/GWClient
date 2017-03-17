@@ -8,8 +8,8 @@
 
 #import "AppDelegate.h"
 #import "MMDrawerController.h"
-#import "ViewController.h"
 #import "LeftViewController.h"
+#import "GWClientTabBarController.h"
 
 @interface AppDelegate ()
 
@@ -23,12 +23,11 @@
     
     //[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
     LeftViewController *leftVC = [[LeftViewController alloc] init];
-    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftVC];
+    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-    [drawerController setMaximumLeftDrawerWidth:100];
+    [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
     
     self.window.rootViewController = drawerController;
     return YES;

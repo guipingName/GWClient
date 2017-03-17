@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1FB87A4F85601591022BDD0A /* libPods-GWClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD66F9DE551711E1FFEB575 /* libPods-GWClient.a */; };
-		38DD07FE1E7BD4E400388CAE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD07FD1E7BD4E400388CAE /* ViewController.m */; };
 		38DD08C21E7BD63C00388CAE /* RHSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08741E7BD63C00388CAE /* RHSocketChannel.m */; };
 		38DD08C31E7BD63C00388CAE /* RHSocketConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08761E7BD63C00388CAE /* RHSocketConnection.m */; };
 		38DD08C41E7BD63C00388CAE /* RHSocketUdpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08781E7BD63C00388CAE /* RHSocketUdpConnection.m */; };
@@ -45,6 +44,46 @@
 		38DD08ED1E7BD70A00388CAE /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08E81E7BD70A00388CAE /* MMDrawerVisualState.m */; };
 		38DD08EE1E7BD70A00388CAE /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08EA1E7BD70A00388CAE /* UIViewController+MMDrawerController.m */; };
 		38DD08F11E7BD77D00388CAE /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08F01E7BD77D00388CAE /* LeftViewController.m */; };
+		38DD09161E7BDDBB00388CAE /* appclearicon_bimar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08F41E7BDDBB00388CAE /* appclearicon_bimar@2x.png */; };
+		38DD09171E7BDDBB00388CAE /* banner_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08F51E7BDDBB00388CAE /* banner_default@3x.png */; };
+		38DD09181E7BDDBB00388CAE /* bimarBtn定时@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08F61E7BDDBB00388CAE /* bimarBtn定时@3x.png */; };
+		38DD09191E7BDDBB00388CAE /* bimarBtn定时_n@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08F71E7BDDBB00388CAE /* bimarBtn定时_n@3x.png */; };
+		38DD091A1E7BDDBB00388CAE /* bimarBtn开关@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08F81E7BDDBB00388CAE /* bimarBtn开关@3x.png */; };
+		38DD091B1E7BDDBB00388CAE /* bimarBtn开关_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08F91E7BDDBB00388CAE /* bimarBtn开关_gray@3x.png */; };
+		38DD091C1E7BDDBB00388CAE /* bimarBtn模式@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08FA1E7BDDBB00388CAE /* bimarBtn模式@3x.png */; };
+		38DD091D1E7BDDBB00388CAE /* bimarBtn模式_n@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08FB1E7BDDBB00388CAE /* bimarBtn模式_n@3x.png */; };
+		38DD091E1E7BDDBB00388CAE /* bimarBtn温度减@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08FC1E7BDDBB00388CAE /* bimarBtn温度减@3x.png */; };
+		38DD091F1E7BDDBB00388CAE /* bimarBtn温度减_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08FD1E7BDDBB00388CAE /* bimarBtn温度减_gray@3x.png */; };
+		38DD09201E7BDDBB00388CAE /* bimarBtn温度加@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08FE1E7BDDBB00388CAE /* bimarBtn温度加@3x.png */; };
+		38DD09211E7BDDBB00388CAE /* bimarBtn温度加_n@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD08FF1E7BDDBB00388CAE /* bimarBtn温度加_n@3x.png */; };
+		38DD09221E7BDDBB00388CAE /* bimarBtn风速@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09001E7BDDBB00388CAE /* bimarBtn风速@3x.png */; };
+		38DD09231E7BDDBB00388CAE /* bimarBtn风速_n@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09011E7BDDBB00388CAE /* bimarBtn风速_n@3x.png */; };
+		38DD09241E7BDDBB00388CAE /* bimar关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09021E7BDDBB00388CAE /* bimar关于@3x.png */; };
+		38DD09251E7BDDBB00388CAE /* bimar华氏度@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09031E7BDDBB00388CAE /* bimar华氏度@3x.png */; };
+		38DD09261E7BDDBB00388CAE /* bimar声音@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09041E7BDDBB00388CAE /* bimar声音@3x.png */; };
+		38DD09271E7BDDBB00388CAE /* bimar意大利语@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09051E7BDDBB00388CAE /* bimar意大利语@3x.png */; };
+		38DD09281E7BDDBB00388CAE /* bimar摄氏度@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09061E7BDDBB00388CAE /* bimar摄氏度@3x.png */; };
+		38DD09291E7BDDBB00388CAE /* bimar模式中火@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09071E7BDDBB00388CAE /* bimar模式中火@3x.png */; };
+		38DD092A1E7BDDBB00388CAE /* bimar模式大火@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09081E7BDDBB00388CAE /* bimar模式大火@3x.png */; };
+		38DD092B1E7BDDBB00388CAE /* bimar模式小火@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09091E7BDDBB00388CAE /* bimar模式小火@3x.png */; };
+		38DD092C1E7BDDBB00388CAE /* bimar模式防冻@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD090A1E7BDDBB00388CAE /* bimar模式防冻@3x.png */; };
+		38DD092D1E7BDDBB00388CAE /* bimar汉语@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD090B1E7BDDBB00388CAE /* bimar汉语@3x.png */; };
+		38DD092E1E7BDDBB00388CAE /* bimar背景@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD090C1E7BDDBB00388CAE /* bimar背景@3x.png */; };
+		38DD092F1E7BDDBB00388CAE /* bimar英语@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD090D1E7BDDBB00388CAE /* bimar英语@3x.png */; };
+		38DD09301E7BDDBB00388CAE /* bimar语言@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD090E1E7BDDBB00388CAE /* bimar语言@3x.png */; };
+		38DD09311E7BDDBB00388CAE /* bimar震动@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD090F1E7BDDBB00388CAE /* bimar震动@3x.png */; };
+		38DD09321E7BDDBB00388CAE /* 列表更多@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09101E7BDDBB00388CAE /* 列表更多@3x.png */; };
+		38DD09331E7BDDBB00388CAE /* 左侧栏背景@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09111E7BDDBB00388CAE /* 左侧栏背景@3x.png */; };
+		38DD09341E7BDDBB00388CAE /* 左侧边栏logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09121E7BDDBB00388CAE /* 左侧边栏logo@3x.png */; };
+		38DD09351E7BDDBB00388CAE /* 设备信息@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09131E7BDDBB00388CAE /* 设备信息@3x.png */; };
+		38DD09361E7BDDBB00388CAE /* 远程重启@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09141E7BDDBB00388CAE /* 远程重启@3x.png */; };
+		38DD09371E7BDDBB00388CAE /* 问号@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09151E7BDDBB00388CAE /* 问号@3x.png */; };
+		38DD093A1E7BE00600388CAE /* GWClientTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD09391E7BE00600388CAE /* GWClientTabBarController.m */; };
+		38DD093D1E7BE0BC00388CAE /* DocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD093C1E7BE0BC00388CAE /* DocViewController.m */; };
+		38DD09401E7BE0E300388CAE /* TransferListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD093F1E7BE0E300388CAE /* TransferListViewController.m */; };
+		38DD09431E7BE0F300388CAE /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD09421E7BE0F300388CAE /* NewsViewController.m */; };
+		38DD09471E7BE53900388CAE /* UIImage+RTTint.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD09461E7BE53900388CAE /* UIImage+RTTint.m */; };
+		38DD094A1E7BE76200388CAE /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD09491E7BE76200388CAE /* BaseViewController.m */; };
 		38E700551E7A895600336BDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E700541E7A895600336BDB /* main.m */; };
 		38E7005E1E7A895600336BDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38E7005C1E7A895600336BDB /* Main.storyboard */; };
 		38E700601E7A895600336BDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E7005F1E7A895600336BDB /* Assets.xcassets */; };
@@ -72,8 +111,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		38DD07FC1E7BD4E400388CAE /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		38DD07FD1E7BD4E400388CAE /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		38DD08731E7BD63C00388CAE /* RHSocketChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketChannel.h; sourceTree = "<group>"; };
 		38DD08741E7BD63C00388CAE /* RHSocketChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketChannel.m; sourceTree = "<group>"; };
 		38DD08751E7BD63C00388CAE /* RHSocketConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConnection.h; sourceTree = "<group>"; };
@@ -152,6 +189,52 @@
 		38DD08EF1E7BD77D00388CAE /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
 		38DD08F01E7BD77D00388CAE /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		38DD08F21E7BDA4700388CAE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		38DD08F41E7BDDBB00388CAE /* appclearicon_bimar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appclearicon_bimar@2x.png"; sourceTree = "<group>"; };
+		38DD08F51E7BDDBB00388CAE /* banner_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_default@3x.png"; sourceTree = "<group>"; };
+		38DD08F61E7BDDBB00388CAE /* bimarBtn定时@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn定时@3x.png"; sourceTree = "<group>"; };
+		38DD08F71E7BDDBB00388CAE /* bimarBtn定时_n@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn定时_n@3x.png"; sourceTree = "<group>"; };
+		38DD08F81E7BDDBB00388CAE /* bimarBtn开关@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn开关@3x.png"; sourceTree = "<group>"; };
+		38DD08F91E7BDDBB00388CAE /* bimarBtn开关_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn开关_gray@3x.png"; sourceTree = "<group>"; };
+		38DD08FA1E7BDDBB00388CAE /* bimarBtn模式@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn模式@3x.png"; sourceTree = "<group>"; };
+		38DD08FB1E7BDDBB00388CAE /* bimarBtn模式_n@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn模式_n@3x.png"; sourceTree = "<group>"; };
+		38DD08FC1E7BDDBB00388CAE /* bimarBtn温度减@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn温度减@3x.png"; sourceTree = "<group>"; };
+		38DD08FD1E7BDDBB00388CAE /* bimarBtn温度减_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn温度减_gray@3x.png"; sourceTree = "<group>"; };
+		38DD08FE1E7BDDBB00388CAE /* bimarBtn温度加@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn温度加@3x.png"; sourceTree = "<group>"; };
+		38DD08FF1E7BDDBB00388CAE /* bimarBtn温度加_n@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn温度加_n@3x.png"; sourceTree = "<group>"; };
+		38DD09001E7BDDBB00388CAE /* bimarBtn风速@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn风速@3x.png"; sourceTree = "<group>"; };
+		38DD09011E7BDDBB00388CAE /* bimarBtn风速_n@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimarBtn风速_n@3x.png"; sourceTree = "<group>"; };
+		38DD09021E7BDDBB00388CAE /* bimar关于@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar关于@3x.png"; sourceTree = "<group>"; };
+		38DD09031E7BDDBB00388CAE /* bimar华氏度@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar华氏度@3x.png"; sourceTree = "<group>"; };
+		38DD09041E7BDDBB00388CAE /* bimar声音@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar声音@3x.png"; sourceTree = "<group>"; };
+		38DD09051E7BDDBB00388CAE /* bimar意大利语@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar意大利语@3x.png"; sourceTree = "<group>"; };
+		38DD09061E7BDDBB00388CAE /* bimar摄氏度@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar摄氏度@3x.png"; sourceTree = "<group>"; };
+		38DD09071E7BDDBB00388CAE /* bimar模式中火@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar模式中火@3x.png"; sourceTree = "<group>"; };
+		38DD09081E7BDDBB00388CAE /* bimar模式大火@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar模式大火@3x.png"; sourceTree = "<group>"; };
+		38DD09091E7BDDBB00388CAE /* bimar模式小火@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar模式小火@3x.png"; sourceTree = "<group>"; };
+		38DD090A1E7BDDBB00388CAE /* bimar模式防冻@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar模式防冻@3x.png"; sourceTree = "<group>"; };
+		38DD090B1E7BDDBB00388CAE /* bimar汉语@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar汉语@3x.png"; sourceTree = "<group>"; };
+		38DD090C1E7BDDBB00388CAE /* bimar背景@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar背景@3x.png"; sourceTree = "<group>"; };
+		38DD090D1E7BDDBB00388CAE /* bimar英语@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar英语@3x.png"; sourceTree = "<group>"; };
+		38DD090E1E7BDDBB00388CAE /* bimar语言@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar语言@3x.png"; sourceTree = "<group>"; };
+		38DD090F1E7BDDBB00388CAE /* bimar震动@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar震动@3x.png"; sourceTree = "<group>"; };
+		38DD09101E7BDDBB00388CAE /* 列表更多@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "列表更多@3x.png"; sourceTree = "<group>"; };
+		38DD09111E7BDDBB00388CAE /* 左侧栏背景@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "左侧栏背景@3x.png"; sourceTree = "<group>"; };
+		38DD09121E7BDDBB00388CAE /* 左侧边栏logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "左侧边栏logo@3x.png"; sourceTree = "<group>"; };
+		38DD09131E7BDDBB00388CAE /* 设备信息@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "设备信息@3x.png"; sourceTree = "<group>"; };
+		38DD09141E7BDDBB00388CAE /* 远程重启@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "远程重启@3x.png"; sourceTree = "<group>"; };
+		38DD09151E7BDDBB00388CAE /* 问号@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "问号@3x.png"; sourceTree = "<group>"; };
+		38DD09381E7BE00600388CAE /* GWClientTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWClientTabBarController.h; sourceTree = "<group>"; };
+		38DD09391E7BE00600388CAE /* GWClientTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWClientTabBarController.m; sourceTree = "<group>"; };
+		38DD093B1E7BE0BC00388CAE /* DocViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocViewController.h; sourceTree = "<group>"; };
+		38DD093C1E7BE0BC00388CAE /* DocViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocViewController.m; sourceTree = "<group>"; };
+		38DD093E1E7BE0E300388CAE /* TransferListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferListViewController.h; sourceTree = "<group>"; };
+		38DD093F1E7BE0E300388CAE /* TransferListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransferListViewController.m; sourceTree = "<group>"; };
+		38DD09411E7BE0F300388CAE /* NewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
+		38DD09421E7BE0F300388CAE /* NewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
+		38DD09451E7BE53900388CAE /* UIImage+RTTint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RTTint.h"; sourceTree = "<group>"; };
+		38DD09461E7BE53900388CAE /* UIImage+RTTint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RTTint.m"; sourceTree = "<group>"; };
+		38DD09481E7BE76200388CAE /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		38DD09491E7BE76200388CAE /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		38E700501E7A895600336BDB /* GWClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GWClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E700541E7A895600336BDB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		38E7005D1E7A895600336BDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -209,10 +292,18 @@
 		38DD07F91E7BD48F00388CAE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				38DD07FC1E7BD4E400388CAE /* ViewController.h */,
-				38DD07FD1E7BD4E400388CAE /* ViewController.m */,
+				38DD09481E7BE76200388CAE /* BaseViewController.h */,
+				38DD09491E7BE76200388CAE /* BaseViewController.m */,
 				38DD08EF1E7BD77D00388CAE /* LeftViewController.h */,
 				38DD08F01E7BD77D00388CAE /* LeftViewController.m */,
+				38DD09381E7BE00600388CAE /* GWClientTabBarController.h */,
+				38DD09391E7BE00600388CAE /* GWClientTabBarController.m */,
+				38DD093B1E7BE0BC00388CAE /* DocViewController.h */,
+				38DD093C1E7BE0BC00388CAE /* DocViewController.m */,
+				38DD093E1E7BE0E300388CAE /* TransferListViewController.h */,
+				38DD093F1E7BE0E300388CAE /* TransferListViewController.m */,
+				38DD09411E7BE0F300388CAE /* NewsViewController.h */,
+				38DD09421E7BE0F300388CAE /* NewsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -442,6 +533,56 @@
 			path = MMDrawerController;
 			sourceTree = "<group>";
 		};
+		38DD08F31E7BDDBB00388CAE /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				38DD08F41E7BDDBB00388CAE /* appclearicon_bimar@2x.png */,
+				38DD08F51E7BDDBB00388CAE /* banner_default@3x.png */,
+				38DD08F61E7BDDBB00388CAE /* bimarBtn定时@3x.png */,
+				38DD08F71E7BDDBB00388CAE /* bimarBtn定时_n@3x.png */,
+				38DD08FA1E7BDDBB00388CAE /* bimarBtn模式@3x.png */,
+				38DD08FB1E7BDDBB00388CAE /* bimarBtn模式_n@3x.png */,
+				38DD09001E7BDDBB00388CAE /* bimarBtn风速@3x.png */,
+				38DD09011E7BDDBB00388CAE /* bimarBtn风速_n@3x.png */,
+				38DD08F81E7BDDBB00388CAE /* bimarBtn开关@3x.png */,
+				38DD08F91E7BDDBB00388CAE /* bimarBtn开关_gray@3x.png */,
+				38DD08FC1E7BDDBB00388CAE /* bimarBtn温度减@3x.png */,
+				38DD08FD1E7BDDBB00388CAE /* bimarBtn温度减_gray@3x.png */,
+				38DD08FE1E7BDDBB00388CAE /* bimarBtn温度加@3x.png */,
+				38DD08FF1E7BDDBB00388CAE /* bimarBtn温度加_n@3x.png */,
+				38DD09021E7BDDBB00388CAE /* bimar关于@3x.png */,
+				38DD09031E7BDDBB00388CAE /* bimar华氏度@3x.png */,
+				38DD09041E7BDDBB00388CAE /* bimar声音@3x.png */,
+				38DD09051E7BDDBB00388CAE /* bimar意大利语@3x.png */,
+				38DD09061E7BDDBB00388CAE /* bimar摄氏度@3x.png */,
+				38DD09071E7BDDBB00388CAE /* bimar模式中火@3x.png */,
+				38DD09081E7BDDBB00388CAE /* bimar模式大火@3x.png */,
+				38DD09091E7BDDBB00388CAE /* bimar模式小火@3x.png */,
+				38DD090A1E7BDDBB00388CAE /* bimar模式防冻@3x.png */,
+				38DD090B1E7BDDBB00388CAE /* bimar汉语@3x.png */,
+				38DD090C1E7BDDBB00388CAE /* bimar背景@3x.png */,
+				38DD090D1E7BDDBB00388CAE /* bimar英语@3x.png */,
+				38DD090E1E7BDDBB00388CAE /* bimar语言@3x.png */,
+				38DD090F1E7BDDBB00388CAE /* bimar震动@3x.png */,
+				38DD09101E7BDDBB00388CAE /* 列表更多@3x.png */,
+				38DD09111E7BDDBB00388CAE /* 左侧栏背景@3x.png */,
+				38DD09121E7BDDBB00388CAE /* 左侧边栏logo@3x.png */,
+				38DD09131E7BDDBB00388CAE /* 设备信息@3x.png */,
+				38DD09141E7BDDBB00388CAE /* 远程重启@3x.png */,
+				38DD09151E7BDDBB00388CAE /* 问号@3x.png */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
+		38DD09441E7BE51400388CAE /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				38DD09451E7BE53900388CAE /* UIImage+RTTint.h */,
+				38DD09461E7BE53900388CAE /* UIImage+RTTint.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		38E700471E7A895600336BDB = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +608,8 @@
 		38E700521E7A895600336BDB /* GWClient */ = {
 			isa = PBXGroup;
 			children = (
+				38DD08F31E7BDDBB00388CAE /* resource */,
+				38DD09441E7BE51400388CAE /* Tools */,
 				38E700861E7A89EA00336BDB /* Application */,
 				38DD07FB1E7BD4B700388CAE /* 3rd */,
 				38DD07FA1E7BD4A500388CAE /* Models */,
@@ -636,9 +779,43 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38DD09361E7BDDBB00388CAE /* 远程重启@3x.png in Resources */,
+				38DD09351E7BDDBB00388CAE /* 设备信息@3x.png in Resources */,
+				38DD09171E7BDDBB00388CAE /* banner_default@3x.png in Resources */,
+				38DD09341E7BDDBB00388CAE /* 左侧边栏logo@3x.png in Resources */,
+				38DD091A1E7BDDBB00388CAE /* bimarBtn开关@3x.png in Resources */,
+				38DD092B1E7BDDBB00388CAE /* bimar模式小火@3x.png in Resources */,
 				38E700631E7A895600336BDB /* LaunchScreen.storyboard in Resources */,
+				38DD092A1E7BDDBB00388CAE /* bimar模式大火@3x.png in Resources */,
+				38DD09181E7BDDBB00388CAE /* bimarBtn定时@3x.png in Resources */,
+				38DD09231E7BDDBB00388CAE /* bimarBtn风速_n@3x.png in Resources */,
+				38DD091C1E7BDDBB00388CAE /* bimarBtn模式@3x.png in Resources */,
+				38DD091E1E7BDDBB00388CAE /* bimarBtn温度减@3x.png in Resources */,
+				38DD09201E7BDDBB00388CAE /* bimarBtn温度加@3x.png in Resources */,
+				38DD092E1E7BDDBB00388CAE /* bimar背景@3x.png in Resources */,
+				38DD092C1E7BDDBB00388CAE /* bimar模式防冻@3x.png in Resources */,
+				38DD091F1E7BDDBB00388CAE /* bimarBtn温度减_gray@3x.png in Resources */,
+				38DD09251E7BDDBB00388CAE /* bimar华氏度@3x.png in Resources */,
+				38DD09291E7BDDBB00388CAE /* bimar模式中火@3x.png in Resources */,
+				38DD092F1E7BDDBB00388CAE /* bimar英语@3x.png in Resources */,
+				38DD09371E7BDDBB00388CAE /* 问号@3x.png in Resources */,
+				38DD09331E7BDDBB00388CAE /* 左侧栏背景@3x.png in Resources */,
+				38DD09161E7BDDBB00388CAE /* appclearicon_bimar@2x.png in Resources */,
+				38DD09241E7BDDBB00388CAE /* bimar关于@3x.png in Resources */,
+				38DD09301E7BDDBB00388CAE /* bimar语言@3x.png in Resources */,
+				38DD091B1E7BDDBB00388CAE /* bimarBtn开关_gray@3x.png in Resources */,
+				38DD09311E7BDDBB00388CAE /* bimar震动@3x.png in Resources */,
+				38DD09281E7BDDBB00388CAE /* bimar摄氏度@3x.png in Resources */,
+				38DD09321E7BDDBB00388CAE /* 列表更多@3x.png in Resources */,
+				38DD09191E7BDDBB00388CAE /* bimarBtn定时_n@3x.png in Resources */,
+				38DD09221E7BDDBB00388CAE /* bimarBtn风速@3x.png in Resources */,
+				38DD092D1E7BDDBB00388CAE /* bimar汉语@3x.png in Resources */,
 				38E700601E7A895600336BDB /* Assets.xcassets in Resources */,
 				38E7005E1E7A895600336BDB /* Main.storyboard in Resources */,
+				38DD091D1E7BDDBB00388CAE /* bimarBtn模式_n@3x.png in Resources */,
+				38DD09261E7BDDBB00388CAE /* bimar声音@3x.png in Resources */,
+				38DD09211E7BDDBB00388CAE /* bimarBtn温度加_n@3x.png in Resources */,
+				38DD09271E7BDDBB00388CAE /* bimar意大利语@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,17 +889,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				38DD08CA1E7BD63C00388CAE /* RHSocketProtobufEncoder.m in Sources */,
+				38DD094A1E7BE76200388CAE /* BaseViewController.m in Sources */,
 				38DD08DA1E7BD63C00388CAE /* RHSocketCallReply.m in Sources */,
 				38DD08C21E7BD63C00388CAE /* RHSocketChannel.m in Sources */,
 				38DD08D21E7BD63C00388CAE /* RHSocketStringDecoder.m in Sources */,
 				38DD08D91E7BD63C00388CAE /* RHConnectCallReply.m in Sources */,
-				38DD07FE1E7BD4E400388CAE /* ViewController.m in Sources */,
 				38DD08CD1E7BD63C00388CAE /* RHSocketVariableLengthDecoder.m in Sources */,
 				38DD08EE1E7BD70A00388CAE /* UIViewController+MMDrawerController.m in Sources */,
+				38DD09471E7BE53900388CAE /* UIImage+RTTint.m in Sources */,
 				38DD08C71E7BD63C00388CAE /* RHSocketZlibCompressionDecoder.m in Sources */,
 				38DD08CE1E7BD63C00388CAE /* RHSocketVariableLengthEncoder.m in Sources */,
 				38DD08CB1E7BD63C00388CAE /* RHSocketDelimiterDecoder.m in Sources */,
 				38DD08C61E7BD63C00388CAE /* RHSocketBase64Encoder.m in Sources */,
+				38DD093D1E7BE0BC00388CAE /* DocViewController.m in Sources */,
 				38DD08DB1E7BD63C00388CAE /* RHSocketCallReplyManager.m in Sources */,
 				38DD08C91E7BD63C00388CAE /* RHSocketProtobufDecoder.m in Sources */,
 				38DD08ED1E7BD70A00388CAE /* MMDrawerVisualState.m in Sources */,
@@ -737,6 +916,8 @@
 				38DD08C51E7BD63C00388CAE /* RHSocketBase64Decoder.m in Sources */,
 				38DD08F11E7BD77D00388CAE /* LeftViewController.m in Sources */,
 				38DD08CC1E7BD63C00388CAE /* RHSocketDelimiterEncoder.m in Sources */,
+				38DD09401E7BE0E300388CAE /* TransferListViewController.m in Sources */,
+				38DD09431E7BE0F300388CAE /* NewsViewController.m in Sources */,
 				38DD08D51E7BD63C00388CAE /* RHSocketPacketContext.m in Sources */,
 				38DD08CF1E7BD63C00388CAE /* NSDictionary+RHSocket.m in Sources */,
 				38DD08C31E7BD63C00388CAE /* RHSocketConnection.m in Sources */,
@@ -745,6 +926,7 @@
 				38DD08D01E7BD63C00388CAE /* RHSocketJSONSerializationDecoder.m in Sources */,
 				38E700891E7A8A4400336BDB /* AppDelegate.m in Sources */,
 				38DD08D61E7BD63C00388CAE /* RHSocketUtils.m in Sources */,
+				38DD093A1E7BE00600388CAE /* GWClientTabBarController.m in Sources */,
 				38DD08D11E7BD63C00388CAE /* RHSocketJSONSerializationEncoder.m in Sources */,
 				38DD08E01E7BD63C00388CAE /* RHWebSocketConfig.m in Sources */,
 				38DD08DD1E7BD63C00388CAE /* RHSocketRpcCmdDecoder.m in Sources */,
