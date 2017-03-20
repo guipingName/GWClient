@@ -6,8 +6,8 @@
 //  Copyright © 2017年 guiping. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface DocViewController : BaseViewController
+@interface DocViewController : UIViewController
 
 @end

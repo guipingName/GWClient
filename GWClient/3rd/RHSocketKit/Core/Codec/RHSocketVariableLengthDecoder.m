@@ -11,6 +11,9 @@
 #import "RHSocketUtils.h"
 #import "RHSocketPacketContext.h"
 
+@interface RHSocketVariableLengthDecoder()
+@property(nonatomic, assign) int requestCommandLength;
+@end
 @implementation RHSocketVariableLengthDecoder
 
 - (instancetype)init
@@ -18,6 +21,7 @@
     if (self = [super init]) {
         _maxFrameSize = 65536;
         _countOfLengthByte = 2;
+        _requestCommandLength = 1;
         _reverseOfLengthByte = YES;
     }
     return self;
@@ -45,15 +49,18 @@
         }//
         
         //剩余数据，不是完整的数据包，则break继续读取等待
-        if (downstreamData.length - headIndex < _countOfLengthByte + frameLen) {
+        if (downstreamData.length - headIndex < _countOfLengthByte + _requestCommandLength+ frameLen) {
             break;
         }
         //数据包(长度＋内容)
-        NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _countOfLengthByte + frameLen)];
+        NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _countOfLengthByte + _requestCommandLength + frameLen)];
         
         //去除数据长度后的数据内容
         RHSocketPacketResponse *ctx = [[RHSocketPacketResponse alloc] init];
-        ctx.object = [frameData subdataWithRange:NSMakeRange(_countOfLengthByte, frameLen)];
+        
+        ctx.object = [frameData subdataWithRange:NSMakeRange(_countOfLengthByte + _requestCommandLength, frameLen)];
+        NSData *commandData = [frameData subdataWithRange:NSMakeRange(_countOfLengthByte, _requestCommandLength)];
+        ctx.pid = (NSUInteger)[RHSocketUtils valueFromBytes:commandData reverse:_reverseOfLengthByte];
         
         //责任链模式，丢给下一个处理器
         if (_nextDecoder) {

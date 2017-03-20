@@ -13,6 +13,9 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #import "UIImage+RTTint.h"
+#import "Define.h"
+
+
 
 
 #ifndef W_H_
@@ -28,12 +31,12 @@
 
 //#define CURRENT_LANGUAGE(key) [ChangeLanguage getContentWithKey:key]
 //
-//#define LABEL_RECT(labelText,limitW,limitH,option,font) [labelText boundingRectWithSize:CGSizeMake(limitW, limitH) options:option attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]} context:nil]
+#define LABEL_RECT(labelText,limitW,limitH,option,font) [labelText boundingRectWithSize:CGSizeMake(limitW, limitH) options:option attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]} context:nil]
 
 //#define CURRENTLANGUAGE                     @"currentLanguage"
 //#define SOUND                               @"SettingTypeSound"
 //#define VIBRATE                             @"SettingTypeVibrate"
-//#define LEFTCELL                            @"LeftVCTableViewCell"
+#define LEFTCELL                            @"LeftVCTableViewCell"
 //#define SETTINGCELL                         @"SettingTableViewCell"
 //#define LANGUAGECELL                        @"SetLanguageTableViewCell"
 //#define DEVICEINFOCELL                      @"DeviceInfoTableViewCell"
@@ -43,6 +46,8 @@
 //#define LANGUAGE_NOTIFICATION               @"languageNotification"
 
 #define LEFTVC_WIDTH               KSCREEN_WIDTH * 2 / 3
+
+#define IS_HAS_LOGIN               @"isHasLogin"
 //
 //#define BTN_DEVICE_MORE_TAG     201
 //

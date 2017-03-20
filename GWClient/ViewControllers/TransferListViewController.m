@@ -18,6 +18,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor redColor];
+    self.navigationController.navigationBar.barTintColor = THEME_COLOR;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"bimar模式大火"] style:UIBarButtonItemStylePlain target:self action:@selector(doLogin)];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+}
+
+- (void) doLogin{
+    NSLog(@"222");
 }
 
 - (void)didReceiveMemoryWarning {

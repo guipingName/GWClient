@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LoginViewController.h"
 #import "MMDrawerController.h"
 #import "LeftViewController.h"
 #import "GWClientTabBarController.h"
@@ -23,15 +24,31 @@
     
     //[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
-    LeftViewController *leftVC = [[LeftViewController alloc] init];
-    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
-    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-    [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
-    
-    self.window.rootViewController = drawerController;
-    return YES;
-    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    if ([userDef boolForKey:IS_HAS_LOGIN]) {
+        //LeftViewController *leftVC = [[LeftViewController alloc] init];
+        //MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
+//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[GWClientTabBarController alloc] init]];
+//        LeftViewController *leftVC = [[LeftViewController alloc] init];
+//        MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftVC];
+//        
+//        
+//        [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+//        [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+//        [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
+//        self.window.rootViewController = drawerController;
+        MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:[[LeftViewController alloc] init]];
+        
+        [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+        [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+        [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
+        
+        _window.rootViewController = drawerController;
+    }
+    else{
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        self.window.rootViewController = loginVC;
+    }
     return YES;
 }
 

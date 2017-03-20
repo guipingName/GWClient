@@ -6,8 +6,8 @@
 //  Copyright © 2017年 guiping. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface TransferListViewController : BaseViewController
+@interface TransferListViewController : UIViewController
 
 @end

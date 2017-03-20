@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [UITabBar appearance].barTintColor = THEME_COLOR;
+    [UITabBar appearance].barTintColor = [UIColor grayColor];
     self.tabBar.translucent = NO;
     
     DocViewController *docVC = [[DocViewController alloc] init];
@@ -29,15 +29,16 @@
     NewsViewController *newsVC= [[NewsViewController alloc] init];
     
     self.viewControllers = @[[self addNavigationItemForViewController:docVC],[self addNavigationItemForViewController:transferVC],[self addNavigationItemForViewController:newsVC]];
-    
     NSArray *titles = @[@"网盘", @"传输列表", @"资讯"];
-    NSArray *images = @[@"bimarBtn定时", @"bimarBtn模式", @"bimarBtn风速"];
+    NSArray *images = @[@"tabbar_mainframe", @"tabbar_contacts", @"tabbar_discover"];
+    UIColor *normalColor = [UIColor whiteColor];
+    UIColor *selectedColor = THEME_COLOR;
     [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop) {
         [item setTitle:titles[idx]];
-        [item setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blueColor]} forState:UIControlStateNormal];
-        item.image = [[[UIImage imageNamed:images[idx]] rt_tintedImageWithColor:[UIColor blueColor]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [item setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor greenColor]} forState:UIControlStateSelected];
-        item.selectedImage = [[[UIImage imageNamed:images[idx]] rt_tintedImageWithColor:[UIColor greenColor]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName: normalColor} forState:UIControlStateNormal];
+        item.image = [[[UIImage imageNamed:images[idx]] rt_tintedImageWithColor:normalColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName: selectedColor} forState:UIControlStateSelected];
+        item.selectedImage = [[[UIImage imageNamed:images[idx]] rt_tintedImageWithColor:selectedColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }];
     self.selectedIndex = 0;
 }
