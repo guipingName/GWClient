@@ -41,8 +41,8 @@
 
 
 - (void) infomation{
-    ImvUserhead.image = [UIImage imageNamed:@"bimar模式大火"];
-    lbNickName.text = @"bimar模式大火";
+    ImvUserhead.image = [UIImage imageNamed:_model.headImgUrl];
+    lbNickName.text = _model.nickName;
     
     NSArray *systemInfo = @[@"个人信息", @"设置"];
     NSArray *WiFi = @[@"注销登录"];
@@ -98,19 +98,22 @@
         if (indexPath.row == 0) {
             // 修改用户信息
             UserInfoViewController *userInfoVC = [[UserInfoViewController alloc] init];
+            userInfoVC.hidesBottomBarWhenPushed = YES;
+            userInfoVC.model = _model;
             [self.mm_drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
                 UITabBarController *cen = (UITabBarController *)self.mm_drawerController.centerViewController;
-                UINavigationController *aaa = [cen.viewControllers firstObject];
-                [aaa pushViewController:userInfoVC animated:YES];
+                UINavigationController *nav = [cen.viewControllers firstObject];
+                [nav pushViewController:userInfoVC animated:YES];
             }];
         }
         else if (indexPath.row == 1) {
             // 设置
-            SettingViewController *userInfoVC = [[SettingViewController alloc] init];
+            SettingViewController *settingVC = [[SettingViewController alloc] init];
+            settingVC.hidesBottomBarWhenPushed = YES;
             [self.mm_drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
                 UITabBarController *cen = (UITabBarController *)self.mm_drawerController.centerViewController;
-                UINavigationController *aaa = [cen.viewControllers firstObject];
-                [aaa pushViewController:userInfoVC animated:YES];
+                UINavigationController *nav = [cen.viewControllers firstObject];
+                [nav pushViewController:settingVC animated:YES];
             }];
             
         }
@@ -121,8 +124,7 @@
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setBool:NO forKey:IS_HAS_LOGIN];
         [userDef synchronize];
-        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        appdelegate.window.rootViewController = [[LoginViewController alloc] init];
+        self.view.window.rootViewController = [[LoginViewController alloc] init];
     }
 }
 

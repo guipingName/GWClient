@@ -10,4 +10,7 @@
 
 @interface UserInfoViewController : UIViewController
 
+@property (nonatomic, strong) UserInfoModel *model;
+
+
 @end

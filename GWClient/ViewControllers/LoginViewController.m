@@ -86,16 +86,37 @@
 - (void) doLogin:(UIButton *) sender{
     NSString *strName = tfUserName.text;
     NSString *strPassword = tfPassword.text;
-    strName = @"guipingme@sina.com";
-    strPassword = @"hfdhfkaf";
+    //strName = @"guipingme@sina.com";
+    //strPassword = @"hfdhfkaf";
     NSLog(@"登录");
-    //[self doTestJsonCodecButtonAction];
+    // 测试数据
+    UserInfoModel *model = [[UserInfoModel alloc] init];
+    model.userId = 20170201;
+    model.nickName = strName;
+    model.headImgUrl = @"bimar模式中火";
+    model.age = 24;
+    model.sex = 8;
+    model.location = @"四川~成都";
+    model.signature = @"即将设置个性签名";
+    //
+    // 归档
+    NSMutableData *mData = [NSMutableData data];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:mData];
+    [archiver encodeObject:model forKey:@"userInfo"];
+    [archiver finishEncoding];
+    NSArray *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dbPath = [[documentsPath firstObject] stringByAppendingPathComponent:@"userInfo"];
+     [mData writeToFile:dbPath atomically:YES];
+     
+    [self doTestJsonCodecButtonAction:strName password:strPassword];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     [userDef setBool:YES forKey:IS_HAS_LOGIN];
     [userDef synchronize];
     
-    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:[[LeftViewController alloc] init]];
+    LeftViewController *leftVC = [[LeftViewController alloc] init];
+    leftVC.model = model;
+    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
     
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
@@ -104,9 +125,11 @@
     self.view.window.rootViewController = drawerController;
 }
 
+- (void) createUserInfo{
+    
+}
 
-- (void)doTestJsonCodecButtonAction
-{
+- (void)doTestJsonCodecButtonAction:(NSString *) userName password:(NSString *) password{
     NSString *host = @"10.134.20.1";
     int port = 20173;
     //jsonEncoder -> stringEncoder -> VariableLengthEncoder
@@ -137,16 +160,16 @@
     @weakify(self);
     [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
         @strongify(self);
-        [self sendRpcForTestJsonCodec];
+        [self sendRpcForTestJsonCodec:userName password:password];
     }];
     
     [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
 }
 
-- (void) sendRpcForTestJsonCodec{
+- (void) sendRpcForTestJsonCodec:(NSString *) userName password:(NSString *) password{
     //rpc返回的call reply id是需要和服务端协议一致的，否则无法对应call和reply。
-    NSDictionary *paramDic = @{@"username":@"guipingme@sina.com",
-                               @"password":@"test123,?"
+    NSDictionary *paramDic = @{@"username":userName,
+                               @"password":password
                                };
     RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
     req.object = paramDic;

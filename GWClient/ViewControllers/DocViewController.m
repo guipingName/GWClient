@@ -9,57 +9,6 @@
 #import "DocViewController.h"
 #import "UIViewController+MMDrawerController.h"
 
-
-
-#import "RHSocketChannel.h"
-
-#import "RHSocketStringEncoder.h"
-#import "RHSocketStringDecoder.h"
-
-#import "RHSocketBase64Encoder.h"
-#import "RHSocketBase64Decoder.h"
-
-#import "RHSocketJSONSerializationEncoder.h"
-#import "RHSocketJSONSerializationDecoder.h"
-
-#import "RHSocketZlibCompressionEncoder.h"
-#import "RHSocketZlibCompressionDecoder.h"
-
-#import "RHSocketProtobufEncoder.h"
-#import "RHSocketProtobufDecoder.h"
-//#import "Person.pb.h"
-
-#import "RHSocketDelimiterEncoder.h"
-#import "RHSocketDelimiterDecoder.h"
-
-#import "RHSocketVariableLengthEncoder.h"
-#import "RHSocketVariableLengthDecoder.h"
-
-//#import "RHSocketHttpEncoder.h"
-//#import "RHSocketHttpDecoder.h"
-//#import "RHSocketHttpRequest.h"
-//#import "RHSocketHttpResponse.h"
-
-#import "RHSocketConfig.h"
-
-//
-#import "RHSocketService.h"
-
-//
-#import "RHSocketChannelProxy.h"
-#import "RHConnectCallReply.h"
-#import "EXTScope.h"
-
-#import "RHSocketRpcCmdEncoder.h"
-#import "RHSocketRpcCmdDecoder.h"
-
-//
-#import "RHSocketUtils.h"
-
-//
-#import "RHWebSocket.h"
-
-
 @interface DocViewController ()
 
 @end
@@ -74,13 +23,21 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"bimar关于"] style:UIBarButtonItemStylePlain target:self action:@selector(doLogin)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    //self.navigationItem.backBarButtonItem.tintColor = [UIColor whiteColor];
+
 }
+
 
 - (void)doLogin{
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
-
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    //self.hidesBottomBarWhenPushed = YES;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

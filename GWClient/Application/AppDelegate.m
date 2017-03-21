@@ -23,26 +23,28 @@
     // Override point for customization after application launch.
     
     //[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    
+    /*
+     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+     [userDef setBool:YES forKey:IS_HAS_LOGIN];
+     [userDef setObject:model forKey:@"userInfomation"];
+     */
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {
-        //LeftViewController *leftVC = [[LeftViewController alloc] init];
-        //MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
-//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[GWClientTabBarController alloc] init]];
-//        LeftViewController *leftVC = [[LeftViewController alloc] init];
-//        MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftVC];
-//        
-//        
-//        [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-//        [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-//        [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
-//        self.window.rootViewController = drawerController;
-        MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:[[LeftViewController alloc] init]];
+        
+        // 解归档器
+        NSArray *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *dbPath = [[documentsPath firstObject] stringByAppendingPathComponent:@"userInfo"];
+        NSData *data = [NSData dataWithContentsOfFile:dbPath];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        UserInfoModel *model = [unarchiver decodeObjectForKey:@"userInfo"];
+
+        LeftViewController *leftVC = [[LeftViewController alloc] init];
+        leftVC.model = model;
+        MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
         
         [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
         [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
         [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
-        
         _window.rootViewController = drawerController;
     }
     else{

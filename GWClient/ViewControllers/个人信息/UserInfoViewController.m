@@ -9,13 +9,21 @@
 #import "UserInfoViewController.h"
 #import "UserInfoTableViewCell.h"
 #import "ModifyViewController.h"
+#import "ModifySignatureViewController.h"
 
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     UITableView *myTableView;
     NSArray *titleArray;
-    NSArray *titleInfoArray;
+    NSMutableArray *titleInfoArray;
+    UIImageView *imageView;
+    // 信息
+    UIImage *headImage;
+    NSString *nickNameStr;
+    NSString *sexStr;
+    NSString *locationStr;
+    NSString *signatureStr;
 }
 
 
@@ -29,8 +37,10 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"个人信息";
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+//    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
@@ -50,12 +60,20 @@
 }
 
 - (void) infomation{
+    if (!_model) {
+        return;
+    }
     NSArray *systemInfo = @[@"头像", @"昵称"];
     NSArray *WiFi = @[@"性别", @"地区", @"个性签名"];
     titleArray = @[systemInfo, WiFi];
-    NSArray *img = @[@"bimar模式大火", @"这里是昵称"];
-    NSArray *img1 = @[@"男", @"成都", @"还没有设置个性签名"];
-    titleInfoArray = @[img, img1];
+    headImage = [UIImage imageNamed:_model.headImgUrl];
+    nickNameStr = _model.nickName;
+    sexStr = _model.sex == 1 ? @"男" : _model.sex == 2 ? @"女":@"未知";
+    locationStr = _model.location;
+    signatureStr = _model.signature;
+    NSMutableArray *img = [@[headImage, nickNameStr] mutableCopy];
+    NSMutableArray *img1 = [@[sexStr, locationStr, signatureStr] mutableCopy];
+    titleInfoArray = [@[img, img1] mutableCopy];
     [myTableView reloadData];
 }
 
@@ -118,11 +136,21 @@
     }
     else if (indexPath.section == 0 && indexPath.row == 1) {
         // 修改昵称
-        //[self presentViewController:[[ModifyViewController alloc] init] animated:YES completion:nil];
-        [self.navigationController pushViewController:[[ModifyViewController alloc] init] animated:YES];
+        ModifyViewController *nickNameVC = [[ModifyViewController alloc] init];
+        nickNameVC.nickName = titleInfoArray[indexPath.section][indexPath.row];
+        nickNameVC.nameStrBlock = ^(NSString *nickName){
+            [self reloadTableViewWithSection:0 row:1 object:nickName];
+        };
+        [self.navigationController pushViewController:nickNameVC animated:YES];
     }
     else if (indexPath.section == 1 && indexPath.row == 2) {
         // 修改个性签名
+        ModifySignatureViewController *signVC = [[ModifySignatureViewController alloc] init];
+        signVC.signatureStr = titleInfoArray[indexPath.section][indexPath.row];
+        signVC.signStrBlock = ^(NSString *signStr){
+            [self reloadTableViewWithSection:1 row:2 object:signStr];
+        };
+        [self.navigationController pushViewController:signVC animated:YES];
     }
     else{
         // Todo:
@@ -161,8 +189,16 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     // 原始图片UIImagePickerControllerOriginalImage
     // 编辑图片UIImagePickerControllerEditImage
-    //imageView.image = info [UIImagePickerControllerEditedImage];
+    UIImage *image = info [UIImagePickerControllerEditedImage];
+    [self reloadTableViewWithSection:0 row:0 object:image];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) reloadTableViewWithSection:(NSUInteger) section row:(NSUInteger) row object:(id) object{
+    NSMutableArray *array = titleInfoArray[section];
+    [array replaceObjectAtIndex:row withObject:object];
+    [titleInfoArray replaceObjectAtIndex:section withObject:array];
+    [myTableView reloadData];
 }
 
 #pragma mark --------------- UITableViewDelegate ----------------

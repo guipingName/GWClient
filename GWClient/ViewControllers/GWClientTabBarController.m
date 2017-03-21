@@ -46,12 +46,6 @@
 - (UINavigationController *)addNavigationItemForViewController:(UIViewController *)viewController
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    
-//    viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
-//                                                                                                     target:self
-//                                                                                                     action:@selector(pushSearchViewController)];
-//    
-    
     return navigationController;
 }
 

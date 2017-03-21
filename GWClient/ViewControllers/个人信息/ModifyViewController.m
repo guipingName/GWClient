@@ -24,8 +24,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"昵称";
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(done)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
 
     
     // 创建用户名
@@ -34,13 +34,17 @@
     //tfUserName.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:tfNickname];
     tfNickname.delegate = self;
+    tfNickname.text = _nickName;
     tfNickname.placeholder = @"设置昵称";
     [tfNickname becomeFirstResponder];
     
     
 }
 
-- (void) back{
+- (void) done{
+    if (_nameStrBlock) {
+        _nameStrBlock(tfNickname.text);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

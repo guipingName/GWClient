@@ -27,21 +27,21 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+//    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     
     myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
     [self.view addSubview:myTableView];
     myTableView.backgroundColor = [UIColor clearColor];
     myTableView.delegate = self;
     myTableView.dataSource = self;
-    myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    myTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     //[myTableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:SETTINGCELL];
     //[myTableView registerClass:[SetLanguageTableViewCell class] forCellReuseIdentifier:LANGUAGECELL];
     myTableView.rowHeight =  50;
     
-    dataArray = @[@"清理缓存"];
-    detailArray = @[[NSString stringWithFormat:@"%.2fMB",[self filePath]]];
+    dataArray = @[@"清理缓存", @"关于我们"];
+    detailArray = @[[NSString stringWithFormat:@"%.2fMB",[self filePath]],@""];
 }
 
 - (void) back{
@@ -86,7 +86,7 @@
 }
 
 - (void)clearCachSuccess{
-    detailArray = @[[NSString stringWithFormat:@"%.2fMB",[self filePath]]];
+    detailArray = @[[NSString stringWithFormat:@"%.2fMB",[self filePath]], @""];
     [myTableView reloadData];
 }
 

@@ -14,7 +14,7 @@
 
 #import "UIImage+RTTint.h"
 #import "Define.h"
-
+#import "UserInfoModel.h"
 
 
 

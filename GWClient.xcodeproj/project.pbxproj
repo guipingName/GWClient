@@ -8,14 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		1FB87A4F85601591022BDD0A /* libPods-GWClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD66F9DE551711E1FFEB575 /* libPods-GWClient.a */; };
+		3817DBFD1E80CAA000FC72C1 /* ModifySignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBF81E80CAA000FC72C1 /* ModifySignatureViewController.m */; };
+		3817DBFE1E80CAA000FC72C1 /* ModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFA1E80CAA000FC72C1 /* ModifyViewController.m */; };
+		3817DBFF1E80CAA000FC72C1 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFC1E80CAA000FC72C1 /* UserInfoViewController.m */; };
 		383CBFFF1E7F68A000C62B29 /* UILabel+GPAligment.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CBFFE1E7F68A000C62B29 /* UILabel+GPAligment.m */; };
 		383CC0031E7F6DCE00C62B29 /* LeftVCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CC0021E7F6DCE00C62B29 /* LeftVCTableViewCell.m */; };
 		383CC0051E7F702D00C62B29 /* 箭头@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 383CC0041E7F702D00C62B29 /* 箭头@3x.png */; };
 		383CC0081E7F713400C62B29 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CC0071E7F713400C62B29 /* SettingViewController.m */; };
 		383CC00B1E7F79C500C62B29 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CC00A1E7F79C500C62B29 /* UserInfoModel.m */; };
-		383CC0611E7FB2DC00C62B29 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CC0601E7FB2DC00C62B29 /* UserInfoViewController.m */; };
 		383CC0651E7FB52700C62B29 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CC0641E7FB52700C62B29 /* UserInfoTableViewCell.m */; };
-		383CC0681E7FD13900C62B29 /* ModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CC0671E7FD13900C62B29 /* ModifyViewController.m */; };
 		38C7F03E1E7FF0BA00B1DBA8 /* tabbar_contacts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F02E1E7FF0BA00B1DBA8 /* tabbar_contacts@2x.png */; };
 		38C7F03F1E7FF0BA00B1DBA8 /* tabbar_contacts@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F02F1E7FF0BA00B1DBA8 /* tabbar_contacts@3x.png */; };
 		38C7F0401E7FF0BA00B1DBA8 /* tabbar_contactsHL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F0301E7FF0BA00B1DBA8 /* tabbar_contactsHL@2x.png */; };
@@ -135,6 +136,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3817DBF71E80CAA000FC72C1 /* ModifySignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifySignatureViewController.h; sourceTree = "<group>"; };
+		3817DBF81E80CAA000FC72C1 /* ModifySignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifySignatureViewController.m; sourceTree = "<group>"; };
+		3817DBF91E80CAA000FC72C1 /* ModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyViewController.h; sourceTree = "<group>"; };
+		3817DBFA1E80CAA000FC72C1 /* ModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyViewController.m; sourceTree = "<group>"; };
+		3817DBFB1E80CAA000FC72C1 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		3817DBFC1E80CAA000FC72C1 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		383CBFFD1E7F68A000C62B29 /* UILabel+GPAligment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+GPAligment.h"; sourceTree = "<group>"; };
 		383CBFFE1E7F68A000C62B29 /* UILabel+GPAligment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+GPAligment.m"; sourceTree = "<group>"; };
 		383CC0011E7F6DCE00C62B29 /* LeftVCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftVCTableViewCell.h; sourceTree = "<group>"; };
@@ -145,12 +152,8 @@
 		383CC0091E7F79C500C62B29 /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
 		383CC00A1E7F79C500C62B29 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		383CC0101E7F7F6300C62B29 /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
-		383CC05F1E7FB2DC00C62B29 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
-		383CC0601E7FB2DC00C62B29 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		383CC0631E7FB52700C62B29 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
 		383CC0641E7FB52700C62B29 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
-		383CC0661E7FD13900C62B29 /* ModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyViewController.h; sourceTree = "<group>"; };
-		383CC0671E7FD13900C62B29 /* ModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyViewController.m; sourceTree = "<group>"; };
 		38C7F02E1E7FF0BA00B1DBA8 /* tabbar_contacts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_contacts@2x.png"; sourceTree = "<group>"; };
 		38C7F02F1E7FF0BA00B1DBA8 /* tabbar_contacts@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_contacts@3x.png"; sourceTree = "<group>"; };
 		38C7F0301E7FF0BA00B1DBA8 /* tabbar_contactsHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_contactsHL@2x.png"; sourceTree = "<group>"; };
@@ -345,6 +348,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		3817DBF61E80CA1600FC72C1 /* 个人信息 */ = {
+			isa = PBXGroup;
+			children = (
+				3817DBFB1E80CAA000FC72C1 /* UserInfoViewController.h */,
+				3817DBFC1E80CAA000FC72C1 /* UserInfoViewController.m */,
+				3817DBF71E80CAA000FC72C1 /* ModifySignatureViewController.h */,
+				3817DBF81E80CAA000FC72C1 /* ModifySignatureViewController.m */,
+				3817DBF91E80CAA000FC72C1 /* ModifyViewController.h */,
+				3817DBFA1E80CAA000FC72C1 /* ModifyViewController.m */,
+			);
+			path = "个人信息";
+			sourceTree = "<group>";
+		};
 		383CC0001E7F6DAE00C62B29 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +375,7 @@
 		38DD07F91E7BD48F00388CAE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3817DBF61E80CA1600FC72C1 /* 个人信息 */,
 				38DD08EF1E7BD77D00388CAE /* LeftViewController.h */,
 				38DD08F01E7BD77D00388CAE /* LeftViewController.m */,
 				38C7F04F1E7FF92500B1DBA8 /* LoginViewController.h */,
@@ -373,10 +390,6 @@
 				38DD09421E7BE0F300388CAE /* NewsViewController.m */,
 				383CC0061E7F713400C62B29 /* SettingViewController.h */,
 				383CC0071E7F713400C62B29 /* SettingViewController.m */,
-				383CC05F1E7FB2DC00C62B29 /* UserInfoViewController.h */,
-				383CC0601E7FB2DC00C62B29 /* UserInfoViewController.m */,
-				383CC0661E7FD13900C62B29 /* ModifyViewController.h */,
-				383CC0671E7FD13900C62B29 /* ModifyViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1001,16 +1014,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				383CC0681E7FD13900C62B29 /* ModifyViewController.m in Sources */,
 				38DD08CA1E7BD63C00388CAE /* RHSocketProtobufEncoder.m in Sources */,
 				383CBFFF1E7F68A000C62B29 /* UILabel+GPAligment.m in Sources */,
 				38DD08DA1E7BD63C00388CAE /* RHSocketCallReply.m in Sources */,
 				38DD08C21E7BD63C00388CAE /* RHSocketChannel.m in Sources */,
 				38DD08D21E7BD63C00388CAE /* RHSocketStringDecoder.m in Sources */,
+				3817DBFF1E80CAA000FC72C1 /* UserInfoViewController.m in Sources */,
 				38DD08D91E7BD63C00388CAE /* RHConnectCallReply.m in Sources */,
 				38DD08CD1E7BD63C00388CAE /* RHSocketVariableLengthDecoder.m in Sources */,
 				38DD08EE1E7BD70A00388CAE /* UIViewController+MMDrawerController.m in Sources */,
 				38DD09471E7BE53900388CAE /* UIImage+RTTint.m in Sources */,
+				3817DBFE1E80CAA000FC72C1 /* ModifyViewController.m in Sources */,
 				38DD08C71E7BD63C00388CAE /* RHSocketZlibCompressionDecoder.m in Sources */,
 				383CC0651E7FB52700C62B29 /* UserInfoTableViewCell.m in Sources */,
 				38DD08CE1E7BD63C00388CAE /* RHSocketVariableLengthEncoder.m in Sources */,
@@ -1033,6 +1047,7 @@
 				38DD08F11E7BD77D00388CAE /* LeftViewController.m in Sources */,
 				38DD08CC1E7BD63C00388CAE /* RHSocketDelimiterEncoder.m in Sources */,
 				38DD09401E7BE0E300388CAE /* TransferListViewController.m in Sources */,
+				3817DBFD1E80CAA000FC72C1 /* ModifySignatureViewController.m in Sources */,
 				38DD09431E7BE0F300388CAE /* NewsViewController.m in Sources */,
 				383CC0031E7F6DCE00C62B29 /* LeftVCTableViewCell.m in Sources */,
 				38DD08D51E7BD63C00388CAE /* RHSocketPacketContext.m in Sources */,
@@ -1047,7 +1062,6 @@
 				38DD093A1E7BE00600388CAE /* GWClientTabBarController.m in Sources */,
 				38DD08D11E7BD63C00388CAE /* RHSocketJSONSerializationEncoder.m in Sources */,
 				38DD08E01E7BD63C00388CAE /* RHWebSocketConfig.m in Sources */,
-				383CC0611E7FB2DC00C62B29 /* UserInfoViewController.m in Sources */,
 				38DD08DD1E7BD63C00388CAE /* RHSocketRpcCmdDecoder.m in Sources */,
 				38DD08EC1E7BD70A00388CAE /* MMDrawerController.m in Sources */,
 				38DD08D71E7BD63C00388CAE /* RHSocketService.m in Sources */,

@@ -52,7 +52,7 @@
             ImvHeadIcon = [[UIImageView alloc]init];
             [self.contentView addSubview:ImvHeadIcon];
         }
-        ImvHeadIcon.image = [UIImage imageNamed:_subtitle];
+        ImvHeadIcon.image = _subtitle;
         ImvHeadIcon.frame = CGRectMake(self.bounds.size.width - imgW1 - (self.bounds.size.height - 10) - 3, 5, self.bounds.size.height - 10, self.bounds.size.height - 10);
         ImvHeadIcon.layer.cornerRadius = (self.bounds.size.height - 10) / 2;
         ImvHeadIcon.layer.borderWidth = 2;
