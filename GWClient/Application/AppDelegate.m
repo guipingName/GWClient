@@ -30,16 +30,8 @@
      */
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {
-        
-        // 解归档器
-        NSArray *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *dbPath = [[documentsPath firstObject] stringByAppendingPathComponent:@"userInfo"];
-        NSData *data = [NSData dataWithContentsOfFile:dbPath];
-        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-        UserInfoModel *model = [unarchiver decodeObjectForKey:@"userInfo"];
-
         LeftViewController *leftVC = [[LeftViewController alloc] init];
-        leftVC.model = model;
+        //leftVC.model = [Utils aDecoder];;
         MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
         
         [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
@@ -49,7 +41,8 @@
     }
     else{
         LoginViewController *loginVC = [[LoginViewController alloc] init];
-        self.window.rootViewController = loginVC;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        self.window.rootViewController = nav;
     }
     return YES;
 }

@@ -36,13 +36,23 @@
     [self.view addSubview:imageView];
     
     [self creatViews];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self infomation];
 }
 
-
 - (void) infomation{
-    ImvUserhead.image = [UIImage imageNamed:_model.headImgUrl];
-    lbNickName.text = _model.nickName;
+    UserInfoModel *model = [Utils aDecoder];
+    if (![UIImage imageNamed:model.headImgUrl]) {
+        ImvUserhead.image = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
+    }
+    else{
+        ImvUserhead.image = [UIImage imageNamed:model.headImgUrl];
+    }
+    lbNickName.text = model.nickName;
     
     NSArray *systemInfo = @[@"个人信息", @"设置"];
     NSArray *WiFi = @[@"注销登录"];
@@ -99,7 +109,6 @@
             // 修改用户信息
             UserInfoViewController *userInfoVC = [[UserInfoViewController alloc] init];
             userInfoVC.hidesBottomBarWhenPushed = YES;
-            userInfoVC.model = _model;
             [self.mm_drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
                 UITabBarController *cen = (UITabBarController *)self.mm_drawerController.centerViewController;
                 UINavigationController *nav = [cen.viewControllers firstObject];
@@ -124,7 +133,9 @@
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setBool:NO forKey:IS_HAS_LOGIN];
         [userDef synchronize];
-        self.view.window.rootViewController = [[LoginViewController alloc] init];
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        self.view.window.rootViewController = nav;
     }
 }
 

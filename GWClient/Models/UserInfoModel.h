@@ -19,6 +19,7 @@
 
 /**用户头像Url*/
 @property (nonatomic, copy) NSString *headImgUrl;
+//@property (nonatomic, strong) UIImage *headImg;
 
 /**年龄(默认0)*/
 @property (nonatomic, assign) NSUInteger age;
@@ -28,7 +29,6 @@
 
 /**地区*/
 @property (nonatomic, copy) NSString *location;
-
 
 /**个性签名(默认:您还没设置个性签名)*/
 @property (nonatomic, copy) NSString *signature;

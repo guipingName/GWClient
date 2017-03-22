@@ -12,7 +12,7 @@
 {
     UITableView *myTableView;
     NSArray *dataArray;
-    NSArray *detailArray;
+    NSMutableArray *detailArray;
 }
 
 @end
@@ -40,8 +40,9 @@
     //[myTableView registerClass:[SetLanguageTableViewCell class] forCellReuseIdentifier:LANGUAGECELL];
     myTableView.rowHeight =  50;
     
-    dataArray = @[@"清理缓存", @"关于我们"];
-    detailArray = @[[NSString stringWithFormat:@"%.2fMB",[self filePath]],@""];
+    dataArray = @[@"清理缓存", @"关于我们", @"意见反馈"];
+    NSString *str = [NSString stringWithFormat:@"%.2fMB",[self filePath]];
+    detailArray = [@[str] mutableCopy];
 }
 
 - (void) back{
@@ -61,7 +62,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
     }
     cell.textLabel.text = dataArray[indexPath.row];
-    cell.detailTextLabel.text = detailArray[indexPath.row];
+    if (indexPath.row == 0) {
+        cell.detailTextLabel.text = detailArray[indexPath.row];
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
     return cell;
     
 }
@@ -86,8 +92,12 @@
 }
 
 - (void)clearCachSuccess{
-    detailArray = @[[NSString stringWithFormat:@"%.2fMB",[self filePath]], @""];
-    [myTableView reloadData];
+    NSString *str = [NSString stringWithFormat:@"%.2fMB",[self filePath]];
+    [detailArray replaceObjectAtIndex:0 withObject:str];
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:1 inSection:0];
+    NSArray *indexArray=[NSArray arrayWithObject:indexPath];
+    [myTableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationAutomatic];
+    [Utils hintView:self.view message:@"清理完成"];
 }
 
 - (float)filePath {

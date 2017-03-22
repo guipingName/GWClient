@@ -24,6 +24,7 @@
     NSString *sexStr;
     NSString *locationStr;
     NSString *signatureStr;
+    UserInfoModel *model;
 }
 
 
@@ -50,7 +51,7 @@
     myTableView.delegate = self;
     myTableView.showsVerticalScrollIndicator = NO;
     myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [myTableView registerClass:[UserInfoTableViewCell class] forCellReuseIdentifier:@"UserInfoTableViewCell"];
+    [myTableView registerClass:[UserInfoTableViewCell class] forCellReuseIdentifier:USERINFOCELL];
     
     [self infomation];
 }
@@ -60,17 +61,21 @@
 }
 
 - (void) infomation{
-    if (!_model) {
+    model = [Utils aDecoder];
+    if (!model) {
         return;
     }
     NSArray *systemInfo = @[@"头像", @"昵称"];
     NSArray *WiFi = @[@"性别", @"地区", @"个性签名"];
     titleArray = @[systemInfo, WiFi];
-    headImage = [UIImage imageNamed:_model.headImgUrl];
-    nickNameStr = _model.nickName;
-    sexStr = _model.sex == 1 ? @"男" : _model.sex == 2 ? @"女":@"未知";
-    locationStr = _model.location;
-    signatureStr = _model.signature;
+    headImage = [UIImage imageNamed:model.headImgUrl];
+    if (!headImage) {
+        headImage = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
+    }
+    nickNameStr = model.nickName;
+    sexStr = model.sex == 1 ? @"男" : model.sex == 2 ? @"女":@"未知";
+    locationStr = model.location;
+    signatureStr = model.signature;
     NSMutableArray *img = [@[headImage, nickNameStr] mutableCopy];
     NSMutableArray *img1 = [@[sexStr, locationStr, signatureStr] mutableCopy];
     titleInfoArray = [@[img, img1] mutableCopy];
@@ -117,7 +122,7 @@
 
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UserInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserInfoTableViewCell" forIndexPath:indexPath];
+    UserInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:USERINFOCELL forIndexPath:indexPath];
     if (indexPath.section == 0 && indexPath.row == 0) {
         cell.isHead = YES;
     }
@@ -139,6 +144,8 @@
         ModifyViewController *nickNameVC = [[ModifyViewController alloc] init];
         nickNameVC.nickName = titleInfoArray[indexPath.section][indexPath.row];
         nickNameVC.nameStrBlock = ^(NSString *nickName){
+            model.nickName = nickName;
+            [Utils aCoder:model];
             [self reloadTableViewWithSection:0 row:1 object:nickName];
         };
         [self.navigationController pushViewController:nickNameVC animated:YES];
@@ -148,6 +155,8 @@
         ModifySignatureViewController *signVC = [[ModifySignatureViewController alloc] init];
         signVC.signatureStr = titleInfoArray[indexPath.section][indexPath.row];
         signVC.signStrBlock = ^(NSString *signStr){
+            model.signature = signStr;
+            [Utils aCoder:model];
             [self reloadTableViewWithSection:1 row:2 object:signStr];
         };
         [self.navigationController pushViewController:signVC animated:YES];
@@ -190,15 +199,45 @@
     // 原始图片UIImagePickerControllerOriginalImage
     // 编辑图片UIImagePickerControllerEditImage
     UIImage *image = info [UIImagePickerControllerEditedImage];
-    [self reloadTableViewWithSection:0 row:0 object:image];
+    //NSData *data = UIImagePNGRepresentation(image);
+    UIImage *im2 = [self imageWithImage:image scaledToSize:CGSizeMake(60, 60)];
+    NSData *data1 = UIImagePNGRepresentation(im2);
+    
+    //NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    //NSLog(@"str: %@", str);
+    NSDictionary *params = @{@"iconImage":data1,
+                             @"token":@"123"
+                             };
+    [Utils GETaa:14 params:params succeed:^(id response) {
+        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+        NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
+    } fail:^(NSError * error) {
+        NSLog(@"%@",error.localizedDescription);
+    }];
+    
+    [self reloadTableViewWithSection:0 row:0 object:im2];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIImage *)imageWithImage:(UIImage*)image
+               scaledToSize:(CGSize)newSize{
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+    
 }
 
 - (void) reloadTableViewWithSection:(NSUInteger) section row:(NSUInteger) row object:(id) object{
     NSMutableArray *array = titleInfoArray[section];
     [array replaceObjectAtIndex:row withObject:object];
     [titleInfoArray replaceObjectAtIndex:section withObject:array];
-    [myTableView reloadData];
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:row inSection:section];
+    NSArray *indexArray=[NSArray arrayWithObject:indexPath];
+    [myTableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark --------------- UITableViewDelegate ----------------

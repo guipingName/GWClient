@@ -10,6 +10,4 @@
 
 @interface LeftViewController : UIViewController
 
-@property (nonatomic, strong) UserInfoModel *model;
-
 @end

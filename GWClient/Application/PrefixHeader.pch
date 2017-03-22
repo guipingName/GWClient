@@ -15,7 +15,8 @@
 #import "UIImage+RTTint.h"
 #import "Define.h"
 #import "UserInfoModel.h"
-
+#import "Utils.h"
+#import "UILabel+GPAligment.h"
 
 
 #ifndef W_H_
@@ -27,7 +28,7 @@
 
 #define UICOLOR_RGBA(r, g, b, a) [UIColor colorWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:a]
 #define THEME_COLOR                        UICOLOR_RGBA(250, 126, 20, 1.0);
-//#define BTN_ENABLED_BGCOLOR                UICOLOR_RGBA(130, 131, 130, 1.0);
+#define BTN_ENABLED_BGCOLOR                UICOLOR_RGBA(130, 131, 130, 1.0);
 
 //#define CURRENT_LANGUAGE(key) [ChangeLanguage getContentWithKey:key]
 //

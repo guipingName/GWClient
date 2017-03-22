@@ -12,8 +12,14 @@
 
 typedef NS_ENUM(NSUInteger, ApiType) {
     ApiTypeLoginApi = 11,   // 登录
-    ApiTypeRegister = 12    // 注册
+    ApiTypeGetverifiyCode = 12,    // yanzheng
+    ApiTypeRegister = 13,    // 注册
+    ApiTypeHeadImage = 14    // 修改用户头像
 };
+
+
+#define USERINFOCELL        @"UserInfoTableViewCell"
+#define DEFAULT_HEAD_IMAGENAME  @"bimar模式大火"
 
 
 #endif /* Define_h */
