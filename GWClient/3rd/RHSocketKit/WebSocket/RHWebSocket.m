@@ -143,4 +143,8 @@
     }//@synchronized
 }
 
+
+-(void)didReceiveDataDic:(NSDictionary *)dataDic tag:(long)tag{
+    
+}
 @end

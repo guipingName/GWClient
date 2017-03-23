@@ -146,15 +146,17 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"获取验证码--返回的Json串:\n%@", tempStr);
-        if ([response[@"success"] boolValue]) {
-            NSDictionary *tempD = response[@"result"];
-            confirmStr = [tempD[@"verifiyCode"] stringValue];
-            lbConfirm.text = [NSString stringWithFormat:@"验证码: %@ ", confirmStr];
-            [lbConfirm setAlignmentLeftAndRight];
-            lbConfirm.hidden = NO;
-        }
-        else{
-            [Utils hintView:self.view message:response[@"message"]];
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            if ([response[@"success"] boolValue]) {
+                NSDictionary *tempD = response[@"result"];
+                confirmStr = [tempD[@"verifiyCode"] stringValue];
+                lbConfirm.text = [NSString stringWithFormat:@"验证码: %@ ", confirmStr];
+                [lbConfirm setAlignmentLeftAndRight];
+                lbConfirm.hidden = NO;
+            }
+            else{
+                [Utils hintView:self.view message:response[@"message"]];
+            }
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
@@ -174,17 +176,19 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"注册--返回的Json串:\n%@", tempStr);
-        [Utils hintView:self.view message:response[@"message"]];
-        if ([response[@"success"] boolValue]) {
-            UserLogin *model = [[UserLogin alloc] init];
-            model.email = tfEmail.text;
-            model.password = tfPassword.text;
-            if (_loginBlock) {
-                _loginBlock(model);
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            [Utils hintView:self.view message:response[@"message"]];
+            if ([response[@"success"] boolValue]) {
+                UserLogin *model = [[UserLogin alloc] init];
+                model.email = tfEmail.text;
+                model.password = tfPassword.text;
+                if (_loginBlock) {
+                    _loginBlock(model);
+                }
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
             }
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);

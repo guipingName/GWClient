@@ -95,12 +95,12 @@
 -(void)ClipViewController:(PhotoEdittViewController *)clipViewController FinishClipImage:(UIImage *)editImage {
     
     [clipViewController dismissViewControllerAnimated:YES completion:^{
-        NSData *data = UIImagePNGRepresentation(editImage);
-        NSLog(@"data1.length:%lu", (unsigned long)data.length);
-        UIImage *im2 = [self imageWithImage:editImage scaledToSize:CGSizeMake(40, 40)];
-        NSData *data1 = UIImagePNGRepresentation(im2);
-        NSLog(@"data2.length:%lu", (unsigned long)data1.length);
-        _imageView.image = editImage;
+        //NSData *data = UIImagePNGRepresentation(editImage);
+        //NSLog(@"data1.length:%lu", (unsigned long)data.length);
+        //UIImage *im2 = [self imageWithImage:editImage scaledToSize:CGSizeMake(40, 40)];
+        //NSData *data1 = UIImagePNGRepresentation(im2);
+        //NSLog(@"data2.length:%lu", (unsigned long)data1.length);
+        
         NSDictionary *params = @{@"userId":@"1",
                                  @"token":@"123",
                                  @"uploadType":@(1),
@@ -110,6 +110,9 @@
             NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
             NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
             NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
+            if ([response[@"success"] boolValue]) {
+                _imageView.image = editImage;
+            }
         } fail:^(NSError * error) {
             NSLog(@"%@",error.localizedDescription);
         }];

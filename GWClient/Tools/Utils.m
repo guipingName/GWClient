@@ -74,6 +74,7 @@
 
 +(void)GET:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure{
     NSString *host = @"10.134.20.1";
+    //NSString *host = @"127.0.0.1";
     int port = 20173;
     
     RHSocketVariableLengthEncoder *encoder = [[RHSocketVariableLengthEncoder alloc] init];

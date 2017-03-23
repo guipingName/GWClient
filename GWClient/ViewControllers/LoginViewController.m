@@ -55,31 +55,34 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"登录--返回的Json串:\n%@", tempStr);
-        [Utils hintView:self.view message:response[@"message"]];
-        if ([response[@"success"] boolValue]) {
-            NSDictionary *dic = response[@"result"];
-            UserInfoModel *model = [[UserInfoModel alloc] init];
-            model.userId = [dic[@"userId"] integerValue];
-            model.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
-            model.headImgUrl = dic[@"headImgUrl"];
-            model.age = [dic[@"age"] integerValue];
-            model.sex = [dic[@"gender"] integerValue];
-            model.location = dic[@"location"];
-            model.signature = dic[@"signature"];
-            //
-            // 归档
-            [Utils aCoder:model];
-            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-            [userDef setBool:YES forKey:IS_HAS_LOGIN];
-            [userDef synchronize];
-            LeftViewController *leftVC = [[LeftViewController alloc] init];
-            MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
-            [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-            [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-            [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.view.window.rootViewController = drawerController;
-            });
+        
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            [Utils hintView:self.view message:response[@"message"]];
+            if ([response[@"success"] boolValue]) {
+                NSDictionary *dic = response[@"result"];
+                UserInfoModel *model = [[UserInfoModel alloc] init];
+                model.userId = [dic[@"userId"] integerValue];
+                model.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
+                model.headImgUrl = dic[@"headImgUrl"];
+                model.age = [dic[@"age"] integerValue];
+                model.sex = [dic[@"gender"] integerValue];
+                model.location = dic[@"location"];
+                model.signature = dic[@"signature"];
+                //
+                // 归档
+                [Utils aCoder:model];
+                NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+                [userDef setBool:YES forKey:IS_HAS_LOGIN];
+                [userDef synchronize];
+                LeftViewController *leftVC = [[LeftViewController alloc] init];
+                MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
+                [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+                [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+                [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    self.view.window.rootViewController = drawerController;
+                });
+            }
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
