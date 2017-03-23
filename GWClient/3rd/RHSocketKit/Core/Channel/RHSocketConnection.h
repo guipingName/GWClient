@@ -32,10 +32,10 @@
 /**
  *  接收到从socket服务器推送下来的下行数据回调方法
  *
- *  @param data 推送过来的下行数据
+ *  @param dataDic 推送过来的下行数据包
  *  @param tag  数据tag标记，和readDataWithTimeout:tag/writeData:timeout:tag:中的tag对应。
  */
-- (void)didReceiveData:(NSData *)data tag:(long)tag;
+- (void)didReceiveDataDic:(NSDictionary *)dataDic tag:(long)tag;
 
 @end
 

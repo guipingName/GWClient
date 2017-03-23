@@ -12,6 +12,8 @@
 @interface RHSocketConnection () <GCDAsyncSocketDelegate>
 {
     GCDAsyncSocket *_asyncSocket;
+    NSDictionary *currentPacketHead;
+    NSInteger reqestCommand;
 }
 
 @end
@@ -57,7 +59,7 @@
 
 - (void)readDataWithTimeout:(NSTimeInterval)timeout tag:(long)tag
 {
-    [_asyncSocket readDataWithTimeout:timeout tag:tag];
+    [_asyncSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:timeout tag:tag];
 }
 
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
@@ -86,9 +88,27 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    RHSocketLog(@"[RHSocketConnection] didReadData length: %lu, tag: %ld", (unsigned long)data.length, tag);
-    if (_delegate && [_delegate respondsToSelector:@selector(didReceiveData:tag:)]) {
-        [_delegate didReceiveData:data tag:tag];
+    if (_delegate && [_delegate respondsToSelector:@selector(didReceiveDataDic:tag:)]) {
+        if (!currentPacketHead) {
+            currentPacketHead = [NSJSONSerialization
+                                 JSONObjectWithData:data
+                                 options:NSJSONReadingMutableContainers
+                                 error:nil];
+            if (!currentPacketHead) {
+                NSLog(@"error：当前数据包的头为空");
+                return;
+            }
+            NSUInteger packetLength = [currentPacketHead[@"len"] integerValue];
+            reqestCommand = [currentPacketHead[@"command"] integerValue];
+            NSLog(@"收到数据包传输长度:%lu",(unsigned long)packetLength);
+            [sock readDataToLength:packetLength withTimeout:-1 tag:0];
+            return;
+        }
+        NSDictionary *dic = @{@"data":data,
+                              @"command":[NSNumber numberWithInteger:reqestCommand]
+                              };
+        [_delegate didReceiveDataDic:dic tag:tag];
+        currentPacketHead = nil;
     }
     [sock readDataWithTimeout:-1 tag:tag];
 }
@@ -96,7 +116,8 @@
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
     RHSocketLog(@"[RHSocketConnection] didWriteDataWithTag: %ld", tag);
-    [sock readDataWithTimeout:-1 tag:tag];
+    [_asyncSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:tag];
+
 }
 
 @end

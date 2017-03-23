@@ -815,7 +815,7 @@
 				TargetAttributes = {
 					38E7004F1E7A895600336BDB = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 3Q2MJ36ZMT;
+						DevelopmentTeam = BK6Q9RTCQQ;
 						ProvisioningStyle = Automatic;
 					};
 					38E700681E7A895600336BDB = {
@@ -1161,12 +1161,12 @@
 			baseConfigurationReference = 85EAFB1B0D449F7E161A03DE /* Pods-GWClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 3Q2MJ36ZMT;
+				DEVELOPMENT_TEAM = BK6Q9RTCQQ;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GWClient/Application/PrefixHeader.pch";
 				INFOPLIST_FILE = GWClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.galaxyWind.warmwind;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxyWind.warmwind123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1176,12 +1176,12 @@
 			baseConfigurationReference = 7B024AE4A39E839699E31544 /* Pods-GWClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 3Q2MJ36ZMT;
+				DEVELOPMENT_TEAM = BK6Q9RTCQQ;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GWClient/Application/PrefixHeader.pch";
 				INFOPLIST_FILE = GWClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.galaxyWind.warmwind;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxyWind.warmwind123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

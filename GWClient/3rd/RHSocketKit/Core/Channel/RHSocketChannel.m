@@ -90,8 +90,10 @@
     [_delegate channelOpened:self host:host port:port];
 }
 
-- (void)didReceiveData:(NSData *)data tag:(long)tag
+- (void)didReceiveDataDic:(NSDictionary *)dataDic tag:(long)tag
 {
+    NSData *data = [dataDic valueForKey:@"data"];
+    NSInteger command = [[dataDic valueForKey:@"command"] integerValue];
     if (data.length < 1) {
         return;
     }
@@ -100,24 +102,11 @@
         RHSocketLog(@"RHSocket Decoder should not be nil ...");
         return;
     }
-    
     @synchronized(self) {
         [_receiveDataBuffer appendData:data];
-        
         _downstreamContext.object = _receiveDataBuffer;
-        NSInteger decodedLength = [_decoder decode:_downstreamContext output:self];
-        
-        if (decodedLength < 0) {
-            [RHSocketException raiseWithReason:@"Decode Failed ..."];
-            [self closeConnection];
-            return;
-        }//if
-        
-        if (decodedLength > 0) {
-            NSUInteger remainLength = _receiveDataBuffer.length - decodedLength;
-            NSData *remainData = [_receiveDataBuffer subdataWithRange:NSMakeRange(decodedLength, remainLength)];
-            [_receiveDataBuffer setData:remainData];
-        }//if
+        _downstreamContext.pid = command;
+        [_decoder decode:_downstreamContext output:self];
     }//@synchronized
 }
 
