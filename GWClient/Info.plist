@@ -7,7 +7,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>是否允许拍照</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>zh_CN</string>
 	<key>CFBundleDisplayName</key>
 	<string>客户端</string>
 	<key>CFBundleExecutable</key>

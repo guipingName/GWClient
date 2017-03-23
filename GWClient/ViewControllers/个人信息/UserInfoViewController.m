@@ -10,9 +10,10 @@
 #import "UserInfoTableViewCell.h"
 #import "ModifyViewController.h"
 #import "ModifySignatureViewController.h"
+#import "ModifyHeadIconViewController.h"
 
 
-@interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *myTableView;
     NSArray *titleArray;
@@ -37,11 +38,11 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"个人信息";
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
     
 //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
 //    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-    
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
@@ -137,7 +138,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 && indexPath.row == 0) {
         // 修改头像
-        [self modifyPhoto];
+        ModifyHeadIconViewController *nickNameVC = [[ModifyHeadIconViewController alloc] init];
+        nickNameVC.image = titleInfoArray[indexPath.section][indexPath.row];
+        nickNameVC.imageBlock = ^(UIImage *image){
+            [self reloadTableViewWithSection:0 row:0 object:image];
+        };
+        [self.navigationController pushViewController:nickNameVC animated:YES];
     }
     else if (indexPath.section == 0 && indexPath.row == 1) {
         // 修改昵称
@@ -166,71 +172,6 @@
     }
 }
 
-- (void) modifyPhoto{
-    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-    ipc.allowsEditing = YES;
-    ipc.delegate = self;
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:ipc animated:YES completion:nil];
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Device has no camera" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-        else {
-            ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-            ipc.mediaTypes =[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-            [self presentViewController:ipc animated:YES completion:nil];
-        }
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
-    
-}
-
-
-// 选中照片的回调方法
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    // 原始图片UIImagePickerControllerOriginalImage
-    // 编辑图片UIImagePickerControllerEditImage
-    UIImage *image = info [UIImagePickerControllerEditedImage];
-    //NSData *data = UIImagePNGRepresentation(image);
-    UIImage *im2 = [self imageWithImage:image scaledToSize:CGSizeMake(60, 60)];
-    NSData *data1 = UIImagePNGRepresentation(im2);
-    
-    //NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    //NSLog(@"str: %@", str);
-    NSDictionary *params = @{@"iconImage":data1,
-                             @"token":@"123"
-                             };
-    [Utils GETaa:14 params:params succeed:^(id response) {
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
-    } fail:^(NSError * error) {
-        NSLog(@"%@",error.localizedDescription);
-    }];
-    
-    [self reloadTableViewWithSection:0 row:0 object:im2];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (UIImage *)imageWithImage:(UIImage*)image
-               scaledToSize:(CGSize)newSize{
-    UIGraphicsBeginImageContext(newSize);
-    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-    
-}
-
 - (void) reloadTableViewWithSection:(NSUInteger) section row:(NSUInteger) row object:(id) object{
     NSMutableArray *array = titleInfoArray[section];
     [array replaceObjectAtIndex:row withObject:object];
@@ -239,8 +180,6 @@
     NSArray *indexArray=[NSArray arrayWithObject:indexPath];
     [myTableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationAutomatic];
 }
-
-#pragma mark --------------- UITableViewDelegate ----------------
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

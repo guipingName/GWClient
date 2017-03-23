@@ -19,7 +19,6 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _maxFrameSize = 65536;
         _countOfLengthByte = 2;
         _requestCommandLength = 1;
         _reverseOfLengthByte = YES;
@@ -42,12 +41,7 @@
     while (downstreamData && downstreamData.length - headIndex > _countOfLengthByte) {
         NSData *lenData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _countOfLengthByte)];
         //长度字节数据，可能存在高低位互换，通过数值转换工具处理
-        NSUInteger frameLen = (NSUInteger)[RHSocketUtils valueFromBytes:lenData reverse:_reverseOfLengthByte];
-        if (frameLen >= _maxFrameSize - _countOfLengthByte) {
-            [RHSocketException raiseWithReason:@"[Decode] Too Long Frame ..."];
-            return -1;
-        }//
-        
+        NSUInteger frameLen = (NSUInteger)[RHSocketUtils valueFromBytes:lenData];
         //剩余数据，不是完整的数据包，则break继续读取等待
         if (downstreamData.length - headIndex < _countOfLengthByte + _requestCommandLength+ frameLen) {
             break;

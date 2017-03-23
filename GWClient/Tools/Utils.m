@@ -17,6 +17,9 @@
 #import "RHSocketVariableLengthEncoder.h"
 #import "RHSocketVariableLengthDecoder.h"
 #import "RHSocketChannelProxy.h"
+#import "GWImagesDecoder.h"
+#import "GWImagesEncoder.h"
+#import "EXTScope.h"
 
 //#import "RHSocketBase64Encoder.h"
 //#import "RHSocketBase64Decoder.h"
@@ -29,7 +32,6 @@
 //#import "RHSocketConfig.h"
 //#import "RHSocketService.h"
 //#import "RHConnectCallReply.h"
-//#import "EXTScope.h"
 //#import "RHSocketRpcCmdEncoder.h"
 //#import "RHSocketRpcCmdDecoder.h"
 //#import "RHSocketUtils.h"
@@ -40,18 +42,24 @@
 +(void)GETaa:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure{
     NSString *host = @"10.134.20.1";
     int port = 20173;
-    
     RHSocketVariableLengthEncoder *encoder = [[RHSocketVariableLengthEncoder alloc] init];
+    GWImagesEncoder *imageEncoder = [[GWImagesEncoder alloc] init];
+    imageEncoder.nextEncoder = encoder;
     
+    RHSocketJSONSerializationDecoder *jsonDecoder = [[RHSocketJSONSerializationDecoder alloc] init];
+    RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
+    stringDecoder.nextDecoder = jsonDecoder;
     RHSocketVariableLengthDecoder *decoder = [[RHSocketVariableLengthDecoder alloc] init];
-    [RHSocketChannelProxy sharedInstance].encoder = encoder;
+    decoder.nextDecoder = stringDecoder;
+    
+    [RHSocketChannelProxy sharedInstance].encoder = imageEncoder;
     [RHSocketChannelProxy sharedInstance].decoder = decoder;
     RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
     connect.host = host;
     connect.port = port;
-    //@weakify(self);
+    @weakify(self);
     [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
-        //@strongify(self);
+        @strongify(self);
         [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:^(id response) {
             success(response);
         } fail:^(NSError *error) {
@@ -83,9 +91,9 @@
     RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
     connect.host = host;
     connect.port = port;
-    //@weakify(self);
+    @weakify(self);
     [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
-        //@strongify(self);
+        @strongify(self);
         [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:^(id response) {
             success(response);
         } fail:^(NSError *error) {

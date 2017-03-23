@@ -35,7 +35,7 @@
     }
     lbLeft.text = title;
     CGRect titleR = LABEL_RECT(lbLeft.text, 0, 0, 1, 17);
-    lbLeft.frame = CGRectMake(5, (CGRectGetHeight(self.frame) - titleR.size.height) / 2, titleR.size.width, titleR.size.height);
+    lbLeft.frame = CGRectMake(20, (CGRectGetHeight(self.frame) - titleR.size.height) / 2, titleR.size.width, titleR.size.height);
     
     if (!rightImgView) {
         rightImgView = [[UIImageView alloc]init];
@@ -54,10 +54,10 @@
         }
         ImvHeadIcon.image = _subtitle;
         ImvHeadIcon.frame = CGRectMake(self.bounds.size.width - imgW1 - (self.bounds.size.height - 10) - 3, 5, self.bounds.size.height - 10, self.bounds.size.height - 10);
-        ImvHeadIcon.layer.cornerRadius = (self.bounds.size.height - 10) / 2;
-        ImvHeadIcon.layer.borderWidth = 2;
-        ImvHeadIcon.layer.borderColor = UICOLOR_RGBA(250, 126, 20, 1.0).CGColor;
-        ImvHeadIcon.layer.masksToBounds = YES;
+//        ImvHeadIcon.layer.cornerRadius = (self.bounds.size.height - 10) / 2;
+//        ImvHeadIcon.layer.borderWidth = 2;
+//        ImvHeadIcon.layer.borderColor = UICOLOR_RGBA(250, 126, 20, 1.0).CGColor;
+//        ImvHeadIcon.layer.masksToBounds = YES;
     }
     else{
         if (!lbRight) {
