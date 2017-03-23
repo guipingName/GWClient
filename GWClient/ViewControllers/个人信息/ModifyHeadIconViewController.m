@@ -39,7 +39,7 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
 
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"bimar关于"] style:UIBarButtonItemStylePlain target:self action:@selector(doLogin)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"bimar关于"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClicked)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
 
 }
@@ -51,8 +51,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void) doLogin{
-    NSLog(@"123");
+- (void) rightBarButtonClicked{
     [self modifyPhoto];
 }
 
@@ -126,25 +125,7 @@
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
-    
 }
-//// 选中照片的回调方法
-//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-//    // 原始图片UIImagePickerControllerOriginalImage
-//    // 编辑图片UIImagePickerControllerEditImage
-//    UIImage *image = info [UIImagePickerControllerEditedImage];
-//    //NSData *data = UIImagePNGRepresentation(image);
-//    UIImage *im2 = [self imageWithImage:image scaledToSize:CGSizeMake(60, 60)];
-//    NSData *data1 = UIImagePNGRepresentation(im2);
-//
-//    //NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//
-//    //NSLog(@"str: %@", str);
-
-//
-//    [self reloadTableViewWithSection:0 row:0 object:im2];
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

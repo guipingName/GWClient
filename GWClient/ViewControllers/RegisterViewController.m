@@ -104,7 +104,7 @@
             btnConfim.titleLabel.font = [UIFont systemFontOfSize:12];
             btnConfim.backgroundColor = BTN_ENABLED_BGCOLOR;
             btnConfim.enabled = NO;
-            btnConfim.frame = CGRectMake(tf.bounds.size.width-85,(tf.bounds.size.height - 30) / 2,80,30);
+            btnConfim.frame = CGRectMake(tf.bounds.size.width - 72,(tf.bounds.size.height - 30) / 2, 70, 30);
             btnConfim.layer.cornerRadius = 5;
             btnConfim.layer.masksToBounds = YES;
             [tf addSubview:btnConfim];
