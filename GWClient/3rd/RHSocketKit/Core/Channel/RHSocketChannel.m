@@ -10,6 +10,8 @@
 #import "RHSocketConnection.h"
 #import "RHSocketException.h"
 #import "RHSocketPacketContext.h"
+#import "RHSocketVariableLengthDecoder.h"
+#import "RHSocketVariableLengthEncoder.h"
 
 @interface RHSocketChannel () <RHSocketConnectionDelegate, RHSocketEncoderOutputProtocol, RHSocketDecoderOutputProtocol>
 {
@@ -75,7 +77,7 @@
         RHSocketLog(@"RHSocket Encoder should not be nil ...");
         return;
     }
-    [_encoder encode:packet output:self];
+    [self.encoder encode:packet output:self];
 }
 
 #pragma mark RHSocketConnectionDelegate method
@@ -106,7 +108,7 @@
         [_receiveDataBuffer appendData:data];
         _downstreamContext.object = _receiveDataBuffer;
         _downstreamContext.pid = command;
-        [_decoder decode:_downstreamContext output:self];
+        [self.decoder decode:_downstreamContext output:self];
     }//@synchronized
 }
 
@@ -126,5 +128,8 @@
 {
     [_delegate channel:self received:packet];
 }
+
+
+
 
 @end

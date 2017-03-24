@@ -16,5 +16,5 @@
  *  解码时，读取Header获取到数据包长度和api接口参数
  */
 @interface RHSocketVariableLengthDecoder : NSObject <RHSocketDecoderProtocol>
-@property (nonatomic, strong) id<RHSocketDecoderProtocol> nextDecoder;
+
 @end

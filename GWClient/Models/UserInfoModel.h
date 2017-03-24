@@ -19,7 +19,7 @@
 
 /**用户头像Url*/
 @property (nonatomic, copy) NSString *headImgUrl;
-//@property (nonatomic, strong) UIImage *headImg;
+//@property (nonatomic, strong) UIImage *headImgUrl;
 
 /**年龄(默认0)*/
 @property (nonatomic, assign) NSUInteger age;

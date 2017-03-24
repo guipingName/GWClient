@@ -16,10 +16,6 @@
 		383416861E82020300546AB0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 383416851E82020300546AB0 /* MBProgressHUD.m */; };
 		383416981E822A5400546AB0 /* PhotoEdittViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383416971E822A5400546AB0 /* PhotoEdittViewController.m */; };
 		3834169B1E8248DE00546AB0 /* ModifyHeadIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3834169A1E8248DE00546AB0 /* ModifyHeadIconViewController.m */; };
-		383416A11E8254C800546AB0 /* GWImagesDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3834169E1E8254C800546AB0 /* GWImagesDecoder.m */; };
-		383416A21E8254C800546AB0 /* GWImagesEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 383416A01E8254C800546AB0 /* GWImagesEncoder.m */; };
-		38367FE31E835D0800CC7DDB /* RHSocketVariableLengthDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38367FE01E835D0800CC7DDB /* RHSocketVariableLengthDecoder.m */; };
-		38367FE41E835D0800CC7DDB /* RHSocketVariableLengthEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38367FE21E835D0800CC7DDB /* RHSocketVariableLengthEncoder.m */; };
 		38367FED1E83A1C500CC7DDB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38367FEA1E83A1C500CC7DDB /* LoginViewController.m */; };
 		38367FEE1E83A1C500CC7DDB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38367FEC1E83A1C500CC7DDB /* RegisterViewController.m */; };
 		38367FF21E83AAC600CC7DDB /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 38367FF11E83AAC600CC7DDB /* head.png */; };
@@ -54,16 +50,12 @@
 		38C7F04B1E7FF0BA00B1DBA8 /* tabbar_me@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F03B1E7FF0BA00B1DBA8 /* tabbar_me@3x.png */; };
 		38C7F04C1E7FF0BA00B1DBA8 /* tabbar_meHL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F03C1E7FF0BA00B1DBA8 /* tabbar_meHL@2x.png */; };
 		38C7F04D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F03D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png */; };
+		38C9B3211E84F04E00638CF0 /* RHSocketVariableLengthDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C9B31E1E84F04E00638CF0 /* RHSocketVariableLengthDecoder.m */; };
+		38C9B3221E84F04E00638CF0 /* RHSocketVariableLengthEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C9B3201E84F04E00638CF0 /* RHSocketVariableLengthEncoder.m */; };
 		38DD08C21E7BD63C00388CAE /* RHSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08741E7BD63C00388CAE /* RHSocketChannel.m */; };
 		38DD08C31E7BD63C00388CAE /* RHSocketConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08761E7BD63C00388CAE /* RHSocketConnection.m */; };
 		38DD08C41E7BD63C00388CAE /* RHSocketUdpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08781E7BD63C00388CAE /* RHSocketUdpConnection.m */; };
-		38DD08CB1E7BD63C00388CAE /* RHSocketDelimiterDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD088B1E7BD63C00388CAE /* RHSocketDelimiterDecoder.m */; };
-		38DD08CC1E7BD63C00388CAE /* RHSocketDelimiterEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD088D1E7BD63C00388CAE /* RHSocketDelimiterEncoder.m */; };
 		38DD08CF1E7BD63C00388CAE /* NSDictionary+RHSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08941E7BD63C00388CAE /* NSDictionary+RHSocket.m */; };
-		38DD08D01E7BD63C00388CAE /* RHSocketJSONSerializationDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08961E7BD63C00388CAE /* RHSocketJSONSerializationDecoder.m */; };
-		38DD08D11E7BD63C00388CAE /* RHSocketJSONSerializationEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08981E7BD63C00388CAE /* RHSocketJSONSerializationEncoder.m */; };
-		38DD08D21E7BD63C00388CAE /* RHSocketStringDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD089B1E7BD63C00388CAE /* RHSocketStringDecoder.m */; };
-		38DD08D31E7BD63C00388CAE /* RHSocketStringEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD089D1E7BD63C00388CAE /* RHSocketStringEncoder.m */; };
 		38DD08D41E7BD63C00388CAE /* RHSocketException.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08A01E7BD63C00388CAE /* RHSocketException.m */; };
 		38DD08D51E7BD63C00388CAE /* RHSocketPacketContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08A41E7BD63C00388CAE /* RHSocketPacketContext.m */; };
 		38DD08D61E7BD63C00388CAE /* RHSocketUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08A81E7BD63C00388CAE /* RHSocketUtils.m */; };
@@ -146,14 +138,6 @@
 		383416971E822A5400546AB0 /* PhotoEdittViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoEdittViewController.m; sourceTree = "<group>"; };
 		383416991E8248DE00546AB0 /* ModifyHeadIconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyHeadIconViewController.h; sourceTree = "<group>"; };
 		3834169A1E8248DE00546AB0 /* ModifyHeadIconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyHeadIconViewController.m; sourceTree = "<group>"; };
-		3834169D1E8254C800546AB0 /* GWImagesDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWImagesDecoder.h; sourceTree = "<group>"; };
-		3834169E1E8254C800546AB0 /* GWImagesDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWImagesDecoder.m; sourceTree = "<group>"; };
-		3834169F1E8254C800546AB0 /* GWImagesEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWImagesEncoder.h; sourceTree = "<group>"; };
-		383416A01E8254C800546AB0 /* GWImagesEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWImagesEncoder.m; sourceTree = "<group>"; };
-		38367FDF1E835D0800CC7DDB /* RHSocketVariableLengthDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthDecoder.h; sourceTree = "<group>"; };
-		38367FE01E835D0800CC7DDB /* RHSocketVariableLengthDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthDecoder.m; sourceTree = "<group>"; };
-		38367FE11E835D0800CC7DDB /* RHSocketVariableLengthEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthEncoder.h; sourceTree = "<group>"; };
-		38367FE21E835D0800CC7DDB /* RHSocketVariableLengthEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthEncoder.m; sourceTree = "<group>"; };
 		38367FE91E83A1C500CC7DDB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		38367FEA1E83A1C500CC7DDB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		38367FEB1E83A1C500CC7DDB /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -197,6 +181,10 @@
 		38C7F03B1E7FF0BA00B1DBA8 /* tabbar_me@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_me@3x.png"; sourceTree = "<group>"; };
 		38C7F03C1E7FF0BA00B1DBA8 /* tabbar_meHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_meHL@2x.png"; sourceTree = "<group>"; };
 		38C7F03D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_meHL@3x.png"; sourceTree = "<group>"; };
+		38C9B31D1E84F04E00638CF0 /* RHSocketVariableLengthDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthDecoder.h; sourceTree = "<group>"; };
+		38C9B31E1E84F04E00638CF0 /* RHSocketVariableLengthDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthDecoder.m; sourceTree = "<group>"; };
+		38C9B31F1E84F04E00638CF0 /* RHSocketVariableLengthEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthEncoder.h; sourceTree = "<group>"; };
+		38C9B3201E84F04E00638CF0 /* RHSocketVariableLengthEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthEncoder.m; sourceTree = "<group>"; };
 		38DD08731E7BD63C00388CAE /* RHSocketChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketChannel.h; sourceTree = "<group>"; };
 		38DD08741E7BD63C00388CAE /* RHSocketChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketChannel.m; sourceTree = "<group>"; };
 		38DD08751E7BD63C00388CAE /* RHSocketConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConnection.h; sourceTree = "<group>"; };
@@ -204,20 +192,8 @@
 		38DD08771E7BD63C00388CAE /* RHSocketUdpConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketUdpConnection.h; sourceTree = "<group>"; };
 		38DD08781E7BD63C00388CAE /* RHSocketUdpConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketUdpConnection.m; sourceTree = "<group>"; };
 		38DD08891E7BD63C00388CAE /* RHSocketCodecProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCodecProtocol.h; sourceTree = "<group>"; };
-		38DD088A1E7BD63C00388CAE /* RHSocketDelimiterDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketDelimiterDecoder.h; sourceTree = "<group>"; };
-		38DD088B1E7BD63C00388CAE /* RHSocketDelimiterDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketDelimiterDecoder.m; sourceTree = "<group>"; };
-		38DD088C1E7BD63C00388CAE /* RHSocketDelimiterEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketDelimiterEncoder.h; sourceTree = "<group>"; };
-		38DD088D1E7BD63C00388CAE /* RHSocketDelimiterEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketDelimiterEncoder.m; sourceTree = "<group>"; };
 		38DD08931E7BD63C00388CAE /* NSDictionary+RHSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RHSocket.h"; sourceTree = "<group>"; };
 		38DD08941E7BD63C00388CAE /* NSDictionary+RHSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RHSocket.m"; sourceTree = "<group>"; };
-		38DD08951E7BD63C00388CAE /* RHSocketJSONSerializationDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketJSONSerializationDecoder.h; sourceTree = "<group>"; };
-		38DD08961E7BD63C00388CAE /* RHSocketJSONSerializationDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketJSONSerializationDecoder.m; sourceTree = "<group>"; };
-		38DD08971E7BD63C00388CAE /* RHSocketJSONSerializationEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketJSONSerializationEncoder.h; sourceTree = "<group>"; };
-		38DD08981E7BD63C00388CAE /* RHSocketJSONSerializationEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketJSONSerializationEncoder.m; sourceTree = "<group>"; };
-		38DD089A1E7BD63C00388CAE /* RHSocketStringDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketStringDecoder.h; sourceTree = "<group>"; };
-		38DD089B1E7BD63C00388CAE /* RHSocketStringDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketStringDecoder.m; sourceTree = "<group>"; };
-		38DD089C1E7BD63C00388CAE /* RHSocketStringEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketStringEncoder.h; sourceTree = "<group>"; };
-		38DD089D1E7BD63C00388CAE /* RHSocketStringEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketStringEncoder.m; sourceTree = "<group>"; };
 		38DD089F1E7BD63C00388CAE /* RHSocketException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketException.h; sourceTree = "<group>"; };
 		38DD08A01E7BD63C00388CAE /* RHSocketException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketException.m; sourceTree = "<group>"; };
 		38DD08A21E7BD63C00388CAE /* RHSocketPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketPacket.h; sourceTree = "<group>"; };
@@ -374,17 +350,6 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
-		3834169C1E8254C800546AB0 /* ImageCodec */ = {
-			isa = PBXGroup;
-			children = (
-				3834169D1E8254C800546AB0 /* GWImagesDecoder.h */,
-				3834169E1E8254C800546AB0 /* GWImagesDecoder.m */,
-				3834169F1E8254C800546AB0 /* GWImagesEncoder.h */,
-				383416A01E8254C800546AB0 /* GWImagesEncoder.m */,
-			);
-			path = ImageCodec;
-			sourceTree = "<group>";
-		};
 		38367FE81E83A16600CC7DDB /* 登录注册 */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,11 +428,11 @@
 		38DD08711E7BD63C00388CAE /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				38DD08A51E7BD63C00388CAE /* RHSocketConfig.h */,
 				38DD08721E7BD63C00388CAE /* Channel */,
 				38DD08791E7BD63C00388CAE /* Codec */,
 				38DD089E1E7BD63C00388CAE /* Exception */,
 				38DD08A11E7BD63C00388CAE /* Packet */,
-				38DD08A51E7BD63C00388CAE /* RHSocketConfig.h */,
 				38DD08A61E7BD63C00388CAE /* Utils */,
 			);
 			path = Core;
@@ -489,18 +454,12 @@
 		38DD08791E7BD63C00388CAE /* Codec */ = {
 			isa = PBXGroup;
 			children = (
-				3834169C1E8254C800546AB0 /* ImageCodec */,
 				38DD08891E7BD63C00388CAE /* RHSocketCodecProtocol.h */,
-				38DD088A1E7BD63C00388CAE /* RHSocketDelimiterDecoder.h */,
-				38DD088B1E7BD63C00388CAE /* RHSocketDelimiterDecoder.m */,
-				38DD088C1E7BD63C00388CAE /* RHSocketDelimiterEncoder.h */,
-				38DD088D1E7BD63C00388CAE /* RHSocketDelimiterEncoder.m */,
-				38367FDF1E835D0800CC7DDB /* RHSocketVariableLengthDecoder.h */,
-				38367FE01E835D0800CC7DDB /* RHSocketVariableLengthDecoder.m */,
-				38367FE11E835D0800CC7DDB /* RHSocketVariableLengthEncoder.h */,
-				38367FE21E835D0800CC7DDB /* RHSocketVariableLengthEncoder.m */,
+				38C9B31D1E84F04E00638CF0 /* RHSocketVariableLengthDecoder.h */,
+				38C9B31E1E84F04E00638CF0 /* RHSocketVariableLengthDecoder.m */,
+				38C9B31F1E84F04E00638CF0 /* RHSocketVariableLengthEncoder.h */,
+				38C9B3201E84F04E00638CF0 /* RHSocketVariableLengthEncoder.m */,
 				38DD08921E7BD63C00388CAE /* SerializationCodec */,
-				38DD08991E7BD63C00388CAE /* StringCodec */,
 			);
 			path = Codec;
 			sourceTree = "<group>";
@@ -510,23 +469,8 @@
 			children = (
 				38DD08931E7BD63C00388CAE /* NSDictionary+RHSocket.h */,
 				38DD08941E7BD63C00388CAE /* NSDictionary+RHSocket.m */,
-				38DD08951E7BD63C00388CAE /* RHSocketJSONSerializationDecoder.h */,
-				38DD08961E7BD63C00388CAE /* RHSocketJSONSerializationDecoder.m */,
-				38DD08971E7BD63C00388CAE /* RHSocketJSONSerializationEncoder.h */,
-				38DD08981E7BD63C00388CAE /* RHSocketJSONSerializationEncoder.m */,
 			);
 			path = SerializationCodec;
-			sourceTree = "<group>";
-		};
-		38DD08991E7BD63C00388CAE /* StringCodec */ = {
-			isa = PBXGroup;
-			children = (
-				38DD089A1E7BD63C00388CAE /* RHSocketStringDecoder.h */,
-				38DD089B1E7BD63C00388CAE /* RHSocketStringDecoder.m */,
-				38DD089C1E7BD63C00388CAE /* RHSocketStringEncoder.h */,
-				38DD089D1E7BD63C00388CAE /* RHSocketStringEncoder.m */,
-			);
-			path = StringCodec;
 			sourceTree = "<group>";
 		};
 		38DD089E1E7BD63C00388CAE /* Exception */ = {
@@ -1009,9 +953,8 @@
 				38DD08DA1E7BD63C00388CAE /* RHSocketCallReply.m in Sources */,
 				38DD08C21E7BD63C00388CAE /* RHSocketChannel.m in Sources */,
 				38FBD0EE1E84C99E000E084B /* TZVideoPlayerController.m in Sources */,
-				38DD08D21E7BD63C00388CAE /* RHSocketStringDecoder.m in Sources */,
-				383416A11E8254C800546AB0 /* GWImagesDecoder.m in Sources */,
 				3817DBFF1E80CAA000FC72C1 /* UserInfoViewController.m in Sources */,
+				38C9B3211E84F04E00638CF0 /* RHSocketVariableLengthDecoder.m in Sources */,
 				38FBD0EF1E84C99E000E084B /* UIView+Layout.m in Sources */,
 				38DD08D91E7BD63C00388CAE /* RHConnectCallReply.m in Sources */,
 				38367FED1E83A1C500CC7DDB /* LoginViewController.m in Sources */,
@@ -1020,29 +963,24 @@
 				38DD09471E7BE53900388CAE /* UIImage+RTTint.m in Sources */,
 				3817DBFE1E80CAA000FC72C1 /* ModifyViewController.m in Sources */,
 				383CC0651E7FB52700C62B29 /* UserInfoTableViewCell.m in Sources */,
-				38DD08CB1E7BD63C00388CAE /* RHSocketDelimiterDecoder.m in Sources */,
 				38DD093D1E7BE0BC00388CAE /* DocViewController.m in Sources */,
 				38DD08DB1E7BD63C00388CAE /* RHSocketCallReplyManager.m in Sources */,
-				383416A21E8254C800546AB0 /* GWImagesEncoder.m in Sources */,
 				38DD08ED1E7BD70A00388CAE /* MMDrawerVisualState.m in Sources */,
 				38FBD0E21E84C99E000E084B /* NSBundle+TZImagePicker.m in Sources */,
 				38FBD0E91E84C99E000E084B /* TZImagePickerController.m in Sources */,
-				38DD08D31E7BD63C00388CAE /* RHSocketStringEncoder.m in Sources */,
 				38FBD0E71E84C99E000E084B /* TZImageManager.m in Sources */,
 				38DD08DE1E7BD63C00388CAE /* RHSocketRpcCmdEncoder.m in Sources */,
 				383CC00B1E7F79C500C62B29 /* UserInfoModel.m in Sources */,
-				38367FE31E835D0800CC7DDB /* RHSocketVariableLengthDecoder.m in Sources */,
 				38DD08DC1E7BD63C00388CAE /* RHSocketChannelProxy.m in Sources */,
 				38FBD0E41E84C99E000E084B /* TZAssetModel.m in Sources */,
 				38DD08C41E7BD63C00388CAE /* RHSocketUdpConnection.m in Sources */,
 				38E700551E7A895600336BDB /* main.m in Sources */,
 				38DD08D81E7BD63C00388CAE /* RHAuthCallReply.m in Sources */,
 				38DD08F11E7BD77D00388CAE /* LeftViewController.m in Sources */,
-				38DD08CC1E7BD63C00388CAE /* RHSocketDelimiterEncoder.m in Sources */,
 				38DD09401E7BE0E300388CAE /* TransferListViewController.m in Sources */,
 				38FBD0EB1E84C99E000E084B /* TZPhotoPreviewCell.m in Sources */,
+				38C9B3221E84F04E00638CF0 /* RHSocketVariableLengthEncoder.m in Sources */,
 				3817DBFD1E80CAA000FC72C1 /* ModifySignatureViewController.m in Sources */,
-				38367FE41E835D0800CC7DDB /* RHSocketVariableLengthEncoder.m in Sources */,
 				38DD09431E7BE0F300388CAE /* NewsViewController.m in Sources */,
 				383CC0031E7F6DCE00C62B29 /* LeftVCTableViewCell.m in Sources */,
 				38DD08D51E7BD63C00388CAE /* RHSocketPacketContext.m in Sources */,
@@ -1054,12 +992,10 @@
 				38DD08EB1E7BD70A00388CAE /* MMDrawerBarButtonItem.m in Sources */,
 				38FBD0EA1E84C99E000E084B /* TZPhotoPickerController.m in Sources */,
 				38FBD0E51E84C99E000E084B /* TZGifPhotoPreviewController.m in Sources */,
-				38DD08D01E7BD63C00388CAE /* RHSocketJSONSerializationDecoder.m in Sources */,
 				38E700891E7A8A4400336BDB /* AppDelegate.m in Sources */,
 				38DD08D61E7BD63C00388CAE /* RHSocketUtils.m in Sources */,
 				38DD093A1E7BE00600388CAE /* GWClientTabBarController.m in Sources */,
 				383680051E83CB2D00CC7DDB /* GPButton.m in Sources */,
-				38DD08D11E7BD63C00388CAE /* RHSocketJSONSerializationEncoder.m in Sources */,
 				38FBD0E31E84C99E000E084B /* TZAssetCell.m in Sources */,
 				3817DC081E81066600FC72C1 /* Utils.m in Sources */,
 				383416981E822A5400546AB0 /* PhotoEdittViewController.m in Sources */,

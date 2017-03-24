@@ -10,85 +10,19 @@
 #import "MBProgressHUD.h"
 
 //#import "RHSocketChannel.h"
-#import "RHSocketStringEncoder.h"
-#import "RHSocketStringDecoder.h"
-#import "RHSocketJSONSerializationEncoder.h"
-#import "RHSocketJSONSerializationDecoder.h"
 #import "RHSocketVariableLengthEncoder.h"
 #import "RHSocketVariableLengthDecoder.h"
 #import "RHSocketChannelProxy.h"
-#import "GWImagesDecoder.h"
-#import "GWImagesEncoder.h"
 #import "EXTScope.h"
 
-//#import "RHSocketBase64Encoder.h"
-//#import "RHSocketBase64Decoder.h"
-//#import "RHSocketZlibCompressionEncoder.h"
-//#import "RHSocketZlibCompressionDecoder.h"
-//#import "RHSocketProtobufEncoder.h"
-//#import "RHSocketProtobufDecoder.h"
-//#import "RHSocketDelimiterEncoder.h"
-//#import "RHSocketDelimiterDecoder.h"
-//#import "RHSocketConfig.h"
-//#import "RHSocketService.h"
-//#import "RHConnectCallReply.h"
-//#import "RHSocketRpcCmdEncoder.h"
-//#import "RHSocketRpcCmdDecoder.h"
-//#import "RHSocketUtils.h"
-//#import "RHWebSocket.h"
+
 
 @implementation Utils
-
-+(void)GETaa:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure{
-    NSString *host = @"10.134.20.1";
-    int port = 20173;
-    RHSocketVariableLengthEncoder *encoder = [[RHSocketVariableLengthEncoder alloc] init];
-    GWImagesEncoder *imageEncoder = [[GWImagesEncoder alloc] init];
-    imageEncoder.nextEncoder = encoder;
-    
-    RHSocketJSONSerializationDecoder *jsonDecoder = [[RHSocketJSONSerializationDecoder alloc] init];
-    RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
-    stringDecoder.nextDecoder = jsonDecoder;
-    RHSocketVariableLengthDecoder *decoder = [[RHSocketVariableLengthDecoder alloc] init];
-    decoder.nextDecoder = stringDecoder;
-    
-    [RHSocketChannelProxy sharedInstance].encoder = imageEncoder;
-    [RHSocketChannelProxy sharedInstance].decoder = decoder;
-    RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
-    connect.host = host;
-    connect.port = port;
-    @weakify(self);
-    [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
-        @strongify(self);
-        [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:^(id response) {
-            success(response);
-        } fail:^(NSError *error) {
-            failure(error);
-        }];
-    }];
-    
-    [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
-}
-
-
 
 +(void)GET:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure{
     NSString *host = @"10.134.20.1";
     //NSString *host = @"127.0.0.1";
     int port = 20173;
-    
-    RHSocketVariableLengthEncoder *encoder = [[RHSocketVariableLengthEncoder alloc] init];
-    RHSocketStringEncoder *stringEncoder = [[RHSocketStringEncoder alloc] init];
-    stringEncoder.nextEncoder = encoder;
-    RHSocketJSONSerializationEncoder *jsonEncoder = [[RHSocketJSONSerializationEncoder alloc] init];
-    jsonEncoder.nextEncoder = stringEncoder;
-    RHSocketJSONSerializationDecoder *jsonDecoder = [[RHSocketJSONSerializationDecoder alloc] init];
-    RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
-    stringDecoder.nextDecoder = jsonDecoder;
-    RHSocketVariableLengthDecoder *decoder = [[RHSocketVariableLengthDecoder alloc] init];
-    decoder.nextDecoder = stringDecoder;
-    [RHSocketChannelProxy sharedInstance].encoder = jsonEncoder;
-    [RHSocketChannelProxy sharedInstance].decoder = decoder;
     RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
     connect.host = host;
     connect.port = port;

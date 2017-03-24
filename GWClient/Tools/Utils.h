@@ -18,7 +18,6 @@
 
 +(void)hintView:(UIView *)superView message:(NSString *) message;
 
-+(void)GETaa:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure;
 
 +(void)GET:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure;
 @end

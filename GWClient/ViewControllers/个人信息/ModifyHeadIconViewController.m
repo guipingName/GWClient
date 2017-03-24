@@ -127,7 +127,7 @@
                                  @"images":@[editImage],
                                  @"imgNames":@[imageName]
                                  };
-        [Utils GETaa:14 params:params succeed:^(id response) {
+        [Utils GET:14 params:params succeed:^(id response) {
             NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
             NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
             NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);

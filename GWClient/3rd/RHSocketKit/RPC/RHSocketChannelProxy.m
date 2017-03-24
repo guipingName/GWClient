@@ -7,6 +7,8 @@
 //
 
 #import "RHSocketChannelProxy.h"
+#import "RHSocketVariableLengthEncoder.h"
+#import "RHSocketVariableLengthDecoder.h"
 
 @implementation RHSocketChannelProxy
 
@@ -24,9 +26,13 @@
 {
     if (self = [super init]) {
         _callReplyManager = [[RHSocketCallReplyManager alloc] init];
+        _encoder = [[RHSocketVariableLengthEncoder alloc] init];
+        _decoder = [[RHSocketVariableLengthDecoder alloc] init];
+        
     }
     return self;
 }
+
 
 - (void)asyncConnect:(RHConnectCallReply *)aCallReply
 {

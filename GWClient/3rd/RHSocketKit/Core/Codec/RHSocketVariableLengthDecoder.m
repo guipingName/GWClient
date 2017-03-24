@@ -18,22 +18,12 @@
 
 - (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output
 {
-    id object = [downstreamPacket object];
-    if (![object isKindOfClass:[NSData class]]) {
-        [RHSocketException raiseWithReason:@"[Decode] object should be NSData ..."];
-        return -1;
-    }
-    NSData *requestData = object;
+    NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:downstreamPacket.object];
     //去除数据长度后的数据内容
     RHSocketPacketRequest *ctx = [[RHSocketPacketRequest alloc] init];
     ctx.pid = downstreamPacket.pid;
-    ctx.object = requestData;
-    //责任链模式，丢给下一个处理器
-    if (_nextDecoder) {
-        [_nextDecoder decode:ctx output:output];
-    } else {
-        [output didDecode:ctx];
-    }
+    ctx.object = dic;
+    [output didDecode:ctx];
     return 1;
 }
 
