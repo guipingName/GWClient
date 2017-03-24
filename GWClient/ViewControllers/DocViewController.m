@@ -111,24 +111,25 @@
     [myTableView reloadData];
     
     // 上传数据
+    UserInfoModel *model = [Utils aDecoder];
     
-    
-     UserInfoModel *model = [Utils aDecoder];
-     NSDictionary *params = @{@"userId":@(model.userId),
-                              @"token":@"123",
-                              @"uploadType":@(1),
-                              @"imagePaths":imageNames
-                              };
-     [Utils GET:14 params:params succeed:^(id response) {
-         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-         NSLog(@"下载图片--返回的Json串:\n%@", tempStr);
-         if ([response[@"success"] boolValue]) {
-         
-         }
-     } fail:^(NSError * error) {
-         NSLog(@"%@",error.localizedDescription);
-     }];
+    NSDictionary *params = @{@"userId":@(model.userId),
+                  @"token":@"123",
+                  @"type":@(1),
+                  @"imagePaths":imageNames
+                  };
+    [Utils GET:15 params:params succeed:^(id response) {
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
+        
+        
+        if ([response[@"success"] boolValue]) {
+
+        }
+    } fail:^(NSError * error) {
+        NSLog(@"%@",error.localizedDescription);
+    }];
 }
 
 

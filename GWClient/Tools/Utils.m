@@ -101,4 +101,38 @@
     [tf setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
     return tf;
 }
+
++ (UIImage *) abcImageName:(NSString *) imageName{
+    //拿到图片
+    NSString *path_document = NSHomeDirectory();
+    NSString *str = [NSString stringWithFormat:@"/Documents/%@", imageName];
+    
+    //设置一个图片的存储路径
+    NSString *imagePath = [path_document stringByAppendingString:str];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    NSData *imageData = UIImagePNGRepresentation(image);
+    if (!imageData) {
+        UserInfoModel *model = [Utils aDecoder];
+        NSDictionary *params = @{@"userId":@(model.userId),
+                                 @"token":@"123",
+                                 @"type":@(1),
+                                 @"imagePaths":@[model.headImgUrl]
+                                 };
+        [Utils GET:15 params:params succeed:^(id response) {
+            if ([response[@"success"] boolValue]) {
+                UIImage *ima = [response[@"result"][@"images"] firstObject];
+                [UIImagePNGRepresentation(ima) writeToFile:imagePath atomically:YES];
+            }
+        } fail:^(NSError * error) {
+            NSLog(@"%@",error.localizedDescription);
+        }];
+        return nil;
+    }
+    else{
+        //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取）
+        [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
+        return image;
+    }
+}
+
 @end

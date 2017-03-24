@@ -40,6 +40,22 @@
 }
 
 - (void) done{
+    UserInfoModel *model = [Utils aDecoder];
+    NSDictionary *params = @{@"userId":@(model.userId),
+                             @"token":@"123",
+                             @"modifyDic":@{@"signature":tfNickname.text}
+                             };
+    [Utils GET:15 params:params succeed:^(id response) {
+//        if ([response[@"success"] boolValue]) {
+//            
+//        }
+        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+        NSLog(@"修改个性签名--返回的Json串:\n%@", tempStr);
+    } fail:^(NSError * error) {
+        NSLog(@"%@",error.localizedDescription);
+    }];
+    
     if (_signStrBlock) {
         _signStrBlock(tfNickname.text);
     }

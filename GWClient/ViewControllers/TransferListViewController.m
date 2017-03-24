@@ -74,7 +74,7 @@
     [btnBackView addSubview:squareBtn];
     
     
-    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(btnBackView.frame), KSCREEN_WIDTH, KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame))];
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(btnBackView.frame), KSCREEN_WIDTH, KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame) - 49)];
     [self.view addSubview:myTableView];
     myTableView.rowHeight = 50;
     myTableView.delegate = self;

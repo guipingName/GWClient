@@ -69,7 +69,7 @@
     NSArray *systemInfo = @[@"头像", @"昵称"];
     NSArray *WiFi = @[@"性别", @"地区", @"个性签名"];
     titleArray = @[systemInfo, WiFi];
-    headImage = [UIImage imageNamed:model.headImgUrl];
+    headImage = [Utils abcImageName:model.headImgUrl];
     if (!headImage) {
         headImage = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
     }

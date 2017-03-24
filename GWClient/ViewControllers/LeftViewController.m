@@ -46,12 +46,32 @@
 
 - (void) infomation{
     UserInfoModel *model = [Utils aDecoder];
-    if (![UIImage imageNamed:model.headImgUrl]) {
-        ImvUserhead.image = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
-    }
-    else{
-        ImvUserhead.image = [UIImage imageNamed:model.headImgUrl];
-    }
+    
+    NSDictionary *params = @{@"userId":@(model.userId),
+                             @"token":@"123",
+                             @"type":@(1),
+                             @"imagePaths":@[model.headImgUrl]
+                             };
+    [Utils GET:15 params:params succeed:^(id response) {
+        if ([response[@"success"] boolValue]) {
+            UIImage *image = [response[@"result"][@"images"] firstObject];
+            NSString *path_document = NSHomeDirectory();
+            NSString *str = [NSString stringWithFormat:@"/Documents/%@", model.headImgUrl];
+            //设置一个图片的存储路径
+            NSString *imagePath = [path_document stringByAppendingString:str];
+            //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取）
+            [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
+            if (!image) {
+                ImvUserhead.image = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
+            }
+            else{
+                ImvUserhead.image = image;
+            }
+        }
+    } fail:^(NSError * error) {
+        NSLog(@"%@",error.localizedDescription);
+    }];
+    
     lbNickName.text = model.nickName;
     
     NSArray *systemInfo = @[@"个人信息", @"设置"];
