@@ -18,8 +18,8 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 };
 
 
-#define USERINFOCELL        @"UserInfoTableViewCell"
-#define DEFAULT_HEAD_IMAGENAME  @"bimar汉语"
-
+#define USERINFOCELL                @"UserInfoTableViewCell"
+#define DEFAULT_HEAD_IMAGENAME      @"head"
+#define NAVIGATION_LEFTBAR          @"navigationbar_list_normal"
 
 #endif /* Define_h */

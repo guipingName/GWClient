@@ -10,7 +10,7 @@
 #import "RHSocketException.h"
 #import <UIKit/UIKit.h>
 #import "RHSocketUtils.h"
-#define imagesKey @"imageArray"
+#define imagesKey @"images"
 
 @implementation GWImagesEncoder
 

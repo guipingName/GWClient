@@ -141,14 +141,14 @@
 
 
 - (void) creatViews{
-    ImvUserhead = [[UIImageView alloc] initWithFrame:CGRectMake((LEFTVC_WIDTH - 80) /2, 100, 80, 80)];
+    ImvUserhead = [[UIImageView alloc] initWithFrame:CGRectMake((LEFTVC_WIDTH - 80) / 2, 80, 80, 80)];
     [self.view addSubview:ImvUserhead];
     ImvUserhead.layer.cornerRadius = 40;
     ImvUserhead.layer.borderWidth = 2;
     ImvUserhead.layer.borderColor = [UIColor whiteColor].CGColor;
     ImvUserhead.layer.masksToBounds = YES;
     
-    lbNickName = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(ImvUserhead.frame) + 10, LEFTVC_WIDTH, 30)];
+    lbNickName = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(ImvUserhead.frame) + 30, LEFTVC_WIDTH, 30)];
     lbNickName.textColor = [UIColor whiteColor];
     lbNickName.font = [UIFont systemFontOfSize:15];
     lbNickName.textAlignment = NSTextAlignmentCenter;

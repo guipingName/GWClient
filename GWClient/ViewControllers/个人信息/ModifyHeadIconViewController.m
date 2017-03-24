@@ -9,6 +9,12 @@
 #import "ModifyHeadIconViewController.h"
 #import "PhotoEdittViewController.h"
 
+#import <AssetsLibrary/ALAssetsLibrary.h>
+
+#import <AssetsLibrary/ALAssetsGroup.h>
+
+#import <AssetsLibrary/ALAssetRepresentation.h>
+
 @interface ModifyHeadIconViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, ClipViewControllerDelegate>
 {
     UIImageView *_imageView;
@@ -80,30 +86,46 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
-{
-    PhotoEdittViewController * clipView = [[PhotoEdittViewController alloc]initWithImage:image];
-    clipView.delegate = self;
-    clipView.clipType = 1; //支持圆形(默认) 方形裁剪
-    clipView.radius = 120;   //设置 裁剪框的半径  默认120
-    //clipView.scaleRation = 5;// 图片缩放的最大倍数 默认为10
-    [picker pushViewController:clipView animated:YES];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *ima = info[@"UIImagePickerControllerOriginalImage"];
+    NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
+    {
+        
+        //NSLog(@"ALAssetPropertyDate:%@",[myasset valueForProperty:ALAssetPropertyDate]);
+        ALAssetRepresentation *representation = [myasset defaultRepresentation];
+        NSString *fileName = [representation filename];
+         PhotoEdittViewController * clipView = [[PhotoEdittViewController alloc]initWithImage:ima imageName:fileName];
+        NSLog(@"fileName %@", fileName);
+        clipView.delegate = self;
+        clipView.clipType = 1; //支持圆形(默认) 方形裁剪
+        clipView.radius = 120;   //设置 裁剪框的半径  默认120
+        //clipView.scaleRation = 5;// 图片缩放的最大倍数 默认为10
+        [picker pushViewController:clipView animated:YES];
+    };
+    
+    ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+    [assetslibrary assetForURL:imageURL
+                   resultBlock:resultblock
+                  failureBlock:nil];
 }
 
 #pragma mark - ClipViewControllerDelegate
--(void)ClipViewController:(PhotoEdittViewController *)clipViewController FinishClipImage:(UIImage *)editImage {
-    
+-(void)ClipViewController:(PhotoEdittViewController *)clipViewController FinishClipImage:(UIImage *)editImage imageName:(NSString *)imageName{
     [clipViewController dismissViewControllerAnimated:YES completion:^{
         //NSData *data = UIImagePNGRepresentation(editImage);
         //NSLog(@"data1.length:%lu", (unsigned long)data.length);
         //UIImage *im2 = [self imageWithImage:editImage scaledToSize:CGSizeMake(40, 40)];
         //NSData *data1 = UIImagePNGRepresentation(im2);
         //NSLog(@"data2.length:%lu", (unsigned long)data1.length);
+        //NSLog(@"imageName %@", imageName);
+        UserInfoModel *model = [Utils aDecoder];
         
-        NSDictionary *params = @{@"userId":@"1",
+        NSDictionary *params = @{@"userId":@(model.userId),
                                  @"token":@"123",
                                  @"uploadType":@(1),
-                                 @"imageArray":@[editImage]
+                                 @"images":@[editImage],
+                                 @"imgNames":@[imageName]
                                  };
         [Utils GETaa:14 params:params succeed:^(id response) {
             NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];

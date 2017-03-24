@@ -54,7 +54,7 @@
     rightImageView.frame = CGRectMake(self.bounds.size.width - imgW1 - 10, (CGRectGetHeight(self.frame) - imgH1) / 2, imgW1, imgH1);
     
     if (!lineView) {
-        lineView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetHeight(self.frame) - 0.5, self.bounds.size.width, 0.5)];
+        lineView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetHeight(self.frame) - 0.8, self.bounds.size.width, 0.8)];
         lineView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:lineView];
     }

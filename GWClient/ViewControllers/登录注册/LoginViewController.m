@@ -47,6 +47,37 @@
 }
 
 - (void) doLogin:(UIButton *) sender{
+    
+    /*UserInfoModel *model = [[UserInfoModel alloc] init];
+    model.userId = 4564;
+    model.nickName = @"nickName";
+    model.headImgUrl = @"headImgUrl";
+    model.age = 15;
+    model.sex = 3;
+    model.location = @"四川成都";
+    model.signature =@"你还没有设置个性签名";
+    //
+    // 归档
+    [Utils aCoder:model];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    [userDef setBool:YES forKey:IS_HAS_LOGIN];
+    [userDef synchronize];
+    LeftViewController *leftVC = [[LeftViewController alloc] init];
+    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
+    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.view.window.rootViewController = drawerController;
+    });
+    return;*/
+    
+    
+    
+    
+    
+    
+    
     NSDictionary *paramDic = @{@"username":tfUserName.text,
                                @"password":tfPassword.text,
                                @"deviceId":[[[UIDevice currentDevice] identifierForVendor] UUIDString]
@@ -62,6 +93,7 @@
                 NSDictionary *dic = response[@"result"];
                 UserInfoModel *model = [[UserInfoModel alloc] init];
                 model.userId = [dic[@"userId"] integerValue];
+                //NSLog(@"userId: %d",[dic[@"userId"] integerValue]);
                 model.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
                 model.headImgUrl = dic[@"headImgUrl"];
                 model.age = [dic[@"age"] integerValue];

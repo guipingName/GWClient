@@ -43,7 +43,7 @@
                 [imageArray addObject:image];
                 subLen+=imageLen;
             }
-            [resultDic addEntriesFromDictionary:@{@"imageArray": imageArray}];
+            [resultDic addEntriesFromDictionary:@{@"images": imageArray}];
             [downstreamPacket setObject:resultDic];
         }
     }

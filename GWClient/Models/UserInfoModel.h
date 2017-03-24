@@ -33,4 +33,15 @@
 /**个性签名(默认:您还没设置个性签名)*/
 @property (nonatomic, copy) NSString *signature;
 
+
+
+- (BOOL) updateSelfInfomation;
+
+- (BOOL) uploadFile:(NSString *) fileName;
+
+- (BOOL) downloadFile:(NSString *) fileName;
+
+- (BOOL) deleteFile:(NSString *) fileName;
+
+
 @end

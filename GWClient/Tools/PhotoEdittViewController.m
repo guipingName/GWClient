@@ -13,9 +13,10 @@
 
 @implementation PhotoEdittViewController
 
--(instancetype)initWithImage:(UIImage *)image{
+-(instancetype)initWithImage:(UIImage *)image imageName:(NSString *)imageName{
     if(self = [super init]){
         _image = [self fixOrientation:image];
+        _imageName = imageName;
         self.clipType = CIRCULARCLIP;
         self.radius = 120;
         self.scaleRation =  10;
@@ -275,7 +276,7 @@
 }
 
 -(void)clipBtnSelected:(UIButton *)btn{
-    [self.delegate ClipViewController:self FinishClipImage:[self getSmallImage]];
+    [self.delegate ClipViewController:self FinishClipImage:[self getSmallImage] imageName:_imageName];
 }
 
 //修复图片显示方向问题

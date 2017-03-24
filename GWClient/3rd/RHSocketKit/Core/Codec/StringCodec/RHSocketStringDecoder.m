@@ -18,32 +18,31 @@
 
 @implementation RHSocketStringDecoder
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
         _stringEncoding = NSUTF8StringEncoding;
     }
     return self;
 }
 
-- (instancetype)initWithStringEncoding:(NSStringEncoding)stringEncoding
-{
+- (instancetype)initWithStringEncoding:(NSStringEncoding)stringEncoding {
     if (self = [super init]) {
         _stringEncoding = stringEncoding;
     }
     return self;
 }
 
-- (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output
-{
+- (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output {
     NSString *stringObject = nil;
     
     id object = [downstreamPacket object];
-    if ([object isKindOfClass:[NSString class]]) {
+    if([object isKindOfClass:[NSString class]]) {
         stringObject = object;
-    } else if ([object isKindOfClass:[NSData class]]) {
+    }
+    else if ([object isKindOfClass:[NSData class]]) {
         stringObject = [[NSString alloc] initWithData:object encoding:_stringEncoding];
-    } else {
+    }
+    else {
         [RHSocketException raiseWithReason:[NSString stringWithFormat:@"%@ Error !", [self class]]];
     }
     [downstreamPacket setObject:stringObject];

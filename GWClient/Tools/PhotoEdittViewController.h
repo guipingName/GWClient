@@ -17,7 +17,7 @@ typedef enum{
 
 @protocol ClipViewControllerDelegate <NSObject>
 
--(void) ClipViewController:(PhotoEdittViewController *)clipViewController FinishClipImage:(UIImage *)editImage;
+-(void) ClipViewController:(PhotoEdittViewController *)clipViewController FinishClipImage:(UIImage *)editImage imageName:(NSString *) imageName;
 
 @end
 
@@ -25,6 +25,7 @@ typedef enum{
 {
     UIImageView *_imageView;
     UIImage *_image;
+    NSString *_imageName;
     UIView * _overView;
     UIView * _imageViewScale;
     
@@ -41,5 +42,5 @@ typedef enum{
 @property (nonatomic, assign)ClipType clipType;  //裁剪的形状
 @property (nonatomic, strong)id<ClipViewControllerDelegate>delegate;
 
--(instancetype)initWithImage:(UIImage *)image;
+-(instancetype)initWithImage:(UIImage *)image imageName:(NSString *) imageName;
 @end
