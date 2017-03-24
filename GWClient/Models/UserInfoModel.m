@@ -10,6 +10,22 @@
 
 @implementation UserInfoModel
 
+-(BOOL)updateSelfInfomation{
+    return YES;
+}
+
+-(BOOL)uploadFile:(NSString *)fileName{
+    return YES;
+}
+
+-(BOOL)downloadFile:(NSString *)fileName{
+    return YES;
+}
+
+-(BOOL)deleteFile:(NSString *)fileName{
+    return YES;
+}
+
 
 // 归档时要使用的方法
 - (void)encodeWithCoder:(NSCoder *)aCoder{
