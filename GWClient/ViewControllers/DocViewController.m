@@ -48,12 +48,39 @@
 
 
 - (void) btnOpenFile:(UIButton *) sedner{
-    FileDetailViewController *VC = [[FileDetailViewController alloc] init];
-    [self.navigationController pushViewController:VC animated:YES];
+    //FileDetailViewController *VC = [[FileDetailViewController alloc] init];
+    //[self.navigationController pushViewController:VC animated:YES];
+    UserInfoModel *model = [Utils aDecoder];
+    NSDictionary *paramDic = @{@"userId":@(model.userId),
+                               @"token":model.token,
+                               };
+    [Utils GET:17 params:paramDic succeed:^(id response) {
+        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+        NSLog(@"获取文件列表--返回的Json串:\n%@", tempStr);
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
 }
 
 - (void) uploadImages:(UIButton *) sedner{
     [self pushImagePickerController];
+}
+
+- (void) uploadVodeos:(UIButton *) sedner{
+//    UserInfoModel *model = [Utils aDecoder];
+//    NSDictionary *paramDic = @{@"userId":@(model.userId),
+//                               @"token":model.token,
+//                               @"type":@(2),
+//                               @"fileDic":@""
+//                               };
+//    [Utils GET:ApiTypeUpFile params:paramDic succeed:^(id response) {
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"获取文件列表--返回的Json串:\n%@", tempStr);
+//    } fail:^(NSError *error) {
+//        NSLog(@"%@", error.localizedDescription);
+//    }];
 }
 
 #pragma mark - TZImagePickerController
@@ -74,7 +101,7 @@
     // imagePickerVc.navigationBar.translucent = NO;
     
     // 3. 设置是否可以选择视频/图片/原图
-    //imagePickerVc.allowPickingVideo = self.allowPickingVideoSwitch.isOn;
+    imagePickerVc.allowPickingVideo = YES;
     //imagePickerVc.allowPickingImage = self.allowPickingImageSwitch.isOn;
     imagePickerVc.allowPickingOriginalPhoto = NO;
     //imagePickerVc.allowPickingGif = self.allowPickingGifSwitch.isOn;
@@ -122,10 +149,10 @@
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:dataArray forKeys:imgNames];
     NSDictionary *params = @{@"userId":@(model.userId),
                               @"token":model.token,
-                              @"type":@(2),
-                              @"imagesDic":dic
+                              @"type":@(1),
+                              @"fileDic":dic
                               };
-    [Utils GET:15 params:params succeed:^(id response) {
+    [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
@@ -179,17 +206,27 @@
     [btnRegister setTitle:@"上传图片" forState:UIControlStateNormal];
     [btnRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btnRegister.backgroundColor = THEME_COLOR;
-    btnRegister.frame = CGRectMake(KSCREEN_WIDTH / 4 - 90 / 2, CGRectGetMaxY(myTableView.frame) + 20, 90, 30);
+    btnRegister.frame = CGRectMake(15, CGRectGetMaxY(myTableView.frame) + 20, KSCREEN_WIDTH / 3 - 30, 30);
     [self.view addSubview:btnRegister];
     btnRegister.layer.cornerRadius = 5;
     btnRegister.layer.masksToBounds = YES;
     [btnRegister addTarget:self action:@selector(uploadImages:) forControlEvents:UIControlEventTouchUpInside];
     
+    UIButton *btnVideo = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btnVideo setTitle:@"上传视频" forState:UIControlStateNormal];
+    [btnVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btnVideo.backgroundColor = THEME_COLOR;
+    btnVideo.frame = CGRectMake(KSCREEN_WIDTH / 3 + 15, CGRectGetMaxY(myTableView.frame) + 20, KSCREEN_WIDTH / 3 - 30, 30);
+    [self.view addSubview:btnVideo];
+    btnVideo.layer.cornerRadius = 5;
+    btnVideo.layer.masksToBounds = YES;
+    [btnVideo addTarget:self action:@selector(uploadVodeos:) forControlEvents:UIControlEventTouchUpInside];
+    
     UIButton *btnOpenFile = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btnOpenFile setTitle:@"打开文件" forState:UIControlStateNormal];
+    [btnOpenFile setTitle:@"下载文件" forState:UIControlStateNormal];
     [btnOpenFile setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btnOpenFile.backgroundColor = THEME_COLOR;
-    btnOpenFile.frame = CGRectMake(KSCREEN_WIDTH / 2 + 90 / 2, CGRectGetMaxY(myTableView.frame) + 20, 90, 30);
+    btnOpenFile.frame = CGRectMake(KSCREEN_WIDTH * 2 / 3 + 15, CGRectGetMaxY(myTableView.frame) + 20, KSCREEN_WIDTH / 3 - 30, 30);
     [self.view addSubview:btnOpenFile];
     btnOpenFile.layer.cornerRadius = 5;
     btnOpenFile.layer.masksToBounds = YES;

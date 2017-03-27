@@ -8,9 +8,10 @@
 
 #import "UserInfoViewController.h"
 #import "UserInfoTableViewCell.h"
-#import "ModifyViewController.h"
+#import "ModifyNickNameViewController.h"
 #import "ModifySignatureViewController.h"
 #import "ModifyHeadIconViewController.h"
+#import "ModifySexViewController.h"
 
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -147,7 +148,7 @@
     }
     else if (indexPath.section == 0 && indexPath.row == 1) {
         // 修改昵称
-        ModifyViewController *nickNameVC = [[ModifyViewController alloc] init];
+        ModifyNickNameViewController *nickNameVC = [[ModifyNickNameViewController alloc] init];
         nickNameVC.nickName = titleInfoArray[indexPath.section][indexPath.row];
         nickNameVC.nameStrBlock = ^(NSString *nickName){
             model.nickName = nickName;
@@ -155,6 +156,22 @@
             [self reloadTableViewWithSection:0 row:1 object:nickName];
         };
         [self.navigationController pushViewController:nickNameVC animated:YES];
+    }
+    else if (indexPath.section == 1 && indexPath.row == 0) {
+        // 修改性别
+        ModifySexViewController *sexVC = [[ModifySexViewController alloc] init];
+        sexVC.sexStr = titleInfoArray[indexPath.section][indexPath.row];
+        sexVC.sexStrBlock = ^(NSString *sexStra){
+            if ([sexStra isEqualToString:@"男"]) {
+                model.sex = 1;
+            }
+            else if ([sexStra isEqualToString:@"男"]){
+                model.sex = 2;
+            }
+            [Utils aCoder:model];
+            [self reloadTableViewWithSection:1 row:0 object:sexStra];
+        };
+        [self.navigationController pushViewController:sexVC animated:YES];
     }
     else if (indexPath.section == 1 && indexPath.row == 2) {
         // 修改个性签名

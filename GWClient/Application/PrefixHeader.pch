@@ -17,6 +17,7 @@
 #import "UserInfoModel.h"
 #import "Utils.h"
 #import "UILabel+GPAligment.h"
+#import "KLoadingView.h"
 
 
 #ifndef W_H_

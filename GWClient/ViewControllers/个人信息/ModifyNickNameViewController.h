@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ModifyViewController : UIViewController
+@interface ModifyNickNameViewController : UIViewController
 
 @property (nonatomic, copy) NSString *nickName;
 @property (nonatomic, copy) void(^nameStrBlock)(NSString *);

@@ -11,12 +11,15 @@
 
 @interface TransferListViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
-    UIButton *circleBtn;
-    UIButton *squareBtn;
+    UIButton *btnUpload;
+    UIButton *btnDownload;
     UITableView *myTableView;
     NSMutableArray *dataArray;
     NSMutableArray *uploadArray;
     NSMutableArray *downloadArray;
+    BOOL isEditing;
+    UIButton *btnRightItem;
+    UIView *btnBgView;
 }
 
 @end
@@ -31,8 +34,18 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
     
     self.navigationController.navigationBar.barTintColor = THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(doLogin)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    
+    // 右边项
+     btnRightItem = [UIButton buttonWithType:UIButtonTypeCustom];
+     btnRightItem.frame = CGRectMake(0, 0, 50, 30);
+     [btnRightItem addTarget:self action:@selector(dobtnRightItem:) forControlEvents:UIControlEventTouchDown];
+     btnRightItem.titleLabel.font = [UIFont systemFontOfSize:17];
+     [btnRightItem setTitle:@"编辑" forState:UIControlStateNormal];
+     [btnRightItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+     [btnRightItem setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnRightItem];
+    
+    
     
     [self createViews];
     
@@ -61,17 +74,17 @@
     lineView.backgroundColor = [UIColor grayColor];
     [btnBackView addSubview:lineView];
     
-    circleBtn = [self createButton:@"上传列表"];
-    circleBtn.selected = YES;
-    [circleBtn setFrame:CGRectMake(btnBackView.bounds.size.width / 4 - 80 / 2, 0, 80, 30)];
-    [circleBtn addTarget:self action:@selector(selectedClipType:) forControlEvents:UIControlEventTouchUpInside];
-    [btnBackView addSubview:circleBtn];
+    btnUpload = [self createButton:@"上传列表"];
+    btnUpload.selected = YES;
+    [btnUpload setFrame:CGRectMake(btnBackView.bounds.size.width / 4 - 80 / 2, 0, 80, 30)];
+    [btnUpload addTarget:self action:@selector(selectedListType:) forControlEvents:UIControlEventTouchUpInside];
+    [btnBackView addSubview:btnUpload];
     
-    squareBtn = [self createButton:@"下载列表"];
-    [squareBtn setFrame:CGRectMake((btnBackView.bounds.size.width + 80) /2, 0, 80, 30)];
-    [squareBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [squareBtn addTarget:self action:@selector(selectedClipType:) forControlEvents:UIControlEventTouchUpInside];
-    [btnBackView addSubview:squareBtn];
+    btnDownload = [self createButton:@"下载列表"];
+    [btnDownload setFrame:CGRectMake((btnBackView.bounds.size.width + 80) /2, 0, 80, 30)];
+    [btnDownload setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btnDownload addTarget:self action:@selector(selectedListType:) forControlEvents:UIControlEventTouchUpInside];
+    [btnBackView addSubview:btnDownload];
     
     
     myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(btnBackView.frame), KSCREEN_WIDTH, KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame) - 49)];
@@ -80,8 +93,30 @@
     myTableView.delegate = self;
     myTableView.dataSource = self;
     myTableView.allowsMultipleSelectionDuringEditing = YES;
+    //[mTextView addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:nil];
+    [myTableView addObserver:self forKeyPath:@"indexPathsForSelectedRows" options:NSKeyValueObservingOptionNew context:nil];
     
+    
+    btnBgView = [[UIView alloc] initWithFrame:CGRectMake(0, KSCREEN_HEIGHT - 49 - 50, KSCREEN_WIDTH, 49)];
+    btnBgView.hidden = YES;
+    btnBgView.backgroundColor = UICOLOR_RGBA(0, 0, 0, 0.5);
+    [self.view addSubview:btnBgView];
+    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, btnBgView.bounds.size.width, btnBgView.bounds.size.height)];
+    tempView.backgroundColor = UICOLOR_RGBA(0, 0, 0, 0.5);
+    //[btnBgView addSubview:tempView];
+    
+    UIButton *btnDelete = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnDelete.frame = CGRectMake(tempView.bounds.size.width / 3, 10, tempView.bounds.size.width / 3, 29);
+    btnDelete.layer.cornerRadius = 5;
+    btnDelete.layer.masksToBounds = YES;
+    [btnDelete addTarget:self action:@selector(deleteItems:) forControlEvents:UIControlEventTouchDown];
+    btnDelete.backgroundColor = THEME_COLOR;
+    btnDelete.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btnDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btnDelete setTitle:@"删除选中" forState:UIControlStateNormal];
+    [btnBgView addSubview:btnDelete];
 }
+
 
 #pragma mark --------------- UITableViewDelegate ----------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -122,12 +157,13 @@
     return button;
 }
 
--(void) selectedClipType:(UIButton *) sender{
+-(void) selectedListType:(UIButton *) sender{
     [sender setTitleColor:UICOLOR_RGBA(250, 126, 20, 1.0) forState:UIControlStateNormal];
+    [self normalState];
     sender.selected = YES;
     if([sender.titleLabel.text isEqualToString:@"上传列表"]){
-        squareBtn.selected = NO;
-        [squareBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        btnDownload.selected = NO;
+        [btnDownload setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         dataArray = uploadArray;
         NSLog(@"uploadArray.count: %lu %lu", (unsigned long)uploadArray.count, (unsigned long)dataArray.count);
         [myTableView reloadData];
@@ -135,16 +171,42 @@
     else{
         dataArray = downloadArray;
         [myTableView reloadData];
-        circleBtn.selected = NO;
+        btnUpload.selected = NO;
         NSLog(@"downloadArray.count: %lu %lu", (unsigned long)downloadArray.count, (unsigned long)dataArray.count);
-        [circleBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [btnUpload setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     }
 }
 
 
-- (void) doLogin{
-    NSLog(@"222");
-    [myTableView setEditing:YES animated:YES];
+- (void) dobtnRightItem:(UIButton *) sender{
+    if (isEditing) {
+        [self normalState];
+    }
+    else{
+        [sender setTitle:@"取消" forState:UIControlStateNormal];
+        isEditing = YES;
+        btnBgView.hidden = NO;
+        [myTableView setEditing:YES animated:YES];
+    }
+}
+- (void) deleteItems:(UIButton *) sender{
+    NSArray *indexPaths = myTableView.indexPathsForSelectedRows;
+    indexPaths = [indexPaths sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj2 compare:obj1];
+    }];
+    for (NSIndexPath *indexPath in indexPaths) {
+        //NSString *str = dataArray[indexPath.row];
+        [dataArray removeObjectAtIndex:indexPath.row];
+    }
+    [myTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
+    [self normalState];
+}
+
+- (void) normalState{
+    btnBgView.hidden = YES;
+    [btnRightItem setTitle:@"编辑" forState:UIControlStateNormal];
+    isEditing = NO;
+    [myTableView setEditing:NO animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {

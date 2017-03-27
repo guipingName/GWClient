@@ -6,16 +6,16 @@
 //  Copyright © 2017年 guiping. All rights reserved.
 //
 
-#import "ModifyViewController.h"
+#import "ModifyNickNameViewController.h"
 
-@interface ModifyViewController ()<UITextFieldDelegate>
+@interface ModifyNickNameViewController ()<UITextFieldDelegate>
 {
     UITextField *tfNickname;
 }
 
 @end
 
-@implementation ModifyViewController
+@implementation ModifyNickNameViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -135,4 +135,27 @@
     }
 }
 
++ (void)addDialogueBoxWithSuperView:(UIView *)superView Content:(NSString *)content{
+    UILabel * label = [[UILabel alloc]init];
+    label.text = content;
+    label.font = [UIFont systemFontOfSize:15];
+    CGRect rect = [content boundingRectWithSize:CGSizeMake(0, 0) options:1 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
+    label.frame = CGRectMake(15, 5, rect.size.width, rect.size.height);
+    label.textColor = [UIColor whiteColor];
+    UIView * view = [[UIView alloc]init];
+    view.frame = CGRectMake(0, 0, rect.size.width + 30, rect.size.height + 10);
+    view.center = CGPointMake(KSCREEN_WIDTH / 2 , KSCREEN_HEIGHT / 2);
+    view.backgroundColor = UICOLOR_RGBA(0, 0, 0,0.8);
+    view.layer.cornerRadius = 8;
+    [superView addSubview:view];
+    [view addSubview:label];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.4 animations:^{
+            view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [view removeFromSuperview];
+        }];
+    });
+}
+
 @end

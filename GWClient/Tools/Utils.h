@@ -22,4 +22,6 @@
 +(void)GET:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure;
 
 + (UIImage *) abcImageName:(NSString *) imageName;
+
++ (void)addDialogueBoxWithSuperView:(UIView *)superView Content:(NSString *)content;
 @end

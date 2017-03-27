@@ -11,6 +11,7 @@
 #import "MMDrawerController.h"
 #import "LeftViewController.h"
 #import "GWClientTabBarController.h"
+#import "GPNetWorkManager.h"
 
 @interface AppDelegate ()
 
@@ -22,16 +23,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    //[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    /*
-     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-     [userDef setBool:YES forKey:IS_HAS_LOGIN];
-     [userDef setObject:model forKey:@"userInfomation"];
-     */
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {
         LeftViewController *leftVC = [[LeftViewController alloc] init];
-        //leftVC.model = [Utils aDecoder];;
         MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
         
         [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
@@ -44,9 +38,32 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
         self.window.rootViewController = nav;
     }
+    
+    // 获取网络状态
+    [self getNetworkStatus];
     return YES;
 }
 
+
+- (void) getNetworkStatus{
+    GPNetWorkManager *manager = [GPNetWorkManager sharedManager];
+    [manager setReachabilityStatusChangeBlock:^(HSReachabilityStatus status) {
+        switch (status) {
+            case HSReachabilityStatusNotReachable:
+                [Utils addDialogueBoxWithSuperView:_window Content:@"未连接网络"];
+                break;
+            case HSReachabilityStatusReachableViaWWAN:
+                [Utils addDialogueBoxWithSuperView:_window Content:@"蜂窝移动网络"];
+                break;
+            case HSReachabilityStatusReachableViaWiFi:
+                [Utils addDialogueBoxWithSuperView:_window Content:@"Wi-Fi"];
+                break;
+            default:
+                break;
+        }
+    }];
+    [manager startMonitoring];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

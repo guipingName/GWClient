@@ -112,17 +112,24 @@
 #pragma mark - ClipViewControllerDelegate
 -(void)ClipViewController:(PhotoEdittViewController *)clipViewController FinishClipImage:(UIImage *)editImage imageName:(NSString *)imageName{
     [clipViewController dismissViewControllerAnimated:YES completion:^{
+        KLoadingView *hintView = [KLoadingView shareDZK];
+        hintView.title = @"正在上传";
+        [hintView showKLoadingViewto:self.view animated:YES];
+        
         UserInfoModel *model = [Utils aDecoder];
-        NSDictionary *params = @{@"userId":@(model.userId),
-                                 @"token":@"123",
-                                 @"uploadType":@(1),
-                                 @"imagesDic":@{imageName:editImage},
-                                 
-                                 };
-        [Utils GET:14 params:params succeed:^(id response) {
+        
+        NSDictionary *paramDic = @{@"userId":@(model.userId),
+                                   @"token":model.token,
+                                   @"type":@(0),
+                                   @"fileDic":@{imageName:editImage}
+                                   };
+        [Utils GET:ApiTypeUpFile params:paramDic succeed:^(id response) {
             NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
             NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
             NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [hintView hideKLoadingViewForView:self.view animated:YES];
+            });
             if ([response[@"success"] boolValue]) {
                 _imageView.image = editImage;
             }

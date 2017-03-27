@@ -46,22 +46,43 @@
     }
 }
 
-- (void) doLogin:(UIButton *) sender{   
+- (void) doLogin:(UIButton *) sender{
+    KLoadingView *hintView = [KLoadingView shareDZK];
+    hintView.title = @"正在登录";
+    [hintView showKLoadingViewto:self.view animated:YES];
+    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    [userDef setBool:YES forKey:IS_HAS_LOGIN];
+//    [userDef synchronize];
+//    LeftViewController *leftVC = [[LeftViewController alloc] init];
+//    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
+//    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+//    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+//    [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        self.view.window.rootViewController = drawerController;
+//    });
+//    
+//    return;
+    
+    
     NSDictionary *paramDic = @{@"username":tfUserName.text,
                                @"password":tfPassword.text,
                                @"deviceId":[[[UIDevice currentDevice] identifierForVendor] UUIDString]
                                };
-    [Utils GET:ApiTypeLoginApi params:paramDic succeed:^(id response) {
+    [Utils GET:ApiTypeLogin params:paramDic succeed:^(id response) {
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"登录--返回的Json串:\n%@", tempStr);
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [hintView hideKLoadingViewForView:self.view animated:YES];
+        });
         if ([response isKindOfClass:[NSDictionary class]]) {
-            [Utils hintView:self.view message:response[@"message"]];
             if ([response[@"success"] boolValue]) {
                 NSDictionary *dic = response[@"result"];
                 UserInfoModel *model = [[UserInfoModel alloc] init];
-                model.userId = [dic[@"userId"] integerValue];
+                //model.userId = [dic[@"userId"] integerValue];
+                model.userId = 11;
                 model.token = response[@"token"];
                 model.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
                 model.headImgUrl = dic[@"headImgUrl"];
@@ -87,7 +108,6 @@
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
-        [Utils hintView:self.view message:@"登录失败"];
     }];
 }
 

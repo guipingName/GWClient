@@ -169,6 +169,10 @@
         NSLog(@"验证码不正确");
         return;
     }
+    KLoadingView *hintView = [KLoadingView shareDZK];
+    hintView.title = @"正在注册";
+    [hintView showKLoadingViewto:self.view animated:YES];
+
     NSDictionary *paramDic = @{@"username":tfEmail.text,
                                @"password":tfPassword.text
                                };
@@ -176,6 +180,9 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"注册--返回的Json串:\n%@", tempStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [hintView hideKLoadingViewForView:self.view animated:YES];
+        });
         if ([response isKindOfClass:[NSDictionary class]]) {
             [Utils hintView:self.view message:response[@"message"]];
             if ([response[@"success"] boolValue]) {

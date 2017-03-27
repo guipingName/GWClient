@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		1FB87A4F85601591022BDD0A /* libPods-GWClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD66F9DE551711E1FFEB575 /* libPods-GWClient.a */; };
 		3817DBFD1E80CAA000FC72C1 /* ModifySignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBF81E80CAA000FC72C1 /* ModifySignatureViewController.m */; };
-		3817DBFE1E80CAA000FC72C1 /* ModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFA1E80CAA000FC72C1 /* ModifyViewController.m */; };
+		3817DBFE1E80CAA000FC72C1 /* ModifyNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFA1E80CAA000FC72C1 /* ModifyNickNameViewController.m */; };
 		3817DBFF1E80CAA000FC72C1 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFC1E80CAA000FC72C1 /* UserInfoViewController.m */; };
 		3817DC081E81066600FC72C1 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DC071E81066600FC72C1 /* Utils.m */; };
 		3817DC0E1E811EC900FC72C1 /* UserLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DC0D1E811EC900FC72C1 /* UserLogin.m */; };
+		382522C91E88AE8E0094C289 /* GPNetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382522C81E88AE8E0094C289 /* GPNetWorkManager.m */; };
 		383416861E82020300546AB0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 383416851E82020300546AB0 /* MBProgressHUD.m */; };
 		383416981E822A5400546AB0 /* PhotoEdittViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383416971E822A5400546AB0 /* PhotoEdittViewController.m */; };
 		3834169B1E8248DE00546AB0 /* ModifyHeadIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3834169A1E8248DE00546AB0 /* ModifyHeadIconViewController.m */; };
@@ -85,6 +86,10 @@
 		38DD09401E7BE0E300388CAE /* TransferListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD093F1E7BE0E300388CAE /* TransferListViewController.m */; };
 		38DD09431E7BE0F300388CAE /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD09421E7BE0F300388CAE /* NewsViewController.m */; };
 		38DD09471E7BE53900388CAE /* UIImage+RTTint.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD09461E7BE53900388CAE /* UIImage+RTTint.m */; };
+		38DDFC4B1E88E2C500CD9E3C /* KLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC491E88E2C500CD9E3C /* KLoadingView.m */; };
+		38DDFC4C1E88E2C500CD9E3C /* loading.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 38DDFC4A1E88E2C500CD9E3C /* loading.bundle */; };
+		38DDFC4F1E88E62800CD9E3C /* ModifySexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC4E1E88E62800CD9E3C /* ModifySexViewController.m */; };
+		38DDFC521E88E69A00CD9E3C /* SexButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC511E88E69A00CD9E3C /* SexButton.m */; };
 		38E700551E7A895600336BDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E700541E7A895600336BDB /* main.m */; };
 		38E7005E1E7A895600336BDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38E7005C1E7A895600336BDB /* Main.storyboard */; };
 		38E700601E7A895600336BDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E7005F1E7A895600336BDB /* Assets.xcassets */; };
@@ -128,14 +133,16 @@
 /* Begin PBXFileReference section */
 		3817DBF71E80CAA000FC72C1 /* ModifySignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifySignatureViewController.h; sourceTree = "<group>"; };
 		3817DBF81E80CAA000FC72C1 /* ModifySignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifySignatureViewController.m; sourceTree = "<group>"; };
-		3817DBF91E80CAA000FC72C1 /* ModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyViewController.h; sourceTree = "<group>"; };
-		3817DBFA1E80CAA000FC72C1 /* ModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyViewController.m; sourceTree = "<group>"; };
+		3817DBF91E80CAA000FC72C1 /* ModifyNickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyNickNameViewController.h; sourceTree = "<group>"; };
+		3817DBFA1E80CAA000FC72C1 /* ModifyNickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyNickNameViewController.m; sourceTree = "<group>"; };
 		3817DBFB1E80CAA000FC72C1 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		3817DBFC1E80CAA000FC72C1 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		3817DC061E81066600FC72C1 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		3817DC071E81066600FC72C1 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		3817DC0C1E811EC900FC72C1 /* UserLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLogin.h; sourceTree = "<group>"; };
 		3817DC0D1E811EC900FC72C1 /* UserLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLogin.m; sourceTree = "<group>"; };
+		382522C71E88AE8E0094C289 /* GPNetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPNetWorkManager.h; sourceTree = "<group>"; };
+		382522C81E88AE8E0094C289 /* GPNetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPNetWorkManager.m; sourceTree = "<group>"; };
 		383416841E82020300546AB0 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		383416851E82020300546AB0 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		383416961E822A5400546AB0 /* PhotoEdittViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoEdittViewController.h; sourceTree = "<group>"; };
@@ -255,6 +262,13 @@
 		38DD09421E7BE0F300388CAE /* NewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		38DD09451E7BE53900388CAE /* UIImage+RTTint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RTTint.h"; sourceTree = "<group>"; };
 		38DD09461E7BE53900388CAE /* UIImage+RTTint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RTTint.m"; sourceTree = "<group>"; };
+		38DDFC481E88E2C500CD9E3C /* KLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLoadingView.h; sourceTree = "<group>"; };
+		38DDFC491E88E2C500CD9E3C /* KLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLoadingView.m; sourceTree = "<group>"; };
+		38DDFC4A1E88E2C500CD9E3C /* loading.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = loading.bundle; sourceTree = "<group>"; };
+		38DDFC4D1E88E62800CD9E3C /* ModifySexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifySexViewController.h; sourceTree = "<group>"; };
+		38DDFC4E1E88E62800CD9E3C /* ModifySexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifySexViewController.m; sourceTree = "<group>"; };
+		38DDFC501E88E69A00CD9E3C /* SexButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexButton.h; sourceTree = "<group>"; };
+		38DDFC511E88E69A00CD9E3C /* SexButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexButton.m; sourceTree = "<group>"; };
 		38E700501E7A895600336BDB /* GWClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GWClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E700541E7A895600336BDB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		38E7005D1E7A895600336BDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -345,10 +359,21 @@
 				3834169A1E8248DE00546AB0 /* ModifyHeadIconViewController.m */,
 				3817DBF71E80CAA000FC72C1 /* ModifySignatureViewController.h */,
 				3817DBF81E80CAA000FC72C1 /* ModifySignatureViewController.m */,
-				3817DBF91E80CAA000FC72C1 /* ModifyViewController.h */,
-				3817DBFA1E80CAA000FC72C1 /* ModifyViewController.m */,
+				3817DBF91E80CAA000FC72C1 /* ModifyNickNameViewController.h */,
+				3817DBFA1E80CAA000FC72C1 /* ModifyNickNameViewController.m */,
+				38DDFC4D1E88E62800CD9E3C /* ModifySexViewController.h */,
+				38DDFC4E1E88E62800CD9E3C /* ModifySexViewController.m */,
 			);
 			path = "个人信息";
+			sourceTree = "<group>";
+		};
+		382522C61E88AE8E0094C289 /* NetworkState */ = {
+			isa = PBXGroup;
+			children = (
+				382522C71E88AE8E0094C289 /* GPNetWorkManager.h */,
+				382522C81E88AE8E0094C289 /* GPNetWorkManager.m */,
+			);
+			path = NetworkState;
 			sourceTree = "<group>";
 		};
 		383416831E82020300546AB0 /* MBProgressHUD */ = {
@@ -421,6 +446,8 @@
 		38DD07FB1E7BD4B700388CAE /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				38DDFC471E88E2C500CD9E3C /* KLoadingView */,
+				382522C61E88AE8E0094C289 /* NetworkState */,
 				38FBD0C61E84C99E000E084B /* TZImagePickerController */,
 				38DD08701E7BD63C00388CAE /* RHSocketKit */,
 				383416831E82020300546AB0 /* MBProgressHUD */,
@@ -622,8 +649,20 @@
 				383416971E822A5400546AB0 /* PhotoEdittViewController.m */,
 				383680031E83CB2D00CC7DDB /* GPButton.h */,
 				383680041E83CB2D00CC7DDB /* GPButton.m */,
+				38DDFC501E88E69A00CD9E3C /* SexButton.h */,
+				38DDFC511E88E69A00CD9E3C /* SexButton.m */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		38DDFC471E88E2C500CD9E3C /* KLoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				38DDFC481E88E2C500CD9E3C /* KLoadingView.h */,
+				38DDFC491E88E2C500CD9E3C /* KLoadingView.m */,
+				38DDFC4A1E88E2C500CD9E3C /* loading.bundle */,
+			);
+			path = KLoadingView;
 			sourceTree = "<group>";
 		};
 		38E700471E7A895600336BDB = {
@@ -876,6 +915,7 @@
 				383680011E83C37C00CC7DDB /* navigationbar_list_normal@2x.png in Resources */,
 				38E700601E7A895600336BDB /* Assets.xcassets in Resources */,
 				38C7F04C1E7FF0BA00B1DBA8 /* tabbar_meHL@2x.png in Resources */,
+				38DDFC4C1E88E2C500CD9E3C /* loading.bundle in Resources */,
 				38C9B32B1E851EB600638CF0 /* close.png in Resources */,
 				38C7F0421E7FF0BA00B1DBA8 /* tabbar_discover@2x.png in Resources */,
 				38E7005E1E7A895600336BDB /* Main.storyboard in Resources */,
@@ -981,16 +1021,19 @@
 				38DD08EE1E7BD70A00388CAE /* UIViewController+MMDrawerController.m in Sources */,
 				38DD09471E7BE53900388CAE /* UIImage+RTTint.m in Sources */,
 				38C9B3281E851B0400638CF0 /* FileCollectionViewCell.m in Sources */,
-				3817DBFE1E80CAA000FC72C1 /* ModifyViewController.m in Sources */,
+				3817DBFE1E80CAA000FC72C1 /* ModifyNickNameViewController.m in Sources */,
 				383CC0651E7FB52700C62B29 /* UserInfoTableViewCell.m in Sources */,
 				38DD093D1E7BE0BC00388CAE /* DocViewController.m in Sources */,
+				38DDFC521E88E69A00CD9E3C /* SexButton.m in Sources */,
 				38DD08DB1E7BD63C00388CAE /* RHSocketCallReplyManager.m in Sources */,
 				38DD08ED1E7BD70A00388CAE /* MMDrawerVisualState.m in Sources */,
 				38FBD0E21E84C99E000E084B /* NSBundle+TZImagePicker.m in Sources */,
+				382522C91E88AE8E0094C289 /* GPNetWorkManager.m in Sources */,
 				38FBD0E91E84C99E000E084B /* TZImagePickerController.m in Sources */,
 				38FBD0E71E84C99E000E084B /* TZImageManager.m in Sources */,
 				38DD08DE1E7BD63C00388CAE /* RHSocketRpcCmdEncoder.m in Sources */,
 				383CC00B1E7F79C500C62B29 /* UserInfoModel.m in Sources */,
+				38DDFC4F1E88E62800CD9E3C /* ModifySexViewController.m in Sources */,
 				38DD08DC1E7BD63C00388CAE /* RHSocketChannelProxy.m in Sources */,
 				38FBD0E41E84C99E000E084B /* TZAssetModel.m in Sources */,
 				38DD08C41E7BD63C00388CAE /* RHSocketUdpConnection.m in Sources */,
@@ -1016,6 +1059,7 @@
 				38DD08D61E7BD63C00388CAE /* RHSocketUtils.m in Sources */,
 				38DD093A1E7BE00600388CAE /* GWClientTabBarController.m in Sources */,
 				383680051E83CB2D00CC7DDB /* GPButton.m in Sources */,
+				38DDFC4B1E88E2C500CD9E3C /* KLoadingView.m in Sources */,
 				38FBD0E31E84C99E000E084B /* TZAssetCell.m in Sources */,
 				3817DC081E81066600FC72C1 /* Utils.m in Sources */,
 				383416981E822A5400546AB0 /* PhotoEdittViewController.m in Sources */,
