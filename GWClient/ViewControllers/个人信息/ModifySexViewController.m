@@ -46,6 +46,12 @@
     [btnWoman setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnWoman setTitle:@"女" forState:UIControlStateNormal];
     [self.view addSubview:btnWoman];
+    if ([_sexStr isEqualToString:@"男"]) {
+        btnMan.selected = YES;
+    }
+    else if ([_sexStr isEqualToString:@"女"]){
+        btnWoman.selected = YES;
+    }
     
 }
 

@@ -65,6 +65,12 @@
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
 {
     [_asyncSocket writeData:data withTimeout:timeout tag:tag];
+    [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        NSUInteger done = 0;
+        NSUInteger total = 0;
+        float asign = [_asyncSocket progressOfWriteReturningTag:&tag bytesDone:&done total:&total];
+        NSLog(@"++++++++++++ 完成=%u --------全部=%u,============进度=%f",done, total, asign);
+    }];
 }
 
 #pragma mark -

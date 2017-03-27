@@ -165,7 +165,7 @@
             if ([sexStra isEqualToString:@"男"]) {
                 model.sex = 1;
             }
-            else if ([sexStra isEqualToString:@"男"]){
+            else if ([sexStra isEqualToString:@"女"]){
                 model.sex = 2;
             }
             [Utils aCoder:model];

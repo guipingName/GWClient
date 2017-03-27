@@ -12,6 +12,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
 #import "FileDetailViewController.h"
+#import "TZImageManager.h"
 
 @interface DocViewController ()<UITableViewDelegate, UITableViewDataSource, TZImagePickerControllerDelegate>{
     UITableView *myTableView;
@@ -113,17 +114,73 @@
 
     // imagePickerVc.minPhotoWidthSelectable = 3000;
     // imagePickerVc.minPhotoHeightSelectable = 2000;
-    
-    
-    // 使用block或者代理，来得到用户选择的照片.
-    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        _selectedAssets = [NSMutableArray arrayWithArray:assets];
-        dataArray = [photos mutableCopy];
-        [self printAssetsName:assets];
-    }];
-    
     [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
+
+
+// The picker should dismiss itself; when it dismissed these handle will be called.
+// If isOriginalPhoto is YES, user picked the original photo.
+// You can get original photo with asset, by the method [[TZImageManager manager] getOriginalPhotoWithAsset:completion:].
+// The UIImage Object in photos default width is 828px, you can set it by photoWidth property.
+// 这个照片选择器会自己dismiss，当选择器dismiss的时候，会执行下面的代理方法
+// 如果isSelectOriginalPhoto为YES，表明用户选择了原图
+// 你可以通过一个asset获得原图，通过这个方法：[[TZImageManager manager] getOriginalPhotoWithAsset:completion:]
+// photos数组里的UIImage对象，默认是828像素宽，你可以通过设置photoWidth属性的值来改变它
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
+    
+    _selectedAssets = [NSMutableArray arrayWithArray:assets];
+    dataArray = [photos mutableCopy];
+    [self printAssetsName:assets];
+
+   // 1.打印图片名字
+    [self printAssetsName:assets];
+}
+
+// If user picking a video, this callback will be called.
+// If system version > iOS8,asset is kind of PHAsset class, else is ALAsset class.
+// 如果用户选择了一个视频，下面的handle会被执行
+// 如果系统版本大于iOS8，asset是PHAsset类的对象，否则是ALAsset类的对象
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset {
+    dataArray = [NSMutableArray arrayWithArray:@[coverImage]];
+    _selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
+    // open this code to send video
+    // 打开这段代码发送视频
+    [[TZImageManager manager] getVideoOutputPathWithAsset:asset completion:^(NSString *outputPath) {
+        NSLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
+        // Export completed, send video here, send by outputPath or NSData
+        // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
+        NSData *data = [NSData dataWithContentsOfFile:outputPath];
+        NSLog(@"data: %@", data);
+        UserInfoModel *model = [Utils aDecoder];
+        NSDictionary *params = @{@"userId":@(model.userId),
+                                  @"token":model.token,
+                                  @"type":@(2),
+                                 @"fileDic":@{@"2017-03-27-16:30:42.mp4":data}
+                                  };
+        [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
+//            NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//            NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//            NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
+//            if ([response[@"success"] boolValue]) {
+//    
+//            }
+        } fail:^(NSError * error) {
+            NSLog(@"%@",error.localizedDescription);
+        }];
+
+        
+    }];
+    [myTableView reloadData];
+}
+
+// If user picking a gif image, this callback will be called.
+// 如果用户选择了一个gif图片，下面的handle会被执行
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingGifImage:(UIImage *)animatedImage sourceAssets:(id)asset {
+    dataArray = [NSMutableArray arrayWithArray:@[animatedImage]];
+    _selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
+    [myTableView reloadData];
+}
+
 
 // 打印图片名字
 - (void)printAssetsName:(NSArray *)assets {
@@ -145,25 +202,23 @@
     [myTableView reloadData];
     
     // 上传图片
-    UserInfoModel *model = [Utils aDecoder];
-    NSDictionary *dic = [NSDictionary dictionaryWithObjects:dataArray forKeys:imgNames];
-    NSDictionary *params = @{@"userId":@(model.userId),
-                              @"token":model.token,
-                              @"type":@(1),
-                              @"fileDic":dic
-                              };
-    [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
+//    UserInfoModel *model = [Utils aDecoder];
+//    NSDictionary *dic = [NSDictionary dictionaryWithObjects:dataArray forKeys:imgNames];
+//    NSDictionary *params = @{@"userId":@(model.userId),
+//                              @"token":model.token,
+//                              @"type":@(1),
+//                              @"fileDic":dic
+//                              };
+//    [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
-        
-        
-        if ([response[@"success"] boolValue]) {
-
-        }
-    } fail:^(NSError * error) {
-        NSLog(@"%@",error.localizedDescription);
-    }];
+//        if ([response[@"success"] boolValue]) {
+//
+//        }
+//    } fail:^(NSError * error) {
+//        NSLog(@"%@",error.localizedDescription);
+//    }];
 }
 
 

@@ -47,6 +47,8 @@
 }
 
 - (void) doLogin:(UIButton *) sender{
+    [tfUserName resignFirstResponder];
+    [tfPassword resignFirstResponder];
     KLoadingView *hintView = [KLoadingView shareDZK];
     hintView.title = @"正在登录";
     [hintView showKLoadingViewto:self.view animated:YES];

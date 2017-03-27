@@ -39,7 +39,6 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationBar.translucent = YES;
@@ -51,8 +50,7 @@
     self.oKButtonTitleColorDisabled = [UIColor colorWithRed:(83/255.0) green:(179/255.0) blue:(17/255.0) alpha:0.5];
     
     if (iOS7Later) {
-        //self.navigationBar.barTintColor = [UIColor colorWithRed:(34/255.0) green:(34/255.0)  blue:(34/255.0) alpha:1.0];
-        self.navigationBar.barTintColor = [UIColor redColor];
+        self.navigationBar.barTintColor = [UIColor colorWithRed:(34/255.0) green:(34/255.0)  blue:(34/255.0) alpha:1.0];
         self.navigationBar.tintColor = [UIColor whiteColor];
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
@@ -165,8 +163,7 @@
             [self.view addSubview:_settingBtn];
             
             _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(observeAuthrizationStatusChange) userInfo:nil repeats:YES];
-        }
-        else {
+        } else {
             [self pushPhotoPickerVc];
         }
     }
@@ -250,13 +247,6 @@
     self.cancelBtnTitleStr = [NSBundle tz_localizedStringForKey:@"Cancel"];
     self.previewBtnTitleStr = [NSBundle tz_localizedStringForKey:@"Preview"];
     self.fullImageBtnTitleStr = [NSBundle tz_localizedStringForKey:@"Full image"];
-    self.settingBtnTitleStr = [NSBundle tz_localizedStringForKey:@"Setting"];
-    self.processHintStr = [NSBundle tz_localizedStringForKey:@"Processing..."];
-    
-    self.doneBtnTitleStr = @"完成";
-    self.cancelBtnTitleStr = @"取消";
-    self.previewBtnTitleStr = [NSBundle tz_localizedStringForKey:@"预览"];
-    self.fullImageBtnTitleStr = [NSBundle tz_localizedStringForKey:@"浏览全图"];
     self.settingBtnTitleStr = [NSBundle tz_localizedStringForKey:@"Setting"];
     self.processHintStr = [NSBundle tz_localizedStringForKey:@"Processing..."];
 }
