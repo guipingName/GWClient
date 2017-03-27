@@ -617,7 +617,8 @@ static CGFloat TZScreenScale;
             // NSLog(@"AVAsset URL: %@",myAsset.URL);
             [self startExportVideoWithVideoAsset:videoAsset completion:completion];
         }];
-    } else if ([asset isKindOfClass:[ALAsset class]]) {
+    }
+    else if ([asset isKindOfClass:[ALAsset class]]) {
         NSURL *videoURL =[asset valueForProperty:ALAssetPropertyAssetURL]; // ALAssetPropertyURLs
         AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
         [self startExportVideoWithVideoAsset:videoAsset completion:completion];
@@ -647,10 +648,12 @@ static CGFloat TZScreenScale;
         NSArray *supportedTypeArray = session.supportedFileTypes;
         if ([supportedTypeArray containsObject:AVFileTypeMPEG4]) {
             session.outputFileType = AVFileTypeMPEG4;
-        } else if (supportedTypeArray.count == 0) {
+        }
+        else if (supportedTypeArray.count == 0) {
             NSLog(@"No supported file types 视频类型暂不支持导出");
             return;
-        } else {
+        }
+        else {
             session.outputFileType = [supportedTypeArray objectAtIndex:0];
         }
         

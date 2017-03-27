@@ -20,22 +20,16 @@
 @implementation Utils
 
 +(void)GET:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure{
-    NSString *host = @"10.134.20.1";
-    //NSString *host = @"127.0.0.1";
-    int port = 20173;
+    NSString *host = HOST_IP;
+    int port = HOST_PORT;
     RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
     connect.host = host;
     connect.port = port;
     @weakify(self);
     [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
         @strongify(self);
-        [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:^(id response) {
-            success(response);
-        } fail:^(NSError *error) {
-            failure(error);
-        }];
+        [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:success fail:failure];
     }];
-    
     [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
     
 }
@@ -102,38 +96,6 @@
     return tf;
 }
 
-+ (UIImage *) abcImageName:(NSString *) imageName{
-    //拿到图片
-    NSString *path_document = NSHomeDirectory();
-    NSString *str = [NSString stringWithFormat:@"/Documents/%@", imageName];
-    
-    //设置一个图片的存储路径
-    NSString *imagePath = [path_document stringByAppendingString:str];
-    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-    NSData *imageData = UIImagePNGRepresentation(image);
-    if (!imageData) {
-        UserInfoModel *model = [Utils aDecoder];
-        NSDictionary *params = @{@"userId":@(model.userId),
-                                 @"token":@"123",
-                                 @"type":@(1),
-                                 @"imagePaths":@[model.headImgUrl]
-                                 };
-        [Utils GET:15 params:params succeed:^(id response) {
-            if ([response[@"success"] boolValue]) {
-                UIImage *ima = [response[@"result"][@"images"] firstObject];
-                [UIImagePNGRepresentation(ima) writeToFile:imagePath atomically:YES];
-            }
-        } fail:^(NSError * error) {
-            NSLog(@"%@",error.localizedDescription);
-        }];
-        return nil;
-    }
-    else{
-        //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取）
-        [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
-        return image;
-    }
-}
 
 + (void)addDialogueBoxWithSuperView:(UIView *)superView Content:(NSString *)content{
     UILabel * label = [[UILabel alloc]init];
@@ -156,6 +118,35 @@
             [view removeFromSuperview];
         }];
     });
+}
+
+
++ (void) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName{
+    //先把图片转成NSData
+    NSData *data  = UIImageJPEGRepresentation(image, 0.000000005);
+    
+    //文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //拼接要存放东西的文件夹
+    NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)objectAtIndex:0];
+    NSString *createPath = [NSString stringWithFormat:@"%@/EcmChatMyPic", pathDocuments];
+    // 判断文件夹是否存在，如果不存在，则创建
+    if (![fileManager fileExistsAtPath:createPath]) {
+        //如果没有就创建这个 想创建的文件夹
+        [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/EcmChatMyPic"];
+    NSString *imgFileName = [NSString stringWithFormat:@"/%@.jpg",imageName];
+    [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:imgFileName] contents:data attributes:nil];
+}
+
++ (UIImage *) getImageWithImageName:(NSString *) imageName{
+    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/EcmChatMyPic"];
+    NSString *imgFileName = [NSString stringWithFormat:@"/%@.jpg",imageName];
+    NSString * filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
+    //取出图片
+    UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+    return img;
 }
 
 @end

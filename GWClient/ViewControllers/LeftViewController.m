@@ -44,36 +44,36 @@
     [self infomation];
 }
 
+
 - (void) infomation{
     UserInfoModel *model = [Utils aDecoder];
-    
-    NSDictionary *params = @{@"userId":@(model.userId),
-                             @"token":@"123",
-                             @"type":@(1),
-                             @"imagePaths":@[model.headImgUrl]
-                             };
-    [Utils GET:15 params:params succeed:^(id response) {
-        if ([response[@"success"] boolValue]) {
-            UIImage *image = [response[@"result"][@"images"] firstObject];
-            NSString *path_document = NSHomeDirectory();
-            NSString *str = [NSString stringWithFormat:@"/Documents/%@", model.headImgUrl];
-            //设置一个图片的存储路径
-            NSString *imagePath = [path_document stringByAppendingString:str];
-            //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取）
-            [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
-            if (!image) {
-                ImvUserhead.image = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
+    NSLog(@"model.headImgUrl  left:%@", model.headImgUrl);
+    UIImage *image = [Utils getImageWithImageName:model.headImgUrl];
+    if (image) {
+        ImvUserhead.image = image;
+    }
+    else{
+        ImvUserhead.image = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
+        NSDictionary *params = @{@"userId":@(model.userId),
+                                 @"token":model.token,
+                                 @"type":@(0),
+                                 @"imagePaths":@[model.headImgUrl]
+                                 };
+        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+            if ([response[@"success"] boolValue]) {
+                UIImage *image = [response[@"result"][@"files"] firstObject];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (image) {
+                        ImvUserhead.image = image;
+                    }
+                    [Utils savePhotoWithImage:image imageName:model.headImgUrl];
+                });
             }
-            else{
-                ImvUserhead.image = image;
-            }
-        }
-    } fail:^(NSError * error) {
-        NSLog(@"%@",error.localizedDescription);
-    }];
-    //ImvUserhead.image = [Utils abcImageName:model.headImgUrl];
+        } fail:^(NSError * error) {
+            NSLog(@"%@",error.localizedDescription);
+        }];
+    }
     lbNickName.text = model.nickName;
-    
     NSArray *systemInfo = @[@"个人信息", @"设置"];
     NSArray *WiFi = @[@"注销登录"];
     dataArray = @[systemInfo, WiFi];

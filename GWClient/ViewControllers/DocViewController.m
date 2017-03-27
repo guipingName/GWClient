@@ -65,55 +65,32 @@
 }
 
 - (void) uploadImages:(UIButton *) sedner{
-    [self pushImagePickerController];
+    [self pushImagePickerController:YES];
 }
 
 - (void) uploadVodeos:(UIButton *) sedner{
-//    UserInfoModel *model = [Utils aDecoder];
-//    NSDictionary *paramDic = @{@"userId":@(model.userId),
-//                               @"token":model.token,
-//                               @"type":@(2),
-//                               @"fileDic":@""
-//                               };
-//    [Utils GET:ApiTypeUpFile params:paramDic succeed:^(id response) {
-//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-//        NSLog(@"获取文件列表--返回的Json串:\n%@", tempStr);
-//    } fail:^(NSError *error) {
-//        NSLog(@"%@", error.localizedDescription);
-//    }];
+    [self pushImagePickerController:NO];
 }
 
 #pragma mark - TZImagePickerController
-- (void)pushImagePickerController {
+- (void)pushImagePickerController:(BOOL) isPicture {
     // 2最多选择2张  4每行显示的数量
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 columnNumber:4 delegate:self pushPhotoPickerVc:YES];
     
-    #pragma mark - 四类个性化设置，这些参数都可以不传，此时会走默认设置
-    //imagePickerVc.isSelectOriginalPhoto = _isSelectOriginalPhoto;
-    imagePickerVc.selectedAssets = _selectedAssets; // 目前已经选中的图片数组
+   imagePickerVc.selectedAssets = _selectedAssets; // 目前已经选中的图片数组
     imagePickerVc.allowTakePicture = NO; // 在内部显示拍照按钮
     
-    // 2. Set the appearance
-    // 2. 在这里设置imagePickerVc的外观
-     imagePickerVc.navigationBar.barTintColor = THEME_COLOR;
-    // imagePickerVc.oKButtonTitleColorDisabled = [UIColor lightGrayColor];
-    // imagePickerVc.oKButtonTitleColorNormal = [UIColor greenColor];
-    // imagePickerVc.navigationBar.translucent = NO;
+    imagePickerVc.navigationBar.barTintColor = THEME_COLOR;
     
-    // 3. 设置是否可以选择视频/图片/原图
-    imagePickerVc.allowPickingVideo = YES;
-    //imagePickerVc.allowPickingImage = self.allowPickingImageSwitch.isOn;
-    imagePickerVc.allowPickingOriginalPhoto = NO;
-    //imagePickerVc.allowPickingGif = self.allowPickingGifSwitch.isOn;
-    
-    // 4. 照片排列按修改时间升序
-    //imagePickerVc.sortAscendingByModificationDate = self.sortAscendingSwitch.isOn;
-    // imagePickerVc.minImagesCount = 3;
-    // imagePickerVc.alwaysEnableDoneBtn = YES;
-
-    // imagePickerVc.minPhotoWidthSelectable = 3000;
-    // imagePickerVc.minPhotoHeightSelectable = 2000;
+    if (isPicture) {
+        imagePickerVc.allowPickingImage = YES;
+        imagePickerVc.allowPickingVideo = NO;
+        imagePickerVc.allowPickingOriginalPhoto = YES;
+    }
+    else{
+        imagePickerVc.allowPickingVideo = YES;
+        imagePickerVc.allowPickingImage = NO;
+    }
     [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
 
@@ -158,17 +135,15 @@
                                  @"fileDic":@{@"2017-03-27-16:30:42.mp4":data}
                                   };
         [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
-//            NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-//            NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-//            NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
-//            if ([response[@"success"] boolValue]) {
-//    
-//            }
+            //NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+            //NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+            //NSLog(@"上传视频--返回的Json串:\n%@", tempStr);
+            //if ([response[@"success"] boolValue]) {
+    
+            //}
         } fail:^(NSError * error) {
             NSLog(@"%@",error.localizedDescription);
         }];
-
-        
     }];
     [myTableView reloadData];
 }
@@ -176,9 +151,9 @@
 // If user picking a gif image, this callback will be called.
 // 如果用户选择了一个gif图片，下面的handle会被执行
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingGifImage:(UIImage *)animatedImage sourceAssets:(id)asset {
-    dataArray = [NSMutableArray arrayWithArray:@[animatedImage]];
-    _selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
-    [myTableView reloadData];
+    //dataArray = [NSMutableArray arrayWithArray:@[animatedImage]];
+    //_selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
+    //[myTableView reloadData];
 }
 
 

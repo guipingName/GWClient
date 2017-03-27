@@ -83,8 +83,7 @@
             if ([response[@"success"] boolValue]) {
                 NSDictionary *dic = response[@"result"];
                 UserInfoModel *model = [[UserInfoModel alloc] init];
-                //model.userId = [dic[@"userId"] integerValue];
-                model.userId = 11;
+                model.userId = [dic[@"userId"] integerValue];
                 model.token = response[@"token"];
                 model.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
                 model.headImgUrl = dic[@"headImgUrl"];

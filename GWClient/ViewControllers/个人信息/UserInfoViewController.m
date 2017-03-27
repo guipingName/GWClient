@@ -70,9 +70,31 @@
     NSArray *systemInfo = @[@"头像", @"昵称"];
     NSArray *WiFi = @[@"性别", @"地区", @"个性签名"];
     titleArray = @[systemInfo, WiFi];
-    headImage = [Utils abcImageName:model.headImgUrl];
-    if (!headImage) {
+    
+    UIImage *image = [Utils getImageWithImageName:model.headImgUrl];
+    if (image) {
+         headImage = image;
+    }
+    else{
         headImage = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
+        NSDictionary *params = @{@"userId":@(model.userId),
+                                 @"token":model.token,
+                                 @"type":@(0),
+                                 @"imagePaths":@[model.headImgUrl]
+                                 };
+        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+            if ([response[@"success"] boolValue]) {
+                UIImage *image = [response[@"result"][@"images"] firstObject];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (image) {
+                        headImage = image;
+                    }
+                    [Utils savePhotoWithImage:image imageName:model.headImgUrl];
+                });
+            }
+        } fail:^(NSError * error) {
+            NSLog(@"%@",error.localizedDescription);
+        }];
     }
     nickNameStr = model.nickName;
     sexStr = model.sex == 1 ? @"男" : model.sex == 2 ? @"女":@"未知";

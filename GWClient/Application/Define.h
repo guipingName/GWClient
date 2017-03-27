@@ -25,4 +25,10 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define DEFAULT_HEAD_IMAGENAME      @"head"
 #define NAVIGATION_LEFTBAR          @"navigationbar_list_normal"
 
+#define HOST_IP                     @"10.134.20.1"
+#define HOST_PORT                   20173
+
+
+
+
 #endif /* Define_h */

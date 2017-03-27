@@ -18,10 +18,13 @@
 
 +(void)hintView:(UIView *)superView message:(NSString *) message;
 
-
 +(void)GET:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure;
 
-+ (UIImage *) abcImageName:(NSString *) imageName;
-
 + (void)addDialogueBoxWithSuperView:(UIView *)superView Content:(NSString *)content;
+
++ (UIImage *) getImageWithImageName:(NSString *) imageName;
+
++ (void) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName;
+    
+    
 @end
