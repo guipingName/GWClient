@@ -62,7 +62,7 @@
                 NSDictionary *dic = response[@"result"];
                 UserInfoModel *model = [[UserInfoModel alloc] init];
                 model.userId = [dic[@"userId"] integerValue];
-                //NSLog(@"userId: %d",[dic[@"userId"] integerValue]);
+                model.token = response[@"token"];
                 model.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
                 model.headImgUrl = dic[@"headImgUrl"];
                 model.age = [dic[@"age"] integerValue];

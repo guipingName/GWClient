@@ -14,6 +14,9 @@
 /**用户Id*/
 @property (nonatomic, assign) NSUInteger userId;
 
+/**令牌*/
+@property (nonatomic, copy) NSString *token;
+
 /**用户名*/
 @property (nonatomic, copy) NSString *nickName;
 

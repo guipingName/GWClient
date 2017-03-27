@@ -71,7 +71,7 @@
     } fail:^(NSError * error) {
         NSLog(@"%@",error.localizedDescription);
     }];
-    
+    //ImvUserhead.image = [Utils abcImageName:model.headImgUrl];
     lbNickName.text = model.nickName;
     
     NSArray *systemInfo = @[@"个人信息", @"设置"];

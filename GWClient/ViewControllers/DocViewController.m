@@ -11,6 +11,7 @@
 #import "TZImagePickerController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
+#import "FileDetailViewController.h"
 
 @interface DocViewController ()<UITableViewDelegate, UITableViewDataSource, TZImagePickerControllerDelegate>{
     UITableView *myTableView;
@@ -43,6 +44,12 @@
     
     
 
+}
+
+
+- (void) btnOpenFile:(UIButton *) sedner{
+    FileDetailViewController *VC = [[FileDetailViewController alloc] init];
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 - (void) uploadImages:(UIButton *) sedner{
@@ -110,14 +117,14 @@
     imageNames = imgNames;
     [myTableView reloadData];
     
-    // 上传数据
+    // 上传图片
     UserInfoModel *model = [Utils aDecoder];
-    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjects:dataArray forKeys:imgNames];
     NSDictionary *params = @{@"userId":@(model.userId),
-                  @"token":@"123",
-                  @"type":@(1),
-                  @"imagePaths":imageNames
-                  };
+                              @"token":model.token,
+                              @"type":@(2),
+                              @"imagesDic":dic
+                              };
     [Utils GET:15 params:params succeed:^(id response) {
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
@@ -172,11 +179,21 @@
     [btnRegister setTitle:@"上传图片" forState:UIControlStateNormal];
     [btnRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btnRegister.backgroundColor = THEME_COLOR;
-    btnRegister.frame = CGRectMake(KSCREEN_WIDTH / 2 - 176 / 2, CGRectGetMaxY(myTableView.frame) + 20, 176, 40);
+    btnRegister.frame = CGRectMake(KSCREEN_WIDTH / 4 - 90 / 2, CGRectGetMaxY(myTableView.frame) + 20, 90, 30);
     [self.view addSubview:btnRegister];
     btnRegister.layer.cornerRadius = 5;
     btnRegister.layer.masksToBounds = YES;
     [btnRegister addTarget:self action:@selector(uploadImages:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *btnOpenFile = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btnOpenFile setTitle:@"打开文件" forState:UIControlStateNormal];
+    [btnOpenFile setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btnOpenFile.backgroundColor = THEME_COLOR;
+    btnOpenFile.frame = CGRectMake(KSCREEN_WIDTH / 2 + 90 / 2, CGRectGetMaxY(myTableView.frame) + 20, 90, 30);
+    [self.view addSubview:btnOpenFile];
+    btnOpenFile.layer.cornerRadius = 5;
+    btnOpenFile.layer.masksToBounds = YES;
+    [btnOpenFile addTarget:self action:@selector(btnOpenFile:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark --------------- UITableViewDelegate ----------------

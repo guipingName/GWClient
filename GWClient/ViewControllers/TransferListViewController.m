@@ -79,6 +79,8 @@
     myTableView.rowHeight = 50;
     myTableView.delegate = self;
     myTableView.dataSource = self;
+    myTableView.allowsMultipleSelectionDuringEditing = YES;
+    
 }
 
 #pragma mark --------------- UITableViewDelegate ----------------
@@ -142,6 +144,7 @@
 
 - (void) doLogin{
     NSLog(@"222");
+    [myTableView setEditing:YES animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

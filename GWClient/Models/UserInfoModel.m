@@ -31,6 +31,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     if (aCoder) {
         [aCoder encodeInteger:_userId forKey:@"userId"];
+        [aCoder encodeObject:_token forKey:@"token"];
         [aCoder encodeObject:_nickName forKey:@"nickName"];
         [aCoder encodeObject:_headImgUrl forKey:@"headImgUrl"];
         [aCoder encodeInteger:_age forKey:@"age"];
@@ -45,6 +46,7 @@
     if (self = [super init]) {
         if (aDecoder) {
             _userId = [aDecoder decodeIntegerForKey:@"userId"];
+            _token = [aDecoder decodeObjectForKey:@"token"];
             _nickName = [aDecoder decodeObjectForKey:@"nickName"];
             _headImgUrl = [aDecoder decodeObjectForKey:@"headImgUrl"];
             _age = [aDecoder decodeIntegerForKey:@"age"];

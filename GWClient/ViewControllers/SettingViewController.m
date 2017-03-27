@@ -36,8 +36,6 @@
     myTableView.delegate = self;
     myTableView.dataSource = self;
     myTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    //[myTableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:SETTINGCELL];
-    //[myTableView registerClass:[SetLanguageTableViewCell class] forCellReuseIdentifier:LANGUAGECELL];
     myTableView.rowHeight =  50;
     
     dataArray = @[@"清理缓存", @"关于我们", @"意见反馈"];
@@ -55,8 +53,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
@@ -94,7 +90,7 @@
 - (void)clearCachSuccess{
     NSString *str = [NSString stringWithFormat:@"%.2fMB",[self filePath]];
     [detailArray replaceObjectAtIndex:0 withObject:str];
-    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:1 inSection:0];
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
     NSArray *indexArray=[NSArray arrayWithObject:indexPath];
     [myTableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationAutomatic];
     [Utils hintView:self.view message:@"清理完成"];

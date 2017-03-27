@@ -10,10 +10,9 @@
 #import "PhotoEdittViewController.h"
 
 #import <AssetsLibrary/ALAssetsLibrary.h>
-
 #import <AssetsLibrary/ALAssetsGroup.h>
-
 #import <AssetsLibrary/ALAssetRepresentation.h>
+
 
 @interface ModifyHeadIconViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, ClipViewControllerDelegate>
 {
@@ -41,7 +40,7 @@
     [_imageView setCenter:self.view.center];
     [self.view addSubview:_imageView];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
 
     
@@ -117,7 +116,7 @@
         NSDictionary *params = @{@"userId":@(model.userId),
                                  @"token":@"123",
                                  @"uploadType":@(1),
-                                 @"imagesDic":@{},
+                                 @"imagesDic":@{imageName:editImage},
                                  
                                  };
         [Utils GET:14 params:params succeed:^(id response) {

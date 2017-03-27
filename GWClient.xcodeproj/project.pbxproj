@@ -52,6 +52,10 @@
 		38C7F04D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F03D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png */; };
 		38C9B3211E84F04E00638CF0 /* RHSocketVariableLengthDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C9B31E1E84F04E00638CF0 /* RHSocketVariableLengthDecoder.m */; };
 		38C9B3221E84F04E00638CF0 /* RHSocketVariableLengthEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C9B3201E84F04E00638CF0 /* RHSocketVariableLengthEncoder.m */; };
+		38C9B3251E85186600638CF0 /* FileDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C9B3241E85186600638CF0 /* FileDetailViewController.m */; };
+		38C9B3281E851B0400638CF0 /* FileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C9B3271E851B0400638CF0 /* FileCollectionViewCell.m */; };
+		38C9B32B1E851EB600638CF0 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C9B3291E851EB600638CF0 /* close.png */; };
+		38C9B32C1E851EB600638CF0 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C9B32A1E851EB600638CF0 /* close@2x.png */; };
 		38DD08C21E7BD63C00388CAE /* RHSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08741E7BD63C00388CAE /* RHSocketChannel.m */; };
 		38DD08C31E7BD63C00388CAE /* RHSocketConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08761E7BD63C00388CAE /* RHSocketConnection.m */; };
 		38DD08C41E7BD63C00388CAE /* RHSocketUdpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08781E7BD63C00388CAE /* RHSocketUdpConnection.m */; };
@@ -185,6 +189,12 @@
 		38C9B31E1E84F04E00638CF0 /* RHSocketVariableLengthDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthDecoder.m; sourceTree = "<group>"; };
 		38C9B31F1E84F04E00638CF0 /* RHSocketVariableLengthEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthEncoder.h; sourceTree = "<group>"; };
 		38C9B3201E84F04E00638CF0 /* RHSocketVariableLengthEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthEncoder.m; sourceTree = "<group>"; };
+		38C9B3231E85186600638CF0 /* FileDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDetailViewController.h; sourceTree = "<group>"; };
+		38C9B3241E85186600638CF0 /* FileDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDetailViewController.m; sourceTree = "<group>"; };
+		38C9B3261E851B0400638CF0 /* FileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCollectionViewCell.h; sourceTree = "<group>"; };
+		38C9B3271E851B0400638CF0 /* FileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileCollectionViewCell.m; sourceTree = "<group>"; };
+		38C9B3291E851EB600638CF0 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		38C9B32A1E851EB600638CF0 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		38DD08731E7BD63C00388CAE /* RHSocketChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketChannel.h; sourceTree = "<group>"; };
 		38DD08741E7BD63C00388CAE /* RHSocketChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketChannel.m; sourceTree = "<group>"; };
 		38DD08751E7BD63C00388CAE /* RHSocketConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConnection.h; sourceTree = "<group>"; };
@@ -368,6 +378,8 @@
 				383CC0021E7F6DCE00C62B29 /* LeftVCTableViewCell.m */,
 				383CC0631E7FB52700C62B29 /* UserInfoTableViewCell.h */,
 				383CC0641E7FB52700C62B29 /* UserInfoTableViewCell.m */,
+				38C9B3261E851B0400638CF0 /* FileCollectionViewCell.h */,
+				38C9B3271E851B0400638CF0 /* FileCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -383,6 +395,8 @@
 				38DD09391E7BE00600388CAE /* GWClientTabBarController.m */,
 				38DD093B1E7BE0BC00388CAE /* DocViewController.h */,
 				38DD093C1E7BE0BC00388CAE /* DocViewController.m */,
+				38C9B3231E85186600638CF0 /* FileDetailViewController.h */,
+				38C9B3241E85186600638CF0 /* FileDetailViewController.m */,
 				38DD093E1E7BE0E300388CAE /* TransferListViewController.h */,
 				38DD093F1E7BE0E300388CAE /* TransferListViewController.m */,
 				38DD09411E7BE0F300388CAE /* NewsViewController.h */,
@@ -559,6 +573,8 @@
 		38DD08F31E7BDDBB00388CAE /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				38C9B3291E851EB600638CF0 /* close.png */,
+				38C9B32A1E851EB600638CF0 /* close@2x.png */,
 				38367FF11E83AAC600CC7DDB /* head.png */,
 				38367FF31E83C37C00CC7DDB /* navigation_back_hl@2x.png */,
 				38367FF41E83C37C00CC7DDB /* navigation_back_hl@3x.png */,
@@ -860,6 +876,7 @@
 				383680011E83C37C00CC7DDB /* navigationbar_list_normal@2x.png in Resources */,
 				38E700601E7A895600336BDB /* Assets.xcassets in Resources */,
 				38C7F04C1E7FF0BA00B1DBA8 /* tabbar_meHL@2x.png in Resources */,
+				38C9B32B1E851EB600638CF0 /* close.png in Resources */,
 				38C7F0421E7FF0BA00B1DBA8 /* tabbar_discover@2x.png in Resources */,
 				38E7005E1E7A895600336BDB /* Main.storyboard in Resources */,
 				38367FFC1E83C37C00CC7DDB /* navigation_back_hl@3x.png in Resources */,
@@ -868,6 +885,7 @@
 				383CC0051E7F702D00C62B29 /* 箭头@3x.png in Resources */,
 				38C7F03F1E7FF0BA00B1DBA8 /* tabbar_contacts@3x.png in Resources */,
 				38367FF21E83AAC600CC7DDB /* head.png in Resources */,
+				38C9B32C1E851EB600638CF0 /* close@2x.png in Resources */,
 				38C7F0411E7FF0BA00B1DBA8 /* tabbar_contactsHL@3x.png in Resources */,
 				38C7F0431E7FF0BA00B1DBA8 /* tabbar_discover@3x.png in Resources */,
 				38367FFB1E83C37C00CC7DDB /* navigation_back_hl@2x.png in Resources */,
@@ -959,8 +977,10 @@
 				38DD08D91E7BD63C00388CAE /* RHConnectCallReply.m in Sources */,
 				38367FED1E83A1C500CC7DDB /* LoginViewController.m in Sources */,
 				38FBD0ED1E84C99E000E084B /* TZProgressView.m in Sources */,
+				38C9B3251E85186600638CF0 /* FileDetailViewController.m in Sources */,
 				38DD08EE1E7BD70A00388CAE /* UIViewController+MMDrawerController.m in Sources */,
 				38DD09471E7BE53900388CAE /* UIImage+RTTint.m in Sources */,
+				38C9B3281E851B0400638CF0 /* FileCollectionViewCell.m in Sources */,
 				3817DBFE1E80CAA000FC72C1 /* ModifyViewController.m in Sources */,
 				383CC0651E7FB52700C62B29 /* UserInfoTableViewCell.m in Sources */,
 				38DD093D1E7BE0BC00388CAE /* DocViewController.m in Sources */,
