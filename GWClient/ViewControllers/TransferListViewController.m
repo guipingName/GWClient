@@ -7,7 +7,7 @@
 //
 
 #import "TransferListViewController.h"
-#import "GPButton.h"
+#import "UpDownBtn.h"
 
 @interface TransferListViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -173,7 +173,7 @@
 
 
 - (UIButton *) createButton:(NSString *) title{
-    UIButton *button = [GPButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [UpDownBtn buttonWithType:UIButtonTypeCustom];
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:UICOLOR_RGBA(250, 126, 20, 1.0) forState:UIControlStateNormal];
     button.titleLabel.textAlignment = NSTextAlignmentCenter;

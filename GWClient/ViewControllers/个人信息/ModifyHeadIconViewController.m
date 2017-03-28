@@ -28,6 +28,8 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor blackColor];
     self.title = @"个人头像";
+    
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
     
     CGFloat width  = self.view.frame.size.width;
@@ -40,21 +42,16 @@
     [_imageView setCenter:self.view.center];
     [self.view addSubview:_imageView];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"bimar关于"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClicked)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
-
+    
 }
-
-- (void) back{
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     if (_imageBlock) {
         _imageBlock(_imageView.image);
     }
-    [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 - (void) rightBarButtonClicked{
     [self modifyPhoto];

@@ -18,4 +18,6 @@
 
 @property (nonatomic, assign) NSUInteger fileType;
 
+@property (nonatomic, assign) NSUInteger fileSize;
+
 @end

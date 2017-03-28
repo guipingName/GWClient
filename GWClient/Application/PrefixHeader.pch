@@ -19,6 +19,7 @@
 #import "UILabel+GPAligment.h"
 #import "KLoadingView.h"
 #import "YYModel.h"
+#import "Masonry.h"
 
 #ifndef W_H_
 #define W_H_
