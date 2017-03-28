@@ -20,6 +20,8 @@
     BOOL isEditing;
     UIButton *btnRightItem;
     UIView *btnBgView;
+    UIView *emptyUpView;
+    UIView *emptyDownView;
 }
 
 @end
@@ -93,8 +95,6 @@
     myTableView.delegate = self;
     myTableView.dataSource = self;
     myTableView.allowsMultipleSelectionDuringEditing = YES;
-    //[mTextView addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:nil];
-    [myTableView addObserver:self forKeyPath:@"indexPathsForSelectedRows" options:NSKeyValueObservingOptionNew context:nil];
     
     
     btnBgView = [[UIView alloc] initWithFrame:CGRectMake(0, KSCREEN_HEIGHT - 49 - 50, KSCREEN_WIDTH, 49)];
@@ -115,6 +115,31 @@
     [btnDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btnDelete setTitle:@"删除选中" forState:UIControlStateNormal];
     [btnBgView addSubview:btnDelete];
+    
+    
+    emptyUpView = [[UIView alloc] initWithFrame:myTableView.frame];
+    [self.view addSubview:emptyUpView];
+    UIImageView *upImv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+    [emptyUpView addSubview:upImv];
+    upImv.center = emptyUpView.center;
+    upImv.image = [UIImage imageNamed:@"upload"];
+    UILabel *lbUp = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(upImv.frame), emptyUpView.bounds.size.width, 30)];
+    lbUp.textAlignment = NSTextAlignmentCenter;
+    lbUp.text = @"你还没有传输记录哦~";
+    emptyUpView.hidden = YES;
+    [emptyUpView addSubview:lbUp];
+    
+    emptyDownView = [[UIView alloc] initWithFrame:myTableView.frame];
+    [self.view addSubview:emptyDownView];
+    UIImageView *downImv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+    [emptyDownView addSubview:downImv];
+    downImv.center = emptyUpView.center;
+    downImv.image = [UIImage imageNamed:@"download"];
+    UILabel *lbDown = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(downImv.frame), emptyUpView.bounds.size.width, 30)];
+    lbDown.textAlignment = NSTextAlignmentCenter;
+    lbDown.text = @"你还没有传输记录哦~";
+    [emptyDownView addSubview:lbDown];
+    emptyDownView.hidden = YES;
 }
 
 

@@ -9,6 +9,11 @@
 #import "RHSocketConnection.h"
 #import "GCDAsyncSocket.h"
 
+#define READ_HEAD_TIMEOUT 5.0
+#define READ_TIMEOUT 15.0
+#define WRITE_TIMEOUT 15.0
+#define SEND_TAG 0
+
 @interface RHSocketConnection () <GCDAsyncSocketDelegate>
 {
     GCDAsyncSocket *_asyncSocket;

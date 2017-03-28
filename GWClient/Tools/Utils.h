@@ -26,5 +26,7 @@
 
 + (void) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName;
     
-    
++ (NSString *)getTimeToShowWithTimestamp:(NSUInteger)timestamp;
+
++ (NSString *) ImageNameWithFileType:(NSUInteger) fileType;
 @end

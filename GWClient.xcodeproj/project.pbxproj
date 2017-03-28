@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1FB87A4F85601591022BDD0A /* libPods-GWClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD66F9DE551711E1FFEB575 /* libPods-GWClient.a */; };
+		3803C6181E89F01300578945 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 3803C6121E89F01300578945 /* download.png */; };
+		3803C6191E89F01300578945 /* Excel.png in Resources */ = {isa = PBXBuildFile; fileRef = 3803C6131E89F01300578945 /* Excel.png */; };
+		3803C61A1E89F01300578945 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3803C6141E89F01300578945 /* folder.png */; };
+		3803C61B1E89F01300578945 /* PDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 3803C6151E89F01300578945 /* PDF.png */; };
+		3803C61C1E89F01300578945 /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 3803C6161E89F01300578945 /* upload.png */; };
+		3803C61D1E89F01300578945 /* Word.png in Resources */ = {isa = PBXBuildFile; fileRef = 3803C6171E89F01300578945 /* Word.png */; };
 		3817DBFD1E80CAA000FC72C1 /* ModifySignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBF81E80CAA000FC72C1 /* ModifySignatureViewController.m */; };
 		3817DBFE1E80CAA000FC72C1 /* ModifyNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFA1E80CAA000FC72C1 /* ModifyNickNameViewController.m */; };
 		3817DBFF1E80CAA000FC72C1 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFC1E80CAA000FC72C1 /* UserInfoViewController.m */; };
@@ -104,6 +110,9 @@
 		38DDFCA41E88FE6900CD9E3C /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC941E88FE6900CD9E3C /* TZProgressView.m */; };
 		38DDFCA51E88FE6900CD9E3C /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC961E88FE6900CD9E3C /* TZVideoPlayerController.m */; };
 		38DDFCA61E88FE6900CD9E3C /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC981E88FE6900CD9E3C /* UIView+Layout.m */; };
+		38DDFCAA1E892DAD00CD9E3C /* FileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFCA91E892DAD00CD9E3C /* FileModel.m */; };
+		38DDFCB11E892F7700CD9E3C /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFCAD1E892F7700CD9E3C /* NSObject+YYModel.m */; };
+		38DDFCB21E892F7700CD9E3C /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFCAF1E892F7700CD9E3C /* YYClassInfo.m */; };
 		38E700551E7A895600336BDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E700541E7A895600336BDB /* main.m */; };
 		38E7005E1E7A895600336BDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38E7005C1E7A895600336BDB /* Main.storyboard */; };
 		38E700601E7A895600336BDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E7005F1E7A895600336BDB /* Assets.xcassets */; };
@@ -131,6 +140,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3803C6121E89F01300578945 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
+		3803C6131E89F01300578945 /* Excel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Excel.png; sourceTree = "<group>"; };
+		3803C6141E89F01300578945 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
+		3803C6151E89F01300578945 /* PDF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PDF.png; sourceTree = "<group>"; };
+		3803C6161E89F01300578945 /* upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.png; sourceTree = "<group>"; };
+		3803C6171E89F01300578945 /* Word.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Word.png; sourceTree = "<group>"; };
 		3817DBF71E80CAA000FC72C1 /* ModifySignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifySignatureViewController.h; sourceTree = "<group>"; };
 		3817DBF81E80CAA000FC72C1 /* ModifySignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifySignatureViewController.m; sourceTree = "<group>"; };
 		3817DBF91E80CAA000FC72C1 /* ModifyNickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyNickNameViewController.h; sourceTree = "<group>"; };
@@ -296,6 +311,13 @@
 		38DDFC961E88FE6900CD9E3C /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
 		38DDFC971E88FE6900CD9E3C /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		38DDFC981E88FE6900CD9E3C /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		38DDFCA81E892DAD00CD9E3C /* FileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileModel.h; sourceTree = "<group>"; };
+		38DDFCA91E892DAD00CD9E3C /* FileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileModel.m; sourceTree = "<group>"; };
+		38DDFCAC1E892F7700CD9E3C /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
+		38DDFCAD1E892F7700CD9E3C /* NSObject+YYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YYModel.m"; sourceTree = "<group>"; };
+		38DDFCAE1E892F7700CD9E3C /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
+		38DDFCAF1E892F7700CD9E3C /* YYClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
+		38DDFCB01E892F7700CD9E3C /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
 		38E700501E7A895600336BDB /* GWClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GWClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E700541E7A895600336BDB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		38E7005D1E7A895600336BDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -348,6 +370,19 @@
 				7B024AE4A39E839699E31544 /* Pods-GWClient.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		3803C6111E89F01300578945 /* 文件图标 */ = {
+			isa = PBXGroup;
+			children = (
+				3803C6121E89F01300578945 /* download.png */,
+				3803C6131E89F01300578945 /* Excel.png */,
+				3803C6141E89F01300578945 /* folder.png */,
+				3803C6151E89F01300578945 /* PDF.png */,
+				3803C6161E89F01300578945 /* upload.png */,
+				3803C6171E89F01300578945 /* Word.png */,
+			);
+			path = "文件图标";
 			sourceTree = "<group>";
 		};
 		3817DBF61E80CA1600FC72C1 /* 个人信息 */ = {
@@ -439,6 +474,8 @@
 				383CC00A1E7F79C500C62B29 /* UserInfoModel.m */,
 				3817DC0C1E811EC900FC72C1 /* UserLogin.h */,
 				3817DC0D1E811EC900FC72C1 /* UserLogin.m */,
+				38DDFCA81E892DAD00CD9E3C /* FileModel.h */,
+				38DDFCA91E892DAD00CD9E3C /* FileModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -446,6 +483,7 @@
 		38DD07FB1E7BD4B700388CAE /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				38DDFCAB1E892F7700CD9E3C /* YYModel */,
 				38DDFC7D1E88FE6900CD9E3C /* TZImagePickerController */,
 				38DDFC471E88E2C500CD9E3C /* KLoadingView */,
 				382522C61E88AE8E0094C289 /* NetworkState */,
@@ -600,6 +638,7 @@
 		38DD08F31E7BDDBB00388CAE /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				3803C6111E89F01300578945 /* 文件图标 */,
 				38C9B3291E851EB600638CF0 /* close.png */,
 				38C9B32A1E851EB600638CF0 /* close@2x.png */,
 				38367FF11E83AAC600CC7DDB /* head.png */,
@@ -697,6 +736,18 @@
 				38DDFC981E88FE6900CD9E3C /* UIView+Layout.m */,
 			);
 			path = TZImagePickerController;
+			sourceTree = "<group>";
+		};
+		38DDFCAB1E892F7700CD9E3C /* YYModel */ = {
+			isa = PBXGroup;
+			children = (
+				38DDFCAC1E892F7700CD9E3C /* NSObject+YYModel.h */,
+				38DDFCAD1E892F7700CD9E3C /* NSObject+YYModel.m */,
+				38DDFCAE1E892F7700CD9E3C /* YYClassInfo.h */,
+				38DDFCAF1E892F7700CD9E3C /* YYClassInfo.m */,
+				38DDFCB01E892F7700CD9E3C /* YYModel.h */,
+			);
+			path = YYModel;
 			sourceTree = "<group>";
 		};
 		38E700471E7A895600336BDB = {
@@ -903,11 +954,14 @@
 				38C7F0441E7FF0BA00B1DBA8 /* tabbar_discoverHL@2x.png in Resources */,
 				38DDFC9F1E88FE6900CD9E3C /* TZImagePickerController.bundle in Resources */,
 				38E700631E7A895600336BDB /* LaunchScreen.storyboard in Resources */,
+				3803C61B1E89F01300578945 /* PDF.png in Resources */,
 				38C7F0401E7FF0BA00B1DBA8 /* tabbar_contactsHL@2x.png in Resources */,
 				38DD092E1E7BDDBB00388CAE /* bimar背景@3x.png in Resources */,
 				38DD09331E7BDDBB00388CAE /* 左侧栏背景@3x.png in Resources */,
+				3803C61A1E89F01300578945 /* folder.png in Resources */,
 				38DD09241E7BDDBB00388CAE /* bimar关于@3x.png in Resources */,
 				38C7F04A1E7FF0BA00B1DBA8 /* tabbar_me@2x.png in Resources */,
+				3803C61D1E89F01300578945 /* Word.png in Resources */,
 				38C7F03E1E7FF0BA00B1DBA8 /* tabbar_contacts@2x.png in Resources */,
 				38C7F0471E7FF0BA00B1DBA8 /* tabbar_mainframe@3x.png in Resources */,
 				383680001E83C37C00CC7DDB /* navigationbar_list_hl@3x.png in Resources */,
@@ -923,9 +977,12 @@
 				38367FFC1E83C37C00CC7DDB /* navigation_back_hl@3x.png in Resources */,
 				38C7F0461E7FF0BA00B1DBA8 /* tabbar_mainframe@2x.png in Resources */,
 				38367FFF1E83C37C00CC7DDB /* navigationbar_list_hl@2x.png in Resources */,
+				3803C6191E89F01300578945 /* Excel.png in Resources */,
 				383CC0051E7F702D00C62B29 /* 箭头@3x.png in Resources */,
+				3803C61C1E89F01300578945 /* upload.png in Resources */,
 				38C7F03F1E7FF0BA00B1DBA8 /* tabbar_contacts@3x.png in Resources */,
 				38367FF21E83AAC600CC7DDB /* head.png in Resources */,
+				3803C6181E89F01300578945 /* download.png in Resources */,
 				38C9B32C1E851EB600638CF0 /* close@2x.png in Resources */,
 				38C7F0411E7FF0BA00B1DBA8 /* tabbar_contactsHL@3x.png in Resources */,
 				38C7F0431E7FF0BA00B1DBA8 /* tabbar_discover@3x.png in Resources */,
@@ -1041,6 +1098,7 @@
 				38E700551E7A895600336BDB /* main.m in Sources */,
 				38DD08D81E7BD63C00388CAE /* RHAuthCallReply.m in Sources */,
 				38DD08F11E7BD77D00388CAE /* LeftViewController.m in Sources */,
+				38DDFCB21E892F7700CD9E3C /* YYClassInfo.m in Sources */,
 				38DD09401E7BE0E300388CAE /* TransferListViewController.m in Sources */,
 				38C9B3221E84F04E00638CF0 /* RHSocketVariableLengthEncoder.m in Sources */,
 				38DDFCA21E88FE6900CD9E3C /* TZPhotoPreviewCell.m in Sources */,
@@ -1067,7 +1125,9 @@
 				38DD08DD1E7BD63C00388CAE /* RHSocketRpcCmdDecoder.m in Sources */,
 				3834169B1E8248DE00546AB0 /* ModifyHeadIconViewController.m in Sources */,
 				38DD08EC1E7BD70A00388CAE /* MMDrawerController.m in Sources */,
+				38DDFCAA1E892DAD00CD9E3C /* FileModel.m in Sources */,
 				38DD08D71E7BD63C00388CAE /* RHSocketService.m in Sources */,
+				38DDFCB11E892F7700CD9E3C /* NSObject+YYModel.m in Sources */,
 				383CC0081E7F713400C62B29 /* SettingViewController.m in Sources */,
 				383416861E82020300546AB0 /* MBProgressHUD.m in Sources */,
 			);

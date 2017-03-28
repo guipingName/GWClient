@@ -47,7 +47,6 @@
 
 - (void) infomation{
     UserInfoModel *model = [Utils aDecoder];
-    NSLog(@"model.headImgUrl  left:%@", model.headImgUrl);
     UIImage *image = [Utils getImageWithImageName:model.headImgUrl];
     if (image) {
         ImvUserhead.image = image;

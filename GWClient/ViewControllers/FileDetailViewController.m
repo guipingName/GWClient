@@ -63,7 +63,6 @@
     
     myCollectionView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:myCollectionView];
-    myCollectionView.backgroundColor = [UIColor whiteColor];
     // 单元格的大小
     layout.itemSize = CGSizeMake(KSCREEN_WIDTH / 4, KSCREEN_WIDTH * 2 / 7);
     layout.minimumInteritemSpacing = 10;

@@ -144,9 +144,43 @@
     NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/EcmChatMyPic"];
     NSString *imgFileName = [NSString stringWithFormat:@"/%@.jpg",imageName];
     NSString * filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
-    //取出图片
     UIImage *img = [UIImage imageWithContentsOfFile:filePath];
     return img;
+}
+
+
++ (NSString *)getTimeToShowWithTimestamp:(NSUInteger)timestamp {
+    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *publishString = [formater stringFromDate:startDate];
+    return publishString;
+}
+
++ (NSString *) ImageNameWithFileType:(NSUInteger) fileType{
+    NSString *str = nil;
+    switch (fileType) {
+        case 1:
+            str = @"folder";
+            break;
+        case 2:
+            str = @"Word";
+            break;
+        case 3:
+            str = @"Excel";
+            break;
+        case 4:
+            str = @"PDF";
+            break;
+        case 5:
+            str = @"";
+            break;
+        case 6:
+            str = @"";
+        default:
+            break;
+    }
+    return  str;
 }
 
 @end
