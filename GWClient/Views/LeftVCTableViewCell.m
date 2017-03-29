@@ -29,8 +29,8 @@
         leftImageView = [[UIImageView alloc]init];
         [self.contentView addSubview:leftImageView];
     }
-    leftImageView.image = [UIImage imageNamed:_imageName];
-    leftImageView.frame = CGRectMake(10, (CGRectGetHeight(self.frame) - 30) / 2, 30, 30);
+    leftImageView.image = [[UIImage imageNamed:_imageName] rt_tintedImageWithColor:[UIColor whiteColor]];
+    leftImageView.frame = CGRectMake(10, (CGRectGetHeight(self.frame) - 25) / 2, 25, 25);
     
     // 标题
     if (!titleLabel) {
@@ -58,11 +58,10 @@
         lineView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:lineView];
     }
-    if (_isSetting) {
-        leftImageView.hidden = YES;
+    if (_isLogOut) {
         rightImageView.hidden = YES;
-        titleLabel.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-        titleLabel.textAlignment = NSTextAlignmentCenter;
+        leftImageView.frame = CGRectMake((self.bounds.size.width - titleR.size.width - 35) / 2, (CGRectGetHeight(self.frame) - 25) / 2, 25, 25);
+        titleLabel.frame = CGRectMake(CGRectGetMaxX(leftImageView.frame) + 10, 0, titleR.size.width, self.bounds.size.height);
     }
 
 }

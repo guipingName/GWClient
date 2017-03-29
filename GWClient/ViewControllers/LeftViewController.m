@@ -76,8 +76,8 @@
     NSArray *systemInfo = @[@"个人信息", @"设置"];
     NSArray *WiFi = @[@"注销登录"];
     dataArray = @[systemInfo, WiFi];
-    NSArray *img = @[@"关于", @"设置"];
-    NSArray *img1 = @[@"关于"];
+    NSArray *img = @[@"personal", @"setting"];
+    NSArray *img1 = @[@"logOut"];
     imageNamesArray = @[img, img1];
     [myTableView reloadData];
 }
@@ -112,10 +112,10 @@
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     LeftVCTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:LEFTCELL forIndexPath:indexPath];
     if (indexPath.section == 1) {
-        cell.isSetting = YES;
+        cell.isLogOut = YES;
     }
     else{
-        cell.isSetting = NO;
+        cell.isLogOut = NO;
     }
     cell.imageName = imageNamesArray[indexPath.section][indexPath.row];
     cell.title = dataArray[indexPath.section][indexPath.row];
@@ -160,20 +160,20 @@
 
 
 - (void) creatViews{
-    ImvUserhead = [[UIImageView alloc] initWithFrame:CGRectMake((LEFTVC_WIDTH - 80) / 2, 80, 80, 80)];
+    ImvUserhead = [[UIImageView alloc] initWithFrame:CGRectMake((LEFTVC_WIDTH - 80) / 2, 60, 80, 80)];
     [self.view addSubview:ImvUserhead];
     ImvUserhead.layer.cornerRadius = 40;
     ImvUserhead.layer.borderWidth = 2;
     ImvUserhead.layer.borderColor = [UIColor whiteColor].CGColor;
     ImvUserhead.layer.masksToBounds = YES;
     
-    lbNickName = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(ImvUserhead.frame) + 30, LEFTVC_WIDTH, 30)];
+    lbNickName = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(ImvUserhead.frame) + 10, LEFTVC_WIDTH, 30)];
     lbNickName.textColor = [UIColor whiteColor];
     lbNickName.font = [UIFont systemFontOfSize:15];
     lbNickName.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:lbNickName];
     
-    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(lbNickName.frame) + 10, LEFTVC_WIDTH, KSCREEN_HEIGHT - 10 - CGRectGetMaxY(lbNickName.frame)) style:UITableViewStyleGrouped];
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(lbNickName.frame) + 40, LEFTVC_WIDTH, KSCREEN_HEIGHT - 10 - CGRectGetMaxY(lbNickName.frame)) style:UITableViewStyleGrouped];
     [self.view addSubview:myTableView];
     [self.view addSubview:myTableView];
     myTableView.backgroundColor = [UIColor clearColor];

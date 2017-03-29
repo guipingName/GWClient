@@ -10,8 +10,7 @@
 
 @interface LeftVCTableViewCell : UITableViewCell
 
-@property (nonatomic, assign) BOOL isSetting;
-@property (nonatomic, assign) BOOL isMore;
+@property (nonatomic, assign) BOOL isLogOut;
 
 @property (nonatomic, copy) NSString *title;
 

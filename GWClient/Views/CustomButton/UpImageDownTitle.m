@@ -10,6 +10,15 @@
 
 @implementation UpImageDownTitle
 
+- (CGRect) imageRectForContentRect:(CGRect)contentRect{
+    return CGRectMake((self.bounds.size.width - 20) / 2, 5, 20, 20);
+}
+
+
+- (CGRect) titleRectForContentRect:(CGRect)contentRect{
+    return CGRectMake(0, 27, self.bounds.size.width, 20);
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

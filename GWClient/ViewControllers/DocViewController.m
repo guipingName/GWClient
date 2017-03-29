@@ -15,6 +15,7 @@
 #import "TZImageManager.h"
 #import "FileModel.h"
 #import "FileCollectionViewCell.h"
+#import "UpImageDownTitle.h"
 
 
 @interface DocViewController ()<UITableViewDelegate, UITableViewDataSource, TZImagePickerControllerDelegate>{
@@ -90,6 +91,9 @@
             if ([response[@"success"] boolValue]) {
                 NSDictionary *dic = response[@"result"];
                 NSArray *array = dic[@"fileList"];
+                if (dataArray) {
+                    [dataArray removeAllObjects];
+                }
                 for (NSDictionary *ddic in array) {
                     FileModel *model = [FileModel yy_modelWithDictionary:ddic];
                     [dataArray addObject:model];
@@ -126,7 +130,7 @@
 - (void)pushImagePickerController:(BOOL) isPicture {
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 columnNumber:4 delegate:self pushPhotoPickerVc:YES];
     
-   imagePickerVc.selectedAssets = _selectedAssets; // 目前已经选中的图片数组
+   //imagePickerVc.selectedAssets = _selectedAssets; // 目前已经选中的图片数组
     imagePickerVc.allowTakePicture = NO; // 在内部显示拍照按钮
     
     imagePickerVc.navigationBar.barTintColor = THEME_COLOR;
@@ -145,14 +149,14 @@
 
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
     
-    _selectedAssets = [NSMutableArray arrayWithArray:assets];
+    //_selectedAssets = [NSMutableArray arrayWithArray:assets];
     // 打印图片名字
     [self printAssetsName:assets photis:photos];
 }
 
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset {
     //dataArray = [NSMutableArray arrayWithArray:@[coverImage]];
-    _selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
+    //_selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
     // open this code to send video
     // 打开这段代码发送视频
     [[TZImageManager manager] getVideoOutputPathWithAsset:asset completion:^(NSString *outputPath) {
@@ -171,8 +175,10 @@
             NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
             NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
             NSLog(@"上传视频--返回的Json串:\n%@", tempStr);
-            if ([response[@"success"] boolValue]) {
-    
+            if ([response isKindOfClass:[NSDictionary class]]) {
+                if ([response[@"success"] boolValue]) {
+                    [self fileList];
+                }
             }
         } fail:^(NSError * error) {
             NSLog(@"%@",error.localizedDescription);
@@ -225,8 +231,10 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
-        if ([response[@"success"] boolValue]) {
-
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            if ([response[@"success"] boolValue]) {
+                [self fileList];
+            }
         }
     } fail:^(NSError * error) {
         NSLog(@"%@",error.localizedDescription);
@@ -293,9 +301,31 @@
     }];
     
     [cell setDeleteBlock:^(FileModel *aa) {
-        [dataArray removeObject:aa];
-        selectRow = -1;
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        UserInfoModel *model = [Utils aDecoder];
+        NSDictionary *params = @{@"userId":@(model.userId),
+                                 @"deleteFileIds":@[@(aa.fileId)],
+                                 @"token":model.token
+                                 };
+        [Utils GET:ApiTypeDeleteFiles params:params succeed:^(id response) {
+            NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+            NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+            NSLog(@"删除文件列表--返回的Json串:\n%@", tempStr);
+            if ([response isKindOfClass:[NSDictionary class]]) {
+                if ([response[@"success"] boolValue]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [dataArray removeObject:aa];
+                        selectRow = -1;
+                        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    });
+                }
+            }
+        } fail:^(NSError * error) {
+            NSLog(@"%@",error.localizedDescription);
+        }];
+        
+        
+        
     }];
     
     return cell;
@@ -476,7 +506,7 @@
     if (!_bottomView) {
         _bottomView = [UIView new];
         _bottomView.hidden = YES;
-        _bottomView.backgroundColor = UICOLOR_RGBA(130, 130, 130, 0.5);
+        _bottomView.backgroundColor = UICOLOR_RGBA(242, 242, 242, 1.0);
         [self.contentView addSubview:_bottomView];
         [_bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.mas_centerY);
@@ -484,17 +514,26 @@
             make.height.mas_equalTo(50);
         }];
         
-        _downBtn = [UIButton new];
-        [_downBtn setImage:[UIImage imageNamed:@"download"] forState:UIControlStateNormal];
+        _downBtn = [UpImageDownTitle buttonWithType:UIButtonTypeCustom];
+        [_downBtn setTitle:@"下载" forState:UIControlStateNormal];
+         _downBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        _downBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [_downBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [_downBtn setImage:[[UIImage imageNamed:@"download"] rt_tintedImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
         [_bottomView addSubview:_downBtn];
         [_downBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(_bottomView);
             make.centerX.mas_equalTo(_bottomView).dividedBy(2);
-            make.height.width.mas_equalTo(32);
+            make.width.mas_equalTo(40);
+            make.height.mas_equalTo(50);
         }];
         
-        _deleteBtn = [UIButton new];
-        [_deleteBtn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+        _deleteBtn = [UpImageDownTitle buttonWithType:UIButtonTypeCustom];
+        [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+        _deleteBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        _deleteBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [_deleteBtn setImage:[[UIImage imageNamed:@"delete"] rt_tintedImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
+        [_deleteBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_deleteBtn addTarget:self action:@selector(deleteFile:) forControlEvents:UIControlEventTouchUpInside];
         [_bottomView addSubview:_deleteBtn];
         [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {

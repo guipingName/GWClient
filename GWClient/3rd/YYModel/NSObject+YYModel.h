@@ -24,14 +24,12 @@
  Sample Code:
     
      ********************** json convertor *********************
-     @interface YYAuthor : NSObject
-     @property (nonatomic, strong) NSString *name;
+    @property (nonatomic, strong) NSString *name;
      @property (nonatomic, assign) NSDate *birthday;
      @end
      @implementation YYAuthor
      @end
  
-     @interface YYBook : NSObject
      @property (nonatomic, copy) NSString *name;
      @property (nonatomic, assign) NSUInteger pages;
      @property (nonatomic, strong) YYAuthor *author;
@@ -49,7 +47,7 @@
      }
  
      ********************** Coding/Copying/hash/equal *********************
-     @interface YYShadow :NSObject <NSCoding, NSCopying>
+ 
      @property (nonatomic, copy) NSString *name;
      @property (nonatomic, assign) CGSize size;
      @end
@@ -273,12 +271,7 @@
         }
  
     model:
-        @interface YYBook : NSObject
-        @property NSString *name;
-        @property NSInteger page;
-        @property NSString *desc;
-        @property NSString *bookID;
-        @end
+ 
         
         @implementation YYBook
         + (NSDictionary *)modelCustomPropertyMapper {
@@ -301,10 +294,6 @@
  object will be add to the array/set/dictionary.
  
   Example:
-        @class YYShadow, YYBorder, YYAttachment;
- 
-        @interface YYAttributes
-        @property NSString *name;
         @property NSArray *shadows;
         @property NSSet *borders;
         @property NSDictionary *attachments;
@@ -331,9 +320,7 @@
  (both singular and containers via `+modelContainerPropertyGenericClass`).
  
  Example:
-        @class YYCircle, YYRectangle, YYLine;
- 
-        @implementation YYShape
+       @implementation YYShape
 
         + (Class)modelCustomClassForDictionary:(NSDictionary*)dictionary {
             if (dictionary[@"radius"] != nil) {

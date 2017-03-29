@@ -19,6 +19,10 @@
 		3817DBFF1E80CAA000FC72C1 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFC1E80CAA000FC72C1 /* UserInfoViewController.m */; };
 		3817DC081E81066600FC72C1 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DC071E81066600FC72C1 /* Utils.m */; };
 		3817DC0E1E811EC900FC72C1 /* UserLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DC0D1E811EC900FC72C1 /* UserLogin.m */; };
+		382002F81E8B3CD600A3D20B /* personal.png in Resources */ = {isa = PBXBuildFile; fileRef = 382002F71E8B3CD600A3D20B /* personal.png */; };
+		382002FB1E8B3DF500A3D20B /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 382002F91E8B3DF500A3D20B /* setting.png */; };
+		382002FC1E8B3DF500A3D20B /* logOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 382002FA1E8B3DF500A3D20B /* logOut.png */; };
+		382002FE1E8B3E0700A3D20B /* correct.png in Resources */ = {isa = PBXBuildFile; fileRef = 382002FD1E8B3E0700A3D20B /* correct.png */; };
 		382522C91E88AE8E0094C289 /* GPNetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382522C81E88AE8E0094C289 /* GPNetWorkManager.m */; };
 		383416861E82020300546AB0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 383416851E82020300546AB0 /* MBProgressHUD.m */; };
 		383416981E822A5400546AB0 /* PhotoEdittViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383416971E822A5400546AB0 /* PhotoEdittViewController.m */; };
@@ -173,6 +177,10 @@
 		3817DC071E81066600FC72C1 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		3817DC0C1E811EC900FC72C1 /* UserLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLogin.h; sourceTree = "<group>"; };
 		3817DC0D1E811EC900FC72C1 /* UserLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLogin.m; sourceTree = "<group>"; };
+		382002F71E8B3CD600A3D20B /* personal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = personal.png; sourceTree = "<group>"; };
+		382002F91E8B3DF500A3D20B /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting.png; sourceTree = "<group>"; };
+		382002FA1E8B3DF500A3D20B /* logOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logOut.png; sourceTree = "<group>"; };
+		382002FD1E8B3E0700A3D20B /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correct.png; sourceTree = "<group>"; };
 		382522C71E88AE8E0094C289 /* GPNetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPNetWorkManager.h; sourceTree = "<group>"; };
 		382522C81E88AE8E0094C289 /* GPNetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPNetWorkManager.m; sourceTree = "<group>"; };
 		383416841E82020300546AB0 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -690,9 +698,13 @@
 		38DD08F31E7BDDBB00388CAE /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				382002F71E8B3CD600A3D20B /* personal.png */,
+				382002F91E8B3DF500A3D20B /* setting.png */,
+				382002FA1E8B3DF500A3D20B /* logOut.png */,
 				3803C6111E89F01300578945 /* 文件图标 */,
 				38C9B3291E851EB600638CF0 /* close.png */,
 				38C9B32A1E851EB600638CF0 /* close@2x.png */,
+				382002FD1E8B3E0700A3D20B /* correct.png */,
 				38E7A0F21E8A4C5A00B4A918 /* arrow_up.png */,
 				38E7A0F41E8A4CB800B4A918 /* arrow_down.png */,
 				38E7A0F61E8A519500B4A918 /* delete.png */,
@@ -1050,6 +1062,7 @@
 				38C7F0481E7FF0BA00B1DBA8 /* tabbar_mainframeHL@2x.png in Resources */,
 				38367FFE1E83C37C00CC7DDB /* navigation_back_normal@3x.png in Resources */,
 				38C7F04D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png in Resources */,
+				382002FE1E8B3E0700A3D20B /* correct.png in Resources */,
 				38C7F0441E7FF0BA00B1DBA8 /* tabbar_discoverHL@2x.png in Resources */,
 				38DDFC9F1E88FE6900CD9E3C /* TZImagePickerController.bundle in Resources */,
 				38E700631E7A895600336BDB /* LaunchScreen.storyboard in Resources */,
@@ -1076,12 +1089,14 @@
 				38C9B32B1E851EB600638CF0 /* close.png in Resources */,
 				38C7F0421E7FF0BA00B1DBA8 /* tabbar_discover@2x.png in Resources */,
 				38E7005E1E7A895600336BDB /* Main.storyboard in Resources */,
+				382002FB1E8B3DF500A3D20B /* setting.png in Resources */,
 				38367FFC1E83C37C00CC7DDB /* navigation_back_hl@3x.png in Resources */,
 				38C7F0461E7FF0BA00B1DBA8 /* tabbar_mainframe@2x.png in Resources */,
 				38367FFF1E83C37C00CC7DDB /* navigationbar_list_hl@2x.png in Resources */,
 				3803C6191E89F01300578945 /* Excel.png in Resources */,
 				383CC0051E7F702D00C62B29 /* 箭头@3x.png in Resources */,
 				3803C61C1E89F01300578945 /* upload.png in Resources */,
+				382002F81E8B3CD600A3D20B /* personal.png in Resources */,
 				38C7F03F1E7FF0BA00B1DBA8 /* tabbar_contacts@3x.png in Resources */,
 				38367FF21E83AAC600CC7DDB /* head.png in Resources */,
 				3803C6181E89F01300578945 /* download.png in Resources */,
@@ -1092,6 +1107,7 @@
 				38E7A0F81E8A519500B4A918 /* delete.png in Resources */,
 				38367FFB1E83C37C00CC7DDB /* navigation_back_hl@2x.png in Resources */,
 				383680021E83C37C00CC7DDB /* navigationbar_list_normal@3x.png in Resources */,
+				382002FC1E8B3DF500A3D20B /* logOut.png in Resources */,
 				38C7F0451E7FF0BA00B1DBA8 /* tabbar_discoverHL@3x.png in Resources */,
 				38E7A0F51E8A4CB800B4A918 /* arrow_down.png in Resources */,
 				38367FFD1E83C37C00CC7DDB /* navigation_back_normal@2x.png in Resources */,
