@@ -55,8 +55,7 @@
         ImvUserhead.image = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
         NSDictionary *params = @{@"userId":@(model.userId),
                                  @"token":model.token,
-                                 @"type":@(0),
-                                 @"imagePaths":@[model.headImgUrl]
+                                 @"type":@(0)
                                  };
         [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
             if ([response[@"success"] boolValue]) {

@@ -159,12 +159,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 && indexPath.row == 0) {
         // 修改头像
-        ModifyHeadIconViewController *nickNameVC = [[ModifyHeadIconViewController alloc] init];
-        nickNameVC.image = titleInfoArray[indexPath.section][indexPath.row];
-        nickNameVC.imageBlock = ^(UIImage *image){
+        ModifyHeadIconViewController *headVC = [[ModifyHeadIconViewController alloc] init];
+        headVC.image = titleInfoArray[indexPath.section][indexPath.row];
+        headVC.imageBlock = ^(UIImage *image){
+            NSLog(@"huoqu xintouxiang ");
             [self reloadTableViewWithSection:0 row:0 object:image];
         };
-        [self.navigationController pushViewController:nickNameVC animated:YES];
+        [self.navigationController pushViewController:headVC animated:YES];
     }
     else if (indexPath.section == 0 && indexPath.row == 1) {
         // 修改昵称
@@ -213,9 +214,10 @@
     NSMutableArray *array = titleInfoArray[section];
     [array replaceObjectAtIndex:row withObject:object];
     [titleInfoArray replaceObjectAtIndex:section withObject:array];
-    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:row inSection:section];
-    NSArray *indexArray=[NSArray arrayWithObject:indexPath];
-    [myTableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationAutomatic];
+    [myTableView reloadData];
+//    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:row inSection:section];
+//    NSArray *indexArray=[NSArray arrayWithObject:indexPath];
+//    [myTableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)didReceiveMemoryWarning {

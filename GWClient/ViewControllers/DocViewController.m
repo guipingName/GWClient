@@ -28,6 +28,7 @@
     NSInteger selectRow;
     float selectRowHeight;
     HintView *emptyView;
+    UserInfoModel *user;
 }
 
 @end
@@ -51,7 +52,7 @@
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     dataArray = [NSMutableArray array];
-    
+    user = [Utils aDecoder];
     // 测试
     [self createTableView];
     [self creatRightItem];
@@ -59,6 +60,8 @@
     
     selectRowHeight = 50;
     selectRow = -1;
+    
+    
 }
 
 - (void)enterMine{
@@ -77,9 +80,8 @@
 
 - (void) fileList{
     NSLog(@"请求文件列表相关数据");
-    UserInfoModel *model = [Utils aDecoder];
-    NSDictionary *params = @{@"userId":@(model.userId),
-                             @"token":model.token
+    NSDictionary *params = @{@"userId":@(user.userId),
+                             @"token":user.token
                              };
     [Utils GET:ApiTypeGetUserFileList params:params succeed:^(id response) {
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
@@ -235,10 +237,9 @@
         //NSLog(@"图片名字:%@",fileName);
     }
     // 上传图片
-    UserInfoModel *model = [Utils aDecoder];
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:photos forKeys:imgNames];
-    NSDictionary *params = @{@"userId":@(model.userId),
-                              @"token":model.token,
+    NSDictionary *params = @{@"userId":@(user.userId),
+                              @"token":user.token,
                               @"type":@(1),
                               @"fileDic":dic
                               };
@@ -307,12 +308,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    FileListTableViewCell *cell = (FileListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CELL"];
-    if (!cell) {
-        cell = [[FileListTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
-    }
-    FileModel *model = dataArray[indexPath.row];
-    cell.model = model;
+    FileListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    cell.model = dataArray[indexPath.row];
     cell.cellOn = indexPath.row == selectRow ? NO : YES;
     [cell setOnOffBlock:^(BOOL on) {
         selectRow = on? indexPath.row : -1;
@@ -351,8 +348,26 @@
     }];
     
     [cell setDownLoadBlock:^(FileModel *tempModel) {
-        UserInfoModel *model = [Utils aDecoder];
-        [model downloadFile:tempModel];
+        [user downloadFile:tempModel];
+        NSDictionary *params = @{@"userId":@(user.userId),
+                                 @"token":user.token,
+                                 @"type":@(1),
+                                 @"filePaths":@[@(tempModel.fileId)]
+                                 };
+        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+            if ([response[@"success"] boolValue]) {
+                //UIImage *image = [response[@"result"][@"files"] firstObject];
+                id newObj = [response[@"result"][@"files"] firstObject];
+                if ([newObj isKindOfClass:[UIImage class]]) {
+                    NSLog(@"下载图片成功 " );
+                }
+                if ([newObj isKindOfClass:[NSData class]]) {
+                    NSLog(@"下载视频成功 " );
+                }
+            }
+        } fail:^(NSError * error) {
+            NSLog(@"%@",error.localizedDescription);
+        }];
     }];
     return cell;
     

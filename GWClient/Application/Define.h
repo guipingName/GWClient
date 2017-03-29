@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define HOST_IP                     @"10.134.20.1"
 #define HOST_PORT                   20173
 
-
+#define BTN_NEW_TAG            800
 
 
 #endif /* Define_h */

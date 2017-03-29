@@ -93,7 +93,7 @@
 }
 
 - (void) createViews{
-    UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 70, KSCREEN_WIDTH, 31)];
+    UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, 31)];
     btnBackView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:btnBackView];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, btnBackView.bounds.size.height -1, btnBackView.bounds.size.width, 1.2)];

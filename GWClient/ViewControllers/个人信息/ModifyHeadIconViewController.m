@@ -132,7 +132,7 @@
                 [Utils savePhotoWithImage:editImage imageName:model.headImgUrl];
                 model.headImgUrl = [response[@"result"][@"imagePaths"] firstObject];
                 [Utils aCoder:model];
-                NSLog(@"model.headImgUrl  修改头像:%@", model.headImgUrl);
+                //NSLog(@"model.headImgUrl  修改头像:%@", model.headImgUrl);
             }
         } fail:^(NSError * error) {
             NSLog(@"%@",error.localizedDescription);
