@@ -148,6 +148,11 @@
     return img;
 }
 
++(NSInteger)currentTimeStamp{
+    NSDate *datenow = [NSDate date];
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
+    return [timeSp integerValue];
+}
 
 + (NSString *)getTimeToShowWithTimestamp:(NSUInteger)timestamp {
     NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
@@ -182,5 +187,22 @@
     }
     return  str;
 }
+
++ (UIView *) createHintViewWithFrame:(CGRect) frame superView:(UIView *) superView title:(NSString *) title imageName:(NSString *) imageName{
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    [superView addSubview:view];
+    view.backgroundColor = [UIColor whiteColor];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+    [view addSubview:imageView];
+    imageView.center = CGPointMake(view.bounds.size.width / 2, view.bounds.size.height / 2);
+    imageView.image = [UIImage imageNamed:imageName];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame), view.bounds.size.width, 30)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = title;
+    [view addSubview:label];
+    view.hidden = YES;
+    return view;
+}
+
 
 @end

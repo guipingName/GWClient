@@ -8,6 +8,7 @@
 
 #import "TransferListViewController.h"
 #import "UpDownBtn.h"
+#import "FileModel.h"
 
 @interface TransferListViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -20,8 +21,10 @@
     BOOL isEditing;
     UIButton *btnRightItem;
     UIView *btnBgView;
-    UIView *emptyUpView;
-    UIView *emptyDownView;
+    HintView *emptyUpView; // 上传空View
+    HintView *emptyDownView;// 下载空View
+    BOOL isUpButtonClicked;// 上传选中
+    UserInfoModel *user;
 }
 
 @end
@@ -47,26 +50,47 @@
      [btnRightItem setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnRightItem];
     
-    
+    user = [Utils aDecoder];
     
     [self createViews];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadData];
+}
+
+- (void) loadData{
     dataArray = [NSMutableArray array];
     uploadArray = [NSMutableArray array];
     downloadArray = [NSMutableArray array];
-    for (int i=0; i<10; i++) {
-        NSString *str = [NSString stringWithFormat:@"新人上传wenjian第%d篇.doc",i];
-        [uploadArray addObject:str];
-    }
     
-    for (int i=0; i<10; i++) {
-        NSString *str = [NSString stringWithFormat:@"下载文件第%d篇.doc",i];
-        [downloadArray addObject:str];
+    uploadArray = [[user upLoadList] mutableCopy];
+    downloadArray = [[user downLoadList] mutableCopy];
+    if (isUpButtonClicked) {
+        dataArray = uploadArray;
+        if (dataArray.count == 0) {
+            emptyUpView.hidden = NO;
+        }
+        else{
+            emptyUpView.hidden = YES;
+            myTableView.hidden = NO;
+            [myTableView reloadData];
+        }
     }
-    dataArray = uploadArray;
-    [myTableView reloadData];
+    else{
+        dataArray = downloadArray;
+        if (dataArray.count == 0) {
+            emptyDownView.hidden = NO;
+        }
+        else{
+            emptyDownView.hidden = YES;
+            myTableView.hidden = NO;
+            [myTableView reloadData];
+        }
+    }
 }
-
 
 - (void) createViews{
     UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 70, KSCREEN_WIDTH, 31)];
@@ -78,6 +102,7 @@
     
     btnUpload = [self createButton:@"上传列表"];
     btnUpload.selected = YES;
+    isUpButtonClicked = YES;
     [btnUpload setFrame:CGRectMake(btnBackView.bounds.size.width / 4 - 80 / 2, 0, 80, 30)];
     [btnUpload addTarget:self action:@selector(selectedListType:) forControlEvents:UIControlEventTouchUpInside];
     [btnBackView addSubview:btnUpload];
@@ -94,6 +119,7 @@
     myTableView.rowHeight = 50;
     myTableView.delegate = self;
     myTableView.dataSource = self;
+    myTableView.hidden = YES;
     myTableView.allowsMultipleSelectionDuringEditing = YES;
     
     
@@ -116,31 +142,18 @@
     [btnDelete setTitle:@"删除选中" forState:UIControlStateNormal];
     [btnBgView addSubview:btnDelete];
     
-    
-    emptyUpView = [[UIView alloc] initWithFrame:myTableView.frame];
+    emptyUpView = [[HintView alloc] initWithFrame:myTableView.frame];
     [self.view addSubview:emptyUpView];
-    UIImageView *upImv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
-    [emptyUpView addSubview:upImv];
-    upImv.center = emptyUpView.center;
-    upImv.image = [UIImage imageNamed:@"upload"];
-    UILabel *lbUp = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(upImv.frame), emptyUpView.bounds.size.width, 30)];
-    lbUp.textAlignment = NSTextAlignmentCenter;
-    lbUp.text = @"你还没有传输记录哦~";
-    emptyUpView.hidden = YES;
-    [emptyUpView addSubview:lbUp];
     
-    emptyDownView = [[UIView alloc] initWithFrame:myTableView.frame];
+    [emptyUpView createHintViewWithTitle:@"你还没有上传记录哦~" image:[[UIImage imageNamed:@"upload_64"] rt_tintedImageWithColor:[UIColor grayColor]] block:nil];
+    
+    emptyDownView = [[HintView alloc] initWithFrame:myTableView.frame];
     [self.view addSubview:emptyDownView];
-    UIImageView *downImv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
-    [emptyDownView addSubview:downImv];
-    downImv.center = emptyUpView.center;
-    downImv.image = [UIImage imageNamed:@"download"];
-    UILabel *lbDown = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(downImv.frame), emptyUpView.bounds.size.width, 30)];
-    lbDown.textAlignment = NSTextAlignmentCenter;
-    lbDown.text = @"你还没有传输记录哦~";
-    [emptyDownView addSubview:lbDown];
-    emptyDownView.hidden = YES;
+    [emptyDownView createHintViewWithTitle:@"你还没有下载记录哦~" image:[[UIImage imageNamed:@"download_64"] rt_tintedImageWithColor:[UIColor grayColor]] block:nil];
+    
 }
+
+
 
 
 #pragma mark --------------- UITableViewDelegate ----------------
@@ -153,16 +166,27 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
     }
-    cell.textLabel.text = dataArray[indexPath.row];
+    FileModel *model = dataArray[indexPath.row];
+    cell.textLabel.text = model.fileName;
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSString *str = dataArray[indexPath.row];
-        [dataArray removeObject:str];
+        FileModel *fileModel = dataArray[indexPath.row];
+        [dataArray removeObject:fileModel];
+        [user deleteDownList:fileModel];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if (dataArray.count == 0) {
+            myTableView.hidden = YES;
+            if (isUpButtonClicked) {
+                emptyUpView.hidden = NO;
+            }
+            else{
+                emptyDownView.hidden = NO;
+            }
+        }
     }
 }
 
@@ -187,18 +211,34 @@
     [self normalState];
     sender.selected = YES;
     if([sender.titleLabel.text isEqualToString:@"上传列表"]){
+        isUpButtonClicked = YES;
         btnDownload.selected = NO;
         [btnDownload setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         dataArray = uploadArray;
-        NSLog(@"uploadArray.count: %lu %lu", (unsigned long)uploadArray.count, (unsigned long)dataArray.count);
-        [myTableView reloadData];
+        emptyDownView.hidden = YES;
+        if (dataArray.count == 0) {
+            myTableView.hidden = YES;
+            emptyUpView.hidden = NO;
+        }
+        else{
+            myTableView.hidden = NO;
+            [myTableView reloadData];
+        }
     }
     else{
-        dataArray = downloadArray;
-        [myTableView reloadData];
+        isUpButtonClicked = NO;
         btnUpload.selected = NO;
-        NSLog(@"downloadArray.count: %lu %lu", (unsigned long)downloadArray.count, (unsigned long)dataArray.count);
         [btnUpload setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        dataArray = downloadArray;
+        emptyUpView.hidden = YES;
+        if (dataArray.count == 0) {
+            myTableView.hidden = YES;
+            emptyDownView.hidden = NO;
+        }
+        else{
+            myTableView.hidden = NO;
+            [myTableView reloadData];
+        }
     }
 }
 
@@ -220,11 +260,21 @@
         return [obj2 compare:obj1];
     }];
     for (NSIndexPath *indexPath in indexPaths) {
-        //NSString *str = dataArray[indexPath.row];
-        [dataArray removeObjectAtIndex:indexPath.row];
+        FileModel *fileModel = dataArray[indexPath.row];
+        [dataArray removeObject:fileModel];
+        [user deleteDownList:fileModel];
     }
     [myTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
     [self normalState];
+    if (dataArray.count == 0) {
+        myTableView.hidden = YES;
+        if (isUpButtonClicked) {
+            emptyUpView.hidden = NO;
+        }
+        else{
+            emptyDownView.hidden = NO;
+        }
+    }
 }
 
 - (void) normalState{

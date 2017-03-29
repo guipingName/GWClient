@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class FileModel;
 @interface UserInfoModel : NSObject<NSCoding>
 
 
@@ -38,13 +39,22 @@
 
 
 
-- (BOOL) updateSelfInfomation;
+/**下载文件*/
+- (BOOL) downloadFile:(FileModel *) fileModel;
 
-- (BOOL) uploadFile:(NSString *) fileName;
+/**获取下载列表*/
+- (NSArray *) downLoadList;
 
-- (BOOL) downloadFile:(NSString *) fileName;
+/**上传文件*/
+- (BOOL) uploadFile:(FileModel *) fileModel;
 
-- (BOOL) deleteFile:(NSString *) fileName;
+/**获取上传列表*/
+- (NSArray *) upLoadList;
+
+/**删除下载记录*/
+- (BOOL)deleteDownList:(FileModel *)fileModel;
+
+
 
 
 @end

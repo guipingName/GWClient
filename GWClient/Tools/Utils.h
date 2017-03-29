@@ -25,8 +25,11 @@
 + (UIImage *) getImageWithImageName:(NSString *) imageName;
 
 + (void) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName;
-    
+
++ (NSInteger)currentTimeStamp;
+
 + (NSString *)getTimeToShowWithTimestamp:(NSUInteger)timestamp;
 
 + (NSString *) ImageNameWithFileType:(NSUInteger) fileType;
+
 @end

@@ -20,6 +20,9 @@
 #import "KLoadingView.h"
 #import "YYModel.h"
 #import "Masonry.h"
+#import "HintView.h"
+#import "FMDB.h"
+#import "DataBaseManager.h"
 
 #ifndef W_H_
 #define W_H_

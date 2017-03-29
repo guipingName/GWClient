@@ -31,21 +31,29 @@
     
     btnMan = [SexButton buttonWithType:UIButtonTypeCustom];
     btnMan.frame = CGRectMake(0, 64, KSCREEN_WIDTH, 40);
-    [btnMan setImage:[UIImage imageNamed:@"close"] forState:UIControlStateSelected];
+    [btnMan setImage:[UIImage imageNamed:@"sex_sel"] forState:UIControlStateSelected];
     [btnMan addTarget:self action:@selector(btnManClicked:) forControlEvents:UIControlEventTouchUpInside];
     btnMan.backgroundColor = [UIColor whiteColor];
     [btnMan setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnMan setTitle:@"男" forState:UIControlStateNormal];
     [self.view addSubview:btnMan];
     
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 104, KSCREEN_WIDTH, 0.5)];
+    line.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:line];
+    
     btnWoman = [SexButton buttonWithType:UIButtonTypeCustom];
-    btnWoman.frame = CGRectMake(0, 104, KSCREEN_WIDTH, 40);
-    [btnWoman setImage:[UIImage imageNamed:@"close"] forState:UIControlStateSelected];
+    btnWoman.frame = CGRectMake(0, 105, KSCREEN_WIDTH, 40);
+    [btnWoman setImage:[UIImage imageNamed:@"sex_sel"] forState:UIControlStateSelected];
     [btnWoman addTarget:self action:@selector(btnWomanClicked:) forControlEvents:UIControlEventTouchUpInside];
     btnWoman.backgroundColor = [UIColor whiteColor];
     [btnWoman setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnWoman setTitle:@"女" forState:UIControlStateNormal];
     [self.view addSubview:btnWoman];
+    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 145, KSCREEN_WIDTH, 0.5)];
+    line1.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:line1];
+    
     if ([_sexStr isEqualToString:@"男"]) {
         btnMan.selected = YES;
     }

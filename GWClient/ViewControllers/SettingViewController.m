@@ -26,9 +26,7 @@
     self.title = @"设置";
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
-//    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
     [self.view addSubview:myTableView];
@@ -41,10 +39,6 @@
     dataArray = @[@"清理缓存", @"关于我们", @"意见反馈"];
     NSString *str = [NSString stringWithFormat:@"%.2fMB",[self filePath]];
     detailArray = [@[str] mutableCopy];
-}
-
-- (void) back{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark --------------- UITableViewDelegate ----------------

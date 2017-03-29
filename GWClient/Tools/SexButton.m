@@ -11,7 +11,7 @@
 @implementation SexButton
 
 - (CGRect)imageRectForContentRect:(CGRect)contentRect {
-    return CGRectMake(contentRect.size.width - 40, (contentRect.size.height - 40) / 2, 30, 30);
+    return CGRectMake(contentRect.size.width - 40, (contentRect.size.height - 30) / 2, 30, 30);
 }
 
 - (CGRect)titleRectForContentRect:(CGRect)contentRect{

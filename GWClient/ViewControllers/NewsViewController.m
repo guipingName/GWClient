@@ -28,6 +28,17 @@
 
 - (void) doLogin{
     NSLog(@"333");
+    [Utils GET:19 params:@{
+                           @"channel":@"头条",
+                           @"start":@(1),
+                           @"num":@(3)
+                           } succeed:^(id response) {
+                               NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+                               NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+                               NSLog(@"新闻头条--返回的Json串:\n%@", tempStr);
+                           } fail:^(NSError *error) {
+                               
+                           }];
 }
 
 

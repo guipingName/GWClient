@@ -10,22 +10,27 @@
 
 @implementation UserInfoModel
 
--(BOOL)updateSelfInfomation{
-    return YES;
+
+
+-(BOOL)downloadFile:(FileModel *) fileModel{
+    return [[DataBaseManager sharedManager] addFileWithfileId:fileModel fileOperateType:0 userId:_userId];
 }
 
--(BOOL)uploadFile:(NSString *)fileName{
-    return YES;
+-(NSArray *) downLoadList{
+    return [[DataBaseManager sharedManager] loadFileListWithOperateType:0 userId:_userId];
 }
 
--(BOOL)downloadFile:(NSString *)fileName{
-    return YES;
+-(BOOL)uploadFile:(FileModel *)fileModel{
+    return [[DataBaseManager sharedManager] addFileWithfileId:fileModel fileOperateType:1 userId:_userId];
 }
 
--(BOOL)deleteFile:(NSString *)fileName{
-    return YES;
+- (BOOL)deleteDownList:(FileModel *)fileModel{
+    return [[DataBaseManager sharedManager] deleteFileWithFile:fileModel fileOperateType:0 userId:_userId];
 }
 
+-(NSArray *)upLoadList{
+    return [[DataBaseManager sharedManager] loadFileListWithOperateType:1 userId:_userId];
+}
 
 // 归档时要使用的方法
 - (void)encodeWithCoder:(NSCoder *)aCoder{
