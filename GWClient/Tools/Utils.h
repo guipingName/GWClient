@@ -18,7 +18,16 @@
 
 +(void)hintView:(UIView *)superView message:(NSString *) message;
 
-+(void)GET:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure;
+// 有进度的请求
++(void)GET:(ApiType) ApiType params:(NSDictionary *)params
+   succeed:(void (^)(id))success
+      fail:(void (^)(NSError *))failure
+compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
+
+// 没有进度
++(void)GET:(ApiType) ApiType params:(NSDictionary *)params
+   succeed:(void (^)(id))success
+      fail:(void (^)(NSError *))failure;
 
 + (void)addDialogueBoxWithSuperView:(UIView *)superView Content:(NSString *)content;
 

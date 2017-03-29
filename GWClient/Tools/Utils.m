@@ -6,20 +6,21 @@
 //  Copyright © 2017年 guiping. All rights reserved.
 //
 
+
 #import "Utils.h"
 #import "MBProgressHUD.h"
-
-//#import "RHSocketChannel.h"
 #import "RHSocketVariableLengthEncoder.h"
 #import "RHSocketVariableLengthDecoder.h"
 #import "RHSocketChannelProxy.h"
 #import "EXTScope.h"
 
-
-
 @implementation Utils
 
-+(void)GET:(ApiType) ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure{
++(void)GET:(ApiType) ApiType params:(NSDictionary *)params
+   succeed:(void (^)(id resones))success
+      fail:(void (^)(NSError * error))failure
+compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
+{
     NSString *host = HOST_IP;
     int port = HOST_PORT;
     RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
@@ -28,14 +29,37 @@
     @weakify(self);
     [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
         @strongify(self);
-        [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:success fail:failure];
+        [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:success fail:failure compeletProcess:process];
     }];
+    
     [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
     
 }
 
-
-+ (void) sendRpcForTestJsonCodec:(ApiType) ApiType paramDic :(NSDictionary *) paramDic succeed:(void (^)(id))success fail:(void (^)(NSError *))failure{
++(void)GET:(ApiType) ApiType params:(NSDictionary *)params
+   succeed:(void (^)(id resones))success
+      fail:(void (^)(NSError * error))failure
+{
+    NSString *host = HOST_IP;
+    int port = HOST_PORT;
+    RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
+    connect.host = host;
+    connect.port = port;
+    @weakify(self);
+    [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
+        @strongify(self);
+        [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:success fail:failure compeletProcess:nil];
+    }];
+    
+    [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
+    
+}
++ (void) sendRpcForTestJsonCodec:(ApiType) ApiType
+                       paramDic :(NSDictionary *) paramDic
+                         succeed:(void (^)(id))success
+                            fail:(void (^)(NSError *))failure
+                 compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
+{
     //rpc返回的call reply id是需要和服务端协议一致的，否则无法对应call和reply。
     RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
     req.object = paramDic;
@@ -50,7 +74,7 @@
     [callReply setFailureBlock:^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
         failure(error);
     }];
-    [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
+    [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply compeletProcess:process];
 }
 
 

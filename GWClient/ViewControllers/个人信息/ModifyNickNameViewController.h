@@ -10,6 +10,7 @@
 
 @interface ModifyNickNameViewController : UIViewController
 
+@property (nonatomic, copy) NSString *titleStr;
 @property (nonatomic, copy) NSString *nickName;
 @property (nonatomic, copy) void(^nameStrBlock)(NSString *);
 

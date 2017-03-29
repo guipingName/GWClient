@@ -7,12 +7,12 @@
 //
 
 #import "ModifySignatureViewController.h"
+#import "UITextView+YLTextView.h"
 
 
 @interface ModifySignatureViewController ()<UITextFieldDelegate>
 {
-    UITextField *tfNickname;
-    //UITextView *textView;
+    UITextView *textView;
 }
 
 @end
@@ -22,42 +22,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor grayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"个性签名";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(done)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     
-    // 创建用户名
-    tfNickname = [self createTextField];
-    tfNickname.frame = CGRectMake(10, 80, KSCREEN_WIDTH - 20, 40);
-    [self.view addSubview:tfNickname];
-    tfNickname.delegate = self;
-    tfNickname.text = _signatureStr;
-    tfNickname.placeholder = @"请编辑您的个性签名";
-    [tfNickname becomeFirstResponder];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, 0.1)];
+    [self.view addSubview:view];
+    
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 70, KSCREEN_WIDTH-20, 80)];
+    textView.font = [UIFont systemFontOfSize:18];
+    textView.backgroundColor = [UIColor whiteColor];
+    textView.layer.cornerRadius = 5;
+    textView.layer.masksToBounds = YES;
+    textView.layer.borderWidth = 0.5;
+    textView.layer.borderColor = UICOLOR_RGBA(200, 200, 200, 1.0).CGColor;
+    textView.text = _signatureStr;
+    textView.placeholder = @"请设置您的个性签名";
+    textView.limitLength = @30;
+    [self.view addSubview:textView];
 
 }
 
-- (void) done{
-    UserInfoModel *model = [Utils aDecoder];
-    NSDictionary *params = @{@"userId":@(model.userId),
-                             @"token":@"123",
-                             @"modifyDic":@{@"signature":tfNickname.text}
-                             };
-    [Utils GET:15 params:params succeed:^(id response) {
-//        if ([response[@"success"] boolValue]) {
-//            
-//        }
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"修改个性签名--返回的Json串:\n%@", tempStr);
-    } fail:^(NSError * error) {
-        NSLog(@"%@",error.localizedDescription);
-    }];
-    
+- (void) done{    
     if (_signStrBlock) {
-        _signStrBlock(tfNickname.text);
+        _signStrBlock(textView.text);
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -65,33 +55,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark --------------- UITextFieldDelegate ----------------
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if ([textField becomeFirstResponder]) {
-        [textField resignFirstResponder];
-    }
-    return YES;
-}
-
-
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    if ([tfNickname becomeFirstResponder]) {
-        [tfNickname resignFirstResponder];
-    }
-}
-
-- (UITextField *) createTextField{
-    UITextField *tf = [[UITextField alloc] init];
-    tf.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
-    tf.layer.borderWidth= 1.0f;
-    tf.layer.cornerRadius = 5.0f;
-    tf.returnKeyType = UIReturnKeyDone;
-    tf.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
-    tf.leftViewMode = UITextFieldViewModeAlways;
-    [tf setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
-    return tf;
 }
 /*
 #pragma mark - Navigation

@@ -45,14 +45,17 @@
 /**获取下载列表*/
 - (NSArray *) downLoadList;
 
+/**删除下载记录*/
+- (BOOL)deleteDownList:(FileModel *)fileModel;
+
 /**上传文件*/
 - (BOOL) uploadFile:(FileModel *) fileModel;
 
 /**获取上传列表*/
 - (NSArray *) upLoadList;
 
-/**删除下载记录*/
-- (BOOL)deleteDownList:(FileModel *)fileModel;
+/**删除上传记录*/
+- (BOOL)deleteUpList:(FileModel *)fileModel;
 
 
 

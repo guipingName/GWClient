@@ -43,6 +43,7 @@
 - (void)closeConnection;
 - (BOOL)isConnected;
 
-- (void)asyncSendPacket:(id<RHUpstreamPacket>)packet;
+- (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
+        compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
 
 @end

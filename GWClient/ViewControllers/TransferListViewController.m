@@ -71,6 +71,7 @@
     if (isUpButtonClicked) {
         dataArray = uploadArray;
         if (dataArray.count == 0) {
+            myTableView.hidden = YES;
             emptyUpView.hidden = NO;
         }
         else{
@@ -82,6 +83,7 @@
     else{
         dataArray = downloadArray;
         if (dataArray.count == 0) {
+            myTableView.hidden = YES;
             emptyDownView.hidden = NO;
         }
         else{
@@ -121,6 +123,7 @@
     myTableView.dataSource = self;
     myTableView.hidden = YES;
     myTableView.allowsMultipleSelectionDuringEditing = YES;
+    myTableView.tableFooterView = [[UIView alloc] init];
     
     
     btnBgView = [[UIView alloc] initWithFrame:CGRectMake(0, KSCREEN_HEIGHT - 49 - 50, KSCREEN_WIDTH, 49)];
@@ -176,7 +179,12 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         FileModel *fileModel = dataArray[indexPath.row];
         [dataArray removeObject:fileModel];
-        [user deleteDownList:fileModel];
+        if (isUpButtonClicked) {
+            [user deleteUpList:fileModel];
+        }
+        else{
+            [user deleteDownList:fileModel];
+        }
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         if (dataArray.count == 0) {
             myTableView.hidden = YES;

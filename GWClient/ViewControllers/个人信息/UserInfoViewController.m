@@ -162,7 +162,6 @@
         ModifyHeadIconViewController *headVC = [[ModifyHeadIconViewController alloc] init];
         headVC.image = titleInfoArray[indexPath.section][indexPath.row];
         headVC.imageBlock = ^(UIImage *image){
-            NSLog(@"huoqu xintouxiang ");
             [self reloadTableViewWithSection:0 row:0 object:image];
         };
         [self.navigationController pushViewController:headVC animated:YES];
@@ -170,11 +169,15 @@
     else if (indexPath.section == 0 && indexPath.row == 1) {
         // 修改昵称
         ModifyNickNameViewController *nickNameVC = [[ModifyNickNameViewController alloc] init];
+        nickNameVC.titleStr = titleArray[indexPath.section][indexPath.row];
         nickNameVC.nickName = titleInfoArray[indexPath.section][indexPath.row];
-        nickNameVC.nameStrBlock = ^(NSString *nickName){
-            model.nickName = nickName;
-            [Utils aCoder:model];
-            [self reloadTableViewWithSection:0 row:1 object:nickName];
+        nickNameVC.nameStrBlock = ^(NSString *newStr){
+            if (newStr.length == 0 || [model.nickName isEqualToString:newStr]) {
+                return ;
+            }
+            model.nickName = newStr;
+            NSDictionary *dic = @{@"nickName":model.nickName};
+            [self uploadDictionary:dic section:0 row:1];
         };
         [self.navigationController pushViewController:nickNameVC animated:YES];
     }
@@ -183,31 +186,75 @@
         ModifySexViewController *sexVC = [[ModifySexViewController alloc] init];
         sexVC.sexStr = titleInfoArray[indexPath.section][indexPath.row];
         sexVC.sexStrBlock = ^(NSString *sexStra){
+            NSString *aa = titleInfoArray[indexPath.section][indexPath.row];
+            if ([aa isEqualToString:sexStra] || sexStra == nil) {
+                return ;
+            }
             if ([sexStra isEqualToString:@"男"]) {
                 model.sex = 1;
             }
             else if ([sexStra isEqualToString:@"女"]){
                 model.sex = 2;
             }
-            [Utils aCoder:model];
-            [self reloadTableViewWithSection:1 row:0 object:sexStra];
+            NSDictionary *dic = @{@"gender":@(model.sex)};
+            [self uploadDictionary:dic section:1 row:0];
         };
         [self.navigationController pushViewController:sexVC animated:YES];
+    }
+    else if (indexPath.section == 1 && indexPath.row == 1) {
+        // 修改地区
+        ModifyNickNameViewController *locationVC = [[ModifyNickNameViewController alloc] init];
+        locationVC.titleStr = titleArray[indexPath.section][indexPath.row];
+        locationVC.nickName = titleInfoArray[indexPath.section][indexPath.row];
+        locationVC.nameStrBlock = ^(NSString *newStr){
+            if (newStr.length == 0 || [model.location isEqualToString:newStr]) {
+                return ;
+            }
+            model.location = newStr;
+            NSDictionary *dic = @{@"location":model.location};
+            [self uploadDictionary:dic section:1 row:1];
+        };
+        [self.navigationController pushViewController:locationVC animated:YES];
     }
     else if (indexPath.section == 1 && indexPath.row == 2) {
         // 修改个性签名
         ModifySignatureViewController *signVC = [[ModifySignatureViewController alloc] init];
         signVC.signatureStr = titleInfoArray[indexPath.section][indexPath.row];
         signVC.signStrBlock = ^(NSString *signStr){
+            if (signStr.length == 0 || [model.signature isEqualToString:signStr]) {
+                return ;
+            }
             model.signature = signStr;
-            [Utils aCoder:model];
-            [self reloadTableViewWithSection:1 row:2 object:signStr];
+            NSDictionary *dic = @{@"signature":model.signature};
+            [self uploadDictionary:dic section:1 row:2];
         };
         [self.navigationController pushViewController:signVC animated:YES];
     }
-    else{
-        // Todo:
-    }
+}
+
+- (void) uploadDictionary:(NSDictionary *) dic section:(NSUInteger) section row:(NSUInteger) row{
+    NSDictionary *paramDic = @{@"userId":@(model.userId),
+                               @"token":model.token,
+                               @"modifyDic":dic
+                               };
+    [Utils GET:ApiTypeModifyUserInfo params:paramDic succeed:^(id response) {
+        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+        NSLog(@"修改用户信息--返回的Json串:\n%@", tempStr);
+        if ([response[@"success"] boolValue]) {
+            [Utils aCoder:model];
+            if ([dic.allKeys.firstObject isEqualToString:@"gender"]) {
+                NSString *str = [dic.allValues.firstObject integerValue] == 1 ? @"男" : model.sex == 2 ? @"女":@"未知";
+                [self reloadTableViewWithSection:section row:row object:str];
+            }
+            else{
+                [self reloadTableViewWithSection:section row:row object:dic.allValues.firstObject];
+            }
+            [Utils aCoder:model];
+        }
+    } fail:^(NSError * error) {
+        NSLog(@"%@",error.localizedDescription);
+    }];
 }
 
 - (void) reloadTableViewWithSection:(NSUInteger) section row:(NSUInteger) row object:(id) object{

@@ -46,6 +46,7 @@
 }
 
 - (void)asyncCallReply:(id<RHSocketCallReplyProtocol>)aCallReply
+       compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
 {
     if (![_channel isConnected]) {
         NSDictionary *userInfo = @{@"msg":@"Socket channel is not connected."};
@@ -54,20 +55,9 @@
         return;
     }//if
     [_callReplyManager addCallReply:aCallReply];
-    [_channel asyncSendPacket:[aCallReply request]];
+    [_channel asyncSendPacket:[aCallReply request] compeletProcess:process];
+    
 }
-
-- (void)asyncNotify:(id<RHSocketCallReplyProtocol>)aCallReply
-{
-    if (![_channel isConnected]) {
-        NSDictionary *userInfo = @{@"msg":@"Socket channel is not connected."};
-        NSError *error = [NSError errorWithDomain:@"RHSocketChannelProxy" code:-1 userInfo:userInfo];
-        [aCallReply onFailure:aCallReply error:error];
-        return;
-    }//if
-    [_channel asyncSendPacket:[aCallReply request]];
-}
-
 #pragma mark - RHSocketChannel
 
 - (void)openConnection

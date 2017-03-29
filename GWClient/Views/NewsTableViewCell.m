@@ -39,6 +39,7 @@
     if (!lbTitle) {
         lbTitle = [[UILabel alloc] init];
     }
+    lbTitle.numberOfLines = 0;
     lbTitle.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:lbTitle];
     

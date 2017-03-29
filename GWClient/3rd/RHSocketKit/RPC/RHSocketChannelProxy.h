@@ -42,13 +42,7 @@
  *
  *  @param aCallReply 实现RHSocketCallReplyProtocol协议对象
  */
-- (void)asyncCallReply:(id<RHSocketCallReplyProtocol>)aCallReply;
-
-/**
- *  只发送数据给服务端，不等待服务端返回
- *
- *  @param aCallReply 实现RHSocketCallReplyProtocol协议对象
- */
-- (void)asyncNotify:(id<RHSocketCallReplyProtocol>)aCallReply;
+- (void)asyncCallReply:(id<RHSocketCallReplyProtocol>)aCallReply
+       compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
 
 @end

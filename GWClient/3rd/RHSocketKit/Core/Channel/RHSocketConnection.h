@@ -93,4 +93,10 @@
  */
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag;
 
+
+
+/**
+ 进度百分比
+ */
+@property(nonatomic, copy)void (^processBlock)(NSInteger done, NSInteger total, float percentage);
 @end

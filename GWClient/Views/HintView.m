@@ -27,7 +27,7 @@
 - (void)createHintViewWithTitle:(NSString *)title image:(UIImage *)image block:(void (^)())block{
     self.block = block;
     if (!imageView) {
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     }
     [self addSubview:imageView];
     imageView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);

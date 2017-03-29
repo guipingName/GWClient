@@ -72,11 +72,13 @@
 }
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
+        compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
 {
     if (nil == _encoder) {
         RHSocketLog(@"RHSocket Encoder should not be nil ...");
         return;
     }
+    _connection.processBlock = process;
     [self.encoder encode:packet output:self];
 }
 

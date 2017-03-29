@@ -20,16 +20,21 @@
     return [[DataBaseManager sharedManager] loadFileListWithOperateType:0 userId:_userId];
 }
 
--(BOOL)uploadFile:(FileModel *)fileModel{
-    return [[DataBaseManager sharedManager] addFileWithfileId:fileModel fileOperateType:1 userId:_userId];
-}
-
 - (BOOL)deleteDownList:(FileModel *)fileModel{
     return [[DataBaseManager sharedManager] deleteFileWithFile:fileModel fileOperateType:0 userId:_userId];
 }
 
+-(BOOL)uploadFile:(FileModel *)fileModel{
+    return [[DataBaseManager sharedManager] addFileWithfileId:fileModel fileOperateType:1 userId:_userId];
+}
+
+
 -(NSArray *)upLoadList{
     return [[DataBaseManager sharedManager] loadFileListWithOperateType:1 userId:_userId];
+}
+
+- (BOOL)deleteUpList:(FileModel *)fileModel{
+    return [[DataBaseManager sharedManager] deleteFileWithFile:fileModel fileOperateType:1 userId:_userId];
 }
 
 // 归档时要使用的方法

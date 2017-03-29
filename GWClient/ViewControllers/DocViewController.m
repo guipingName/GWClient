@@ -29,6 +29,9 @@
     float selectRowHeight;
     HintView *emptyView;
     UserInfoModel *user;
+    
+    NSMutableArray *uploadImageArray;
+    NSMutableArray *uploadImageNameArray;
 }
 
 @end
@@ -52,6 +55,8 @@
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     dataArray = [NSMutableArray array];
+    uploadImageArray = [NSMutableArray array];
+    uploadImageNameArray = [NSMutableArray array];
     user = [Utils aDecoder];
     // 测试
     [self createTableView];
@@ -79,7 +84,6 @@
 }
 
 - (void) fileList{
-    NSLog(@"请求文件列表相关数据");
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token
                              };
@@ -160,7 +164,6 @@
     
    //imagePickerVc.selectedAssets = _selectedAssets; // 目前已经选中的图片数组
     imagePickerVc.allowTakePicture = NO; // 在内部显示拍照按钮
-    
     imagePickerVc.navigationBar.barTintColor = THEME_COLOR;
     
     if (isPicture) {
@@ -176,8 +179,6 @@
 }
 
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
-    
-    //_selectedAssets = [NSMutableArray arrayWithArray:assets];
     // 打印图片名字
     [self printAssetsName:assets photis:photos];
 }
@@ -191,39 +192,40 @@
         //NSLog(@"data: %@", data);
         UserInfoModel *model = [Utils aDecoder];
         NSDictionary *params = @{@"userId":@(model.userId),
-                                  @"token":model.token,
-                                  @"type":@(2),
+                                 @"token":model.token,
+                                 @"type":@(2),
                                  @"fileDic":@{@"2017-03-27-16:30:42.mp4":data}
-                                  };
+                                 };
+        
         [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
             NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
             NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-            NSLog(@"上传视频--返回的Json串:\n%@", tempStr);
+            NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
             if ([response isKindOfClass:[NSDictionary class]]) {
                 if ([response[@"success"] boolValue]) {
                     [self fileList];
                 }
             }
-        } fail:^(NSError * error) {
-            NSLog(@"%@",error.localizedDescription);
+        } fail:^(NSError *error) {
+            
+        } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
+            NSLog(@"++++++++++++ 完成=%u --------全部=%u,============进度=%f",done, total, percentage);
         }];
     }];
     [myTableView reloadData];
 }
 
-// If user picking a gif image, this callback will be called.
-// 如果用户选择了一个gif图片，下面的handle会被执行
+
+// 用户选择了gif图片
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingGifImage:(UIImage *)animatedImage sourceAssets:(id)asset {
-    //dataArray = [NSMutableArray arrayWithArray:@[animatedImage]];
-    //_selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
-    //[myTableView reloadData];
+
 }
 
 
 // 打印图片名字
 - (void)printAssetsName:(NSArray *)assets photis:(NSArray *) photos{
     NSString *fileName;
-    NSMutableArray *imgNames = [NSMutableArray array];
+    NSMutableArray *imageNames = [NSMutableArray array];
     for (id asset in assets) {
         if ([asset isKindOfClass:[PHAsset class]]) {
             PHAsset *phAsset = (PHAsset *)asset;
@@ -233,27 +235,61 @@
             ALAsset *alAsset = (ALAsset *)asset;
             fileName = alAsset.defaultRepresentation.filename;;
         }
-        [imgNames addObject:fileName];
-        //NSLog(@"图片名字:%@",fileName);
+        [imageNames addObject:fileName];
+        [uploadImageNameArray addObject:fileName];
     }
-    // 上传图片
-    NSDictionary *dic = [NSDictionary dictionaryWithObjects:photos forKeys:imgNames];
+    for (UIImage *pho in photos) {
+        [uploadImageArray addObject:pho];
+    }
+    [self photo];
+    
+    // 上传记录
+    for (int i=0; i<photos.count; i++) {
+        FileModel *file = [[FileModel alloc] init];
+        file.fileType = 1;
+        file.fileName = imageNames[i];
+        UIImage *image = photos[i];
+        NSData *tempData = UIImagePNGRepresentation(image);
+        file.fileSize = tempData.length;
+        [user uploadFile:file];
+    }
+}
+
+- (void) photo{
+    if (uploadImageArray.count && uploadImageNameArray.count) {
+        UIImage *i = uploadImageArray.lastObject;
+        NSString *is = uploadImageNameArray.lastObject;
+        [self uploadImage:i imageName:is];
+    }
+}
+
+// 上传图片
+- (void) uploadImage:(UIImage *) image imageName:(NSString *) imageName{
     NSDictionary *params = @{@"userId":@(user.userId),
-                              @"token":user.token,
-                              @"type":@(1),
-                              @"fileDic":dic
-                              };
+                             @"token":user.token,
+                             @"type":@(1),
+                             @"fileDic":@{imageName:image}
+                             };
     [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
-                [self fileList];
+                [uploadImageArray removeLastObject];
+                [uploadImageNameArray removeLastObject];
+                if (uploadImageArray.count == 0 || uploadImageNameArray.count == 0) {
+                    [self fileList];
+                }
+                else{
+                    [self photo];
+                }
             }
         }
-    } fail:^(NSError * error) {
-        NSLog(@"%@",error.localizedDescription);
+    } fail:^(NSError *error) {
+        
+    } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
+        NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
     }];
 }
 
@@ -349,25 +385,25 @@
     
     [cell setDownLoadBlock:^(FileModel *tempModel) {
         [user downloadFile:tempModel];
-        NSDictionary *params = @{@"userId":@(user.userId),
-                                 @"token":user.token,
-                                 @"type":@(1),
-                                 @"filePaths":@[@(tempModel.fileId)]
-                                 };
-        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
-            if ([response[@"success"] boolValue]) {
-                //UIImage *image = [response[@"result"][@"files"] firstObject];
-                id newObj = [response[@"result"][@"files"] firstObject];
-                if ([newObj isKindOfClass:[UIImage class]]) {
-                    NSLog(@"下载图片成功 " );
-                }
-                if ([newObj isKindOfClass:[NSData class]]) {
-                    NSLog(@"下载视频成功 " );
-                }
-            }
-        } fail:^(NSError * error) {
-            NSLog(@"%@",error.localizedDescription);
-        }];
+//        NSDictionary *params = @{@"userId":@(user.userId),
+//                                 @"token":user.token,
+//                                 @"type":@(1),
+//                                 @"filePaths":@[@(tempModel.fileId)]
+//                                 };
+//        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+//            if ([response[@"success"] boolValue]) {
+//                //UIImage *image = [response[@"result"][@"files"] firstObject];
+//                id newObj = [response[@"result"][@"files"] firstObject];
+//                if ([newObj isKindOfClass:[UIImage class]]) {
+//                    NSLog(@"下载图片成功 " );
+//                }
+//                if ([newObj isKindOfClass:[NSData class]]) {
+//                    NSLog(@"下载视频成功 " );
+//                }
+//            }
+//        } fail:^(NSError * error) {
+//            NSLog(@"%@",error.localizedDescription);
+//        }];
     }];
     return cell;
     

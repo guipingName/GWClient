@@ -114,7 +114,6 @@
         [hintView showKLoadingViewto:self.view animated:YES];
         
         UserInfoModel *model = [Utils aDecoder];
-        
         NSDictionary *paramDic = @{@"userId":@(model.userId),
                                    @"token":model.token,
                                    @"type":@(0),

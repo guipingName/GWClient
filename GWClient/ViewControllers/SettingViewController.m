@@ -33,8 +33,8 @@
     myTableView.backgroundColor = [UIColor clearColor];
     myTableView.delegate = self;
     myTableView.dataSource = self;
-    myTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     myTableView.rowHeight =  50;
+    myTableView.tableFooterView = [[UIView alloc] init];
     
     dataArray = @[@"清理缓存", @"关于我们", @"意见反馈"];
     NSString *str = [NSString stringWithFormat:@"%.2fMB",[self filePath]];

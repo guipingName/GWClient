@@ -21,6 +21,7 @@
     NSInteger reqestCommand;
 }
 
+@property(nonatomic, strong)NSTimer *timer;
 @end
 
 @implementation RHSocketConnection
@@ -70,19 +71,30 @@
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
 {
     [_asyncSocket writeData:data withTimeout:timeout tag:tag];
-    [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-//        NSUInteger done = 0;
-//        NSUInteger total = 0;
-//        float asign = [_asyncSocket progressOfWriteReturningTag:&tag bytesDone:&done total:&total];
-//        NSLog(@"++++++++++++ 完成=%u --------全部=%u,============进度=%f",done, total, asign);
-    }];
+    if (self.processBlock) {
+         _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateProcess:) userInfo:@(tag) repeats:YES];
+    }
 }
 
+- (void)calculateProcess:(NSTimer *) sender
+{
+    long tag = [sender.userInfo integerValue];
+    NSUInteger done = 0;
+    NSUInteger total = 0;
+    float asign = [_asyncSocket progressOfWriteReturningTag:&tag bytesDone:&done total:&total];
+    self.processBlock(done,total,asign);
+    if (isnan(asign)) {
+        [sender invalidate];
+        sender = nil;
+        return;
+    }
+}
 #pragma mark -
 #pragma mark GCDAsyncSocketDelegate method
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
+    NSLog(@"-------------断开连接,%@",err.localizedDescription);
     RHSocketLog(@"[RHSocketConnection] didDisconnect...%@", err.description);
     if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
         [_delegate didDisconnectWithError:err];
