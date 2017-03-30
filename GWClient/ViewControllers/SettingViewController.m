@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "ModifySignatureViewController.h"
 
 @interface SettingViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
@@ -52,6 +53,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
     }
     cell.textLabel.text = dataArray[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.row == 0) {
         cell.detailTextLabel.text = detailArray[indexPath.row];
     }
@@ -65,6 +67,15 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         [self clearFile];
+    }
+    else if (indexPath.row == 1) {
+        
+    }
+    else if (indexPath.row == 2) {
+        ModifySignatureViewController *textVC = [[ModifySignatureViewController alloc] init];
+        textVC.isfeedback = YES;
+        textVC.titleStr = dataArray[indexPath.row];
+        [self.navigationController pushViewController:textVC animated:YES];
     }
 }
 
@@ -87,7 +98,7 @@
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
     NSArray *indexArray=[NSArray arrayWithObject:indexPath];
     [myTableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationAutomatic];
-    [Utils hintView:self.view message:@"清理完成"];
+    [Utils hintMessage:@"清理完成" time:1 isSuccess:YES];
 }
 
 - (float)filePath {

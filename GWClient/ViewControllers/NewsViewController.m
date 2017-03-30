@@ -95,6 +95,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
 }
 
 - (void) getNews:(NSString *) keyWord{
+    [MBProgressHUD showActivityMessageInView:@"加载中..."];
     NSDictionary *params = @{@"channel":keyWord,
                              @"start":@(1),
                              @"num":@(10)
@@ -103,6 +104,9 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"新闻头条--返回的Json串:\n%@", tempStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUD];
+        });
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
                 NSDictionary *dic = response[@"result"];
@@ -128,7 +132,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
             }
         }
         else{
-            
+            [Utils hintMessage:@"获取失败" time:1 isSuccess:NO];
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);

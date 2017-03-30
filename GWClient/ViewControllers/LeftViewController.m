@@ -21,6 +21,7 @@
     UITableView *myTableView;
     NSArray *dataArray;
     NSArray *imageNamesArray;
+    UserInfoModel *currentUser;
 }
 
 @end
@@ -46,15 +47,15 @@
 
 
 - (void) infomation{
-    UserInfoModel *model = [Utils aDecoder];
-    UIImage *image = [Utils getImageWithImageName:model.headImgUrl];
+    currentUser = [Utils aDecoder];
+    UIImage *image = [Utils getImageWithImageName:currentUser.headImgUrl];
     if (image) {
         ImvUserhead.image = image;
     }
     else{
         ImvUserhead.image = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
-        NSDictionary *params = @{@"userId":@(model.userId),
-                                 @"token":model.token,
+        NSDictionary *params = @{@"userId":@(currentUser.userId),
+                                 @"token":currentUser.token,
                                  @"type":@(0)
                                  };
         [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
@@ -64,14 +65,14 @@
                     if (image) {
                         ImvUserhead.image = image;
                     }
-                    [Utils savePhotoWithImage:image imageName:model.headImgUrl];
+                    [Utils savePhotoWithImage:image imageName:currentUser.headImgUrl];
                 });
             }
         } fail:^(NSError * error) {
             NSLog(@"%@",error.localizedDescription);
         }];
     }
-    lbNickName.text = model.nickName;
+    lbNickName.text = currentUser.nickName;
     NSArray *systemInfo = @[@"个人信息", @"设置"];
     NSArray *WiFi = @[@"注销登录"];
     dataArray = @[systemInfo, WiFi];
@@ -142,12 +143,12 @@
                 UINavigationController *nav = [cen.viewControllers firstObject];
                 [nav pushViewController:settingVC animated:YES];
             }];
-            
         }
     }
     else if (indexPath.section == 1) {
         // 注销登录
         NSLog(@"注销登录");
+        [currentUser deleteAllRecord];
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setBool:NO forKey:IS_HAS_LOGIN];
         [userDef synchronize];

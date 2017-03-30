@@ -10,6 +10,12 @@
 
 @interface FileModel : NSObject
 
+
+/**
+ 0: 未开始下载 1: 正在下载 2: 下载完成
+ */
+@property(nonatomic, assign)NSInteger fileState;
+
 @property (nonatomic, copy) NSString *fileName;
 
 @property (nonatomic, assign) NSUInteger fileId;

@@ -7,14 +7,15 @@
 //
 
 #import "ModifyHeadIconViewController.h"
-#import "PhotoEdittViewController.h"
-
 #import <AssetsLibrary/ALAssetsLibrary.h>
 #import <AssetsLibrary/ALAssetsGroup.h>
 #import <AssetsLibrary/ALAssetRepresentation.h>
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
+#import "TZImagePickerController.h"
 
 
-@interface ModifyHeadIconViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, ClipViewControllerDelegate>
+@interface ModifyHeadIconViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, TZImagePickerControllerDelegate>
 {
     UIImageView *_imageView;
 }
@@ -54,36 +55,73 @@
 
 
 - (void) rightBarButtonClicked{
-    [self modifyPhoto];
-}
-
-- (void) modifyPhoto{
-    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-    ipc.delegate = self;
-    
-     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:ipc animated:YES completion:nil];
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Device has no camera" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-        else {
-            ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-            ipc.mediaTypes =[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-            [self presentViewController:ipc animated:YES completion:nil];
-        }
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *new = [UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self chooseFromLibrary];
+    }];
+    UIAlertAction *old = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self takePhoto];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:new];
+    [alertController addAction:old];
+    [alertController addAction:cancel];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+
+-(void) takePhoto{
+    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        // 相机可用
+        ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
+        ipc.mediaTypes =[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    }
+    else{
+        // 相机不可用
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:@"相机不可用" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    // 允许编辑
+    ipc.allowsEditing = YES;
+    
+    ipc.delegate = self;
+    [self presentViewController:ipc animated:YES completion:nil];
+}
+
+
+- (void) chooseFromLibrary{
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:self pushPhotoPickerVc:YES];
+    imagePickerVc.navigationBar.barTintColor = THEME_COLOR;
+    imagePickerVc.allowTakePicture = NO;
+    imagePickerVc.allowPickingVideo = NO;
+    imagePickerVc.showSelectBtn = NO;
+    imagePickerVc.allowCrop = YES;
+    imagePickerVc.needCircleCrop = NO;
+    imagePickerVc.circleCropRadius = 120;
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
+    NSString *fileName;
+    id asset = assets.firstObject;
+    if ([asset isKindOfClass:[PHAsset class]]) {
+        PHAsset *phAsset = (PHAsset *)asset;
+        fileName = [phAsset valueForKey:@"filename"];
+    }
+    else if ([asset isKindOfClass:[ALAsset class]]) {
+        ALAsset *alAsset = (ALAsset *)asset;
+        fileName = alAsset.defaultRepresentation.filename;;
+    }
+    //NSLog(@"图片名字:%@",fileName);
+    UIImage *image = photos.firstObject;
+    [self upLoadHeadImge:image imageName:fileName];
+}
+
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *ima = info[@"UIImagePickerControllerOriginalImage"];
+    UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
     NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
     ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
     {
@@ -91,62 +129,45 @@
         //NSLog(@"ALAssetPropertyDate:%@",[myasset valueForProperty:ALAssetPropertyDate]);
         ALAssetRepresentation *representation = [myasset defaultRepresentation];
         NSString *fileName = [representation filename];
-         PhotoEdittViewController * clipView = [[PhotoEdittViewController alloc]initWithImage:ima imageName:fileName];
         NSLog(@"fileName %@", fileName);
-        clipView.delegate = self;
-        clipView.clipType = 1; //支持圆形(默认) 方形裁剪
-        clipView.radius = 120;   //设置 裁剪框的半径  默认120
-        //clipView.scaleRation = 5;// 图片缩放的最大倍数 默认为10
-        [picker pushViewController:clipView animated:YES];
+        [self upLoadHeadImge:image imageName:@"20170330"];
+
     };
     
     ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
     [assetslibrary assetForURL:imageURL
                    resultBlock:resultblock
                   failureBlock:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - ClipViewControllerDelegate
--(void)ClipViewController:(PhotoEdittViewController *)clipViewController FinishClipImage:(UIImage *)editImage imageName:(NSString *)imageName{
-    [clipViewController dismissViewControllerAnimated:YES completion:^{
-        KLoadingView *hintView = [KLoadingView shareDZK];
-        hintView.title = @"正在上传";
-        [hintView showKLoadingViewto:self.view animated:YES];
-        
-        UserInfoModel *model = [Utils aDecoder];
-        NSDictionary *paramDic = @{@"userId":@(model.userId),
-                                   @"token":model.token,
-                                   @"type":@(0),
-                                   @"fileDic":@{imageName:editImage}
-                                   };
-        [Utils GET:ApiTypeUpFile params:paramDic succeed:^(id response) {
-            NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-            NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-            NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [hintView hideKLoadingViewForView:self.view animated:YES];
-            });
-            if ([response[@"success"] boolValue]) {
-                _imageView.image = editImage;
-                [Utils savePhotoWithImage:editImage imageName:model.headImgUrl];
-                model.headImgUrl = [response[@"result"][@"imagePaths"] firstObject];
-                [Utils aCoder:model];
-                //NSLog(@"model.headImgUrl  修改头像:%@", model.headImgUrl);
-            }
-        } fail:^(NSError * error) {
-            NSLog(@"%@",error.localizedDescription);
-        }];
-    }];;
+- (void) upLoadHeadImge:(UIImage *) image imageName:(NSString *) imageName{
+    [MBProgressHUD showActivityMessageInView:@"正在上传"];
+    UserInfoModel *model = [Utils aDecoder];
+    NSDictionary *paramDic = @{@"userId":@(model.userId),
+                               @"token":model.token,
+                               @"type":@(0),
+                               @"fileDic":@{imageName:image}
+                               };
+    [Utils GET:ApiTypeUpFile params:paramDic succeed:^(id response) {
+        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+        NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUD];
+        });
+        if ([response[@"success"] boolValue]) {
+            _imageView.image = image;
+            [Utils savePhotoWithImage:image imageName:model.headImgUrl];
+            model.headImgUrl = [response[@"result"][@"imagePaths"] firstObject];
+            [Utils aCoder:model];
+            //NSLog(@"model.headImgUrl  修改头像:%@", model.headImgUrl);
+        }
+    } fail:^(NSError * error) {
+        NSLog(@"%@",error.localizedDescription);
+    }];
 }
 
-- (UIImage *)imageWithImage:(UIImage*)image
-               scaledToSize:(CGSize)newSize{
-    UIGraphicsBeginImageContext(newSize);
-    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

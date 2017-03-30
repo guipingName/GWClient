@@ -65,8 +65,6 @@
     
     selectRowHeight = 50;
     selectRow = -1;
-    
-    
 }
 
 - (void)enterMine{
@@ -84,6 +82,9 @@
 }
 
 - (void) fileList{
+    __weak typeof(self) weakSelf = self;
+    [MBProgressHUD showActivityMessageInView:nil];
+    [Utils hiddenMBProgressAfterTenMinites];
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token
                              };
@@ -91,6 +92,9 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"获取文件列表--返回的Json串:\n%@", tempStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUD];
+        });
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
                 NSDictionary *dic = response[@"result"];
@@ -119,7 +123,7 @@
             else{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"download_64"] block:^{
-                        [self fileList];
+                        [weakSelf fileList];
                     }];
                     myTableView.hidden = YES;
                     emptyView.hidden = NO;
@@ -134,10 +138,6 @@
         }
     } fail:^(NSError * error) {
         NSLog(@"%@",error.localizedDescription);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            myTableView.hidden = YES;
-            emptyView.hidden = NO;
-        });
     }];
 }
 
@@ -187,7 +187,6 @@
     [[TZImageManager manager] getVideoOutputPathWithAsset:asset completion:^(NSString *outputPath) {
         NSLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
         // Export completed, send video here, send by outputPath or NSData
-        // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
         NSData *data = [NSData dataWithContentsOfFile:outputPath];
         //NSLog(@"data: %@", data);
         UserInfoModel *model = [Utils aDecoder];
@@ -327,7 +326,7 @@
     
     emptyView = [[HintView alloc] initWithFrame:myTableView.frame];
     [self.view addSubview:emptyView];
-    [emptyView createHintViewWithTitle:@"还没有文件哦~" image:[UIImage imageNamed:@"download"] block:nil];
+    [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:nil];
 }
 
 #pragma mark --------------- UITableViewDelegate ----------------
@@ -352,61 +351,77 @@
         selectRowHeight = on? 100 : 50;
         [tableView reloadData];
     }];
-    
-    [cell setDeleteBlock:^(FileModel *aa) {
-        UserInfoModel *model = [Utils aDecoder];
-        NSDictionary *params = @{@"userId":@(model.userId),
-                                 @"deleteFileIds":@[@(aa.fileId)],
-                                 @"token":model.token
+    [cell setDeleteBlock:^(FileModel *tempModel) {
+        [self deleteFile:tempModel indexPaths:@[indexPath]];
+    }];
+    [cell setDownLoadBlock:^(FileModel *tempModel) {
+        [self downLoadFile:tempModel];
+    }];
+    return cell;
+}
+
+- (void) deleteFile:(FileModel *) file indexPaths:(NSArray<NSIndexPath *> *)indexPaths{
+    [MBProgressHUD showActivityMessageInView:@"正在删除..."];
+    [Utils hiddenMBProgressAfterTenMinites];
+    NSDictionary *params = @{@"userId":@(user.userId),
+                             @"deleteFileIds":@[@(file.fileId)],
+                             @"token":user.token
+                             };
+    [Utils GET:ApiTypeDeleteFiles params:params succeed:^(id response) {
+        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+        NSLog(@"删除文件列表--返回的Json串:\n%@", tempStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUD];
+        });
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            if ([response[@"success"] boolValue]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [dataArray removeObject:file];
+                    selectRow = -1;
+                    [myTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+                    if (dataArray.count == 0) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            myTableView.hidden = YES;
+                            emptyView.hidden = NO;
+                        });
+                    }
+                });
+            }
+        }
+    } fail:^(NSError * error) {
+        NSLog(@"%@",error.localizedDescription);
+    }];
+}
+
+- (void) downLoadFile:(FileModel *) file{
+    if ([user checkDownload:file]) {
+        [Utils hintMessage:@"已添加到下载列表" time:1 isSuccess:YES];
+        [user downloadFile:file];
+        NSDictionary *params = @{@"userId":@(user.userId),
+                                 @"token":user.token,
+                                 @"type":@(1),
+                                 @"filePaths":@[@(file.fileId)]
                                  };
-        [Utils GET:ApiTypeDeleteFiles params:params succeed:^(id response) {
-            NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-            NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-            NSLog(@"删除文件列表--返回的Json串:\n%@", tempStr);
-            if ([response isKindOfClass:[NSDictionary class]]) {
-                if ([response[@"success"] boolValue]) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [dataArray removeObject:aa];
-                        selectRow = -1;
-                        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                        if (dataArray.count == 0) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                myTableView.hidden = YES;
-                                emptyView.hidden = NO;
-                            });
-                        }
-                    });
+        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+            if ([response[@"success"] boolValue]) {
+                id newObj = [response[@"result"][@"files"] firstObject];
+                if ([newObj isKindOfClass:[UIImage class]]) {
+                    NSLog(@"下载图片成功 " );
+                    UIImage *image = [response[@"result"][@"files"] firstObject];
+                    [Utils savePhotoWithImage:image imageName:file.fileName];
+                }
+                if ([newObj isKindOfClass:[NSData class]]) {
+                    NSLog(@"下载视频成功 " );
                 }
             }
         } fail:^(NSError * error) {
             NSLog(@"%@",error.localizedDescription);
         }];
-    }];
-    
-    [cell setDownLoadBlock:^(FileModel *tempModel) {
-        [user downloadFile:tempModel];
-//        NSDictionary *params = @{@"userId":@(user.userId),
-//                                 @"token":user.token,
-//                                 @"type":@(1),
-//                                 @"filePaths":@[@(tempModel.fileId)]
-//                                 };
-//        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
-//            if ([response[@"success"] boolValue]) {
-//                //UIImage *image = [response[@"result"][@"files"] firstObject];
-//                id newObj = [response[@"result"][@"files"] firstObject];
-//                if ([newObj isKindOfClass:[UIImage class]]) {
-//                    NSLog(@"下载图片成功 " );
-//                }
-//                if ([newObj isKindOfClass:[NSData class]]) {
-//                    NSLog(@"下载视频成功 " );
-//                }
-//            }
-//        } fail:^(NSError * error) {
-//            NSLog(@"%@",error.localizedDescription);
-//        }];
-    }];
-    return cell;
-    
+    }
+    else{
+        [Utils hintMessage:@"不能重复下载" time:1 isSuccess:NO];
+    }
 }
 
 - (void) creatRightItem{

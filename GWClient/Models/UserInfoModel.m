@@ -7,6 +7,7 @@
 //
 
 #import "UserInfoModel.h"
+#import "FileModel.h"
 
 @implementation UserInfoModel
 
@@ -36,6 +37,27 @@
 - (BOOL)deleteUpList:(FileModel *)fileModel{
     return [[DataBaseManager sharedManager] deleteFileWithFile:fileModel fileOperateType:1 userId:_userId];
 }
+
+
+-(BOOL)checkDownload:(FileModel *)fileModel{
+   return [[DataBaseManager sharedManager] checkDownloadfile:fileModel.fileId userId:_userId];
+}
+
+-(void)deleteAllRecord{
+    [[DataBaseManager sharedManager] deleteAllRecord];
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 归档时要使用的方法
 - (void)encodeWithCoder:(NSCoder *)aCoder{

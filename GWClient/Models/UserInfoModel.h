@@ -38,6 +38,8 @@
 @property (nonatomic, copy) NSString *signature;
 
 
+/**查询下载记录*/
+- (BOOL) checkDownload:(FileModel *) fileModel;
 
 /**下载文件*/
 - (BOOL) downloadFile:(FileModel *) fileModel;
@@ -57,7 +59,7 @@
 /**删除上传记录*/
 - (BOOL)deleteUpList:(FileModel *)fileModel;
 
-
-
+/**删除所有上传、下载记录*/
+- (void) deleteAllRecord;
 
 @end

@@ -16,8 +16,6 @@
 
 + (UITextField *) createTextField;
 
-+(void)hintView:(UIView *)superView message:(NSString *) message;
-
 // 有进度的请求
 +(void)GET:(ApiType) ApiType params:(NSDictionary *)params
    succeed:(void (^)(id))success
@@ -41,4 +39,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 
 + (NSString *) ImageNameWithFileType:(NSUInteger) fileType;
 
++ (void) hintMessage:(NSString *) message time:(int)time isSuccess:(BOOL) isSuccess;
+
++ (void) hiddenMBProgressAfterTenMinites;
 @end

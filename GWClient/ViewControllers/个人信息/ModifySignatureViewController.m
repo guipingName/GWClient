@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"个性签名";
+    
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(done)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
@@ -38,18 +38,38 @@
     textView.layer.masksToBounds = YES;
     textView.layer.borderWidth = 0.5;
     textView.layer.borderColor = UICOLOR_RGBA(200, 200, 200, 1.0).CGColor;
-    textView.text = _signatureStr;
-    textView.placeholder = @"请设置您的个性签名";
-    textView.limitLength = @30;
+    if (_isModifySignature) {
+        self.title = @"个性签名";
+        textView.text = _titleStr;
+        textView.placeholder = @"请设置您的个性签名";
+        textView.limitLength = @30;
+    }
+    else if (_isfeedback) {
+        self.title = _titleStr;
+        textView.placeholder = @"你的宝贵意见是我前进的无限动力";
+        textView.limitLength = @50;
+    }
     [self.view addSubview:textView];
-
 }
 
 - (void) done{    
-    if (_signStrBlock) {
-        _signStrBlock(textView.text);
+    if (_isModifySignature) {
+        if (_strBlock) {
+            _strBlock(textView.text);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
     }
-    [self.navigationController popViewControllerAnimated:YES];
+    else if (_isfeedback) {
+        if (textView.text.length > 0) {
+            [Utils hintMessage:@"提交成功" time:1 isSuccess:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }
+        else{
+            [Utils hintMessage:@"请输入您的建议" time:1 isSuccess:NO];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

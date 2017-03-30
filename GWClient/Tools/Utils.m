@@ -78,16 +78,25 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 }
 
 
-+(void)hintView:(UIView *)superView message:(NSString *) message{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:superView animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = message;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUDForView:superView animated:YES];
++ (void) hintMessage:(NSString *) message time:(int)time isSuccess:(BOOL) isSuccess{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (isSuccess) {
+            [MBProgressHUD showSuccessMessage:message];
+        }
+        else{
+            [MBProgressHUD showErrorMessage:message];
+        }
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUD];
     });
 }
 
-
++ (void) hiddenMBProgressAfterTenMinites{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUD];
+    });
+}
 
 +(void)aCoder:(UserInfoModel *) model{
     NSMutableData *mData = [NSMutableData data];

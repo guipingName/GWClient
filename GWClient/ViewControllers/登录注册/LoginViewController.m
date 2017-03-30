@@ -30,6 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.barTintColor = THEME_COLOR;
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     [self createViews];
     
@@ -49,25 +51,8 @@
 - (void) doLogin:(UIButton *) sender{
     [tfUserName resignFirstResponder];
     [tfPassword resignFirstResponder];
-    KLoadingView *hintView = [KLoadingView shareDZK];
-    hintView.title = @"正在登录";
-    [hintView showKLoadingViewto:self.view animated:YES];
-    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    [userDef setBool:YES forKey:IS_HAS_LOGIN];
-//    [userDef synchronize];
-//    LeftViewController *leftVC = [[LeftViewController alloc] init];
-//    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
-//    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-//    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-//    [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        self.view.window.rootViewController = drawerController;
-//    });
-//    
-//    return;
-    
-    
+    [MBProgressHUD showActivityMessageInView:@"正在登录"];
+    [Utils hiddenMBProgressAfterTenMinites];
     NSDictionary *paramDic = @{@"username":tfUserName.text,
                                @"password":tfPassword.text,
                                @"deviceId":[[[UIDevice currentDevice] identifierForVendor] UUIDString]
@@ -77,10 +62,11 @@
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"登录--返回的Json串:\n%@", tempStr);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [hintView hideKLoadingViewForView:self.view animated:YES];
+            [MBProgressHUD hideHUD];
         });
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
+                [Utils hintMessage:@"登录成功" time:1 isSuccess:YES];
                 NSDictionary *dic = response[@"result"];
                 UserInfoModel *model = [[UserInfoModel alloc] init];
                 model.userId = [dic[@"userId"] integerValue];
@@ -105,6 +91,9 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     self.view.window.rootViewController = drawerController;
                 });
+            }
+            else{
+                [Utils hintMessage:response[@"message"] time:1 isSuccess:NO];
             }
         }
     } fail:^(NSError *error) {

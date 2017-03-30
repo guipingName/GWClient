@@ -22,10 +22,13 @@
 
 // operateType 1上传  2 下载
 -(NSArray *)loadFileListWithOperateType:(NSInteger) operateType userId:(NSInteger) userId;
-// operateType 1上传  2 下载
-//-(NSArray *)loadFileListWithOperateType:(NSInteger) operateType;
 
 
-//-(BOOL)deleteFileWithFileId:(NSInteger)fileId fileOperateType:(NSInteger) fileOperateType;
 -(BOOL)deleteFileWithFile:(FileModel *) model fileOperateType:(NSInteger) fileOperateType userId:(NSInteger) userId;
+
+/**查找下载记录*/
+-(BOOL) checkDownloadfile:(NSInteger) fileId userId:(NSInteger) userId;
+
+/**删除所有记录*/
+- (BOOL) deleteAllRecord;
 @end

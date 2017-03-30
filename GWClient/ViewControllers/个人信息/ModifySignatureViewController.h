@@ -11,10 +11,12 @@
 
 @interface ModifySignatureViewController : UIViewController
 
+@property (nonatomic, assign) BOOL isModifySignature;
 
+@property (nonatomic, assign) BOOL isfeedback;
 
-@property (nonatomic, copy) NSString *signatureStr;
+@property (nonatomic, copy) NSString *titleStr;
 
-@property (nonatomic, copy) void(^signStrBlock)(NSString *);
+@property (nonatomic, copy) void(^strBlock)(NSString *);
 
 @end

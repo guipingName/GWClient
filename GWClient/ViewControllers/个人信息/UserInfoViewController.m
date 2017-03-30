@@ -40,7 +40,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"个人信息";
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -219,8 +219,9 @@
     else if (indexPath.section == 1 && indexPath.row == 2) {
         // 修改个性签名
         ModifySignatureViewController *signVC = [[ModifySignatureViewController alloc] init];
-        signVC.signatureStr = titleInfoArray[indexPath.section][indexPath.row];
-        signVC.signStrBlock = ^(NSString *signStr){
+        signVC.isModifySignature = YES;
+        signVC.titleStr = titleInfoArray[indexPath.section][indexPath.row];
+        signVC.strBlock = ^(NSString *signStr){
             if (signStr.length == 0 || [model.signature isEqualToString:signStr]) {
                 return ;
             }
@@ -242,6 +243,7 @@
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"修改用户信息--返回的Json串:\n%@", tempStr);
         if ([response[@"success"] boolValue]) {
+            [Utils hintMessage:@"修改成功" time:1 isSuccess:YES] ;
             [Utils aCoder:model];
             if ([dic.allKeys.firstObject isEqualToString:@"gender"]) {
                 NSString *str = [dic.allValues.firstObject integerValue] == 1 ? @"男" : model.sex == 2 ? @"女":@"未知";

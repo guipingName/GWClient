@@ -49,15 +49,24 @@
     }
 }
 
+
 - (BOOL) addFileWithfileId:(FileModel *) model fileOperateType:(NSInteger) fileOperateType userId:(NSInteger) userId{
     NSString *str = [self lookforName:model.fileName Type:fileOperateType userId:userId];
     return [_fmdb executeUpdate:@"insert into fileTransferList (fileName, fileId, fileTime,fileSize, fileType, fileOperateType, userId) values (?,?,?,?,?,?,?);", str, @(model.fileId), @([Utils currentTimeStamp]), @(model.fileSize), @(model.fileType), @(fileOperateType), @(userId)];
 }
 
 
+-(BOOL) checkDownloadfile:(NSInteger) fileId userId:(NSInteger) userId{
+    NSString *str = [NSString stringWithFormat:@"select *from fileTransferList where fileOperateType = 0 and userId = %ld and fileId = %ld;", (long)userId, (long)fileId];
+    FMResultSet *rs = [_fmdb executeQuery:str];
+    while ([rs next]) {
+        return NO;
+    }
+    return YES;
+}
+
 
 -(NSString *) lookforName:(NSString *) name Type:(NSInteger) operateType userId:(NSInteger) userId{
-    
     NSString *str = [NSString stringWithFormat:@"select *from fileTransferList where fileOperateType = %ld and userId = %ld and fileName = '%@';", (long)operateType, (long)userId, name];
     FMResultSet *rs = [_fmdb executeQuery:str];
     while ([rs next]) {
@@ -68,6 +77,9 @@
     
 }
 
+-(BOOL)deleteAllRecord{
+    return [_fmdb executeUpdate:@"delete from fileTransferList;"];
+}
 
 // operateType 0下载  1上传 
 -(NSArray *)loadFileListWithOperateType:(NSInteger) operateType userId:(NSInteger) userId{

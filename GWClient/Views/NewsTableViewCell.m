@@ -48,14 +48,17 @@
         lbSrc = [[UILabel alloc] init];
     }
     lbSrc.font = [UIFont systemFontOfSize:12];
-    lbSrc.frame = CGRectMake(CGRectGetMaxX(imageView.frame) + 10, CGRectGetHeight(self.bounds) - 30, 60, 30);
+    lbSrc.frame = CGRectMake(CGRectGetMaxX(imageView.frame) + 10, CGRectGetHeight(self.bounds) - 30, 100, 30);
     [self.contentView addSubview:lbSrc];
     
     if (!lbTime) {
         lbTime = [[UILabel alloc] init];
     }
     lbTime.font = [UIFont systemFontOfSize:12];
-    lbTime.frame = CGRectMake(CGRectGetWidth(self.bounds) - 130, CGRectGetHeight(self.bounds) - 30, 130, 30);
+    lbTime.textAlignment = NSTextAlignmentRight;
+    //CGRect lbTimeR = [lbTitle.text boundingRectWithSize:CGSizeMake(0, 0) options:1 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil];
+    //NSLog(@"width:%f  height:%f",lbTimeR.size.width, lbTimeR.size.height);
+    lbTime.frame = CGRectMake(CGRectGetWidth(self.bounds) - 130, CGRectGetHeight(self.bounds) - 30, 125, 30);
     [self.contentView addSubview:lbTime];
     
     

@@ -29,6 +29,8 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.barTintColor = THEME_COLOR;
     
     [self createViews];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldLength:) name:UITextFieldTextDidChangeNotification object:nil];
@@ -147,15 +149,13 @@
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"获取验证码--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
+            [Utils hintMessage:response[@"message"] time:0.5 isSuccess:YES];
             if ([response[@"success"] boolValue]) {
                 NSDictionary *tempD = response[@"result"];
                 confirmStr = [tempD[@"verifiyCode"] stringValue];
                 lbConfirm.text = [NSString stringWithFormat:@"验证码: %@ ", confirmStr];
                 [lbConfirm setAlignmentLeftAndRight];
                 lbConfirm.hidden = NO;
-            }
-            else{
-                [Utils hintView:self.view message:response[@"message"]];
             }
         }
     } fail:^(NSError *error) {
@@ -169,10 +169,6 @@
         NSLog(@"验证码不正确");
         return;
     }
-    KLoadingView *hintView = [KLoadingView shareDZK];
-    hintView.title = @"正在注册";
-    [hintView showKLoadingViewto:self.view animated:YES];
-
     NSDictionary *paramDic = @{@"username":tfEmail.text,
                                @"password":tfPassword.text
                                };
@@ -180,11 +176,8 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"注册--返回的Json串:\n%@", tempStr);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [hintView hideKLoadingViewForView:self.view animated:YES];
-        });
         if ([response isKindOfClass:[NSDictionary class]]) {
-            [Utils hintView:self.view message:response[@"message"]];
+            [Utils hintMessage:response[@"message"] time:1 isSuccess:YES];
             if ([response[@"success"] boolValue]) {
                 UserLogin *model = [[UserLogin alloc] init];
                 model.email = tfEmail.text;
@@ -196,6 +189,9 @@
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             }
+        }
+        else{
+            [Utils hintMessage:response[@"注册失败"] time:1 isSuccess:NO];
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);

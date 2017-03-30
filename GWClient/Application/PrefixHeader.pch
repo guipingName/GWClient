@@ -17,12 +17,13 @@
 #import "UserInfoModel.h"
 #import "Utils.h"
 #import "UILabel+GPAligment.h"
-#import "KLoadingView.h"
 #import "YYModel.h"
 #import "Masonry.h"
 #import "HintView.h"
 #import "FMDB.h"
 #import "DataBaseManager.h"
+#import "MBProgressHUD.h"
+#import "MBProgressHUD+JDragon.h"
 
 #ifndef W_H_
 #define W_H_
