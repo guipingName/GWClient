@@ -11,12 +11,12 @@
 #import "TZImagePickerController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
-#import "FileDetailViewController.h"
 #import "TZImageManager.h"
 #import "FileModel.h"
 #import "FileListTableViewCell.h"
 #import "TransforModel.h"
 #import "TaskManager.h"
+#import "PreviewPicViewController.h"
 
 
 @interface DocViewController ()<UITableViewDelegate, UITableViewDataSource, TZImagePickerControllerDelegate>{
@@ -24,7 +24,6 @@
     NSMutableArray *dataArray;
     NSMutableArray *_selectedAssets;
     BOOL isEditing;
-    UIView *bgView;
     BOOL isClickedRight;
     
     NSInteger selectRow;
@@ -34,6 +33,7 @@
     
     NSMutableArray *uploadImageArray;
     NSMutableArray *uploadImageNameArray;
+    UIView *clearView;
 }
 
 @end
@@ -52,7 +52,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:NAVIGATION_LEFTBAR] style:UIBarButtonItemStylePlain target:self action:@selector(enterMine)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Upload_38"] style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClicked)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload_24"] style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClicked)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
     
@@ -70,17 +70,12 @@
 }
 
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    
-}
-
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     isClickedRight = NO;
-    bgView.hidden = YES;
-    //NSLog(@"isClickedRight = YES;");
+    clearView.hidden = YES;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -88,6 +83,8 @@
 }
 
 - (void)enterMine{
+    isClickedRight = NO;
+    clearView.hidden = YES;
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
@@ -95,10 +92,10 @@
     //NSLog(@"已经点击右边项");
     isClickedRight = !isClickedRight;
     if (isClickedRight) {
-        bgView.hidden = NO;
+        clearView.hidden = NO;
     }
     else{
-        bgView.hidden = YES;
+        clearView.hidden = YES;
     }
 }
 
@@ -113,7 +110,7 @@
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"获取文件列表--返回的Json串:\n%@", tempStr);
-        NSLog(@"文件列表获取成功");
+        NSLog(@"获取文件列表");
         dispatch_async(dispatch_get_main_queue(), ^{
 //            [MBProgressHUD hideHUD];
         });
@@ -144,7 +141,7 @@
             }
             else{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"download_64"] block:^{
+                    [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[[UIImage imageNamed:@"folder"] rt_tintedImageWithColor:[UIColor grayColor]] block:^{
                         [weakSelf fileList];
                     }];
                     myTableView.hidden = YES;
@@ -164,14 +161,10 @@
 }
 
 - (void) uploadImages:(UIButton *) sedner{
-    isClickedRight = !isClickedRight;
-    bgView.hidden = YES;
     [self pushImagePickerController:YES];
 }
 
 - (void) uploadVodeos:(UIButton *) sedner{
-    isClickedRight = !isClickedRight;
-    bgView.hidden = YES;
     [self pushImagePickerController:NO];
 }
 
@@ -206,6 +199,20 @@
     }];
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    FileModel *model = dataArray[indexPath.row];
+    if (model.fileType == 1) {
+        PreviewPicViewController *preVC = [[PreviewPicViewController alloc] init];
+        preVC.hidesBottomBarWhenPushed = YES;
+        preVC.model = model;
+        [self.navigationController pushViewController:preVC animated:YES];
+    }
+    else{
+        NSLog(@"不提供在线观看");
+    }
+}
+
 
 #pragma mark --------------- TZImagePickerController ----------------
 - (void)pushImagePickerController:(BOOL) isPicture {
@@ -267,7 +274,7 @@
         }
     }];
     [[TaskManager sharedManager] upArray:temp];
-    
+    [MBProgressHUD showActivityMessageInView:@"正在上传" timer:1];
     
     //    [self photo];
     //
@@ -286,9 +293,10 @@
 
 // 视频回调
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset {
+    [MBProgressHUD showActivityMessageInView:@"准备上传..."];
     [[TZImageManager manager] getVideoOutputPathWithAsset:asset completion:^(NSString *outputPath) {
         //NSLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
-        
+        [MBProgressHUD hideHUD];
         // Export completed, send video here, send by outputPath or NSData
         NSData *data = [NSData dataWithContentsOfFile:outputPath];
         //NSLog(@"data: %@", data);
@@ -386,13 +394,20 @@
 
 #pragma mark --------------- createViews ----------------
 - (void) creatRightItem{
-    bgView = [[UIView alloc] initWithFrame:CGRectMake(KSCREEN_WIDTH - 110, 64, 100, 88)];
-    [self.view addSubview:bgView];
+    clearView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64 -49)];
+    [self.view addSubview:clearView];
+    clearView.backgroundColor = [UIColor clearColor];
+    clearView.hidden = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelView:)];
+    [clearView addGestureRecognizer:tap];
+    
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(KSCREEN_WIDTH - 110, 0, 100, 88)];
+    [clearView addSubview:bgView];
     bgView.backgroundColor = [UIColor clearColor];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[self drawTriangle]];
     imageView.frame = CGRectMake(bgView.bounds.size.width - 20, 1, 6, 6);
     [bgView addSubview:imageView];
-    bgView.hidden = YES;
+
     
     UIView *btnBg = [[UIView alloc] initWithFrame:CGRectMake(0, 7, bgView.bounds.size.width, bgView.bounds.size.height - 7)];
     [bgView addSubview:btnBg];
@@ -456,5 +471,9 @@
     return image;
 }
 
+- (void) cancelView:(UITapGestureRecognizer *) sender{
+    clearView.hidden = YES;
+    isClickedRight = !isClickedRight;
+}
 @end
 
