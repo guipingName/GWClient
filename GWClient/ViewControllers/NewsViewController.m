@@ -96,6 +96,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
 
 - (void) getNews:(NSString *) keyWord{
     [MBProgressHUD showActivityMessageInView:@"加载中..."];
+    [Utils hiddenMBProgressAfterTenMinites];
     NSDictionary *params = @{@"channel":keyWord,
                              @"start":@(1),
                              @"num":@(10)

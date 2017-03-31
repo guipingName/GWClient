@@ -28,4 +28,8 @@
 
 @property (nonatomic, assign) NSUInteger fileOperateType;
 
+@property (nonatomic, strong) UIImage *image;
+
+@property (nonatomic, strong) NSData *videoData;
+
 @end

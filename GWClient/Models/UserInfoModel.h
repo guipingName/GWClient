@@ -62,4 +62,7 @@
 /**删除所有上传、下载记录*/
 - (void) deleteAllRecord;
 
+/**删除所有上传记录*/
+- (void) deleteAllUploadRecord;
+
 @end

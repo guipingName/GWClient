@@ -10,6 +10,8 @@
 #import "UpDownBtn.h"
 #import "FileModel.h"
 #import "Masonry.h"
+#import "TransforModel.h"
+#import "TaskManager.h"
 
 @interface TransferListViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -18,141 +20,137 @@
     NSMutableArray *dataArray;
     NSMutableArray *uploadArray;
     NSMutableArray *downloadArray;
-    BOOL isEditing;
-    UIButton *btnRightItem;
-    UIView *btnBgView;
     HintView *emptyUpView; // 上传空View
     HintView *emptyDownView;// 下载空View
     BOOL isUpButtonClicked;// 上传选中
     UIView *btnBackView;
     UserInfoModel *user;
+    NSDictionary *progressDic;
 }
 
 @property(nonatomic, strong)UIScrollView *scrollView;
 @property(nonatomic, strong)UITableView *upTableView;
 @property(nonatomic, strong)UITableView *downTableView;
 @property(nonatomic, strong)UITableView *currentTableView;
+@property(nonatomic, strong)NSTimer *timer;
 
 @end
 
 @implementation TransferListViewController
+
+-(instancetype)init{
+    if (self = [super init]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadImages:) name:@"uploadImages" object:nil];
+    }
+    return self;
+}
+
+- (void) uploadImages:(NSNotification *) sneder{
+    NSLog(@"123123");
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"传输列表";
+    [self createViews];
+   self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+       NSInteger index = [TaskManager sharedManager].uping;
+       float compelet = [TaskManager sharedManager].compelet;
+       progressDic = @{@"done":@([TaskManager sharedManager].done),
+                       @"compelet":@(compelet)};
+       NSLog(@"=============index: %ld===========\nprogressDic: %@\n=============", (long)index, progressDic);
+       if (isnan(compelet)) {
+           progressDic = @{@"done":@([TaskManager sharedManager].done),
+                           @"compelet":@(1)};
+           [timer invalidate];
+       }
+       [self.currentTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+
+   }];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
-    
     self.navigationController.navigationBar.barTintColor = THEME_COLOR;
-    
-    // 右边项
-    btnRightItem = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnRightItem.frame = CGRectMake(0, 0, 50, 30);
-    [btnRightItem addTarget:self action:@selector(dobtnRightItem:) forControlEvents:UIControlEventTouchDown];
-    btnRightItem.titleLabel.font = [UIFont systemFontOfSize:17];
-    [btnRightItem setTitle:@"编辑" forState:UIControlStateNormal];
-    [btnRightItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btnRightItem setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnRightItem];
     
     user = [Utils aDecoder];
     
-    [self createViews];
     
+    dataArray = [NSMutableArray array];
+    uploadArray = [NSMutableArray array];
+    downloadArray = [NSMutableArray array];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+
+-(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadData];
 }
 
+
 - (void) loadData{
-    dataArray = [NSMutableArray array];
-    uploadArray = [NSMutableArray array];
-    downloadArray = [NSMutableArray array];
+    uploadArray = [TaskManager sharedManager].uploadTaskArray;
+    downloadArray = [TaskManager sharedManager].downloadTaskArray;
     
-    uploadArray = [[user upLoadList] mutableCopy];
-    downloadArray = [[user downLoadList] mutableCopy];
-    
-    
+    NSLog(@"uploadArray.count: %lu downloadArray.count:%lu", (unsigned long)uploadArray.count, (unsigned long)downloadArray.count);
     if (isUpButtonClicked) {
         dataArray = uploadArray;
         if (dataArray.count == 0) {
-            self.currentTableView.hidden = YES;
+            self.scrollView.hidden = YES;
             emptyUpView.hidden = NO;
         }
         else{
             emptyUpView.hidden = YES;
-            self.currentTableView.hidden = NO;
+            self.scrollView.hidden = NO;
+            _scrollView.contentOffset = CGPointMake(0, 0);
             [self.currentTableView reloadData];
         }
     }
     else{
         dataArray = downloadArray;
         if (dataArray.count == 0) {
-            self.currentTableView.hidden = YES;
+            self.scrollView.hidden = YES;
             emptyDownView.hidden = NO;
         }
         else{
             emptyDownView.hidden = YES;
             self.scrollView.hidden = NO;
+            _scrollView.contentOffset = CGPointMake(KSCREEN_WIDTH, 0);
             [self.currentTableView reloadData];
         }
     }
 }
 
 - (void) createViews {
-    
-    btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, 31)];
+    btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, 36)];
     btnBackView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:btnBackView];
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, btnBackView.bounds.size.height -1, btnBackView.bounds.size.width, 1.2)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, btnBackView.bounds.size.height - 0.5, btnBackView.bounds.size.width, 0.5)];
     lineView.backgroundColor = [UIColor grayColor];
     [btnBackView addSubview:lineView];
     
     btnUpload = [self createButton:@"上传列表"];
     btnUpload.selected = YES;
     isUpButtonClicked = YES;
-    [btnUpload setFrame:CGRectMake(btnBackView.bounds.size.width / 4 - 80 / 2, 0, 80, 30)];
+    [btnUpload setFrame:CGRectMake(btnBackView.bounds.size.width / 4 - 80 / 2, 0, 80, 35)];
     [btnUpload addTarget:self action:@selector(selectedListType:) forControlEvents:UIControlEventTouchUpInside];
     [btnBackView addSubview:btnUpload];
     
     btnDownload = [self createButton:@"下载列表"];
-    [btnDownload setFrame:CGRectMake((btnBackView.bounds.size.width + 80) /2, 0, 80, 30)];
+    [btnDownload setFrame:CGRectMake((btnBackView.bounds.size.width + 80) /2, 0, 80, 35)];
     [btnDownload setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [btnDownload addTarget:self action:@selector(selectedListType:) forControlEvents:UIControlEventTouchUpInside];
     [btnBackView addSubview:btnDownload];
     
     [self.view addSubview:self.scrollView];
-    btnBgView = [[UIView alloc] initWithFrame:CGRectMake(0, KSCREEN_HEIGHT - 49 - 50, KSCREEN_WIDTH, 49)];
-    btnBgView.hidden = YES;
-    btnBgView.backgroundColor = UICOLOR_RGBA(0, 0, 0, 0.5);
-    [self.view addSubview:btnBgView];
-    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, btnBgView.bounds.size.width, btnBgView.bounds.size.height)];
-    tempView.backgroundColor = UICOLOR_RGBA(0, 0, 0, 0.5);
-    //[btnBgView addSubview:tempView];
     
-    UIButton *btnDelete = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnDelete.frame = CGRectMake(tempView.bounds.size.width / 3, 10, tempView.bounds.size.width / 3, 29);
-    btnDelete.layer.cornerRadius = 5;
-    btnDelete.layer.masksToBounds = YES;
-    [btnDelete addTarget:self action:@selector(deleteItems:) forControlEvents:UIControlEventTouchDown];
-    btnDelete.backgroundColor = THEME_COLOR;
-    btnDelete.titleLabel.font = [UIFont systemFontOfSize:14];
-    [btnDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btnDelete setTitle:@"删除选中" forState:UIControlStateNormal];
-    [btnBgView addSubview:btnDelete];
     
-    emptyUpView = [[HintView alloc] initWithFrame:_upTableView.frame];
+    emptyUpView = [[HintView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(btnBackView.frame), KSCREEN_WIDTH, KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame) - 49)];
     [self.view addSubview:emptyUpView];
-    
     [emptyUpView createHintViewWithTitle:@"你还没有上传记录哦~" image:[[UIImage imageNamed:@"upload_64"] rt_tintedImageWithColor:[UIColor grayColor]] block:nil];
     
-    emptyDownView = [[HintView alloc] initWithFrame:_upTableView.frame];
+    emptyDownView = [[HintView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(btnBackView.frame), KSCREEN_WIDTH, KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame) - 49)];
     [self.view addSubview:emptyDownView];
     [emptyDownView createHintViewWithTitle:@"你还没有下载记录哦~" image:[[UIImage imageNamed:@"download_64"] rt_tintedImageWithColor:[UIColor grayColor]] block:nil];
-    
 }
 
 
@@ -174,32 +172,24 @@
         cell = [[TransferListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
     }
     FileModel *model = dataArray[indexPath.row];
-    [cell configWithFileModel:model andCompelet:@{}];
+    [cell configWithFileModel:model andCompelet:progressDic];
     return cell;
 }
 
-- (void)test
-{
-    for (int i =0; i < dataArray.count; i++) {
-        FileModel *model = dataArray[i];
-        if (model.fileState == 0) {
-            [Utils GET:ApiTypeGetFile params:@{} succeed:^(id response) {
-                
-            } fail:nil compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
-                
-            }];
-        }
-    }
-}
+
+
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         FileModel *fileModel = dataArray[indexPath.row];
         [dataArray removeObject:fileModel];
+        
         if (isUpButtonClicked) {
+            [TaskManager sharedManager].uploadTaskArray = dataArray;
             [user deleteUpList:fileModel];
         }
         else{
+            [TaskManager sharedManager].downloadTaskArray = dataArray;
             [user deleteDownList:fileModel];
         }
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -233,8 +223,8 @@
 
 -(void) selectedListType:(UIButton *) sender{
     [sender setTitleColor:UICOLOR_RGBA(250, 126, 20, 1.0) forState:UIControlStateNormal];
-    [self normalState];
     sender.selected = YES;
+    
     if([sender.titleLabel.text isEqualToString:@"上传列表"]){
         isUpButtonClicked = YES;
         btnDownload.selected = NO;
@@ -243,11 +233,11 @@
         emptyDownView.hidden = YES;
         _scrollView.contentOffset = CGPointMake(0, 0);
         if (dataArray.count == 0) {
-            self.currentTableView.hidden = YES;
+            _scrollView.hidden = YES;
             emptyUpView.hidden = NO;
         }
         else{
-            self.currentTableView.hidden = NO;
+            _scrollView.hidden = NO;
             [self.currentTableView reloadData];
         }
     }
@@ -259,58 +249,16 @@
         dataArray = downloadArray;
         emptyUpView.hidden = YES;
         if (dataArray.count == 0) {
-            self.currentTableView.hidden = YES;
+            _scrollView.hidden = YES;
             emptyDownView.hidden = NO;
         }
         else{
-            self.currentTableView.hidden = NO;
+            _scrollView.hidden = NO;
             [self.currentTableView reloadData];
         }
     }
 }
 
-
-- (void) dobtnRightItem:(UIButton *) sender{
-    if (isEditing) {
-        [self normalState];
-    }
-    else{
-        [sender setTitle:@"取消" forState:UIControlStateNormal];
-        isEditing = YES;
-        btnBgView.hidden = NO;
-        [self.currentTableView setEditing:YES animated:YES];
-    }
-}
-- (void) deleteItems:(UIButton *) sender{
-    UITableView *tempTableView = isUpButtonClicked ? self.upTableView : self.downTableView;
-    NSArray *indexPaths = tempTableView.indexPathsForSelectedRows;
-    indexPaths = [indexPaths sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [obj2 compare:obj1];
-    }];
-    for (NSIndexPath *indexPath in indexPaths) {
-        FileModel *fileModel = dataArray[indexPath.row];
-        [dataArray removeObject:fileModel];
-        [user deleteDownList:fileModel];
-    }
-    [tempTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
-    [self normalState];
-    if (dataArray.count == 0) {
-        tempTableView.hidden = YES;
-        if (isUpButtonClicked) {
-            emptyUpView.hidden = NO;
-        }
-        else{
-            emptyDownView.hidden = NO;
-        }
-    }
-}
-
-- (void) normalState{
-    btnBgView.hidden = YES;
-    [btnRightItem setTitle:@"编辑" forState:UIControlStateNormal];
-    isEditing = NO;
-    [self.currentTableView setEditing:NO animated:NO];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -323,11 +271,12 @@
         _scrollView = [UIScrollView new];
         float widith = KSCREEN_WIDTH;
         float height = KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame) - 49;
-//        _scrollView.backgroundColor = [UIColor yellowColor];
+        _scrollView.backgroundColor = [UIColor yellowColor];
         _scrollView.frame = CGRectMake(0, CGRectGetMaxY(btnBackView.frame), widith, height);
         _scrollView.contentSize = CGSizeMake(widith * 2,height);
         _scrollView.pagingEnabled = YES;
         _scrollView.scrollEnabled = NO;
+        _scrollView.hidden = YES;
         _scrollView.showsHorizontalScrollIndicator = NO;
         [_scrollView addSubview:self.upTableView];
         [_scrollView addSubview:self.downTableView];
@@ -352,6 +301,7 @@
     if (!_downTableView) {
         float widith = KSCREEN_WIDTH;
         float height = KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame) - 49;
+        
         _downTableView = [UITableView new];
         _downTableView.tableFooterView = [UIView new];
         _downTableView.frame = CGRectMake(widith, 0, widith, height);
@@ -426,17 +376,25 @@
 
 - (void)configWithFileModel:(FileModel *)fileModel andCompelet: (NSDictionary *) dic
 {
-    NSNumber *done = [dic valueForKey:@"done"];
-    NSNumber *compelet = [dic valueForKey:@"compelet"];
+    NSNumber *done;
+    NSNumber *compelet;
+    if (dic) {
+        done = [dic valueForKey:@"done"];
+        compelet = [dic valueForKey:@"compelet"];
+    } else {
+        done = @(0);
+        compelet = @(0);
+    }
     _iconImage.image = [UIImage imageNamed:[Utils ImageNameWithFileType:fileModel.fileType]];
     _nameLabel.text = fileModel.fileName;
     if (fileModel.fileState == 0) {
         _sizeLabel.text = [NSString stringWithFormat:@"正在等待..."];
     } else if(fileModel.fileState == 1) {
         _sizeLabel.text = [NSString stringWithFormat:@"%@k/%luK",done,(unsigned long)fileModel.fileSize / 1024];
+        _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
     } else {
         _sizeLabel.text = [NSString stringWithFormat:@"已完成:%luK",(unsigned long)fileModel.fileSize / 1024];
+        _compeletLabel.text = [NSString stringWithFormat:@"100%%"];
     }
-    _compeletLabel.text = [NSString stringWithFormat:@"%@%%",compelet];
 }
 @end

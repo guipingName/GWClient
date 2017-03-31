@@ -12,6 +12,7 @@
 #import "LeftViewController.h"
 #import "GWClientTabBarController.h"
 #import "GPNetWorkManager.h"
+#import "TaskManager.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +25,9 @@
     // Override point for customization after application launch.
     
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    UserInfoModel *user = [Utils aDecoder];
+    [TaskManager sharedManager].uploadTaskArray = [[user upLoadList] mutableCopy];
+    [user deleteAllRecord];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {
         LeftViewController *leftVC = [[LeftViewController alloc] init];
@@ -73,8 +77,11 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    UserInfoModel *user = [Utils aDecoder];
+    NSArray *array = [TaskManager sharedManager].uploadTaskArray;
+    for (FileModel *model in array) {
+        [user uploadFile:model];
+    }
 }
 
 

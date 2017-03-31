@@ -10,6 +10,14 @@
 
 @implementation FileModel
 
-
+- (NSUInteger)fileSize
+{
+    
+    if (self.image) {
+        NSData *data = UIImagePNGRepresentation(self.image);
+        return data.length;
+    }
+    return _fileSize;
+}
 
 @end

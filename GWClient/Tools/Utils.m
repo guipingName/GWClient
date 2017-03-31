@@ -93,7 +93,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 }
 
 + (void) hiddenMBProgressAfterTenMinites{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUD];
     });
 }
@@ -139,7 +139,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     label.textColor = [UIColor whiteColor];
     UIView * view = [[UIView alloc]init];
     view.frame = CGRectMake(0, 0, rect.size.width + 30, rect.size.height + 10);
-    view.center = CGPointMake(KSCREEN_WIDTH / 2 , KSCREEN_HEIGHT / 2);
+    view.center = CGPointMake(KSCREEN_WIDTH / 2 , KSCREEN_HEIGHT * 3 / 4);
     view.backgroundColor = UICOLOR_RGBA(0, 0, 0,0.8);
     view.layer.cornerRadius = 8;
     [superView addSubview:view];
@@ -162,20 +162,20 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //拼接要存放东西的文件夹
     NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)objectAtIndex:0];
-    NSString *createPath = [NSString stringWithFormat:@"%@/EcmChatMyPic", pathDocuments];
+    NSString *createPath = [NSString stringWithFormat:@"%@/pictures", pathDocuments];
     // 判断文件夹是否存在，如果不存在，则创建
     if (![fileManager fileExistsAtPath:createPath]) {
         //如果没有就创建这个 想创建的文件夹
         [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/EcmChatMyPic"];
-    NSString *imgFileName = [NSString stringWithFormat:@"/%@.jpg",imageName];
+    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/pictures"];
+    NSString *imgFileName = [NSString stringWithFormat:@"/%@",imageName];
     [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:imgFileName] contents:data attributes:nil];
 }
 
 + (UIImage *) getImageWithImageName:(NSString *) imageName{
-    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/EcmChatMyPic"];
-    NSString *imgFileName = [NSString stringWithFormat:@"/%@.jpg",imageName];
+    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/pictures"];
+    NSString *imgFileName = [NSString stringWithFormat:@"/%@",imageName];
     NSString * filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
     UIImage *img = [UIImage imageWithContentsOfFile:filePath];
     return img;
@@ -199,7 +199,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     NSString *str = nil;
     switch (fileType) {
         case 1:
-            str = @"folder";
+            str = DEFAULT_HEAD_IMAGENAME;
             break;
         case 2:
             str = @"Word";
@@ -214,7 +214,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
             str = @"";
             break;
         case 6:
-            str = @"";
+            str = @"folder";
         default:
             break;
     }

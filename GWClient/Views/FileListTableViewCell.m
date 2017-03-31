@@ -43,8 +43,7 @@
     _nameLabel.text = model.fileName;
     _timeLabel.text = [Utils getTimeToShowWithTimestamp:model.fileTime];
     _iconImage.image = [UIImage imageNamed:[Utils ImageNameWithFileType:model.fileType]];
-    _sizeLabel.text = [NSString stringWithFormat:@"%luK",(unsigned long)model.fileSize / 1024];
-    
+    _sizeLabel.text = [NSString stringWithFormat:@"%lu K",(unsigned long)model.fileSize / 1024];
 }
 
 - (void)setCellOn:(BOOL)cellOn{

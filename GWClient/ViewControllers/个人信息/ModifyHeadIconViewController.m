@@ -123,15 +123,12 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
     NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
-    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
-    {
-        
+    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset){
         //NSLog(@"ALAssetPropertyDate:%@",[myasset valueForProperty:ALAssetPropertyDate]);
         ALAssetRepresentation *representation = [myasset defaultRepresentation];
         NSString *fileName = [representation filename];
         NSLog(@"fileName %@", fileName);
         [self upLoadHeadImge:image imageName:@"20170330"];
-
     };
     
     ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];

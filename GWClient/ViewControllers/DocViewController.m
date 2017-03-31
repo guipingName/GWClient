@@ -15,6 +15,8 @@
 #import "TZImageManager.h"
 #import "FileModel.h"
 #import "FileListTableViewCell.h"
+#import "TransforModel.h"
+#import "TaskManager.h"
 
 
 @interface DocViewController ()<UITableViewDelegate, UITableViewDataSource, TZImagePickerControllerDelegate>{
@@ -189,29 +191,44 @@
         // Export completed, send video here, send by outputPath or NSData
         NSData *data = [NSData dataWithContentsOfFile:outputPath];
         //NSLog(@"data: %@", data);
-        UserInfoModel *model = [Utils aDecoder];
-        NSDictionary *params = @{@"userId":@(model.userId),
-                                 @"token":model.token,
-                                 @"type":@(2),
-                                 @"fileDic":@{@"2017-03-27-16:30:42.mp4":data}
-                                 };
+        FileModel *model = [[FileModel alloc] init];
+        model.fileState = 0;
+        model.fileType = 2;
+        model.fileName = @"2017-03-27-16:30:42.mp4";
+        model.videoData = data;
         
-        [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
-            NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-            NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-            NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
-            if ([response isKindOfClass:[NSDictionary class]]) {
-                if ([response[@"success"] boolValue]) {
-                    [self fileList];
-                }
+        NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
+        [temp addObject:model];
+        [[TaskManager sharedManager] setSucess:^(BOOL success) {
+            if (success) {
+                [self fileList];
             }
-        } fail:^(NSError *error) {
-            
-        } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
-            NSLog(@"++++++++++++ 完成=%u --------全部=%u,============进度=%f",done, total, percentage);
         }];
+        [[TaskManager sharedManager] upArray:temp];
+        
+        
+//        NSDictionary *params = @{@"userId":@(model.userId),
+//                                 @"token":model.token,
+//                                 @"type":@(2),
+//                                 @"fileDic":@{@"2017-03-27-16:30:42.mp4":data}
+//                                 };
+//        
+//        [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
+//            NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//            NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//            NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
+//            if ([response isKindOfClass:[NSDictionary class]]) {
+//                if ([response[@"success"] boolValue]) {
+//                    [self fileList];
+//                }
+//            }
+//        } fail:^(NSError *error) {
+//            
+//        } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
+//            NSLog(@"++++++++++++ 完成=%u --------全部=%u,============进度=%f",done, total, percentage);
+//        }];
     }];
-    [myTableView reloadData];
+//    [myTableView reloadData];
 }
 
 
@@ -240,58 +257,39 @@
     for (UIImage *pho in photos) {
         [uploadImageArray addObject:pho];
     }
-    [self photo];
     
-    // 上传记录
-    for (int i=0; i<photos.count; i++) {
-        FileModel *file = [[FileModel alloc] init];
-        file.fileType = 1;
-        file.fileName = imageNames[i];
-        UIImage *image = photos[i];
-        NSData *tempData = UIImagePNGRepresentation(image);
-        file.fileSize = tempData.length;
-        [user uploadFile:file];
+    NSMutableArray *aaaa = [NSMutableArray array];
+    for (int i=0; i<uploadImageArray.count; i++) {
+        FileModel *model = [[FileModel alloc] init];
+        model.fileState = 0;
+        model.fileType = 1;
+        model.fileName = uploadImageNameArray[i];
+        model.image = uploadImageArray[i];
+        [aaaa addObject:model];
     }
-}
-
-- (void) photo{
-    if (uploadImageArray.count && uploadImageNameArray.count) {
-        UIImage *i = uploadImageArray.lastObject;
-        NSString *is = uploadImageNameArray.lastObject;
-        [self uploadImage:i imageName:is];
-    }
-}
-
-// 上传图片
-- (void) uploadImage:(UIImage *) image imageName:(NSString *) imageName{
-    NSDictionary *params = @{@"userId":@(user.userId),
-                             @"token":user.token,
-                             @"type":@(1),
-                             @"fileDic":@{imageName:image}
-                             };
-    [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
-        if ([response isKindOfClass:[NSDictionary class]]) {
-            if ([response[@"success"] boolValue]) {
-                [uploadImageArray removeLastObject];
-                [uploadImageNameArray removeLastObject];
-                if (uploadImageArray.count == 0 || uploadImageNameArray.count == 0) {
-                    [self fileList];
-                }
-                else{
-                    [self photo];
-                }
-            }
+    NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
+    [temp addObjectsFromArray:aaaa];
+    [[TaskManager sharedManager] setSucess:^(BOOL success) {
+        if (success) {
+            [self fileList];
         }
-    } fail:^(NSError *error) {
-        
-    } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
-        NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
     }];
+    [[TaskManager sharedManager] upArray:temp];
+    
+    
+//    [self photo];
+//    
+//    // 上传记录
+//    for (int i=0; i<photos.count; i++) {
+//        FileModel *file = [[FileModel alloc] init];
+//        file.fileType = 1;
+//        file.fileName = imageNames[i];
+//        UIImage *image = photos[i];
+//        NSData *tempData = UIImagePNGRepresentation(image);
+//        file.fileSize = tempData.length;
+//        [user uploadFile:file];
+//    }
 }
-
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     isClickedRight = !isClickedRight;
@@ -302,16 +300,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 - (void) createTableView{
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -361,7 +349,7 @@
 }
 
 - (void) deleteFile:(FileModel *) file indexPaths:(NSArray<NSIndexPath *> *)indexPaths{
-    [MBProgressHUD showActivityMessageInView:@"正在删除..."];
+    [MBProgressHUD showActivityMessageInView:@"正在删除..." timer:1];
     [Utils hiddenMBProgressAfterTenMinites];
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"deleteFileIds":@[@(file.fileId)],
@@ -379,7 +367,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [dataArray removeObject:file];
                     selectRow = -1;
-                    [myTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+                    [myTableView reloadData];
                     if (dataArray.count == 0) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             myTableView.hidden = YES;
