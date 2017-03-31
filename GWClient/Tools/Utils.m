@@ -202,16 +202,16 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
             str = DEFAULT_HEAD_IMAGENAME;
             break;
         case 2:
-            str = @"Word";
+            str = @"video";
             break;
         case 3:
-            str = @"Excel";
+            str = @"word";
             break;
         case 4:
-            str = @"PDF";
+            str = @"excel";
             break;
         case 5:
-            str = @"";
+            str = @"pdf";
             break;
         case 6:
             str = @"folder";

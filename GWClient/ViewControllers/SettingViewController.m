@@ -102,7 +102,7 @@
 }
 
 - (float)filePath {
-    NSString *cachPath = [ NSSearchPathForDirectoriesInDomains (NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *cachPath = [NSSearchPathForDirectoriesInDomains (NSCachesDirectory, NSUserDomainMask, YES) firstObject];
     return [self folderSizeAtPath:cachPath];
 }
 

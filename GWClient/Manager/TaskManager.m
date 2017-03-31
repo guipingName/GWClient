@@ -104,6 +104,9 @@
         NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
         self.done = done;
         self.compelet = percentage;
+        if (self.processBlock) {
+            self.processBlock(done, total, percentage);
+        }
     }];
 }
 

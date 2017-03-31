@@ -26,13 +26,13 @@
     UIView *btnBackView;
     UserInfoModel *user;
     NSDictionary *progressDic;
+    NSTimer *timer;
 }
 
 @property(nonatomic, strong)UIScrollView *scrollView;
 @property(nonatomic, strong)UITableView *upTableView;
 @property(nonatomic, strong)UITableView *downTableView;
 @property(nonatomic, strong)UITableView *currentTableView;
-@property(nonatomic, strong)NSTimer *timer;
 
 @end
 
@@ -55,20 +55,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"传输列表";
     [self createViews];
-   self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 repeats:YES block:^(NSTimer * _Nonnull timer) {
-       NSInteger index = [TaskManager sharedManager].uping;
-       float compelet = [TaskManager sharedManager].compelet;
-       progressDic = @{@"done":@([TaskManager sharedManager].done),
-                       @"compelet":@(compelet)};
-       NSLog(@"=============index: %ld===========\nprogressDic: %@\n=============", (long)index, progressDic);
-       if (isnan(compelet)) {
-           progressDic = @{@"done":@([TaskManager sharedManager].done),
-                           @"compelet":@(1)};
-           [timer invalidate];
-       }
-       [self.currentTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-
-   }];
+    timer.fireDate = [NSDate distantFuture];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
     self.navigationController.navigationBar.barTintColor = THEME_COLOR;
     
@@ -80,14 +67,14 @@
     downloadArray = [NSMutableArray array];
 }
 
-
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadData];
 }
 
 
-- (void) loadData{
+- (void) loadData {
+    
     uploadArray = [TaskManager sharedManager].uploadTaskArray;
     downloadArray = [TaskManager sharedManager].downloadTaskArray;
     
@@ -118,6 +105,23 @@
             [self.currentTableView reloadData];
         }
     }
+    [[TaskManager sharedManager] setProcessBlock:^(NSInteger done, NSInteger total, float progress) {
+        NSInteger index = [TaskManager sharedManager].uping;
+        progressDic = @{@"done":@(done),
+                        @"compelet":@(progress)};
+        NSLog(@"=============index: %ld===========\n compelet: %f\n=============", (long)index, progress);
+        
+        if (isnan(progress)) {
+            NSLog(@"#############################");
+            progressDic = @{@"done":@([TaskManager sharedManager].done),
+                            @"compelet":@(1)};
+            [timer invalidate];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [self.currentTableView reloadData];
+        });
+    }];
+
 }
 
 - (void) createViews {

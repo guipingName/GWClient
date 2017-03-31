@@ -29,7 +29,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+        _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("werwrew", nil)];
         [_asyncSocket setIPv4PreferredOverIPv6:NO];
     }
     return self;
@@ -72,7 +72,7 @@
 {
     [_asyncSocket writeData:data withTimeout:timeout tag:tag];
     if (self.processBlock) {
-         _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateProcess:) userInfo:@(tag) repeats:YES];
+         _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calculateProcess:) userInfo:@(tag) repeats:YES];
     }
 }
 
@@ -82,7 +82,9 @@
     NSUInteger done = 0;
     NSUInteger total = 0;
     float asign = [_asyncSocket progressOfWriteReturningTag:&tag bytesDone:&done total:&total];
-    self.processBlock(done,total,asign);
+    if (self.processBlock) {
+       self.processBlock(done,total,asign); 
+    }
     if (isnan(asign)) {
         [sender invalidate];
         sender = nil;

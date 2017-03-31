@@ -638,8 +638,8 @@ static CGFloat TZScreenScale;
         
         NSDateFormatter *formater = [[NSDateFormatter alloc] init];
         [formater setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
-        NSString *outputPath = [NSHomeDirectory() stringByAppendingFormat:@"/tmp/output-%@.mp4", [formater stringFromDate:[NSDate date]]];
-        NSLog(@"video outputPath = %@",outputPath);
+        NSString *outputPath = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches/output-%@.mp4", [formater stringFromDate:[NSDate date]]];
+        //NSLog(@"video outputPath = %@",outputPath);
         session.outputURL = [NSURL fileURLWithPath:outputPath];
         
         // Optimize for network use.
@@ -657,8 +657,8 @@ static CGFloat TZScreenScale;
             session.outputFileType = [supportedTypeArray objectAtIndex:0];
         }
         
-        if (![[NSFileManager defaultManager] fileExistsAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/tmp"]]) {
-            [[NSFileManager defaultManager] createDirectoryAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/tmp"] withIntermediateDirectories:YES attributes:nil error:nil];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches"]]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches"] withIntermediateDirectories:YES attributes:nil error:nil];
         }
         
         AVMutableVideoComposition *videoComposition = [self fixedCompositionWithAsset:videoAsset];
