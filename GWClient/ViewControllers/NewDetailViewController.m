@@ -10,7 +10,9 @@
 #import <WebKit/WebKit.h>
 #import "NewsModel.h"
 
-@interface NewDetailViewController ()
+@interface NewDetailViewController (){
+    WKWebView *webView;
+}
 
 @end
 
@@ -20,17 +22,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.title = _model.title;
     
+    self.title = _model.title;
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
+    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
     [self.view addSubview:webView];
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_model.weburl]]];
-    
-    
-    
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

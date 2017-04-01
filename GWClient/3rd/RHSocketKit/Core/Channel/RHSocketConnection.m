@@ -145,7 +145,7 @@
             }
             NSUInteger packetLength = [currentPacketHead[@"len"] integerValue];
             reqestCommand = [currentPacketHead[@"command"] integerValue];
-            NSLog(@"收到数据包传输长度:%lu",(unsigned long)packetLength);
+            //NSLog(@"收到数据包传输长度:%lu",(unsigned long)packetLength);
             [sock readDataToLength:packetLength withTimeout:-1 tag:0];
             return;
         }
@@ -160,7 +160,7 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    RHSocketLog(@"[RHSocketConnection] didWriteDataWithTag: %ld", tag);
+    //NSLog(@"[RHSocketConnection] didWriteDataWithTag: %ld", tag);
     [_asyncSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:tag];
 
 }

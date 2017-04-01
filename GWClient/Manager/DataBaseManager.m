@@ -39,7 +39,7 @@
 - (void) creatDataBase{
     NSArray *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dbPath = [[documentsPath firstObject] stringByAppendingPathComponent:@"fileTransferList.db"];
-    NSLog(@"%@",dbPath);
+    //NSLog(@"%@",dbPath);
     
     if (!_fmdb) {
         _fmdb = [[FMDatabase alloc] initWithPath:dbPath];
@@ -97,7 +97,6 @@
         model.fileOperateType = [rs intForColumn:@"fileOperateType"];
         [devices addObject:model];
     }
-    NSLog(@"devices.count: %lu", (unsigned long)devices.count);
     return [devices copy];
 }
 

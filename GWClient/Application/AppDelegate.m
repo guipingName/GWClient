@@ -29,7 +29,7 @@
     UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     [TaskManager sharedManager].uploadTaskArray = [[user upLoadList] mutableCopy];
     [TaskManager sharedManager].downloadTaskArray = [[user downLoadList] mutableCopy];
-    NSLog(@"[TaskManager sharedManager].uploadTaskArray: %lu",(unsigned long)[TaskManager sharedManager].uploadTaskArray.count);
+    //NSLog(@"[TaskManager sharedManager].uploadTaskArray: %lu",(unsigned long)[TaskManager sharedManager].uploadTaskArray.count);
     [user deleteAllRecord];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {

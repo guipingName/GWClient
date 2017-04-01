@@ -90,7 +90,6 @@
 }
 
 - (void) rightItemClicked{
-    //NSLog(@"已经点击右边项");
     isClickedRight = !isClickedRight;
     if (isClickedRight) {
         clearView.hidden = NO;
@@ -102,8 +101,6 @@
 
 - (void) fileList{
     __weak typeof(self) weakSelf = self;
-//    [MBProgressHUD showActivityMessageInView:nil];
-//    [Utils hiddenMBProgressAfterTenMinites];
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token
                              };
@@ -111,9 +108,6 @@
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"文件列表--返回的Json串:\n%@", tempStr);
-        dispatch_async(dispatch_get_main_queue(), ^{
-//            [MBProgressHUD hideHUD];
-        });
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
                 NSDictionary *dic = response[@"result"];

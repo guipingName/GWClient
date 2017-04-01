@@ -12,6 +12,7 @@
 
 @interface PreviewPicViewController (){
     UIImageView *imageView;
+    UIActivityIndicatorView *activityIndicator;
 }
 
 @end
@@ -35,7 +36,10 @@
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
     bgView.backgroundColor = UICOLOR_RGBA(0, 0, 0, 0.8);
     [self.view addSubview:bgView];
-    
+    activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    activityIndicator.center = CGPointMake(bgView.frame.size.width/2, bgView.frame.size.height/2 );
+    [bgView addSubview:activityIndicator];
     
     if (_isPicture) {
         // 显示图片
@@ -64,6 +68,7 @@
         [playerView play];
     }
     else{
+        [activityIndicator startAnimating];
         UserInfoModel *currentUser = [Utils aDecoder];
         NSDictionary *params = @{@"userId":@(currentUser.userId),
                                  @"token":currentUser.token,
@@ -71,13 +76,18 @@
                                  @"filePaths":@[@(_model.fileId)]
                                  };
         [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [activityIndicator stopAnimating];
+            });
             if ([response[@"success"] boolValue]) {
                 id newObj = [response[@"result"][@"files"] firstObject];
                 if ([newObj isKindOfClass:[NSData class]]) {
                     NSData *data = (NSData *)newObj;
                     [Utils saveVideoWithData:data videoName:_model.fileName];
                     NSLog(@"下载视频成功 ");
-                    [self showPlayerView:superView];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self showPlayerView:superView];
+                    });
                 }
             }
             else{
@@ -102,6 +112,7 @@
         imageView.image = image;
     }
     else{
+        [activityIndicator stopAnimating];
         UserInfoModel *currentUser = [Utils aDecoder];
         NSDictionary *params = @{@"userId":@(currentUser.userId),
                                  @"token":currentUser.token,
@@ -109,6 +120,9 @@
                                  @"filePaths":@[@(_model.fileId)]
                                  };
         [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [activityIndicator stopAnimating];
+            });
             if ([response[@"success"] boolValue]) {
                 id newObj = [response[@"result"][@"files"] firstObject];
                 if ([newObj isKindOfClass:[UIImage class]]) {

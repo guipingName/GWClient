@@ -365,7 +365,7 @@
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     [topDock addSubview:backBtn];
     
-    titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(toMaxX(backBtn.frame, 0), 5, self.frame.size.width - CGRectGetMaxX(backBtn.frame), 20)];
+    titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, self.frame.size.width - CGRectGetMaxX(backBtn.frame), 20)];
     titleLabel.font = [UIFont systemFontOfSize:13];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.text = @"未知";

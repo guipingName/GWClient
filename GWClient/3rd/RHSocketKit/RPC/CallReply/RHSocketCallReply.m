@@ -79,7 +79,13 @@ typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply
     RHSocketLog(@"%@ onFailure: %@", [self class], error.description);
     AppDelegate *appdelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
     appdelegate.severAvailable = NO;
-    [Utils hintMessage:@"服务器已断开" time:1 isSuccess:NO];
+    if (appdelegate.netState == 0) {
+        [Utils hintMessage:@"网络已断开" time:1 isSuccess:NO];
+    }
+    else{
+        [Utils hintMessage:@"服务器已断开" time:1 isSuccess:NO];
+    }
+    
     //请求失败
     if (_failureBlock) {
         _failureBlock(aCallReply, error);
