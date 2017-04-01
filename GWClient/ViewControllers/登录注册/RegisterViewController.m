@@ -89,15 +89,26 @@
     }
     NSArray *placeholders = @[@"请输入用户名", @"请输入验证码", @"请输入新密码"];
     for (int i=0; i<3; i++) {
-        UITextField *tf = [Utils createTextField];
+        UITextField *tf = [self createTextField:i];
         tf.frame = CGRectMake(0, 0, KSCREEN_WIDTH - CGRectGetMaxX(lbTemp.frame) - 50, 40);
         if (i == 0) {
             tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + 10 + CGRectGetWidth(tf.frame) / 2, lbOriginCenter.y);
             tfEmail = tf;
             [tf becomeFirstResponder];
+            [self.view addSubview:tf];
         }
         else if (i == 1) {
-            tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + 10 + CGRectGetWidth(tf.frame) / 2, lbNewCenter.y);
+            UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH - CGRectGetMaxX(lbTemp.frame) - 50, 40)];
+            bgView.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + 10 + CGRectGetWidth(tf.frame) / 2, lbNewCenter.y);
+            bgView.layer.cornerRadius = 5;
+            bgView.layer.masksToBounds = YES;
+            bgView.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
+            bgView.layer.borderWidth = 1;
+            [self.view addSubview:bgView];
+            
+            tf.frame = CGRectMake(0, 0, CGRectGetWidth(bgView.bounds) - 70, 40);
+            [bgView addSubview:tf];
+            
             tfConfirm = tf;
             // 获取验证码
             btnConfim = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -106,58 +117,79 @@
             btnConfim.titleLabel.font = [UIFont systemFontOfSize:12];
             btnConfim.backgroundColor = BTN_ENABLED_BGCOLOR;
             btnConfim.enabled = NO;
-            btnConfim.frame = CGRectMake(tf.bounds.size.width - 72,(tf.bounds.size.height - 30) / 2, 70, 30);
+            btnConfim.frame = CGRectMake(bgView.bounds.size.width - 72,(bgView.bounds.size.height - 30) / 2, 70, 30);
+            //btnConfim.frame = CGRectMake(100,400, 70, 30);
             btnConfim.layer.cornerRadius = 5;
             btnConfim.layer.masksToBounds = YES;
-            [tf addSubview:btnConfim];
+            [bgView addSubview:btnConfim];
             [btnConfim addTarget:self action:@selector(getConfirm:) forControlEvents:UIControlEventTouchUpInside];
         }
         else{
             tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + 10 + CGRectGetWidth(tf.frame) / 2, lbConfirmCenter.y);
             tfPassword = tf;
             tfPassword.secureTextEntry = YES;
+            [self.view addSubview:tf];
         }
         tf.delegate = self;
         tf.placeholder = placeholders[i];
-        [self.view addSubview:tf];
+        
     }
     
     lbConfirm = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH / 2, 50)];
-    lbConfirm.center = CGPointMake(KSCREEN_WIDTH / 2, CGRectGetMaxY(tfPassword.frame) + 35);
+    lbConfirm.center = CGPointMake(KSCREEN_WIDTH / 2, CGRectGetMaxY(tfPassword.frame) + 30);
     lbConfirm.backgroundColor = [UIColor grayColor];
     lbConfirm.font = [UIFont systemFontOfSize:15];
     lbConfirm.hidden = YES;
     [self.view addSubview:lbConfirm];
     
-    // 创建添加按钮
+    // 创建注册按钮
     btnRegister = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnRegister setTitle:@"注册" forState:UIControlStateNormal];
     [btnRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btnRegister.backgroundColor = BTN_ENABLED_BGCOLOR;
     btnRegister.enabled = NO;
-    btnRegister.frame = CGRectMake((KSCREEN_WIDTH - 150) / 2, CGRectGetMaxY(lbConfirm.frame) + 15, 150, 40);
+    btnRegister.frame = CGRectMake((KSCREEN_WIDTH - 150) / 2, CGRectGetMaxY(lbConfirm.frame) + 5, 150, 40);
     [self.view addSubview:btnRegister];
     btnRegister.layer.cornerRadius = 5;
     btnRegister.layer.masksToBounds = YES;
     [btnRegister addTarget:self action:@selector(Register:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (UITextField *)createTextField:(NSInteger) number{
+    UITextField *tf = [[UITextField alloc] init];
+    if (number != 1) {
+        tf.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
+        tf.layer.borderWidth= 1.0f;
+        tf.layer.cornerRadius = 5.0f;
+    }
+    tf.returnKeyType = UIReturnKeyDone;
+    tf.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
+    tf.leftViewMode = UITextFieldViewModeAlways;
+    [tf setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
+    return tf;
+}
+
 - (void) getConfirm:(UIButton *) sender{
     NSDictionary *paramDic = @{@"username":tfEmail.text};
     [Utils GET:ApiTypeGetverifiyCode params:paramDic succeed:^(id response) {
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"获取验证码--返回的Json串:\n%@", tempStr);
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"获取验证码--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
-            [Utils hintMessage:response[@"message"] time:1 isSuccess:YES];
             if ([response[@"success"] boolValue]) {
+                [Utils hintMessage:response[@"message"] time:1 isSuccess:YES];
                 NSDictionary *tempD = response[@"result"];
                 confirmStr = [tempD[@"verifiyCode"] stringValue];
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    btnConfim.enabled = NO;
+                    btnConfim.backgroundColor = BTN_ENABLED_BGCOLOR;
                     lbConfirm.text = [NSString stringWithFormat:@"验证码: %@ ", confirmStr];
                     [lbConfirm setAlignmentLeftAndRight];
                     lbConfirm.hidden = NO;
                 });
+            }
+            else{
+                [Utils hintMessage:response[@"message"] time:1 isSuccess:NO];
             }
         }
     } fail:^(NSError *error) {
@@ -175,9 +207,9 @@
                                @"password":tfPassword.text
                                };
     [Utils GET:ApiTypeRegister params:paramDic succeed:^(id response) {
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"注册--返回的Json串:\n%@", tempStr);
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"注册--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
             [Utils hintMessage:response[@"message"] time:1 isSuccess:YES];
             if ([response[@"success"] boolValue]) {

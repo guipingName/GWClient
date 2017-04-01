@@ -74,7 +74,7 @@
     }
     lbNickName.text = currentUser.nickName;
     NSArray *systemInfo = @[@"个人信息", @"设置"];
-    NSArray *WiFi = @[@"注销登录"];
+    NSArray *WiFi = @[@"退出"];
     dataArray = @[systemInfo, WiFi];
     NSArray *img = @[@"personal", @"setting"];
     NSArray *img1 = @[@"logOut"];

@@ -7,6 +7,7 @@
 //
 
 #import "RHSocketCallReply.h"
+#import "AppDelegate.h"
 
 typedef void(^RHSocketReplySuccessBlock)(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response);
 typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply, NSError *error);
@@ -76,6 +77,9 @@ typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply
 - (void)onFailure:(id<RHSocketCallReplyProtocol>)aCallReply error:(NSError *)error
 {
     RHSocketLog(@"%@ onFailure: %@", [self class], error.description);
+    AppDelegate *appdelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appdelegate.severAvailable = NO;
+    [Utils hintMessage:@"服务器已断开" time:1 isSuccess:NO];
     //请求失败
     if (_failureBlock) {
         _failureBlock(aCallReply, error);

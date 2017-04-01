@@ -17,6 +17,7 @@
 #import "TransforModel.h"
 #import "TaskManager.h"
 #import "PreviewPicViewController.h"
+#import "LoginViewController.h"
 
 
 @interface DocViewController ()<UITableViewDelegate, UITableViewDataSource, TZImagePickerControllerDelegate>{
@@ -107,7 +108,9 @@
                              @"token":user.token
                              };
     [Utils GET:ApiTypeGetUserFileList params:params succeed:^(id response) {
-        NSLog(@"获取文件列表");
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"文件列表--返回的Json串:\n%@", tempStr);
         dispatch_async(dispatch_get_main_queue(), ^{
 //            [MBProgressHUD hideHUD];
         });
@@ -138,13 +141,25 @@
                 }
             }
             else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"folder"] block:^{
-                        [weakSelf fileList];
+                if ([response[@"message"] isEqualToString:@"非法登录"]) {
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"已在其它设备登录，请重新登录" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *new = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        LoginViewController *loginVC = [[LoginViewController alloc] init];
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                        self.view.window.rootViewController = nav;
                     }];
-                    myTableView.hidden = YES;
-                    emptyView.hidden = NO;
-                });
+                    [alertController addAction:new];
+                    [self presentViewController:alertController animated:YES completion:nil];
+                }
+                else{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"folder"] block:^{
+                            [weakSelf fileList];
+                        }];
+                        myTableView.hidden = YES;
+                        emptyView.hidden = NO;
+                    });
+                }
             }
         }
         else{
@@ -460,9 +475,7 @@
     emptyView = [[HintView alloc] initWithFrame:myTableView.frame];
     [self.view addSubview:emptyView];
     
-    [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:^{
-        [self fileList];
-    }];
+    [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:nil];
     emptyView.hidden = NO;
 }
 

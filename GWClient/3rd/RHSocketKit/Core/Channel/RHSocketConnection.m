@@ -116,9 +116,6 @@
 {
     NSLog(@"-------------断开连接,%@",err.localizedDescription);
     NSLog(@"[RHSocketConnection] didDisconnect...%@", err.description);
-    AppDelegate *appdelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-    appdelegate.severAvailable = NO;
-    //[Utils hintMessage:@"服务器异常" time:1 isSuccess:NO];
     if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
         [_delegate didDisconnectWithError:err];
     }
