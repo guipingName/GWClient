@@ -107,9 +107,6 @@
                              @"token":user.token
                              };
     [Utils GET:ApiTypeGetUserFileList params:params succeed:^(id response) {
-//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-//        NSLog(@"获取文件列表--返回的Json串:\n%@", tempStr);
         NSLog(@"获取文件列表");
         dispatch_async(dispatch_get_main_queue(), ^{
 //            [MBProgressHUD hideHUD];
@@ -125,6 +122,7 @@
                     FileModel *model = [FileModel yy_modelWithDictionary:ddic];
                     [dataArray addObject:model];
                 }
+                //NSLog(@"文件列表个数: %lu", (unsigned long)dataArray.count);
                 if (dataArray.count) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         emptyView.hidden = YES;
@@ -141,7 +139,7 @@
             }
             else{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[[UIImage imageNamed:@"folder"] rt_tintedImageWithColor:[UIColor grayColor]] block:^{
+                    [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"folder"] block:^{
                         [weakSelf fileList];
                     }];
                     myTableView.hidden = YES;
@@ -202,15 +200,16 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     FileModel *model = dataArray[indexPath.row];
+    PreviewPicViewController *preVC = [[PreviewPicViewController alloc] init];
+    preVC.hidesBottomBarWhenPushed = YES;
+    preVC.model = model;
     if (model.fileType == 1) {
-        PreviewPicViewController *preVC = [[PreviewPicViewController alloc] init];
-        preVC.hidesBottomBarWhenPushed = YES;
-        preVC.model = model;
-        [self.navigationController pushViewController:preVC animated:YES];
+        preVC.isPicture = YES;
     }
     else{
-        NSLog(@"不提供在线观看");
+        preVC.isPicture = NO;
     }
+    [self.navigationController pushViewController:preVC animated:YES];
 }
 
 
@@ -266,6 +265,9 @@
         [aaaa addObject:model];
     }
     
+    [uploadImageArray removeAllObjects];
+    [uploadImageNameArray removeAllObjects];
+    
     NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
     [temp addObjectsFromArray:aaaa];
     [[TaskManager sharedManager] setSucess:^(BOOL success) {
@@ -275,19 +277,6 @@
     }];
     [[TaskManager sharedManager] upArray:temp];
     [MBProgressHUD showActivityMessageInView:@"正在上传" timer:1];
-    
-    //    [self photo];
-    //
-    //    // 上传记录
-    //    for (int i=0; i<photos.count; i++) {
-    //        FileModel *file = [[FileModel alloc] init];
-    //        file.fileType = 1;
-    //        file.fileName = imageNames[i];
-    //        UIImage *image = photos[i];
-    //        NSData *tempData = UIImagePNGRepresentation(image);
-    //        file.fileSize = tempData.length;
-    //        [user uploadFile:file];
-    //    }
 }
 
 
@@ -360,37 +349,56 @@
 
 #pragma mark --------------- 下载文件 ----------------
 - (void) downLoadFile:(FileModel *) file{
-    if ([user checkDownload:file]) {
-        [Utils hintMessage:@"已添加到下载列表" time:0.5 isSuccess:YES];
-        //[user downloadFile:file];
-        NSDictionary *params = @{@"userId":@(user.userId),
-                                 @"token":user.token,
-                                 @"type":@(file.fileType),
-                                 @"filePaths":@[@(file.fileId)]
-                                 };
-        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
-            if ([response[@"success"] boolValue]) {
-                id newObj = [response[@"result"][@"files"] firstObject];
-                if ([newObj isKindOfClass:[UIImage class]]) {
-                    NSLog(@"下载图片成功 " );
-                    UIImage *image = [response[@"result"][@"files"] firstObject];
-                    [Utils savePhotoWithImage:image imageName:file.fileName];
-                }
-                if ([newObj isKindOfClass:[NSData class]]) {
-                    NSLog(@"下载视频成功 " );
-                }
-            }
-            else{
-                [Utils hintMessage:@"下载失败" time:1 isSuccess:NO];
-            }
-        } fail:^(NSError * error) {
-            NSLog(@"%@",error.localizedDescription);
-        }];
+    
+    NSMutableArray *temp = [TaskManager sharedManager].downloadTaskArray;
+    for (FileModel *model in temp) {
+        if (model.fileId == file.fileId) {
+            NSLog(@"不能重复下载");
+            [Utils hintMessage:@"不能重复下载" time:1 isSuccess:NO];
+            return;
+        }
     }
-    else{
-        [Utils hintMessage:@"不能重复下载" time:1 isSuccess:NO];
-    }
+    file.fileState = 0;
+    [temp addObject:file];
+    [[TaskManager sharedManager] downLoadArray:temp];
+    [Utils hintMessage:@"已加入下载列表" time:1 isSuccess:YES];
+    
+    
+//    if ([user checkDownload:file]) {
+//        [Utils hintMessage:@"已添加到下载列表" time:0.5 isSuccess:YES];
+//        //[user downloadFile:file];
+//        NSDictionary *params = @{@"userId":@(user.userId),
+//                                 @"token":user.token,
+//                                 @"type":@(file.fileType),
+//                                 @"filePaths":@[@(file.fileId)]
+//                                 };
+//        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+//            if ([response[@"success"] boolValue]) {
+//                id newObj = [response[@"result"][@"files"] firstObject];
+//                if ([newObj isKindOfClass:[UIImage class]]) {
+//                    NSLog(@"下载图片成功 " );
+//                    UIImage *image = [response[@"result"][@"files"] firstObject];
+//                    [Utils savePhotoWithImage:image imageName:file.fileName];
+//                }
+//                if ([newObj isKindOfClass:[NSData class]]) {
+//                    NSData *dataaa = (NSData *)newObj;
+//                    NSLog(@"%lu", (unsigned long)dataaa.length);
+//                    [Utils saveVideoWithData:dataaa videoName:file.fileName];
+//                    NSLog(@"下载视频成功 ");
+//                }
+//            }
+//            else{
+//                [Utils hintMessage:@"下载失败" time:1 isSuccess:NO];
+//            }
+//        } fail:^(NSError * error) {
+//            NSLog(@"%@",error.localizedDescription);
+//        }];
+//    }
+//    else{
+//        [Utils hintMessage:@"不能重复下载" time:1 isSuccess:NO];
+//    }
 }
+
 
 #pragma mark --------------- createViews ----------------
 - (void) creatRightItem{
@@ -451,7 +459,11 @@
     
     emptyView = [[HintView alloc] initWithFrame:myTableView.frame];
     [self.view addSubview:emptyView];
-    [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:nil];
+    
+    [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:^{
+        [self fileList];
+    }];
+    emptyView.hidden = NO;
 }
 
 

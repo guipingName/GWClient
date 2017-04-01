@@ -8,6 +8,7 @@
 
 #import "RHSocketConnection.h"
 #import "GCDAsyncSocket.h"
+#import "AppDelegate.h"
 
 #define READ_HEAD_TIMEOUT 5.0
 #define READ_TIMEOUT 15.0
@@ -21,7 +22,8 @@
     NSInteger reqestCommand;
 }
 
-@property(nonatomic, strong)NSTimer *timer;
+@property(nonatomic, strong)NSTimer *upTimer;
+@property(nonatomic, strong)NSTimer *downTimer;
 @end
 
 @implementation RHSocketConnection
@@ -29,7 +31,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("werwrew", nil)];
+        _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
         [_asyncSocket setIPv4PreferredOverIPv6:NO];
     }
     return self;
@@ -71,10 +73,12 @@
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
 {
     [_asyncSocket writeData:data withTimeout:timeout tag:tag];
-    if (self.processBlock) {
-         _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calculateProcess:) userInfo:@(tag) repeats:YES];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _upTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateProcess:) userInfo:@(tag) repeats:YES];
+        _downTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateDownProcess:) userInfo:@(tag) repeats:YES];
+    });
 }
+
 
 - (void)calculateProcess:(NSTimer *) sender
 {
@@ -91,13 +95,30 @@
         return;
     }
 }
-#pragma mark -
+- (void)calculateDownProcess:(NSTimer *) sender
+{
+    long tag = [sender.userInfo integerValue];
+    NSUInteger doweDone = 0;
+    NSUInteger downToal = 0;
+    float downAsign = [_asyncSocket progressOfReadReturningTag:&tag bytesDone:&doweDone total:&downToal];
+    if (self.downProcessBlock) {
+        self.downProcessBlock(doweDone,downToal,downAsign);
+    }
+    if (isnan(downAsign) || (downAsign == 1.0)) {
+        [sender invalidate];
+        sender = nil;
+        return;
+    }
+}
 #pragma mark GCDAsyncSocketDelegate method
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
     NSLog(@"-------------断开连接,%@",err.localizedDescription);
-    RHSocketLog(@"[RHSocketConnection] didDisconnect...%@", err.description);
+    NSLog(@"[RHSocketConnection] didDisconnect...%@", err.description);
+    AppDelegate *appdelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appdelegate.severAvailable = NO;
+    //[Utils hintMessage:@"服务器异常" time:1 isSuccess:NO];
     if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
         [_delegate didDisconnectWithError:err];
     }
@@ -105,7 +126,9 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
-    RHSocketLog(@"[RHSocketConnection] didConnectToHost: %@, port: %d", host, port);
+    NSLog(@"[RHSocketConnection] didConnectToHost: %@, port: %d", host, port);
+    AppDelegate *appdelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appdelegate.severAvailable = YES;
     if (_delegate && [_delegate respondsToSelector:@selector(didConnectToHost:port:)]) {
         [_delegate didConnectToHost:host port:port];
     }

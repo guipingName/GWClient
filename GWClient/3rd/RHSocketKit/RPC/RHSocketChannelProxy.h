@@ -45,4 +45,6 @@
 - (void)asyncCallReply:(id<RHSocketCallReplyProtocol>)aCallReply
        compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
 
+- (void)asyncCallReply:(id<RHSocketCallReplyProtocol>)aCallReply
+       downProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
 @end

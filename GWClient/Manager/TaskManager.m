@@ -12,8 +12,8 @@
 
 @implementation TaskManager
 {
-    UserInfoModel *user;
-    NSMutableArray *array;
+    NSMutableArray *upArray;
+    NSMutableArray *tempDownArray;
 }
 - (instancetype) init{
     @throw [NSException exceptionWithName:@"初始化对象异常" reason:@"不允许通过初始化方法创建对象" userInfo:nil];
@@ -22,8 +22,8 @@
 
 - (instancetype) initPrivate{
     if (self = [super init]) {
-        user = [Utils aDecoder];
-        array = [NSMutableArray array];
+        upArray = [NSMutableArray array];
+        tempDownArray = [NSMutableArray array];
         _uploadTaskArray = [NSMutableArray array];
     }
     return self;
@@ -40,41 +40,43 @@
     return taskManager;
 }
 
-
-- (void)upArray:(NSMutableArray *) up
-{
-    array = up;
-    [self upload];
-
+-(void)reUpload{
+    [self upArray:_uploadTaskArray];
 }
-- (int)findUp:(NSArray*) upArray {
-    for (int i = 0; i < upArray.count; i++) {
-        FileModel *model = upArray[i];
+
+
+- (void)upArray:(NSMutableArray *) up {
+    upArray = up;
+    [self upload];
+    
+}
+
+- (int)lookFor:(NSArray*) upArray1 isUpload:(BOOL) isUpload{
+    for (int i = 0; i < upArray1.count; i++) {
+        FileModel *model = upArray1[i];
         if (model.fileState == 0) {
             model.fileState = 1;
             return i;
         }
     }
-    self.sucess(YES);
-    _uploadTaskArray = array;
+    if (self.sucess) {
+       self.sucess(isUpload);
+    }
     return -1;
 }
 
-
-
-- (void) upload
-{
-    NSInteger index = [self findUp:array];
-    _uping = index;
+- (void) upload {
+    _uploadTaskArray = upArray;
+    NSInteger index = [self lookFor:upArray isUpload:YES];
     if (index != -1) {
-        FileModel *temp = array[index];
+        FileModel *temp = upArray[index];
         
         [self uploadFile:temp];
     }
 }
 
-
 - (void) uploadFile:(FileModel *) model{
+    UserInfoModel *user = [Utils aDecoder];
     NSDictionary *ddd;
     if (model.fileType == 1) {
         ddd = @{model.fileName:model.image};
@@ -110,10 +112,57 @@
     }];
 }
 
-- (void)setDownloadTaskArray:(NSMutableArray *)downloadTaskArray
-{
-    if (downloadTaskArray.count > 0) {
-        
+-(void)downLoadArray:(NSMutableArray *)downArray{
+    tempDownArray = downArray;
+    [self download];
+}
+
+- (void) download{
+    _downloadTaskArray = tempDownArray;
+    NSInteger index = [self lookFor:tempDownArray isUpload:NO];
+    if (index != -1) {
+        FileModel *temp = tempDownArray[index];
+        [self downloadFile:temp];
     }
+}
+
+- (void) downloadFile:(FileModel *) model{
+    UserInfoModel *user = [Utils aDecoder];
+    NSDictionary *params = @{@"userId":@(user.userId),
+                             @"token":user.token,
+                             @"type":@(model.fileType),
+                             @"filePaths":@[@(model.fileId)]
+                             };
+    [Utils downLoad:ApiTypeGetFile params:params succeed:^(id response) {
+        if ([response[@"success"] boolValue]) {
+            id newObj = [response[@"result"][@"files"] firstObject];
+            if ([newObj isKindOfClass:[UIImage class]]) {
+                NSLog(@"下载图片成功 " );
+                UIImage *image = [response[@"result"][@"files"] firstObject];
+                [Utils savePhotoWithImage:image imageName:model.fileName];
+                model.fileState = 2;
+                [self download];
+            }
+            if ([newObj isKindOfClass:[NSData class]]) {
+                NSData *dataaa = (NSData *)newObj;
+                [Utils saveVideoWithData:dataaa videoName:model.fileName];
+                NSLog(@"下载视频成功 ");
+                model.fileState = 2;
+                [self download];
+            }
+        }
+        else{
+            //[Utils hintMessage:@"下载失败" time:1 isSuccess:NO];
+        }
+    } fail:^(NSError * error) {
+        NSLog(@"%@",error.localizedDescription);
+    } downLoadProcess:^(NSInteger done, NSInteger total, float percentage) {
+        NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
+        self.done = done;
+        self.compelet = percentage;
+        if (self.processBlock) {
+            self.processBlock(done, total, percentage);
+    }
+}];
 }
 @end

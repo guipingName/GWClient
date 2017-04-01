@@ -10,6 +10,8 @@
 
 @interface PreviewPicViewController : UIViewController
 
+@property (nonatomic, assign) BOOL isPicture;
+
 @property (nonatomic, strong) FileModel *model;
 
 @end

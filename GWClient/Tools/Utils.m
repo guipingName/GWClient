@@ -13,6 +13,7 @@
 #import "RHSocketVariableLengthDecoder.h"
 #import "RHSocketChannelProxy.h"
 #import "EXTScope.h"
+#import "AppDelegate.h"
 
 @implementation Utils
 
@@ -35,6 +36,23 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
     
 }
+
++(void)downLoad:(ApiType)ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure downLoadProcess:(void (^)(NSInteger, NSInteger, float))process
+{
+    NSString *host = HOST_IP;
+    int port = HOST_PORT;
+    RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
+    connect.host = host;
+    connect.port = port;
+    @weakify(self);
+    [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
+        @strongify(self);
+        [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:success fail:failure downProcess:process];
+    }];
+    
+    [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
+}
+
 
 +(void)GET:(ApiType) ApiType params:(NSDictionary *)params
    succeed:(void (^)(id resones))success
@@ -76,6 +94,29 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     }];
     [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply compeletProcess:process];
 }
++ (void) sendRpcForTestJsonCodec:(ApiType) ApiType
+                       paramDic :(NSDictionary *) paramDic
+                         succeed:(void (^)(id))success
+                            fail:(void (^)(NSError *))failure
+                 downProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
+{
+    //rpc返回的call reply id是需要和服务端协议一致的，否则无法对应call和reply。
+    RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
+    req.object = paramDic;
+    req.pid = ApiType;
+    
+    RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
+    callReply.request = req;
+    [callReply setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
+        NSDictionary *resultDic = [response object];
+        success(resultDic);
+    }];
+    [callReply setFailureBlock:^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
+        failure(error);
+    }];
+    [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply downProcess:process];
+}
+
 
 
 + (void) hintMessage:(NSString *) message time:(int)time isSuccess:(BOOL) isSuccess{
@@ -179,6 +220,20 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     NSString * filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
     UIImage *img = [UIImage imageWithContentsOfFile:filePath];
     return img;
+}
+
+
++ (void) saveVideoWithData:(NSData *)data videoName:(NSString *) videoName{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)objectAtIndex:0];
+    NSString *createPath = [NSString stringWithFormat:@"%@/videos", pathDocuments];
+    //NSLog(@"createPath: %@", createPath);
+    if (![fileManager fileExistsAtPath:createPath]) {
+        [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/videos"];
+    NSString *imgFileName = [NSString stringWithFormat:@"/%@",videoName];
+    [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:imgFileName] contents:data attributes:nil];
 }
 
 +(NSInteger)currentTimeStamp{

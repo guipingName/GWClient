@@ -99,4 +99,7 @@
  进度百分比
  */
 @property(nonatomic, copy)void (^processBlock)(NSInteger done, NSInteger total, float percentage);
+
+@property(nonatomic, copy)void (^downProcessBlock)(NSInteger done, NSInteger total, float percentage);
+
 @end

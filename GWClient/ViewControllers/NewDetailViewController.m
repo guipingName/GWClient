@@ -7,6 +7,7 @@
 //
 
 #import "NewDetailViewController.h"
+#import <WebKit/WebKit.h>
 #import "NewsModel.h"
 
 @interface NewDetailViewController ()
@@ -23,7 +24,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
     [self.view addSubview:webView];
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_model.weburl]]];
     

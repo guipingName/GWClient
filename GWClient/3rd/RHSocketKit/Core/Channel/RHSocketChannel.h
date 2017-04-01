@@ -46,4 +46,6 @@
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
         compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
 
+- (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
+        downLoadProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
 @end

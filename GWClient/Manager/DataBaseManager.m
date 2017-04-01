@@ -45,14 +45,14 @@
         _fmdb = [[FMDatabase alloc] initWithPath:dbPath];
     }
     if ([_fmdb open]) {
-        [_fmdb executeUpdate:@"create Table if not exists fileTransferList (fileId, fileName,fileTime,fileSize, fileType, fileOperateType, userId);"];
+        [_fmdb executeUpdate:@"create Table if not exists fileTransferList (fileId, fileName, fileState,fileTime,fileSize, fileType, fileOperateType, userId);"];
     }
 }
 
 
 - (BOOL) addFileWithfileId:(FileModel *) model fileOperateType:(NSInteger) fileOperateType userId:(NSInteger) userId{
     NSString *str = [self lookforName:model.fileName Type:fileOperateType userId:userId];
-    return [_fmdb executeUpdate:@"insert into fileTransferList (fileName, fileId, fileTime,fileSize, fileType, fileOperateType, userId) values (?,?,?,?,?,?,?);", str, @(model.fileId), @([Utils currentTimeStamp]), @(model.fileSize), @(model.fileType), @(fileOperateType), @(userId)];
+    return [_fmdb executeUpdate:@"insert into fileTransferList (fileName, fileId, fileTime,fileSize, fileType, fileOperateType, fileState, userId) values (?,?,?,?,?,?,?,?);", str, @(model.fileId), @([Utils currentTimeStamp]), @(model.fileSize), @(model.fileType), @(fileOperateType), @(model.fileState), @(userId)];
 }
 
 
@@ -89,13 +89,15 @@
     while ([rs next]) {
         FileModel *model = [[FileModel alloc] init];
         model.fileName = [rs stringForColumn:@"fileName"];
-        model.fileId = [rs longLongIntForColumn:@"fileId"];
+        model.fileId = [rs intForColumn:@"fileId"];
+        model.fileState = [rs intForColumn:@"fileState"];
         model.fileTime = [rs intForColumn:@"fileTime"];
         model.fileSize = [rs intForColumn:@"fileSize"];
         model.fileType = [rs intForColumn:@"fileType"];
         model.fileOperateType = [rs intForColumn:@"fileOperateType"];
         [devices addObject:model];
     }
+    NSLog(@"devices.count: %lu", (unsigned long)devices.count);
     return [devices copy];
 }
 

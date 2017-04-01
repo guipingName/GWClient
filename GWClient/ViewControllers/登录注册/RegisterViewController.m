@@ -149,13 +149,15 @@
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"获取验证码--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
-            [Utils hintMessage:response[@"message"] time:0.5 isSuccess:YES];
+            [Utils hintMessage:response[@"message"] time:1 isSuccess:YES];
             if ([response[@"success"] boolValue]) {
                 NSDictionary *tempD = response[@"result"];
                 confirmStr = [tempD[@"verifiyCode"] stringValue];
-                lbConfirm.text = [NSString stringWithFormat:@"验证码: %@ ", confirmStr];
-                [lbConfirm setAlignmentLeftAndRight];
-                lbConfirm.hidden = NO;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    lbConfirm.text = [NSString stringWithFormat:@"验证码: %@ ", confirmStr];
+                    [lbConfirm setAlignmentLeftAndRight];
+                    lbConfirm.hidden = NO;
+                });
             }
         }
     } fail:^(NSError *error) {
@@ -166,7 +168,7 @@
 
 - (void) Register:(UIButton *) sender{
     if (![tfConfirm.text isEqualToString:confirmStr]) {
-        NSLog(@"验证码不正确");
+        [Utils hintMessage:@"验证码不正确" time:1 isSuccess:NO];
         return;
     }
     NSDictionary *paramDic = @{@"username":tfEmail.text,

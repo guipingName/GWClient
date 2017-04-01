@@ -25,8 +25,11 @@
     // Override point for customization after application launch.
     
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    UserInfoModel *user = [Utils aDecoder];
+    [DataBaseManager sharedManager].currentUser = [Utils aDecoder];
+    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     [TaskManager sharedManager].uploadTaskArray = [[user upLoadList] mutableCopy];
+    [TaskManager sharedManager].downloadTaskArray = [[user downLoadList] mutableCopy];
+    NSLog(@"[TaskManager sharedManager].uploadTaskArray: %lu",(unsigned long)[TaskManager sharedManager].uploadTaskArray.count);
     [user deleteAllRecord];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {
@@ -56,12 +59,16 @@
         switch (status) {
             case HSReachabilityStatusNotReachable:
                 [Utils addDialogueBoxWithSuperView:_window Content:@"未连接网络"];
+                _netState = 0;
                 break;
             case HSReachabilityStatusReachableViaWWAN:
                 [Utils addDialogueBoxWithSuperView:_window Content:@"蜂窝移动网络"];
+                _netState = 1;
                 break;
             case HSReachabilityStatusReachableViaWiFi:
                 [Utils addDialogueBoxWithSuperView:_window Content:@"Wi-Fi"];
+                _netState = 2;
+                //[[TaskManager sharedManager] reUpload];
                 break;
             default:
                 break;
@@ -78,9 +85,13 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     UserInfoModel *user = [Utils aDecoder];
-    NSArray *array = [TaskManager sharedManager].uploadTaskArray;
-    for (FileModel *model in array) {
+    NSArray *upArray = [TaskManager sharedManager].uploadTaskArray;
+    for (FileModel *model in upArray) {
         [user uploadFile:model];
+    }
+    NSArray *downArray = [TaskManager sharedManager].downloadTaskArray;
+    for (FileModel *model in downArray) {
+        [user downloadFile:model];
     }
 }
 

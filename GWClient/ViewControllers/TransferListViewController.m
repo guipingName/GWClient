@@ -7,11 +7,13 @@
 //
 
 #import "TransferListViewController.h"
+#import "PreviewPicViewController.h"
 #import "UpDownBtn.h"
 #import "FileModel.h"
 #import "Masonry.h"
 #import "TransforModel.h"
 #import "TaskManager.h"
+#import "AppDelegate.h"
 
 @interface TransferListViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -37,17 +39,6 @@
 @end
 
 @implementation TransferListViewController
-
--(instancetype)init{
-    if (self = [super init]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadImages:) name:@"uploadImages" object:nil];
-    }
-    return self;
-}
-
-- (void) uploadImages:(NSNotification *) sneder{
-    NSLog(@"123123");
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -75,9 +66,8 @@
 
 - (void) loadData {
     
-    uploadArray = [TaskManager sharedManager].uploadTaskArray;
-    downloadArray = [TaskManager sharedManager].downloadTaskArray;
-    
+    uploadArray = [[TaskManager sharedManager].uploadTaskArray mutableCopy];
+    downloadArray = [[TaskManager sharedManager].downloadTaskArray mutableCopy];
     NSLog(@"uploadArray.count: %lu downloadArray.count:%lu", (unsigned long)uploadArray.count, (unsigned long)downloadArray.count);
     if (isUpButtonClicked) {
         dataArray = uploadArray;
@@ -106,10 +96,9 @@
         }
     }
     [[TaskManager sharedManager] setProcessBlock:^(NSInteger done, NSInteger total, float progress) {
-        NSInteger index = [TaskManager sharedManager].uping;
         progressDic = @{@"done":@(done),
                         @"compelet":@(progress)};
-        NSLog(@"=============index: %ld===========\n compelet: %f\n=============", (long)index, progress);
+        NSLog(@"=======================\n compelet: %f\n=============",progress);
         
         if (isnan(progress)) {
             NSLog(@"#############################");
@@ -117,11 +106,11 @@
                             @"compelet":@(1)};
             [timer invalidate];
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-           [self.currentTableView reloadData];
-        });
+            if (dataArray.count > 0) {
+                    [self.currentTableView reloadData];
+            }
     }];
-
+    
 }
 
 - (void) createViews {
@@ -171,10 +160,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TransferListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
-    if (!cell) {
-        cell = [[TransferListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
-    }
+    TransferListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+//    if (!cell) {
+//        cell = [[TransferListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
+//    }
     FileModel *model = dataArray[indexPath.row];
     [cell configWithFileModel:model andCompelet:progressDic];
     return cell;
@@ -209,6 +198,19 @@
     }
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    FileModel *model = dataArray[indexPath.row];
+    PreviewPicViewController *preVC = [[PreviewPicViewController alloc] init];
+    preVC.hidesBottomBarWhenPushed = YES;
+    preVC.model = model;
+    if (model.fileType == 1) {
+        preVC.isPicture = YES;
+    }
+    else{
+        preVC.isPicture = NO;
+    }
+    [self.navigationController pushViewController:preVC animated:YES];
+}
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
     return @"删除";
@@ -318,6 +320,7 @@
     _currentTableView = isUpButtonClicked ? self.upTableView : self.downTableView;
     _currentTableView.delegate = self;
     _currentTableView.dataSource = self;
+    [_currentTableView registerClass:[TransferListCell class] forCellReuseIdentifier:@"CELL"];
     return _currentTableView;
 }
 @end
@@ -389,15 +392,32 @@
         done = @(0);
         compelet = @(0);
     }
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
     _iconImage.image = [UIImage imageNamed:[Utils ImageNameWithFileType:fileModel.fileType]];
     _nameLabel.text = fileModel.fileName;
     if (fileModel.fileState == 0) {
         _sizeLabel.text = [NSString stringWithFormat:@"正在等待..."];
+        if (appdelegate.netState != 2) {
+            _sizeLabel.text = @"网络断开";
+            _sizeLabel.textColor = [UIColor redColor];
+        }
+        else{
+            _sizeLabel.textColor = [UIColor lightGrayColor];
+        }
     } else if(fileModel.fileState == 1) {
-        _sizeLabel.text = [NSString stringWithFormat:@"%@k/%luK",done,(unsigned long)fileModel.fileSize / 1024];
+        _sizeLabel.text = [NSString stringWithFormat:@"%ldk/%luK",[done integerValue]/1024,(unsigned long)fileModel.fileSize / 1024];
+        if (appdelegate.netState != 2) {
+            _sizeLabel.text = @"网络断开";
+            _sizeLabel.textColor = [UIColor redColor];
+        }
+        else{
+             _sizeLabel.textColor = [UIColor lightGrayColor];
+        }
         _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
     } else {
         _sizeLabel.text = [NSString stringWithFormat:@"已完成:%luK",(unsigned long)fileModel.fileSize / 1024];
+        _sizeLabel.textColor = [UIColor lightGrayColor];
         _compeletLabel.text = [NSString stringWithFormat:@"100%%"];
     }
 }

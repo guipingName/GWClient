@@ -20,10 +20,14 @@
 
 @property(nonatomic, assign)NSInteger done;
 @property(nonatomic, assign)float compelet;
-@property(nonatomic, assign)NSInteger uping;
+
 @property(nonatomic, copy)void (^processBlock)(NSInteger done, NSInteger total, float percentage);
 + (instancetype) sharedManager;
 
 - (void)upArray:(NSMutableArray *) up;
+
+- (void) reUpload;
+
+- (void) downLoadArray:(NSMutableArray *) downArray;
 
 @end

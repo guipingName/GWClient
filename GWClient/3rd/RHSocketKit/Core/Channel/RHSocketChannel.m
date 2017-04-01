@@ -71,6 +71,7 @@
     return [_connection isConnected];
 }
 
+// 上传
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
         compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
 {
@@ -79,6 +80,18 @@
         return;
     }
     _connection.processBlock = process;
+    [self.encoder encode:packet output:self];
+}
+// 下载
+
+- (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
+        downLoadProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
+{
+    if (nil == _encoder) {
+        RHSocketLog(@"RHSocket Encoder should not be nil ...");
+        return;
+    }
+    _connection.downProcessBlock = process;
     [self.encoder encode:packet output:self];
 }
 

@@ -80,6 +80,7 @@
                 //
                 // 归档
                 [Utils aCoder:model];
+                [DataBaseManager sharedManager].currentUser = model;
                 NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
                 [userDef setBool:YES forKey:IS_HAS_LOGIN];
                 [userDef synchronize];

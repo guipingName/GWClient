@@ -21,6 +21,11 @@
    succeed:(void (^)(id))success
       fail:(void (^)(NSError *))failure
 compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
+// 有进度的下载
++(void)downLoad:(ApiType) ApiType params:(NSDictionary *)params
+                                 succeed:(void (^)(id))success
+                                    fail:(void (^)(NSError *))failure
+                         downLoadProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
 
 // 没有进度
 +(void)GET:(ApiType) ApiType params:(NSDictionary *)params
@@ -32,6 +37,8 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 + (UIImage *) getImageWithImageName:(NSString *) imageName;
 
 + (void) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName;
+
++ (void) saveVideoWithData:(NSData *)data videoName:(NSString *) videoName;
 
 + (NSInteger)currentTimeStamp;
 

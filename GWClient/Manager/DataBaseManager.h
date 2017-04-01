@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class FileModel;
+@class FileModel, UserInfoModel;
 @interface DataBaseManager : NSObject
+
+/**当前用户信息*/
+@property (nonatomic, strong) UserInfoModel *currentUser;
 
 /**
  *  创建单例对象
