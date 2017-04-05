@@ -244,6 +244,73 @@
     [self printAssets:assets photos:photos];
 }
 
+- (void)  aaa:(PHAsset *) asset{
+    //+ (void) getImageFromPHAsset: (PHAsset * ) asset Complete: (Result) result {
+        __block NSData * data;
+        PHAssetResource * resource = [[PHAssetResource assetResourcesForAsset: asset] firstObject];
+        if (asset.mediaType == PHAssetMediaTypeImage) {
+            PHImageRequestOptions * options = [[PHImageRequestOptions alloc] init];
+            options.version = PHImageRequestOptionsVersionCurrent;
+            options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+            options.synchronous = YES;
+            [[PHImageManager defaultManager] requestImageDataForAsset: asset options: options resultHandler: ^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary * info) {
+                data = [NSData dataWithData: imageData];
+            }];
+        }
+//        if (result) {
+//            if (data.length <= 0) {
+//                result(nil, nil);
+//            } else {
+//                result(data, resource.originalFilename);
+//            }
+//        }
+
+}
+
+- (void) video:(PHAsset *) asset{
+    NSLog(@"123");
+    
+    //+ (void) getVideoFromPHAsset: (PHAsset * ) asset Complete: (Result) result {
+        NSArray * assetResources = [PHAssetResource assetResourcesForAsset: asset];
+        PHAssetResource * resource;
+        for (PHAssetResource * assetRes in assetResources) {
+            if (assetRes.type == PHAssetResourceTypePairedVideo || assetRes.type == PHAssetResourceTypeVideo) {
+                resource = assetRes;
+            }
+        }
+        NSString * fileName = @"tempAssetVideo.mov";
+        if (resource.originalFilename) {
+            fileName = resource.originalFilename;
+        }
+    NSLog(@"fileName: %@", fileName);
+        if (asset.mediaType == PHAssetMediaTypeVideo || asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
+            PHVideoRequestOptions * options = [[PHVideoRequestOptions alloc] init];
+            options.version = PHImageRequestOptionsVersionCurrent;
+            options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+            NSString * PATH_MOVIE_FILE = [NSTemporaryDirectory() stringByAppendingPathComponent: fileName];
+            NSLog(@"PATH_MOVIE_FILE1: %@",PATH_MOVIE_FILE);
+            [[NSFileManager defaultManager] removeItemAtPath: PATH_MOVIE_FILE error: nil];
+            NSLog(@"PATH_MOVIE_FILE2: %@",PATH_MOVIE_FILE);
+            [[PHAssetResourceManager defaultManager] writeDataForAssetResource: resource toFile: [NSURL fileURLWithPath: PATH_MOVIE_FILE] options: nil completionHandler: ^(NSError * _Nullable error) {
+                if (error) {
+                    //result(nil, nil);
+                }
+                else {
+                    NSData * data = [NSData dataWithContentsOfURL: [NSURL fileURLWithPath: PATH_MOVIE_FILE]];
+                    NSLog(@"data.length: %lu", (unsigned long)data.length);
+                    //result(data, fileName);
+                }
+                NSLog(@"PATH_MOVIE_FILE3: %@",PATH_MOVIE_FILE);
+                [[NSFileManager defaultManager] removeItemAtPath: PATH_MOVIE_FILE error: nil];
+            }];
+        }
+        else {
+            //result(nil, nil);
+        }
+    
+}
+
+
 - (void) printAssets:(NSArray *)assets photos:(NSArray *) photos{
     NSString *fileName;
     NSMutableArray *imageNames = [NSMutableArray array];
@@ -306,6 +373,16 @@
 
 // 视频回调
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset {
+    if ([asset isKindOfClass:[PHAsset class]]) {
+        [self video:asset];
+    }
+    else if ([asset isKindOfClass:[ALAsset class]]) {
+       
+    }
+    //
+    return;
+    
+    
     [MBProgressHUD showActivityMessageInView:@"准备上传..."];
     [[TZImageManager manager] getVideoOutputPathWithAsset:asset completion:^(NSString *outputPath) {
         //NSLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);

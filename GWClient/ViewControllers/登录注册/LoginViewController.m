@@ -51,8 +51,8 @@
 - (void) doLogin:(UIButton *) sender{
     [tfUserName resignFirstResponder];
     [tfPassword resignFirstResponder];
-    [MBProgressHUD showActivityMessageInView:@"正在登录"];
-    [Utils hiddenMBProgressAfterTenMinites];
+    //[MBProgressHUD showActivityMessageInView:@"正在登录"];
+    //[Utils hiddenMBProgressAfterTenMinites];
     NSDictionary *paramDic = @{@"username":tfUserName.text,
                                @"password":tfPassword.text,
                                @"deviceId":[[[UIDevice currentDevice] identifierForVendor] UUIDString]

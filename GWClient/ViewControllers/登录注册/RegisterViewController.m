@@ -199,10 +199,10 @@
 
 
 - (void) Register:(UIButton *) sender{
-    if (![tfConfirm.text isEqualToString:confirmStr]) {
-        [Utils hintMessage:@"验证码不正确" time:1 isSuccess:NO];
-        return;
-    }
+//    if (![tfConfirm.text isEqualToString:confirmStr]) {
+//        [Utils hintMessage:@"验证码不正确" time:1 isSuccess:NO];
+//        return;
+//    }
     NSDictionary *paramDic = @{@"username":tfEmail.text,
                                @"verifyCode":tfConfirm.text,
                                @"password":tfPassword.text
