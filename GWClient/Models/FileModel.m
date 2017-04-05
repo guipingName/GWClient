@@ -13,14 +13,14 @@
 - (NSUInteger)fileSize
 {
     
-    if (_fileType == 1) {
+    if (_fileType == FileTypePicture) {
         if (_image) {
             NSData *data = UIImagePNGRepresentation(_image);
             return data.length;
         }
     }
     
-    if (_fileType == 2) {
+    if (_fileType == FileTypeVideo) {
         if (_videoData) {
             return  _videoData.length;
         }

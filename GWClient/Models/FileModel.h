@@ -8,13 +8,28 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, TransferStatus) {
+    TransferStatusReady,
+    TransferStatusDuring,
+    TransferStatusFinished,
+};
+
+
+typedef NS_ENUM(NSInteger, FileType) {
+    FileTypePicture = 1,    // 图片
+    FileTypeVideo = 2,      // 视频
+};
+
+typedef NS_ENUM(NSInteger, FileTransferType) {
+    FileTransferTypeDownload,       // 下载
+    FileTransferTypeUpload,         // 上传
+};
+
+
 @interface FileModel : NSObject
 
 
-/**
- 0: 未开始下载 1: 正在下载 2: 下载完成
- */
-@property(nonatomic, assign)NSInteger fileState;
+@property(nonatomic, assign)TransferStatus fileState;
 
 @property (nonatomic, copy) NSString *fileName;
 
@@ -22,11 +37,11 @@
 
 @property (nonatomic, assign) NSUInteger fileTime;
 
-@property (nonatomic, assign) NSUInteger fileType;
+@property (nonatomic, assign) FileType fileType;
 
 @property (nonatomic, assign) NSUInteger fileSize;
 
-@property (nonatomic, assign) NSUInteger fileOperateType;
+@property (nonatomic, assign) FileTransferType fileOperateType;
 
 @property (nonatomic, strong) UIImage *image;
 

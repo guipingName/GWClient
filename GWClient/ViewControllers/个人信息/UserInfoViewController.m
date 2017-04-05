@@ -14,6 +14,22 @@
 #import "ModifySexViewController.h"
 
 
+typedef NS_ENUM(NSInteger, UserInfoSectionType) {
+    UserInfoSectionTypeBasic = 0,
+    UserInfoSectionTypeOther = 1,
+};
+
+typedef NS_ENUM(NSInteger, UserInfoSectionTypeBasicRow) {
+    UserInfoSectionTypeBasicRowHead = 0,
+    UserInfoSectionTypeBasicRowNickName = 1,
+};
+
+typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
+    UserInfoSectionTypeOtherSex = 0,
+    UserInfoSectionTypeOtherLocation = 1,
+    UserInfoSectionTypeOtherSignature = 2,
+};
+
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *myTableView;
@@ -145,7 +161,7 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UserInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:USERINFOCELL forIndexPath:indexPath];
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.section == UserInfoSectionTypeBasic && indexPath.row == UserInfoSectionTypeBasicRowHead) {
         cell.isHead = YES;
     }
     else{
@@ -157,16 +173,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.section == UserInfoSectionTypeBasic && indexPath.row == UserInfoSectionTypeBasicRowHead) {
         // 修改头像
         ModifyHeadIconViewController *headVC = [[ModifyHeadIconViewController alloc] init];
         headVC.image = titleInfoArray[indexPath.section][indexPath.row];
         headVC.imageBlock = ^(UIImage *image){
-            [self reloadTableViewWithSection:0 row:0 object:image];
+            [self reloadTableViewWithSection:indexPath.section row:indexPath.row object:image];
         };
         [self.navigationController pushViewController:headVC animated:YES];
     }
-    else if (indexPath.section == 0 && indexPath.row == 1) {
+    else if (indexPath.section == UserInfoSectionTypeBasic && indexPath.row == UserInfoSectionTypeBasicRowNickName) {
         // 修改昵称
         ModifyNickNameViewController *nickNameVC = [[ModifyNickNameViewController alloc] init];
         nickNameVC.titleStr = titleArray[indexPath.section][indexPath.row];
@@ -177,11 +193,11 @@
             }
             model.nickName = newStr;
             NSDictionary *dic = @{@"nickName":model.nickName};
-            [self uploadDictionary:dic section:0 row:1];
+            [self uploadDictionary:dic section:indexPath.section row:indexPath.row];
         };
         [self.navigationController pushViewController:nickNameVC animated:YES];
     }
-    else if (indexPath.section == 1 && indexPath.row == 0) {
+    else if (indexPath.section == UserInfoSectionTypeOther && indexPath.row == UserInfoSectionTypeOtherSex) {
         // 修改性别
         ModifySexViewController *sexVC = [[ModifySexViewController alloc] init];
         sexVC.sexStr = titleInfoArray[indexPath.section][indexPath.row];
@@ -197,11 +213,11 @@
                 model.sex = 2;
             }
             NSDictionary *dic = @{@"gender":@(model.sex)};
-            [self uploadDictionary:dic section:1 row:0];
+            [self uploadDictionary:dic section:indexPath.section row:indexPath.row];
         };
         [self.navigationController pushViewController:sexVC animated:YES];
     }
-    else if (indexPath.section == 1 && indexPath.row == 1) {
+    else if (indexPath.section == UserInfoSectionTypeOther && indexPath.row == UserInfoSectionTypeOtherLocation) {
         // 修改地区
         ModifyNickNameViewController *locationVC = [[ModifyNickNameViewController alloc] init];
         locationVC.titleStr = titleArray[indexPath.section][indexPath.row];
@@ -212,11 +228,11 @@
             }
             model.location = newStr;
             NSDictionary *dic = @{@"location":model.location};
-            [self uploadDictionary:dic section:1 row:1];
+            [self uploadDictionary:dic section:indexPath.section row:indexPath.row];
         };
         [self.navigationController pushViewController:locationVC animated:YES];
     }
-    else if (indexPath.section == 1 && indexPath.row == 2) {
+    else if (indexPath.section == UserInfoSectionTypeOther && indexPath.row == UserInfoSectionTypeOtherSignature) {
         // 修改个性签名
         ModifySignatureViewController *signVC = [[ModifySignatureViewController alloc] init];
         signVC.isModifySignature = YES;
@@ -227,7 +243,7 @@
             }
             model.signature = signStr;
             NSDictionary *dic = @{@"signature":model.signature};
-            [self uploadDictionary:dic section:1 row:2];
+            [self uploadDictionary:dic section:indexPath.section row:indexPath.row];
         };
         [self.navigationController pushViewController:signVC animated:YES];
     }

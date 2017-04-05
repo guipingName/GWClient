@@ -95,18 +95,22 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
 }
 
 - (void) getNews:(NSString *) keyWord{
-    [MBProgressHUD showActivityMessageInView:@"加载中..."];
-    [Utils hiddenMBProgressAfterTenMinites];
+    [Utils showMessage:@"加载中..." superView:self.view];
     NSDictionary *params = @{@"channel":keyWord,
                              @"start":@(1),
                              @"num":@(10)
                              };
-    [Utils GET:19 params:params succeed:^(id response) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
+    [Utils GET:ApiTypeGetNewsList params:params succeed:^(id response) {
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"新闻头条--返回的Json串:\n%@", tempStr);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUD];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {

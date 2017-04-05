@@ -18,7 +18,8 @@ typedef NS_ENUM(NSUInteger, ApiType) {
     ApiTypeGetFile = 15,                // 获取文件
     ApiTypeModifyUserInfo = 16,         // 修改用户信息
     ApiTypeGetUserFileList = 17,        // 获取用户文件列表
-    ApiTypeDeleteFiles = 18             // 删除文件
+    ApiTypeDeleteFiles = 18,            // 删除文件
+    ApiTypeGetNewsList = 19             // 获取新闻列表
 };
 
 
@@ -26,10 +27,12 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define DEFAULT_HEAD_IMAGENAME      @"head"
 #define NAVIGATION_LEFTBAR          @"navigationbar_list_normal"
 
-#define HOST_IP                     @"10.134.42.1"
+#define HOST_IP                     @"10.134.20.1"
 #define HOST_PORT                   20173
 
-#define BTN_NEW_TAG            800
+#define BTN_NEW_TAG                 800
+
+#define TRANSFERLISTCELL        @"TransferListCell"
 
 
 #ifdef DEBUG

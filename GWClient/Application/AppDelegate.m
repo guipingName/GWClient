@@ -29,7 +29,6 @@
     UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     [TaskManager sharedManager].uploadTaskArray = [[user upLoadList] mutableCopy];
     [TaskManager sharedManager].downloadTaskArray = [[user downLoadList] mutableCopy];
-    //NSLog(@"[TaskManager sharedManager].uploadTaskArray: %lu",(unsigned long)[TaskManager sharedManager].uploadTaskArray.count);
     [user deleteAllRecord];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {
@@ -59,15 +58,15 @@
         switch (status) {
             case HSReachabilityStatusNotReachable:
                 [Utils addDialogueBoxWithSuperView:_window Content:@"未连接网络"];
-                _netState = 0;
+                _netState = NetStatussNone;
                 break;
             case HSReachabilityStatusReachableViaWWAN:
                 [Utils addDialogueBoxWithSuperView:_window Content:@"蜂窝移动网络"];
-                _netState = 1;
+                _netState = NetStatusViaWWAN;
                 break;
             case HSReachabilityStatusReachableViaWiFi:
                 [Utils addDialogueBoxWithSuperView:_window Content:@"Wi-Fi"];
-                _netState = 2;
+                _netState = NetStatusViaWiFi;
                 //[[TaskManager sharedManager] reUpload];
                 break;
             default:

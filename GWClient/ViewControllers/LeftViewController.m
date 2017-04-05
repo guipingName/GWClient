@@ -14,6 +14,17 @@
 #import "UserInfoViewController.h"
 #import "UIViewController+MMDrawerController.h"
 
+typedef NS_ENUM(NSInteger, LeftSectionType) {
+    LeftSectionTypeOther = 0,    
+    LeftSectionTypeLogOut = 1,
+};
+
+typedef NS_ENUM(NSInteger, LeftSectionTypeOtherRow) {
+    LeftSectionTypeOtherRowPersonalInfo = 0,
+    LeftSectionTypeOtherRowSetting = 1,
+};
+
+
 @interface LeftViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
     UIImageView *ImvUserhead;
@@ -111,7 +122,7 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     LeftVCTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:LEFTCELL forIndexPath:indexPath];
-    if (indexPath.section == 1) {
+    if (indexPath.section == LeftSectionTypeLogOut) {
         cell.isLogOut = YES;
     }
     else{
@@ -123,8 +134,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
+    if (indexPath.section == LeftSectionTypeOther) {
+        if (indexPath.row == LeftSectionTypeOtherRowPersonalInfo) {
             // 修改用户信息
             UserInfoViewController *userInfoVC = [[UserInfoViewController alloc] init];
             userInfoVC.hidesBottomBarWhenPushed = YES;
@@ -134,7 +145,7 @@
                 [nav pushViewController:userInfoVC animated:YES];
             }];
         }
-        else if (indexPath.row == 1) {
+        else if (indexPath.row == LeftSectionTypeOtherRowSetting) {
             // 设置
             SettingViewController *settingVC = [[SettingViewController alloc] init];
             settingVC.hidesBottomBarWhenPushed = YES;
@@ -145,7 +156,7 @@
             }];
         }
     }
-    else if (indexPath.section == 1) {
+    else if (indexPath.section == LeftSectionTypeLogOut) {
         // 注销登录
         NSLog(@"注销登录");
         [currentUser deleteAllRecord];

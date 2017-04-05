@@ -54,8 +54,8 @@
 - (int)lookFor:(NSArray*) upArray1 isUpload:(BOOL) isUpload{
     for (int i = 0; i < upArray1.count; i++) {
         FileModel *model = upArray1[i];
-        if (model.fileState == 0) {
-            model.fileState = 1;
+        if (model.fileState == TransferStatusReady) {
+            model.fileState = TransferStatusDuring;
             return i;
         }
     }
@@ -78,10 +78,10 @@
 - (void) uploadFile:(FileModel *) model{
     UserInfoModel *user = [Utils aDecoder];
     NSDictionary *ddd;
-    if (model.fileType == 1) {
+    if (model.fileType == FileTypePicture) {
         ddd = @{model.fileName:model.image};
     }
-    else if (model.fileType == 2) {
+    else if (model.fileType == FileTypeVideo) {
         ddd = @{model.fileName:model.videoData};
     }
     NSDictionary *params = @{@"userId":@(user.userId),
@@ -96,7 +96,7 @@
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
                 // 上传成功 修改本地记录
-                model.fileState = 2;
+                model.fileState = TransferStatusFinished;
                 [self upload];
             }
         }
@@ -140,14 +140,14 @@
                 NSLog(@"下载图片成功 " );
                 UIImage *image = [response[@"result"][@"files"] firstObject];
                 [Utils savePhotoWithImage:image imageName:model.fileName];
-                model.fileState = 2;
+                model.fileState = TransferStatusFinished;
                 [self download];
             }
             if ([newObj isKindOfClass:[NSData class]]) {
                 NSData *dataaa = (NSData *)newObj;
                 [Utils saveVideoWithData:dataaa videoName:model.fileName];
                 NSLog(@"下载视频成功 ");
-                model.fileState = 2;
+                model.fileState = TransferStatusFinished;
                 [self download];
             }
         }

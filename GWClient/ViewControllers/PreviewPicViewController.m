@@ -42,7 +42,6 @@
     [bgView addSubview:activityIndicator];
     
     if (_isPicture) {
-        // 显示图片
         [self showImageView:bgView];
     }
     else{

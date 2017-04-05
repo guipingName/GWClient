@@ -117,9 +117,15 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply downProcess:process];
 }
 
-
++ (void) showMessage:(NSString *) message superView:(UIView *) superView{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:superView animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"加载中...";
+    hud.userInteractionEnabled = NO;
+}
 
 + (void) hintMessage:(NSString *) message time:(int)time isSuccess:(BOOL) isSuccess{
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (isSuccess) {
             [MBProgressHUD showSuccessMessage:message];
@@ -133,11 +139,6 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     });
 }
 
-+ (void) hiddenMBProgressAfterTenMinites{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUD];
-    });
-}
 
 +(void)aCoder:(UserInfoModel *) model{
     NSMutableData *mData = [NSMutableData data];

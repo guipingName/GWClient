@@ -48,5 +48,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 
 + (void) hintMessage:(NSString *) message time:(int)time isSuccess:(BOOL) isSuccess;
 
++ (void) showMessage:(NSString *) message superView:(UIView *) superView;
+
 + (void) hiddenMBProgressAfterTenMinites;
 @end

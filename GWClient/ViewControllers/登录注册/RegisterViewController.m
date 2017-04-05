@@ -204,12 +204,13 @@
         return;
     }
     NSDictionary *paramDic = @{@"username":tfEmail.text,
+                               @"verifyCode":tfConfirm.text,
                                @"password":tfPassword.text
                                };
     [Utils GET:ApiTypeRegister params:paramDic succeed:^(id response) {
-//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-//        NSLog(@"注册--返回的Json串:\n%@", tempStr);
+        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+        NSLog(@"注册--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
             [Utils hintMessage:response[@"message"] time:1 isSuccess:YES];
             if ([response[@"success"] boolValue]) {

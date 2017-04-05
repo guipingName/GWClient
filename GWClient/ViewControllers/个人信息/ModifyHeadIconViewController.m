@@ -147,9 +147,9 @@
                                @"fileDic":@{imageName:image}
                                };
     [Utils GET:ApiTypeUpFile params:paramDic succeed:^(id response) {
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUD];
         });

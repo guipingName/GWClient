@@ -15,6 +15,7 @@
 #import "TaskManager.h"
 #import "AppDelegate.h"
 
+
 @interface TransferListViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     UIButton *btnUpload;
@@ -65,10 +66,9 @@
 
 
 - (void) loadData {
-    
     uploadArray = [[TaskManager sharedManager].uploadTaskArray mutableCopy];
     downloadArray = [[TaskManager sharedManager].downloadTaskArray mutableCopy];
-    NSLog(@"uploadArray.count: %lu downloadArray.count:%lu", (unsigned long)uploadArray.count, (unsigned long)downloadArray.count);
+    //NSLog(@"uploadArray.count: %lu downloadArray.count:%lu", (unsigned long)uploadArray.count, (unsigned long)downloadArray.count);
     if (isUpButtonClicked) {
         dataArray = uploadArray;
         if (dataArray.count == 0) {
@@ -143,7 +143,7 @@
     
     emptyDownView = [[HintView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(btnBackView.frame), KSCREEN_WIDTH, KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame) - 49)];
     [self.view addSubview:emptyDownView];
-    [emptyDownView createHintViewWithTitle:@"你还没有下载记录哦~" image:[[UIImage imageNamed:@"download_64"] rt_tintedImageWithColor:[UIColor grayColor]] block:nil];
+    [emptyDownView createHintViewWithTitle:@"还没有下载记录~" image:[[UIImage imageNamed:@"download_64"] rt_tintedImageWithColor:[UIColor grayColor]] block:nil];
 }
 
 
@@ -160,10 +160,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TransferListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-//    if (!cell) {
-//        cell = [[TransferListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
-//    }
+    TransferListCell *cell = [tableView dequeueReusableCellWithIdentifier:TRANSFERLISTCELL forIndexPath:indexPath];
     FileModel *model = dataArray[indexPath.row];
     [cell configWithFileModel:model andCompelet:progressDic];
     return cell;
@@ -203,7 +200,7 @@
     PreviewPicViewController *preVC = [[PreviewPicViewController alloc] init];
     preVC.hidesBottomBarWhenPushed = YES;
     preVC.model = model;
-    if (model.fileType == 1) {
+    if (model.fileType == FileTypePicture) {
         preVC.isPicture = YES;
     }
     else{
@@ -320,7 +317,7 @@
     _currentTableView = isUpButtonClicked ? self.upTableView : self.downTableView;
     _currentTableView.delegate = self;
     _currentTableView.dataSource = self;
-    [_currentTableView registerClass:[TransferListCell class] forCellReuseIdentifier:@"CELL"];
+    [_currentTableView registerClass:[TransferListCell class] forCellReuseIdentifier:TRANSFERLISTCELL];
     return _currentTableView;
 }
 @end
@@ -396,18 +393,18 @@
     
     _iconImage.image = [UIImage imageNamed:[Utils ImageNameWithFileType:fileModel.fileType]];
     _nameLabel.text = fileModel.fileName;
-    if (fileModel.fileState == 0) {
+    if (fileModel.fileState == TransferStatusReady) {
         _sizeLabel.text = [NSString stringWithFormat:@"正在等待..."];
-        if (appdelegate.netState != 2) {
+        if (appdelegate.netState != NetStatusViaWiFi) {
             _sizeLabel.text = @"网络断开";
             _sizeLabel.textColor = [UIColor redColor];
         }
         else{
             _sizeLabel.textColor = [UIColor lightGrayColor];
         }
-    } else if(fileModel.fileState == 1) {
+    } else if(fileModel.fileState == TransferStatusDuring) {
         _sizeLabel.text = [NSString stringWithFormat:@"%ldk/%luK",[done integerValue]/1024,(unsigned long)fileModel.fileSize / 1024];
-        if (appdelegate.netState != 2) {
+        if (appdelegate.netState != NetStatusViaWiFi) {
             _sizeLabel.text = @"网络断开";
             _sizeLabel.textColor = [UIColor redColor];
         }

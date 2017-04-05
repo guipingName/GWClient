@@ -81,7 +81,6 @@
     return [_fmdb executeUpdate:@"delete from fileTransferList;"];
 }
 
-// operateType 0下载  1上传 
 -(NSArray *)loadFileListWithOperateType:(NSInteger) operateType userId:(NSInteger) userId{
     NSString *str = [NSString stringWithFormat:@"select *from fileTransferList where fileOperateType = %ld and userId = %ld;", (long)operateType, (long)userId];
     FMResultSet *rs = [_fmdb executeQuery:str];

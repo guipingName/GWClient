@@ -212,7 +212,7 @@
     PreviewPicViewController *preVC = [[PreviewPicViewController alloc] init];
     preVC.hidesBottomBarWhenPushed = YES;
     preVC.model = model;
-    if (model.fileType == 1) {
+    if (model.fileType == FileTypePicture) {
         preVC.isPicture = YES;
     }
     else{
@@ -252,6 +252,21 @@
             PHAsset *phAsset = (PHAsset *)asset;
             fileName = [phAsset valueForKey:@"filename"];
         }
+        
+        /*
+         if ([asset isKindOfClass:[PHAsset class]]) {
+         PHVideoRequestOptions* options = [[PHVideoRequestOptions alloc] init];
+         options.version = PHVideoRequestOptionsVersionOriginal;
+         options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+         options.networkAccessAllowed = YES;
+         [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+         // NSLog(@"Info:\n%@",info);
+         AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+         // NSLog(@"AVAsset URL: %@",myAsset.URL);
+         [self startExportVideoWithVideoAsset:videoAsset completion:completion];
+         }];
+         }
+         */
         else if ([asset isKindOfClass:[ALAsset class]]) {
             ALAsset *alAsset = (ALAsset *)asset;
             fileName = alAsset.defaultRepresentation.filename;;
@@ -267,8 +282,8 @@
     NSMutableArray *aaaa = [NSMutableArray array];
     for (int i=0; i<uploadImageArray.count; i++) {
         FileModel *model = [[FileModel alloc] init];
-        model.fileState = 0;
-        model.fileType = 1;
+        model.fileState = TransferStatusReady;
+        model.fileType = FileTypePicture;
         model.fileName = uploadImageNameArray[i];
         model.image = uploadImageArray[i];
         [aaaa addObject:model];
@@ -299,8 +314,8 @@
         NSData *data = [NSData dataWithContentsOfFile:outputPath];
         //NSLog(@"data: %@", data);
         FileModel *model = [[FileModel alloc] init];
-        model.fileState = 0;
-        model.fileType = 2;
+        model.fileState = TransferStatusReady;
+        model.fileType = FileTypeVideo;
         NSDate *datenow = [NSDate date];
         NSDateFormatter *formater = [[NSDateFormatter alloc] init];
         [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -367,7 +382,7 @@
             return;
         }
     }
-    file.fileState = 0;
+    file.fileState = TransferStatusReady;
     [temp addObject:file];
     [[TaskManager sharedManager] downLoadArray:temp];
     [Utils hintMessage:@"已加入下载列表" time:1 isSuccess:YES];
