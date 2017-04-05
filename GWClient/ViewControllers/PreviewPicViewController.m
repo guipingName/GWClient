@@ -49,8 +49,6 @@
     }
 }
 
-
-
 - (void) showPlayerView:(UIView *) superView{
     CGRect playerRect = CGRectMake(0, 0, KSCREEN_WIDTH, 200);
     NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/videos"];

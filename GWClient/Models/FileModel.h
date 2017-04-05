@@ -47,4 +47,6 @@ typedef NS_ENUM(NSInteger, FileTransferType) {
 
 @property (nonatomic, strong) NSData *videoData;
 
+@property (nonatomic, strong) UIImage *thumbnail;
+
 @end

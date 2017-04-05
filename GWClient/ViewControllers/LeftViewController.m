@@ -13,6 +13,7 @@
 #import "SettingViewController.h"
 #import "UserInfoViewController.h"
 #import "UIViewController+MMDrawerController.h"
+#import "RHSocketChannelProxy.h"
 
 typedef NS_ENUM(NSInteger, LeftSectionType) {
     LeftSectionTypeOther = 0,    
@@ -159,6 +160,7 @@ typedef NS_ENUM(NSInteger, LeftSectionTypeOtherRow) {
     else if (indexPath.section == LeftSectionTypeLogOut) {
         // 注销登录
         NSLog(@"注销登录");
+        [[RHSocketChannelProxy sharedInstance] disconnect];
         [currentUser deleteAllRecord];
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setBool:NO forKey:IS_HAS_LOGIN];
