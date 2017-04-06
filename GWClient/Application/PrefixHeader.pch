@@ -24,11 +24,13 @@
 #import "DataBaseManager.h"
 #import "MBProgressHUD.h"
 #import "MBProgressHUD+JDragon.h"
+#import "GWDataManager.h"
 
 #ifndef W_H_
 #define W_H_
 #define KSCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
 #define KSCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define Request [GWDataManager sharedInstance]
 #endif
 
 

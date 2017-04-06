@@ -96,7 +96,7 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
                                  @"type":@(0),
                                  @"imagePaths":@[model.headImgUrl]
                                  };
-        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+        [Request GET:ApiTypeGetFile params:params succeed:^(id response) {
             if ([response[@"success"] boolValue]) {
                 UIImage *image = [response[@"result"][@"images"] firstObject];
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -254,7 +254,7 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
                                @"token":model.token,
                                @"modifyDic":dic
                                };
-    [Utils GET:ApiTypeModifyUserInfo params:paramDic succeed:^(id response) {
+    [Request GET:ApiTypeModifyUserInfo params:paramDic succeed:^(id response) {
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"修改用户信息--返回的Json串:\n%@", tempStr);

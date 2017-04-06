@@ -171,7 +171,7 @@
 
 - (void) getConfirm:(UIButton *) sender{
     NSDictionary *paramDic = @{@"username":tfEmail.text};
-    [Utils GET:ApiTypeGetverifiyCode params:paramDic succeed:^(id response) {
+    [Request GET:ApiTypeGetverifiyCode params:paramDic succeed:^(id response) {
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"获取验证码--返回的Json串:\n%@", tempStr);
@@ -207,7 +207,7 @@
                                @"verifyCode":tfConfirm.text,
                                @"password":tfPassword.text
                                };
-    [Utils GET:ApiTypeRegister params:paramDic succeed:^(id response) {
+    [Request GET:ApiTypeRegister params:paramDic succeed:^(id response) {
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"注册--返回的Json串:\n%@", tempStr);

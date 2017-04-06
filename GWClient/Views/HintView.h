@@ -15,7 +15,5 @@ typedef void(^GPBlock)();
 
 @property (nonatomic, copy) GPBlock block;
 
-//- (UIView *)createHintViewWithFrame:(CGRect)frame superView:(UIView *)superView title:(NSString *)title imageName:(NSString *)imageName block:(void (^)())block;
-
 - (void)createHintViewWithTitle:(NSString *)title image:(UIImage *)image block:(void (^)())block;
 @end

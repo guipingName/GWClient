@@ -52,10 +52,10 @@
 - (void) showPlayerView:(UIView *) superView{
     CGRect playerRect = CGRectMake(0, 0, KSCREEN_WIDTH, 200);
     NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/videos"];
-    NSString *imgFileName = [NSString stringWithFormat:@"/%@",_model.fileName];
+    NSString *imgFileName = [NSString stringWithFormat:@"/%@",@"2017.MOV"];
     NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
     
-    //NSLog(@"%@", filePath);
+    NSLog(@"%@", filePath);
     NSData *videoData = [NSData dataWithContentsOfFile:filePath];
     if (videoData) {
         PlayerView *playerView = [[PlayerView alloc]initWithFrame:playerRect playerUrl:filePath];
@@ -72,7 +72,7 @@
                                  @"type":@(_model.fileType),
                                  @"filePaths":@[@(_model.fileId)]
                                  };
-        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+        [Request GET:ApiTypeGetFile params:params succeed:^(id response) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [activityIndicator stopAnimating];
             });
@@ -116,7 +116,7 @@
                                  @"type":@(_model.fileType),
                                  @"filePaths":@[@(_model.fileId)]
                                  };
-        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+        [Request GET:ApiTypeGetFile params:params succeed:^(id response) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [activityIndicator stopAnimating];
             });

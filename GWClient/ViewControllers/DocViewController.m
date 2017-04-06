@@ -100,7 +100,7 @@
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token
                              };
-    [Utils GET:ApiTypeGetUserFileList params:params succeed:^(id response) {
+    [Request GET:ApiTypeGetUserFileList params:params succeed:^(id response) {
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"文件列表--返回的Json串:\n%@", tempStr);
@@ -209,7 +209,7 @@
     preVC.hidesBottomBarWhenPushed = YES;
     preVC.model = model;
     if (model.fileType == FileTypePicture) {
-        preVC.isPicture = YES;
+        preVC.isPicture = NO;
     }
     else{
         preVC.isPicture = NO;
@@ -284,6 +284,26 @@
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset {
     if ([asset isKindOfClass:[PHAsset class]]) {
         [self video:asset];
+        //[self abc:asset];
+    }
+}
+
+
+- (void) abc:(PHAsset *) ASSET{
+    PHAsset *phAsset = ASSET;
+    if (phAsset.mediaType == PHAssetMediaTypeVideo) {
+        PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+        options.version = PHImageRequestOptionsVersionCurrent;
+        options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+        
+        PHImageManager *manager = [PHImageManager defaultManager];
+        [manager requestAVAssetForVideo:phAsset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+            AVURLAsset *urlAsset = (AVURLAsset *)asset;
+            NSURL *url = urlAsset.URL;
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            //[Utils saveVideoWithData:data videoName:@"2017.MOV"];
+            NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
+        }];
     }
 }
 
@@ -291,13 +311,13 @@
 - (void) video:(PHAsset *) asset{
     __weak typeof(self) weakSelf = self;
     NSArray * assetResources = [PHAssetResource assetResourcesForAsset: asset];
-    PHAssetResource * resource;
-    for (PHAssetResource * assetRes in assetResources) {
+    PHAssetResource *resource;
+    for (PHAssetResource *assetRes in assetResources) {
         if (assetRes.type == PHAssetResourceTypePairedVideo || assetRes.type == PHAssetResourceTypeVideo) {
             resource = assetRes;
         }
     }
-    NSString * fileName = nil;
+    NSString *fileName = nil;
     if (resource.originalFilename) {
         fileName = resource.originalFilename;
     }
@@ -310,34 +330,62 @@
     }
     if (asset.mediaType == PHAssetMediaTypeVideo || asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
         NSLog(@"111111111");
-        NSString *videoPath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-        [[NSFileManager defaultManager] removeItemAtPath:videoPath error:nil];
-        [[PHAssetResourceManager defaultManager] writeDataForAssetResource: resource toFile: [NSURL fileURLWithPath:videoPath] options:nil completionHandler: ^(NSError * _Nullable error) {
-            NSLog(@"222222222222");
-            if (error) {
-                NSLog(@"%@", error.localizedDescription);
-            }
-            else {
-                NSData * data = [NSData dataWithContentsOfURL: [NSURL fileURLWithPath:videoPath]];
-                //NSLog(@"data.length: %lu", (unsigned long)data.length);
-                
-                FileModel *model = [[FileModel alloc] init];
-                model.fileState = TransferStatusReady;
-                model.fileType = FileTypeVideo;
-                model.fileName = fileName;
-                model.videoData = data;
-                model.fileSize = data.length;
-                NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
-                [temp addObject:model];
-                [[TaskManager sharedManager] setSucess:^(BOOL success) {
-                    if (success) {
-                        [weakSelf fileList];
-                    }
-                }];
-                [[TaskManager sharedManager] upArray:temp];
-            }
-            [[NSFileManager defaultManager] removeItemAtPath: videoPath error: nil];
+        PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+        options.version = PHImageRequestOptionsVersionCurrent;
+        options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+        
+        PHImageManager *manager = [PHImageManager defaultManager];
+        [manager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+            AVURLAsset *urlAsset = (AVURLAsset *)asset;
+            NSURL *url = urlAsset.URL;
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            //[Utils saveVideoWithData:data videoName:@"2017.MOV"];
+            NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
+            FileModel *model = [[FileModel alloc] init];
+            model.fileState = TransferStatusReady;
+            model.fileType = FileTypeVideo;
+            model.fileName = fileName;
+            model.videoData = data;
+            model.fileSize = data.length;
+            NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
+            [temp addObject:model];
+            [[TaskManager sharedManager] setSucess:^(BOOL success) {
+                if (success) {
+                    [weakSelf fileList];
+                }
+            }];
+            [[TaskManager sharedManager] upArray:temp];
         }];
+
+        
+//        NSString *videoPath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+//        [[NSFileManager defaultManager] removeItemAtPath:videoPath error:nil];
+//        [[PHAssetResourceManager defaultManager] writeDataForAssetResource: resource toFile: [NSURL fileURLWithPath:videoPath] options:nil completionHandler: ^(NSError * _Nullable error) {
+//            NSLog(@"222222222222");
+//            if (error) {
+//                NSLog(@"%@", error.localizedDescription);
+//            }
+//            else {
+//                NSData * data = [NSData dataWithContentsOfURL: [NSURL fileURLWithPath:videoPath]];
+//                //NSLog(@"data.length: %lu", (unsigned long)data.length);
+//                
+//                FileModel *model = [[FileModel alloc] init];
+//                model.fileState = TransferStatusReady;
+//                model.fileType = FileTypeVideo;
+//                model.fileName = fileName;
+//                model.videoData = data;
+//                model.fileSize = data.length;
+//                NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
+//                [temp addObject:model];
+//                [[TaskManager sharedManager] setSucess:^(BOOL success) {
+//                    if (success) {
+//                        [weakSelf fileList];
+//                    }
+//                }];
+//                [[TaskManager sharedManager] upArray:temp];
+//            }
+//            [[NSFileManager defaultManager] removeItemAtPath: videoPath error: nil];
+//        }];
     }
     else {
         NSLog(@"失败");
@@ -357,7 +405,7 @@
                              @"deleteFileIds":@[@(file.fileId)],
                              @"token":user.token
                              };
-    [Utils GET:ApiTypeDeleteFiles params:params succeed:^(id response) {
+    [Request GET:ApiTypeDeleteFiles params:params succeed:^(id response) {
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"删除文件列表--返回的Json串:\n%@", tempStr);

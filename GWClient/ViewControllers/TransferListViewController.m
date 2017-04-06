@@ -168,8 +168,6 @@
 }
 
 
-
-
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         FileModel *fileModel = dataArray[indexPath.row];
@@ -183,7 +181,7 @@
             [TaskManager sharedManager].downloadTaskArray = dataArray;
             [user deleteDownList:fileModel];
         }
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         if (dataArray.count == 0) {
             _scrollView.hidden = YES;
             if (isUpButtonClicked) {

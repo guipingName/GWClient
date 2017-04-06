@@ -16,7 +16,6 @@
 
 @interface AppDelegate (){
     UserInfoModel *currentUser;
-    BOOL isFirstEnter;
 }
 
 @end
@@ -26,20 +25,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    isFirstEnter = YES;
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
     [DataBaseManager sharedManager].currentUser = [Utils aDecoder];
     currentUser = [DataBaseManager sharedManager].currentUser;
     [TaskManager sharedManager].uploadTaskArray = [[currentUser upLoadList] mutableCopy];
     [TaskManager sharedManager].downloadTaskArray = [[currentUser downLoadList] mutableCopy];
-    //NSLog(@"uploadTaskArray:%lu  downloadTaskArray:%lu",(unsigned long)[TaskManager sharedManager].uploadTaskArray.count,(unsigned long)[TaskManager sharedManager].downloadTaskArray.count);
+    NSLog(@"uploadTaskArray:%lu  downloadTaskArray:%lu",(unsigned long)[TaskManager sharedManager].uploadTaskArray.count,(unsigned long)[TaskManager sharedManager].downloadTaskArray.count);
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {
         LeftViewController *leftVC = [[LeftViewController alloc] init];
         MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
-        
         [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
         [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
         [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
@@ -81,6 +78,7 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+    NSLog(@"添加到数据库");
     UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     NSArray *upArray = [TaskManager sharedManager].uploadTaskArray;
     for (FileModel *model in upArray) {
@@ -99,12 +97,7 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    if (isFirstEnter) {
-        isFirstEnter = NO;
-    }
-    else{
-        [currentUser deleteAllRecord];
-    }
+     [currentUser deleteAllRecord];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

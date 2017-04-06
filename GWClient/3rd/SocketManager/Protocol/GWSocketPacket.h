@@ -1,11 +1,10 @@
 //
-//  RHSocketPacket.h
-//  RHSocketDemo
+//  GWSocketPacket.h
+//  GWDataManagerServer
 //
-//  Created by zhuruhong on 15/6/18.
-//  Copyright (c) 2015年 zhuruhong. All rights reserved.
+//  Created by wenrong on 2017/3/20.
+//  Copyright © 2017年 wenrong. All rights reserved.
 //
-
 #import <Foundation/Foundation.h>
 
 #pragma mark - socket packet
@@ -13,7 +12,7 @@
 /**
  *  数据包协议
  */
-@protocol RHSocketPacket <NSObject>
+@protocol GWSocketPacket <NSObject>
 
 @required
 
@@ -29,16 +28,14 @@
  */
 @property (nonatomic, assign) NSInteger pid;
 
-- (instancetype)initWithObject:(id)aObject;
-- (NSData *)dataWithPacket;
-
 @end
 
 #pragma mark - upstream packet
+
 /**
- *  上行数据包协议，发送数据时，必须遵循的协议
+ *  请求数据包协议，发送数据时，必须遵循的协议
  */
-@protocol RHUpstreamPacket <RHSocketPacket>
+@protocol GWRequestPacket <GWSocketPacket>
 
 @optional
 
@@ -47,12 +44,21 @@
  */
 @property (nonatomic, assign) NSTimeInterval timeout;
 
+
 @end
 
 #pragma mark - downstream packet
+
 /**
  *  下行数据包协议，接收数据时，必须遵循的协议
  */
-@protocol RHDownstreamPacket <RHSocketPacket>
+@protocol GWResponesPacket <GWSocketPacket>
+
+@required
+/**
+ *  发送数据超时时间，必须设置。－1时为无限等待
+ */
+@property (nonatomic, assign) NSTimeInterval timeout;
+
 
 @end

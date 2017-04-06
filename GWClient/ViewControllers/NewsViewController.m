@@ -101,7 +101,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
                              @"start":@(1),
                              @"num":@(10)
                              };
-    [Utils GET:ApiTypeGetNewsList params:params succeed:^(id response) {
+    [Request GET:ApiTypeGetNewsList params:params succeed:^(id response) {
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"新闻头条--返回的Json串:\n%@", tempStr);

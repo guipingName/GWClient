@@ -13,7 +13,6 @@
 #import "SettingViewController.h"
 #import "UserInfoViewController.h"
 #import "UIViewController+MMDrawerController.h"
-#import "RHSocketChannelProxy.h"
 #import "TaskManager.h"
 
 typedef NS_ENUM(NSInteger, LeftSectionType) {
@@ -71,7 +70,7 @@ typedef NS_ENUM(NSInteger, LeftSectionTypeOtherRow) {
                                  @"token":currentUser.token,
                                  @"type":@(0)
                                  };
-        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
+        [Request GET:ApiTypeGetFile params:params succeed:^(id response) {
             if ([response[@"success"] boolValue]) {
                 UIImage *image = [response[@"result"][@"files"] firstObject];
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -161,7 +160,6 @@ typedef NS_ENUM(NSInteger, LeftSectionTypeOtherRow) {
     else if (indexPath.section == LeftSectionTypeLogOut) {
         // 注销登录
         NSLog(@"注销登录");
-        [[RHSocketChannelProxy sharedInstance] disconnect];
         [[TaskManager sharedManager].uploadTaskArray removeAllObjects];
         [[TaskManager sharedManager].downloadTaskArray removeAllObjects];
         [currentUser deleteAllRecord];
