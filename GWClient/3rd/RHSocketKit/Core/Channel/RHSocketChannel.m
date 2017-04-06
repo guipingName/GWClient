@@ -128,7 +128,6 @@
 }
 
 #pragma mark - RHSocketEncoderOutputProtocol
-
 - (void)didEncode:(NSData *)data timeout:(NSTimeInterval)timeout
 {
     if (data.length < 1) {

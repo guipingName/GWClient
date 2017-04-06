@@ -10,22 +10,20 @@
 
 @implementation FileModel
 
-- (NSUInteger)fileSize
-{
+- (NSUInteger)fileSize {
     
     if (_fileType == FileTypePicture) {
-        if (_image) {
-            NSData *data = UIImagePNGRepresentation(_image);
+        if (_imagePath) {
+            UIImage *image = [Utils getImageWithImageName:_fileName];
+            NSData *data = UIImagePNGRepresentation(image);
             return data.length;
         }
     }
-    
     if (_fileType == FileTypeVideo) {
         if (_videoData) {
             return  _videoData.length;
         }
     }
-    
     return _fileSize;
 }
 

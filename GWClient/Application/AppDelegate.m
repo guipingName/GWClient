@@ -46,7 +46,6 @@
         self.window.rootViewController = nav;
     }
     
-    // 获取网络状态
     [self getNetworkStatus];
     return YES;
 }
@@ -67,7 +66,7 @@
             case HSReachabilityStatusReachableViaWiFi:
                 [Utils addDialogueBoxWithSuperView:_window Content:@"Wi-Fi"];
                 _netState = NetStatusViaWiFi;
-                //[[TaskManager sharedManager] reUpload];
+                [[TaskManager sharedManager] reUpload];
                 break;
             default:
                 break;
@@ -83,7 +82,7 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    UserInfoModel *user = [Utils aDecoder];
+    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     NSArray *upArray = [TaskManager sharedManager].uploadTaskArray;
     for (FileModel *model in upArray) {
         [user uploadFile:model];

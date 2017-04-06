@@ -110,8 +110,10 @@
         return;
     }
 }
-#pragma mark GCDAsyncSocketDelegate method
 
+
+#pragma mark GCDAsyncSocketDelegate method
+// 与服务器断开
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
     NSLog(@"-------------断开连接,%@",err.localizedDescription);
@@ -119,8 +121,12 @@
     if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
         [_delegate didDisconnectWithError:err];
     }
+    else{
+        NSLog(@"_delegate == nil");
+    }
 }
 
+// 与服务器连接成功
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
     NSLog(@"[RHSocketConnection] didConnectToHost: %@, port: %d", host, port);
@@ -160,7 +166,7 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    //NSLog(@"[RHSocketConnection] didWriteDataWithTag: %ld", tag);
+    NSLog(@"[RHSocketConnection] didWriteDataWithTag: %ld", tag);
     [_asyncSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:tag];
 
 }

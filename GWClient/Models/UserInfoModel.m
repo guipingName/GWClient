@@ -8,6 +8,7 @@
 
 #import "UserInfoModel.h"
 #import "FileModel.h"
+#import "TaskManager.h"
 
 @implementation UserInfoModel
 
@@ -44,6 +45,8 @@
 }
 
 -(void)deleteAllRecord{
+    [[TaskManager sharedManager].uploadTaskArray removeAllObjects];
+    [[TaskManager sharedManager].downloadTaskArray removeAllObjects];
     [[DataBaseManager sharedManager] deleteAllRecord];
 }
 

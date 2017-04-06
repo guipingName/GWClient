@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
 }
 
 - (void) infomation{
-    model = [Utils aDecoder];
+    model = [DataBaseManager sharedManager].currentUser;
     if (!model) {
         return;
     }

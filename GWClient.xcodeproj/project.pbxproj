@@ -61,7 +61,6 @@
 		382003941E8BB87000A3D20B /* RHSocketCallReply.m in Sources */ = {isa = PBXBuildFile; fileRef = 382003831E8BB87000A3D20B /* RHSocketCallReply.m */; };
 		382003951E8BB87000A3D20B /* RHSocketCallReplyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382003851E8BB87000A3D20B /* RHSocketCallReplyManager.m */; };
 		382003961E8BB87000A3D20B /* RHSocketChannelProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 382003881E8BB87000A3D20B /* RHSocketChannelProxy.m */; };
-		3820039E1E8BD88800A3D20B /* UITextView+YLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3820039D1E8BD88800A3D20B /* UITextView+YLTextView.m */; };
 		382522C91E88AE8E0094C289 /* GPNetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382522C81E88AE8E0094C289 /* GPNetWorkManager.m */; };
 		382FA9CF1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382FA9CA1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle */; };
 		382FA9D01E8C92A100938F36 /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9CC1E8C92A100938F36 /* MBProgressHUD+JDragon.m */; };
@@ -79,7 +78,9 @@
 		383680001E83C37C00CC7DDB /* navigationbar_list_hl@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38367FF81E83C37C00CC7DDB /* navigationbar_list_hl@3x.png */; };
 		383680011E83C37C00CC7DDB /* navigationbar_list_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38367FF91E83C37C00CC7DDB /* navigationbar_list_normal@2x.png */; };
 		383680021E83C37C00CC7DDB /* navigationbar_list_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38367FFA1E83C37C00CC7DDB /* navigationbar_list_normal@3x.png */; };
-		383680051E83CB2D00CC7DDB /* UpDownBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 383680041E83CB2D00CC7DDB /* UpDownBtn.m */; };
+		38370B2E1E94DAA300A56EAE /* SexButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 38370B2B1E94DAA300A56EAE /* SexButton.m */; };
+		38370B2F1E94DAA300A56EAE /* UpDownBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 38370B2D1E94DAA300A56EAE /* UpDownBtn.m */; };
+		38370B321E94DAB200A56EAE /* UITextView+YLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38370B311E94DAB200A56EAE /* UITextView+YLTextView.m */; };
 		383CBFFF1E7F68A000C62B29 /* UILabel+GPAligment.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CBFFE1E7F68A000C62B29 /* UILabel+GPAligment.m */; };
 		383CC0031E7F6DCE00C62B29 /* LeftVCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CC0021E7F6DCE00C62B29 /* LeftVCTableViewCell.m */; };
 		383CC0051E7F702D00C62B29 /* 箭头@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 383CC0041E7F702D00C62B29 /* 箭头@3x.png */; };
@@ -133,7 +134,6 @@
 		38DD09431E7BE0F300388CAE /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD09421E7BE0F300388CAE /* NewsViewController.m */; };
 		38DD09471E7BE53900388CAE /* UIImage+RTTint.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD09461E7BE53900388CAE /* UIImage+RTTint.m */; };
 		38DDFC4F1E88E62800CD9E3C /* ModifySexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC4E1E88E62800CD9E3C /* ModifySexViewController.m */; };
-		38DDFC521E88E69A00CD9E3C /* SexButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC511E88E69A00CD9E3C /* SexButton.m */; };
 		38DDFC991E88FE6900CD9E3C /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC7F1E88FE6900CD9E3C /* NSBundle+TZImagePicker.m */; };
 		38DDFC9A1E88FE6900CD9E3C /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC811E88FE6900CD9E3C /* TZAssetCell.m */; };
 		38DDFC9B1E88FE6900CD9E3C /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DDFC831E88FE6900CD9E3C /* TZAssetModel.m */; };
@@ -299,8 +299,6 @@
 		382003861E8BB87000A3D20B /* RHSocketCallReplyProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCallReplyProtocol.h; sourceTree = "<group>"; };
 		382003871E8BB87000A3D20B /* RHSocketChannelProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketChannelProxy.h; sourceTree = "<group>"; };
 		382003881E8BB87000A3D20B /* RHSocketChannelProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketChannelProxy.m; sourceTree = "<group>"; };
-		3820039C1E8BD88800A3D20B /* UITextView+YLTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+YLTextView.h"; sourceTree = "<group>"; };
-		3820039D1E8BD88800A3D20B /* UITextView+YLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+YLTextView.m"; sourceTree = "<group>"; };
 		382522C71E88AE8E0094C289 /* GPNetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPNetWorkManager.h; sourceTree = "<group>"; };
 		382522C81E88AE8E0094C289 /* GPNetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPNetWorkManager.m; sourceTree = "<group>"; };
 		382FA9CA1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
@@ -326,8 +324,12 @@
 		38367FF81E83C37C00CC7DDB /* navigationbar_list_hl@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_list_hl@3x.png"; sourceTree = "<group>"; };
 		38367FF91E83C37C00CC7DDB /* navigationbar_list_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_list_normal@2x.png"; sourceTree = "<group>"; };
 		38367FFA1E83C37C00CC7DDB /* navigationbar_list_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_list_normal@3x.png"; sourceTree = "<group>"; };
-		383680031E83CB2D00CC7DDB /* UpDownBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpDownBtn.h; sourceTree = "<group>"; };
-		383680041E83CB2D00CC7DDB /* UpDownBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpDownBtn.m; sourceTree = "<group>"; };
+		38370B2A1E94DAA300A56EAE /* SexButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexButton.h; sourceTree = "<group>"; };
+		38370B2B1E94DAA300A56EAE /* SexButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexButton.m; sourceTree = "<group>"; };
+		38370B2C1E94DAA300A56EAE /* UpDownBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpDownBtn.h; sourceTree = "<group>"; };
+		38370B2D1E94DAA300A56EAE /* UpDownBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpDownBtn.m; sourceTree = "<group>"; };
+		38370B301E94DAB200A56EAE /* UITextView+YLTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+YLTextView.h"; sourceTree = "<group>"; };
+		38370B311E94DAB200A56EAE /* UITextView+YLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+YLTextView.m"; sourceTree = "<group>"; };
 		383CBFFD1E7F68A000C62B29 /* UILabel+GPAligment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+GPAligment.h"; sourceTree = "<group>"; };
 		383CBFFE1E7F68A000C62B29 /* UILabel+GPAligment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+GPAligment.m"; sourceTree = "<group>"; };
 		383CC0011E7F6DCE00C62B29 /* LeftVCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftVCTableViewCell.h; sourceTree = "<group>"; };
@@ -403,8 +405,6 @@
 		38DD09461E7BE53900388CAE /* UIImage+RTTint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RTTint.m"; sourceTree = "<group>"; };
 		38DDFC4D1E88E62800CD9E3C /* ModifySexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifySexViewController.h; sourceTree = "<group>"; };
 		38DDFC4E1E88E62800CD9E3C /* ModifySexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifySexViewController.m; sourceTree = "<group>"; };
-		38DDFC501E88E69A00CD9E3C /* SexButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexButton.h; sourceTree = "<group>"; };
-		38DDFC511E88E69A00CD9E3C /* SexButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexButton.m; sourceTree = "<group>"; };
 		38DDFC7E1E88FE6900CD9E3C /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
 		38DDFC7F1E88FE6900CD9E3C /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
 		38DDFC801E88FE6900CD9E3C /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
@@ -742,15 +742,6 @@
 			path = CallReply;
 			sourceTree = "<group>";
 		};
-		3820039B1E8BD88800A3D20B /* YLTextView */ = {
-			isa = PBXGroup;
-			children = (
-				3820039C1E8BD88800A3D20B /* UITextView+YLTextView.h */,
-				3820039D1E8BD88800A3D20B /* UITextView+YLTextView.m */,
-			);
-			path = YLTextView;
-			sourceTree = "<group>";
-		};
 		382522C61E88AE8E0094C289 /* NetworkState */ = {
 			isa = PBXGroup;
 			children = (
@@ -955,17 +946,14 @@
 		38DD09441E7BE51400388CAE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				3820039B1E8BD88800A3D20B /* YLTextView */,
 				383CBFFD1E7F68A000C62B29 /* UILabel+GPAligment.h */,
 				383CBFFE1E7F68A000C62B29 /* UILabel+GPAligment.m */,
 				38DD09451E7BE53900388CAE /* UIImage+RTTint.h */,
 				38DD09461E7BE53900388CAE /* UIImage+RTTint.m */,
+				38370B301E94DAB200A56EAE /* UITextView+YLTextView.h */,
+				38370B311E94DAB200A56EAE /* UITextView+YLTextView.m */,
 				3817DC061E81066600FC72C1 /* Utils.h */,
 				3817DC071E81066600FC72C1 /* Utils.m */,
-				383680031E83CB2D00CC7DDB /* UpDownBtn.h */,
-				383680041E83CB2D00CC7DDB /* UpDownBtn.m */,
-				38DDFC501E88E69A00CD9E3C /* SexButton.h */,
-				38DDFC511E88E69A00CD9E3C /* SexButton.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1041,8 +1029,8 @@
 		38E700521E7A895600336BDB /* GWClient */ = {
 			isa = PBXGroup;
 			children = (
-				3820030A1E8B5C7F00A3D20B /* Manager */,
 				38DD08F31E7BDDBB00388CAE /* resource */,
+				3820030A1E8B5C7F00A3D20B /* Manager */,
 				383CC0001E7F6DAE00C62B29 /* Views */,
 				38DD09441E7BE51400388CAE /* Tools */,
 				38E700861E7A89EA00336BDB /* Application */,
@@ -1131,6 +1119,10 @@
 		38E7A1001E8A646C00B4A918 /* CustomButton */ = {
 			isa = PBXGroup;
 			children = (
+				38370B2A1E94DAA300A56EAE /* SexButton.h */,
+				38370B2B1E94DAA300A56EAE /* SexButton.m */,
+				38370B2C1E94DAA300A56EAE /* UpDownBtn.h */,
+				38370B2D1E94DAA300A56EAE /* UpDownBtn.m */,
 				38E7A1011E8A652800B4A918 /* UpImageDownTitle.h */,
 				38E7A1021E8A652800B4A918 /* UpImageDownTitle.m */,
 			);
@@ -1398,6 +1390,7 @@
 				383CBFFF1E7F68A000C62B29 /* UILabel+GPAligment.m in Sources */,
 				3817DC0E1E811EC900FC72C1 /* UserLogin.m in Sources */,
 				38DDFC9A1E88FE6900CD9E3C /* TZAssetCell.m in Sources */,
+				38370B321E94DAB200A56EAE /* UITextView+YLTextView.m in Sources */,
 				3820038C1E8BB87000A3D20B /* RHSocketVariableLengthDecoder.m in Sources */,
 				38E7A0EC1E8A48C700B4A918 /* NSArray+MASAdditions.m in Sources */,
 				382003891E8BB87000A3D20B /* RHSocketChannel.m in Sources */,
@@ -1429,7 +1422,6 @@
 				38E7A0E81E8A48C700B4A918 /* MASConstraintMaker.m in Sources */,
 				382003291E8B9CF200A3D20B /* NewsTableViewCell.m in Sources */,
 				382FA9D11E8C92A100938F36 /* MBProgressHUD.m in Sources */,
-				38DDFC521E88E69A00CD9E3C /* SexButton.m in Sources */,
 				382003531E8BA14400A3D20B /* SDWebImageManager.m in Sources */,
 				382003511E8BA14400A3D20B /* SDWebImageDownloader.m in Sources */,
 				38DD08ED1E7BD70A00388CAE /* MMDrawerVisualState.m in Sources */,
@@ -1437,11 +1429,12 @@
 				3820038E1E8BB87000A3D20B /* NSDictionary+RHSocket.m in Sources */,
 				382522C91E88AE8E0094C289 /* GPNetWorkManager.m in Sources */,
 				38DDFC991E88FE6900CD9E3C /* NSBundle+TZImagePicker.m in Sources */,
+				38370B2F1E94DAA300A56EAE /* UpDownBtn.m in Sources */,
 				38DDFC9C1E88FE6900CD9E3C /* TZGifPhotoPreviewController.m in Sources */,
 				383CC00B1E7F79C500C62B29 /* UserInfoModel.m in Sources */,
-				3820039E1E8BD88800A3D20B /* UITextView+YLTextView.m in Sources */,
 				382003521E8BA14400A3D20B /* SDWebImageDownloaderOperation.m in Sources */,
 				38E7A0E71E8A48C700B4A918 /* MASConstraint.m in Sources */,
+				38370B2E1E94DAA300A56EAE /* SexButton.m in Sources */,
 				3820034D1E8BA14400A3D20B /* NSData+ImageContentType.m in Sources */,
 				382003951E8BB87000A3D20B /* RHSocketCallReplyManager.m in Sources */,
 				38DDFC4F1E88E62800CD9E3C /* ModifySexViewController.m in Sources */,
@@ -1474,7 +1467,6 @@
 				3820031E1E8B5CDA00A3D20B /* FMResultSet.m in Sources */,
 				38DD093A1E7BE00600388CAE /* GWClientTabBarController.m in Sources */,
 				382003261E8B989200A3D20B /* NewsModel.m in Sources */,
-				383680051E83CB2D00CC7DDB /* UpDownBtn.m in Sources */,
 				38E7A0EF1E8A48C700B4A918 /* ViewController+MASAdditions.m in Sources */,
 				38DDFC9D1E88FE6900CD9E3C /* TZImageCropManager.m in Sources */,
 				3820031A1E8B5CDA00A3D20B /* FMDatabase.m in Sources */,

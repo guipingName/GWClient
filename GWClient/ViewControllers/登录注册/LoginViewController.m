@@ -68,16 +68,8 @@
             if ([response[@"success"] boolValue]) {
                 [Utils hintMessage:@"登录成功" time:1 isSuccess:YES];
                 NSDictionary *dic = response[@"result"];
-                UserInfoModel *model = [[UserInfoModel alloc] init];
-                model.userId = [dic[@"userId"] integerValue];
+                UserInfoModel *model = [UserInfoModel yy_modelWithDictionary:dic];
                 model.token = response[@"token"];
-                model.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
-                model.headImgUrl = dic[@"headImgUrl"];
-                model.age = [dic[@"age"] integerValue];
-                model.sex = [dic[@"gender"] integerValue];
-                model.location = dic[@"location"];
-                model.signature = dic[@"signature"];
-                //
                 // 归档
                 [Utils aCoder:model];
                 [DataBaseManager sharedManager].currentUser = model;

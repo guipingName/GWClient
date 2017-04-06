@@ -14,6 +14,7 @@
 {
     NSMutableArray *upArray;
     NSMutableArray *tempDownArray;
+    NSInteger readyCount;
 }
 - (instancetype) init{
     @throw [NSException exceptionWithName:@"初始化对象异常" reason:@"不允许通过初始化方法创建对象" userInfo:nil];
@@ -41,20 +42,39 @@
 }
 
 -(void)reUpload{
+    readyCount = 0;
     [self upArray:_uploadTaskArray];
 }
 
 
 - (void)upArray:(NSMutableArray *) up {
+    readyCount = 0;
     upArray = up;
     [self upload];
+}
+
+- (void) upload {
+    _uploadTaskArray = upArray;
+    for (FileModel *temp in upArray) {
+        if (temp.fileState == TransferStatusReady ||
+            temp.fileState == TransferStatusDuring) {
+            readyCount++;
+        }
+    }
+    NSLog(@"未上传个数: %ld", (long)readyCount);
     
+    NSInteger index = [self lookFor:upArray isUpload:YES];
+    if (index != -1) {
+        FileModel *temp = upArray[index];
+        [self uploadFile:temp];
+    }
 }
 
 - (int)lookFor:(NSArray*) upArray1 isUpload:(BOOL) isUpload{
     for (int i = 0; i < upArray1.count; i++) {
         FileModel *model = upArray1[i];
-        if (model.fileState == TransferStatusReady) {
+        if (model.fileState == TransferStatusReady ||
+            model.fileState == TransferStatusDuring) {
             model.fileState = TransferStatusDuring;
             return i;
         }
@@ -65,29 +85,20 @@
     return -1;
 }
 
-- (void) upload {
-    _uploadTaskArray = upArray;
-    NSInteger index = [self lookFor:upArray isUpload:YES];
-    if (index != -1) {
-        FileModel *temp = upArray[index];
-        
-        [self uploadFile:temp];
-    }
-}
 
 - (void) uploadFile:(FileModel *) model{
-    UserInfoModel *user = [Utils aDecoder];
-    NSDictionary *ddd;
+    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
+    NSDictionary *fileDic = [NSDictionary dictionary];
     if (model.fileType == FileTypePicture) {
-        ddd = @{model.fileName:model.image};
+        fileDic = @{model.fileName:[Utils getImageWithImageName:model.fileName]};
     }
     else if (model.fileType == FileTypeVideo) {
-        ddd = @{model.fileName:model.videoData};
+        fileDic = @{model.fileName:model.videoData};
     }
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token,
                              @"type":@(model.fileType),
-                             @"fileDic":ddd
+                             @"fileDic":fileDic
                              };
     [Utils GET:ApiTypeUpFile params:params succeed:^(id response) {
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
@@ -127,7 +138,7 @@
 }
 
 - (void) downloadFile:(FileModel *) model{
-    UserInfoModel *user = [Utils aDecoder];
+    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token,
                              @"type":@(model.fileType),

@@ -37,6 +37,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     
 }
 
+
 +(void)downLoad:(ApiType)ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure downLoadProcess:(void (^)(NSInteger, NSInteger, float))process
 {
     NSString *host = HOST_IP;
@@ -68,10 +69,14 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
         @strongify(self);
         [self sendRpcForTestJsonCodec:ApiType paramDic:params succeed:success fail:failure compeletProcess:nil];
     }];
-    
+    [connect setFailureBlock:^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
+        NSLog(@"wangluo11111111111");
+        failure(error);
+    }];
     [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
-    
 }
+
+
 + (void) sendRpcForTestJsonCodec:(ApiType) ApiType
                        paramDic :(NSDictionary *) paramDic
                          succeed:(void (^)(id))success
@@ -88,12 +93,15 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     [callReply setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
         NSDictionary *resultDic = [response object];
         success(resultDic);
+        NSLog(@"数据请求成功");
     }];
     [callReply setFailureBlock:^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
         failure(error);
+        NSLog(@"请求失败2222");
     }];
     [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply compeletProcess:process];
 }
+
 + (void) sendRpcForTestJsonCodec:(ApiType) ApiType
                        paramDic :(NSDictionary *) paramDic
                          succeed:(void (^)(id))success
@@ -139,6 +147,14 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     });
 }
 
++ (void) hintMessage:(NSString *) message superView:(UIView *) superView hud:(MBProgressHUD *) hud{
+    if (![superView.subviews containsObject:hud]) {
+        hud = [MBProgressHUD showHUDAddedTo:superView animated:YES];
+    }
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = message;
+    hud.userInteractionEnabled = NO;
+}
 
 +(void)aCoder:(UserInfoModel *) model{
     NSMutableData *mData = [NSMutableData data];
@@ -196,29 +212,25 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 }
 
 
-+ (void) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName{
-    //先把图片转成NSData
++ (NSString *) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName{
     NSData *data  = UIImageJPEGRepresentation(image, 0.000000005);
-    
-    //文件管理器
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    //拼接要存放东西的文件夹
     NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)objectAtIndex:0];
     NSString *createPath = [NSString stringWithFormat:@"%@/pictures", pathDocuments];
-    // 判断文件夹是否存在，如果不存在，则创建
     if (![fileManager fileExistsAtPath:createPath]) {
-        //如果没有就创建这个 想创建的文件夹
         [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/pictures"];
     NSString *imgFileName = [NSString stringWithFormat:@"/%@",imageName];
-    [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:imgFileName] contents:data attributes:nil];
+    NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
+    [fileManager createFileAtPath:filePath contents:data attributes:nil];
+    return filePath;
 }
 
 + (UIImage *) getImageWithImageName:(NSString *) imageName{
     NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/pictures"];
     NSString *imgFileName = [NSString stringWithFormat:@"/%@",imageName];
-    NSString * filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
+    NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
     UIImage *img = [UIImage imageWithContentsOfFile:filePath];
     return img;
 }

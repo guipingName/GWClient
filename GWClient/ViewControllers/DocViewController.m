@@ -60,7 +60,7 @@
     dataArray = [NSMutableArray array];
     uploadImageArray = [NSMutableArray array];
     uploadImageNameArray = [NSMutableArray array];
-    user = [Utils aDecoder];
+    user = [DataBaseManager sharedManager].currentUser;
     // 测试
     [self createTableView];
     [self creatRightItem];
@@ -244,73 +244,7 @@
     [self printAssets:assets photos:photos];
 }
 
-- (void)  aaa:(PHAsset *) asset{
-    //+ (void) getImageFromPHAsset: (PHAsset * ) asset Complete: (Result) result {
-        __block NSData * data;
-        PHAssetResource * resource = [[PHAssetResource assetResourcesForAsset: asset] firstObject];
-        if (asset.mediaType == PHAssetMediaTypeImage) {
-            PHImageRequestOptions * options = [[PHImageRequestOptions alloc] init];
-            options.version = PHImageRequestOptionsVersionCurrent;
-            options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-            options.synchronous = YES;
-            [[PHImageManager defaultManager] requestImageDataForAsset: asset options: options resultHandler: ^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary * info) {
-                data = [NSData dataWithData: imageData];
-            }];
-        }
-//        if (result) {
-//            if (data.length <= 0) {
-//                result(nil, nil);
-//            } else {
-//                result(data, resource.originalFilename);
-//            }
-//        }
-
-}
-
-- (void) video:(PHAsset *) asset{
-    NSLog(@"123");
-    
-    //+ (void) getVideoFromPHAsset: (PHAsset * ) asset Complete: (Result) result {
-        NSArray * assetResources = [PHAssetResource assetResourcesForAsset: asset];
-        PHAssetResource * resource;
-        for (PHAssetResource * assetRes in assetResources) {
-            if (assetRes.type == PHAssetResourceTypePairedVideo || assetRes.type == PHAssetResourceTypeVideo) {
-                resource = assetRes;
-            }
-        }
-        NSString * fileName = @"tempAssetVideo.mov";
-        if (resource.originalFilename) {
-            fileName = resource.originalFilename;
-        }
-    NSLog(@"fileName: %@", fileName);
-        if (asset.mediaType == PHAssetMediaTypeVideo || asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
-            PHVideoRequestOptions * options = [[PHVideoRequestOptions alloc] init];
-            options.version = PHImageRequestOptionsVersionCurrent;
-            options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-            NSString * PATH_MOVIE_FILE = [NSTemporaryDirectory() stringByAppendingPathComponent: fileName];
-            NSLog(@"PATH_MOVIE_FILE1: %@",PATH_MOVIE_FILE);
-            [[NSFileManager defaultManager] removeItemAtPath: PATH_MOVIE_FILE error: nil];
-            NSLog(@"PATH_MOVIE_FILE2: %@",PATH_MOVIE_FILE);
-            [[PHAssetResourceManager defaultManager] writeDataForAssetResource: resource toFile: [NSURL fileURLWithPath: PATH_MOVIE_FILE] options: nil completionHandler: ^(NSError * _Nullable error) {
-                if (error) {
-                    //result(nil, nil);
-                }
-                else {
-                    NSData * data = [NSData dataWithContentsOfURL: [NSURL fileURLWithPath: PATH_MOVIE_FILE]];
-                    NSLog(@"data.length: %lu", (unsigned long)data.length);
-                    //result(data, fileName);
-                }
-                NSLog(@"PATH_MOVIE_FILE3: %@",PATH_MOVIE_FILE);
-                [[NSFileManager defaultManager] removeItemAtPath: PATH_MOVIE_FILE error: nil];
-            }];
-        }
-        else {
-            //result(nil, nil);
-        }
-    
-}
-
-
+#pragma mark --------------- 上传图片 ----------------
 - (void) printAssets:(NSArray *)assets photos:(NSArray *) photos{
     NSString *fileName;
     NSMutableArray *imageNames = [NSMutableArray array];
@@ -319,21 +253,6 @@
             PHAsset *phAsset = (PHAsset *)asset;
             fileName = [phAsset valueForKey:@"filename"];
         }
-        
-        /*
-         if ([asset isKindOfClass:[PHAsset class]]) {
-         PHVideoRequestOptions* options = [[PHVideoRequestOptions alloc] init];
-         options.version = PHVideoRequestOptionsVersionOriginal;
-         options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
-         options.networkAccessAllowed = YES;
-         [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
-         // NSLog(@"Info:\n%@",info);
-         AVURLAsset *videoAsset = (AVURLAsset*)avasset;
-         // NSLog(@"AVAsset URL: %@",myAsset.URL);
-         [self startExportVideoWithVideoAsset:videoAsset completion:completion];
-         }];
-         }
-         */
         else if ([asset isKindOfClass:[ALAsset class]]) {
             ALAsset *alAsset = (ALAsset *)asset;
             fileName = alAsset.defaultRepresentation.filename;;
@@ -352,7 +271,9 @@
         model.fileState = TransferStatusReady;
         model.fileType = FileTypePicture;
         model.fileName = uploadImageNameArray[i];
-        model.image = uploadImageArray[i];
+        UIImage *image = uploadImageArray[i];
+        NSString *filePath = [Utils savePhotoWithImage:image imageName:model.fileName];
+        model.imagePath = filePath;
         [aaaa addObject:model];
     }
     
@@ -376,39 +297,62 @@
     if ([asset isKindOfClass:[PHAsset class]]) {
         [self video:asset];
     }
-    else if ([asset isKindOfClass:[ALAsset class]]) {
-       
+}
+
+#pragma mark --------------- 上传视频 ----------------
+- (void) video:(PHAsset *) asset{
+    __weak typeof(self) weakSelf = self;
+    NSArray * assetResources = [PHAssetResource assetResourcesForAsset: asset];
+    PHAssetResource * resource;
+    for (PHAssetResource * assetRes in assetResources) {
+        if (assetRes.type == PHAssetResourceTypePairedVideo || assetRes.type == PHAssetResourceTypeVideo) {
+            resource = assetRes;
+        }
     }
-    //
-    return;
-    
-    
-    [MBProgressHUD showActivityMessageInView:@"准备上传..."];
-    [[TZImageManager manager] getVideoOutputPathWithAsset:asset completion:^(NSString *outputPath) {
-        //NSLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
-        [MBProgressHUD hideHUD];
-        // Export completed, send video here, send by outputPath or NSData
-        NSData *data = [NSData dataWithContentsOfFile:outputPath];
-        //NSLog(@"data: %@", data);
-        FileModel *model = [[FileModel alloc] init];
-        model.fileState = TransferStatusReady;
-        model.fileType = FileTypeVideo;
+    NSString * fileName = nil;
+    if (resource.originalFilename) {
+        fileName = resource.originalFilename;
+    }
+    if (!fileName) {
         NSDate *datenow = [NSDate date];
         NSDateFormatter *formater = [[NSDateFormatter alloc] init];
         [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSString *currentTime = [formater stringFromDate:datenow];
-        model.fileName = [NSString stringWithFormat:@"%@.mp4", currentTime];
-        model.videoData = data;
-        
-        NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
-        [temp addObject:model];
-        [[TaskManager sharedManager] setSucess:^(BOOL success) {
-            if (success) {
-                [self fileList];
+        fileName = [NSString stringWithFormat:@"%@.MOV", currentTime];
+    }
+    if (asset.mediaType == PHAssetMediaTypeVideo || asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
+        NSLog(@"111111111");
+        NSString *videoPath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+        [[NSFileManager defaultManager] removeItemAtPath:videoPath error:nil];
+        [[PHAssetResourceManager defaultManager] writeDataForAssetResource: resource toFile: [NSURL fileURLWithPath:videoPath] options:nil completionHandler: ^(NSError * _Nullable error) {
+            NSLog(@"222222222222");
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
             }
+            else {
+                NSData * data = [NSData dataWithContentsOfURL: [NSURL fileURLWithPath:videoPath]];
+                //NSLog(@"data.length: %lu", (unsigned long)data.length);
+                
+                FileModel *model = [[FileModel alloc] init];
+                model.fileState = TransferStatusReady;
+                model.fileType = FileTypeVideo;
+                model.fileName = fileName;
+                model.videoData = data;
+                NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
+                [temp addObject:model];
+                [[TaskManager sharedManager] setSucess:^(BOOL success) {
+                    if (success) {
+                        [weakSelf fileList];
+                    }
+                }];
+                [[TaskManager sharedManager] upArray:temp];
+            }
+            [[NSFileManager defaultManager] removeItemAtPath: videoPath error: nil];
         }];
-        [[TaskManager sharedManager] upArray:temp];
-    }];
+    }
+    else {
+        NSLog(@"失败");
+    }
 }
 
 // Gif图片

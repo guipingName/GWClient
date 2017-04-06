@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
 {
     NSMutableArray *dataArray;
     UITableView *newTableView;
+    MBProgressHUD *hud;
 }
 
 @end
@@ -95,16 +96,11 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
 }
 
 - (void) getNews:(NSString *) keyWord{
-    [Utils showMessage:@"加载中..." superView:self.view];
+    [Utils hintMessage:@"加载中..." superView:self.view hud:hud];
     NSDictionary *params = @{@"channel":keyWord,
                              @"start":@(1),
                              @"num":@(10)
                              };
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
-    });
     [Utils GET:ApiTypeGetNewsList params:params succeed:^(id response) {
 //        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
@@ -133,13 +129,16 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
                 });
             }
             else{
-                
+                NSLog(@"新闻列表获取失败");
             }
         }
         else{
             [Utils hintMessage:@"获取失败" time:1 isSuccess:NO];
         }
     } fail:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         NSLog(@"%@", error.localizedDescription);
     }];
 

@@ -12,6 +12,7 @@
 typedef void(^RHSocketReplySuccessBlock)(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response);
 typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply, NSError *error);
 
+
 @interface RHSocketCallReply ()
 {
     id<RHUpstreamPacket> _request;
@@ -31,6 +32,16 @@ typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply
 {
     _successBlock = successBlock;
 }
+
+- (void)onSuccess:(id<RHSocketCallReplyProtocol>)aCallReply response:(id<RHDownstreamPacket>)response
+{
+    //RHSocketLog(@"%@ onSuccess: %@", [self class], [response object]);
+    //请求成功
+    if (_successBlock) {
+        _successBlock(aCallReply, response);
+    }
+}
+
 
 - (void)setFailureBlock:(void (^)(id<RHSocketCallReplyProtocol>, NSError *))failureBlock
 {
@@ -73,10 +84,9 @@ typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply
 }
 
 #pragma mark - RHSocketReplyProtocol
-
 - (void)onFailure:(id<RHSocketCallReplyProtocol>)aCallReply error:(NSError *)error
 {
-    RHSocketLog(@"%@ onFailure: %@", [self class], error.description);
+    NSLog(@"%@ onFailure: %@", [self class], error.description);
     AppDelegate *appdelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
     appdelegate.severAvailable = NO;
     if (appdelegate.netState == NetStatussNone) {
@@ -92,13 +102,5 @@ typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply
     }
 }
 
-- (void)onSuccess:(id<RHSocketCallReplyProtocol>)aCallReply response:(id<RHDownstreamPacket>)response
-{
-    //RHSocketLog(@"%@ onSuccess: %@", [self class], [response object]);
-    //请求成功
-    if (_successBlock) {
-        _successBlock(aCallReply, response);
-    }
-}
 
 @end

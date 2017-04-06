@@ -59,7 +59,7 @@ typedef NS_ENUM(NSInteger, LeftSectionTypeOtherRow) {
 
 
 - (void) infomation{
-    currentUser = [Utils aDecoder];
+    currentUser = [DataBaseManager sharedManager].currentUser;
     UIImage *image = [Utils getImageWithImageName:currentUser.headImgUrl];
     if (image) {
         ImvUserhead.image = image;

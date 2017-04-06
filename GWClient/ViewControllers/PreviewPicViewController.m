@@ -66,7 +66,7 @@
     }
     else{
         [activityIndicator startAnimating];
-        UserInfoModel *currentUser = [Utils aDecoder];
+        UserInfoModel *currentUser = [DataBaseManager sharedManager].currentUser;
         NSDictionary *params = @{@"userId":@(currentUser.userId),
                                  @"token":currentUser.token,
                                  @"type":@(_model.fileType),
@@ -110,7 +110,7 @@
     }
     else{
         [activityIndicator stopAnimating];
-        UserInfoModel *currentUser = [Utils aDecoder];
+        UserInfoModel *currentUser = [DataBaseManager sharedManager].currentUser;
         NSDictionary *params = @{@"userId":@(currentUser.userId),
                                  @"token":currentUser.token,
                                  @"type":@(_model.fileType),

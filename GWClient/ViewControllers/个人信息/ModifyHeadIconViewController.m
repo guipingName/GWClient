@@ -140,7 +140,7 @@
 
 - (void) upLoadHeadImge:(UIImage *) image imageName:(NSString *) imageName{
     [MBProgressHUD showActivityMessageInView:@"正在上传"];
-    UserInfoModel *model = [Utils aDecoder];
+    UserInfoModel *model = [DataBaseManager sharedManager].currentUser;
     NSDictionary *paramDic = @{@"userId":@(model.userId),
                                @"token":model.token,
                                @"type":@(0),

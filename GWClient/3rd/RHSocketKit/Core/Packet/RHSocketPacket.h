@@ -35,7 +35,6 @@
 @end
 
 #pragma mark - upstream packet
-
 /**
  *  上行数据包协议，发送数据时，必须遵循的协议
  */
@@ -51,7 +50,6 @@
 @end
 
 #pragma mark - downstream packet
-
 /**
  *  下行数据包协议，接收数据时，必须遵循的协议
  */

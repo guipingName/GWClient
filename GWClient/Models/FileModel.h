@@ -28,25 +28,34 @@ typedef NS_ENUM(NSInteger, FileTransferType) {
 
 @interface FileModel : NSObject
 
-
+/**上传、下载状态*/
 @property(nonatomic, assign)TransferStatus fileState;
 
+/**文件名*/
 @property (nonatomic, copy) NSString *fileName;
 
+/**文件Id*/
 @property (nonatomic, assign) NSUInteger fileId;
 
+/**上传时间*/
 @property (nonatomic, assign) NSUInteger fileTime;
 
+/**文件类型*/
 @property (nonatomic, assign) FileType fileType;
 
+/**文件大小*/
 @property (nonatomic, assign) NSUInteger fileSize;
 
+/**文件操作类型(上传、下载)*/
 @property (nonatomic, assign) FileTransferType fileOperateType;
 
-@property (nonatomic, strong) UIImage *image;
+/**图片url(如果是图片)*/
+@property (nonatomic, copy) NSString *imagePath;
 
+/**视频数据(如果是视频)*/
 @property (nonatomic, strong) NSData *videoData;
 
+/**缩略图*/
 @property (nonatomic, strong) UIImage *thumbnail;
 
 @end

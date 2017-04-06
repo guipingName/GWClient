@@ -51,7 +51,7 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
     self.navigationController.navigationBar.barTintColor = THEME_COLOR;
     
-    user = [Utils aDecoder];
+    user = [DataBaseManager sharedManager].currentUser;
     
     
     dataArray = [NSMutableArray array];
@@ -385,13 +385,13 @@
     if (dic) {
         done = [dic valueForKey:@"done"];
         compelet = [dic valueForKey:@"compelet"];
-    } else {
+    }
+    else {
         done = @(0);
         compelet = @(0);
     }
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    _iconImage.image = [UIImage imageNamed:[Utils ImageNameWithFileType:fileModel.fileType]];
+    _iconImage.image = [Utils getImageWithImageName:fileModel.fileName];
     _nameLabel.text = fileModel.fileName;
     if (fileModel.fileState == TransferStatusReady) {
         _sizeLabel.text = [NSString stringWithFormat:@"正在等待..."];

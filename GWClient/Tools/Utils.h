@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MBProgressHUD.h"
 
 @interface Utils : NSObject
 
@@ -36,7 +37,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 
 + (UIImage *) getImageWithImageName:(NSString *) imageName;
 
-+ (void) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName;
++ (NSString *) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName;
 
 + (void) saveVideoWithData:(NSData *)data videoName:(NSString *) videoName;
 
@@ -50,5 +51,5 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 
 + (void) showMessage:(NSString *) message superView:(UIView *) superView;
 
-+ (void) hiddenMBProgressAfterTenMinites;
++ (void) hintMessage:(NSString *) message superView:(UIView *) superView hud:(MBProgressHUD *) hud;
 @end
