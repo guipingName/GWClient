@@ -54,6 +54,7 @@
 		382097911E96365800BD60F7 /* GWSocketPacketContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3820978C1E96365800BD60F7 /* GWSocketPacketContext.m */; };
 		382097921E96365800BD60F7 /* GWVariableDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3820978E1E96365800BD60F7 /* GWVariableDecoder.m */; };
 		382097931E96365800BD60F7 /* GWVariableEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 382097901E96365800BD60F7 /* GWVariableEncoder.m */; };
+		382097971E9646D900BD60F7 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 382097961E9646D900BD60F7 /* download.png */; };
 		382522C91E88AE8E0094C289 /* GPNetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382522C81E88AE8E0094C289 /* GPNetWorkManager.m */; };
 		382FA9CF1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382FA9CA1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle */; };
 		382FA9D01E8C92A100938F36 /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9CC1E8C92A100938F36 /* MBProgressHUD+JDragon.m */; };
@@ -272,6 +273,7 @@
 		3820978E1E96365800BD60F7 /* GWVariableDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableDecoder.m; sourceTree = "<group>"; };
 		3820978F1E96365800BD60F7 /* GWVariableEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVariableEncoder.h; sourceTree = "<group>"; };
 		382097901E96365800BD60F7 /* GWVariableEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableEncoder.m; sourceTree = "<group>"; };
+		382097961E9646D900BD60F7 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
 		382522C71E88AE8E0094C289 /* GPNetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPNetWorkManager.h; sourceTree = "<group>"; };
 		382522C81E88AE8E0094C289 /* GPNetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPNetWorkManager.m; sourceTree = "<group>"; };
 		382FA9CA1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
@@ -786,6 +788,7 @@
 				38034F4F1E8FB8C600E9B8B3 /* head.png */,
 				382002F91E8B3DF500A3D20B /* setting.png */,
 				386CC57A1E8F72FE0017D94F /* arrow_down111.png */,
+				382097961E9646D900BD60F7 /* download.png */,
 				382002FA1E8B3DF500A3D20B /* logOut.png */,
 				38E7A0F21E8A4C5A00B4A918 /* arrow_up.png */,
 				38E7A0F41E8A4CB800B4A918 /* arrow_down.png */,
@@ -1178,6 +1181,7 @@
 				38C7F0431E7FF0BA00B1DBA8 /* tabbar_discover@3x.png in Resources */,
 				38E7A0F81E8A519500B4A918 /* delete.png in Resources */,
 				383FE1511E8E3A6E00D5637E /* CDPPlay.png in Resources */,
+				382097971E9646D900BD60F7 /* download.png in Resources */,
 				383FE0E41E8DE29200D5637E /* video.png in Resources */,
 				38367FFB1E83C37C00CC7DDB /* navigation_back_hl@2x.png in Resources */,
 				383680021E83C37C00CC7DDB /* navigationbar_list_normal@3x.png in Resources */,

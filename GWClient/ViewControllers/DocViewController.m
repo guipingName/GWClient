@@ -209,7 +209,7 @@
     preVC.hidesBottomBarWhenPushed = YES;
     preVC.model = model;
     if (model.fileType == FileTypePicture) {
-        preVC.isPicture = NO;
+        preVC.isPicture = YES;
     }
     else{
         preVC.isPicture = NO;
@@ -284,26 +284,6 @@
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset {
     if ([asset isKindOfClass:[PHAsset class]]) {
         [self video:asset];
-        //[self abc:asset];
-    }
-}
-
-
-- (void) abc:(PHAsset *) ASSET{
-    PHAsset *phAsset = ASSET;
-    if (phAsset.mediaType == PHAssetMediaTypeVideo) {
-        PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
-        options.version = PHImageRequestOptionsVersionCurrent;
-        options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
-        
-        PHImageManager *manager = [PHImageManager defaultManager];
-        [manager requestAVAssetForVideo:phAsset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-            AVURLAsset *urlAsset = (AVURLAsset *)asset;
-            NSURL *url = urlAsset.URL;
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            //[Utils saveVideoWithData:data videoName:@"2017.MOV"];
-            NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
-        }];
     }
 }
 
@@ -341,6 +321,8 @@
             NSData *data = [NSData dataWithContentsOfURL:url];
             //[Utils saveVideoWithData:data videoName:@"2017.MOV"];
             NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
+            
+            // 准备上传视频
             FileModel *model = [[FileModel alloc] init];
             model.fileState = TransferStatusReady;
             model.fileType = FileTypeVideo;
@@ -356,41 +338,12 @@
             }];
             [[TaskManager sharedManager] upArray:temp];
         }];
-
-        
-//        NSString *videoPath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-//        [[NSFileManager defaultManager] removeItemAtPath:videoPath error:nil];
-//        [[PHAssetResourceManager defaultManager] writeDataForAssetResource: resource toFile: [NSURL fileURLWithPath:videoPath] options:nil completionHandler: ^(NSError * _Nullable error) {
-//            NSLog(@"222222222222");
-//            if (error) {
-//                NSLog(@"%@", error.localizedDescription);
-//            }
-//            else {
-//                NSData * data = [NSData dataWithContentsOfURL: [NSURL fileURLWithPath:videoPath]];
-//                //NSLog(@"data.length: %lu", (unsigned long)data.length);
-//                
-//                FileModel *model = [[FileModel alloc] init];
-//                model.fileState = TransferStatusReady;
-//                model.fileType = FileTypeVideo;
-//                model.fileName = fileName;
-//                model.videoData = data;
-//                model.fileSize = data.length;
-//                NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
-//                [temp addObject:model];
-//                [[TaskManager sharedManager] setSucess:^(BOOL success) {
-//                    if (success) {
-//                        [weakSelf fileList];
-//                    }
-//                }];
-//                [[TaskManager sharedManager] upArray:temp];
-//            }
-//            [[NSFileManager defaultManager] removeItemAtPath: videoPath error: nil];
-//        }];
     }
     else {
         NSLog(@"失败");
     }
 }
+
 
 // Gif图片
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingGifImage:(UIImage *)animatedImage sourceAssets:(id)asset {

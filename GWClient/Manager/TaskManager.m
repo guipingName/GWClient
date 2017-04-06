@@ -14,7 +14,6 @@
 {
     NSMutableArray *upArray;
     NSMutableArray *tempDownArray;
-    NSInteger readyCount;
 }
 - (instancetype) init{
     @throw [NSException exceptionWithName:@"初始化对象异常" reason:@"不允许通过初始化方法创建对象" userInfo:nil];
@@ -42,13 +41,12 @@
 }
 
 -(void)reUpload{
-    readyCount = 0;
     [self upArray:_uploadTaskArray];
 }
 
 
 - (void)upArray:(NSMutableArray *) up {
-    readyCount = 0;
+    
     upArray = up;
     //[self upload];
     NSOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
@@ -64,6 +62,7 @@
 }
 
 - (void) upload {
+    NSInteger readyCount = 0;
     _uploadTaskArray = upArray;
     for (FileModel *temp in upArray) {
         if (temp.fileState == TransferStatusReady ||
@@ -159,7 +158,7 @@
 //        if ([response[@"success"] boolValue]) {
 //            id newObj = [response[@"result"][@"files"] firstObject];
 //            if ([newObj isKindOfClass:[UIImage class]]) {
-//                NSLog(@"下载图片成功 " );
+//                NSLog(@"下载图片成功");
 //                UIImage *image = [response[@"result"][@"files"] firstObject];
 //                [Utils savePhotoWithImage:image imageName:model.fileName];
 //                model.fileState = TransferStatusFinished;
