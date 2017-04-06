@@ -136,7 +136,8 @@
                 [self callDelegateMethod];
             }];
         }
-    } else {
+    }
+    else {
         [self dismissViewControllerAnimated:YES completion:^{
             [self callDelegateMethod];
         }];

@@ -31,10 +31,8 @@
     float selectRowHeight;
     HintView *emptyView;
     UserInfoModel *user;
-    
-    NSMutableArray *uploadImageArray;
-    NSMutableArray *uploadImageNameArray;
     UIView *clearView;
+    MBProgressHUD *hud;
 }
 
 @end
@@ -58,8 +56,6 @@
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     dataArray = [NSMutableArray array];
-    uploadImageArray = [NSMutableArray array];
-    uploadImageNameArray = [NSMutableArray array];
     user = [DataBaseManager sharedManager].currentUser;
     // 测试
     [self createTableView];
@@ -246,7 +242,8 @@
 
 #pragma mark --------------- 上传图片 ----------------
 - (void) printAssets:(NSArray *)assets photos:(NSArray *) photos{
-    NSString *fileName;
+    NSString *fileName = nil;
+    NSMutableArray *ImageArray = [NSMutableArray array];
     NSMutableArray *imageNames = [NSMutableArray array];
     for (id asset in assets) {
         if ([asset isKindOfClass:[PHAsset class]]) {
@@ -258,37 +255,28 @@
             fileName = alAsset.defaultRepresentation.filename;;
         }
         [imageNames addObject:fileName];
-        [uploadImageNameArray addObject:fileName];
     }
-    
-    for (UIImage *pho in photos) {
-        [uploadImageArray addObject:pho];
-    }
-    
-    NSMutableArray *aaaa = [NSMutableArray array];
-    for (int i=0; i<uploadImageArray.count; i++) {
+    [ImageArray addObjectsFromArray:photos];
+    NSMutableArray *images = [NSMutableArray array];
+    for (int i=0; i<ImageArray.count; i++) {
         FileModel *model = [[FileModel alloc] init];
         model.fileState = TransferStatusReady;
         model.fileType = FileTypePicture;
-        model.fileName = uploadImageNameArray[i];
-        UIImage *image = uploadImageArray[i];
-        NSString *filePath = [Utils savePhotoWithImage:image imageName:model.fileName];
-        model.imagePath = filePath;
-        [aaaa addObject:model];
+        model.fileName = imageNames[i];
+        UIImage *image = ImageArray[i];
+        model.fileSize = [Utils savePhotoWithImage:image imageName:model.fileName];
+        [images addObject:model];
     }
     
-    [uploadImageArray removeAllObjects];
-    [uploadImageNameArray removeAllObjects];
-    
     NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
-    [temp addObjectsFromArray:aaaa];
+    [temp addObjectsFromArray:images];
     [[TaskManager sharedManager] setSucess:^(BOOL success) {
         if (success) {
             [self fileList];
         }
     }];
     [[TaskManager sharedManager] upArray:temp];
-    [MBProgressHUD showActivityMessageInView:@"正在上传" timer:1];
+    //[MBProgressHUD showActivityMessageInView:@"正在上传" timer:1];
 }
 
 
@@ -338,6 +326,7 @@
                 model.fileType = FileTypeVideo;
                 model.fileName = fileName;
                 model.videoData = data;
+                model.fileSize = data.length;
                 NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
                 [temp addObject:model];
                 [[TaskManager sharedManager] setSucess:^(BOOL success) {
@@ -363,7 +352,7 @@
 
 #pragma mark --------------- 删除文件 ----------------
 - (void) deleteFile:(FileModel *) file indexPaths:(NSArray<NSIndexPath *> *)indexPaths{
-    [MBProgressHUD showActivityMessageInView:@"正在删除..." timer:1];
+    [Utils hintMessage:@"正在删除..." superView:self.view hud:hud];
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"deleteFileIds":@[@(file.fileId)],
                              @"token":user.token
@@ -372,6 +361,9 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"删除文件列表--返回的Json串:\n%@", tempStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -388,6 +380,9 @@
             }
         }
     } fail:^(NSError * error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         NSLog(@"%@",error.localizedDescription);
     }];
 }
@@ -407,41 +402,6 @@
     [temp addObject:file];
     [[TaskManager sharedManager] downLoadArray:temp];
     [Utils hintMessage:@"已加入下载列表" time:1 isSuccess:YES];
-    
-    
-//    if ([user checkDownload:file]) {
-//        [Utils hintMessage:@"已添加到下载列表" time:0.5 isSuccess:YES];
-//        //[user downloadFile:file];
-//        NSDictionary *params = @{@"userId":@(user.userId),
-//                                 @"token":user.token,
-//                                 @"type":@(file.fileType),
-//                                 @"filePaths":@[@(file.fileId)]
-//                                 };
-//        [Utils GET:ApiTypeGetFile params:params succeed:^(id response) {
-//            if ([response[@"success"] boolValue]) {
-//                id newObj = [response[@"result"][@"files"] firstObject];
-//                if ([newObj isKindOfClass:[UIImage class]]) {
-//                    NSLog(@"下载图片成功 " );
-//                    UIImage *image = [response[@"result"][@"files"] firstObject];
-//                    [Utils savePhotoWithImage:image imageName:file.fileName];
-//                }
-//                if ([newObj isKindOfClass:[NSData class]]) {
-//                    NSData *dataaa = (NSData *)newObj;
-//                    NSLog(@"%lu", (unsigned long)dataaa.length);
-//                    [Utils saveVideoWithData:dataaa videoName:file.fileName];
-//                    NSLog(@"下载视频成功 ");
-//                }
-//            }
-//            else{
-//                [Utils hintMessage:@"下载失败" time:1 isSuccess:NO];
-//            }
-//        } fail:^(NSError * error) {
-//            NSLog(@"%@",error.localizedDescription);
-//        }];
-//    }
-//    else{
-//        [Utils hintMessage:@"不能重复下载" time:1 isSuccess:NO];
-//    }
 }
 
 

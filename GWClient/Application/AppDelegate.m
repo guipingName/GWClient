@@ -14,7 +14,10 @@
 #import "GPNetWorkManager.h"
 #import "TaskManager.h"
 
-@interface AppDelegate ()
+@interface AppDelegate (){
+    UserInfoModel *currentUser;
+    BOOL isFirstEnter;
+}
 
 @end
 
@@ -23,13 +26,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    isFirstEnter = YES;
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    
     [DataBaseManager sharedManager].currentUser = [Utils aDecoder];
-    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
-    [TaskManager sharedManager].uploadTaskArray = [[user upLoadList] mutableCopy];
-    [TaskManager sharedManager].downloadTaskArray = [[user downLoadList] mutableCopy];
-    [user deleteAllRecord];
+    currentUser = [DataBaseManager sharedManager].currentUser;
+    [TaskManager sharedManager].uploadTaskArray = [[currentUser upLoadList] mutableCopy];
+    [TaskManager sharedManager].downloadTaskArray = [[currentUser downLoadList] mutableCopy];
+    //NSLog(@"uploadTaskArray:%lu  downloadTaskArray:%lu",(unsigned long)[TaskManager sharedManager].uploadTaskArray.count,(unsigned long)[TaskManager sharedManager].downloadTaskArray.count);
+    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {
         LeftViewController *leftVC = [[LeftViewController alloc] init];
@@ -76,12 +81,6 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-}
-
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
     UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     NSArray *upArray = [TaskManager sharedManager].uploadTaskArray;
     for (FileModel *model in upArray) {
@@ -100,6 +99,12 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    if (isFirstEnter) {
+        isFirstEnter = NO;
+    }
+    else{
+        [currentUser deleteAllRecord];
+    }
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

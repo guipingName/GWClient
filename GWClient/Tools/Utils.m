@@ -212,8 +212,8 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 }
 
 
-+ (NSString *) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName{
-    NSData *data  = UIImageJPEGRepresentation(image, 0.000000005);
++ (NSUInteger) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName{
+    NSData *data = UIImagePNGRepresentation(image);
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)objectAtIndex:0];
     NSString *createPath = [NSString stringWithFormat:@"%@/pictures", pathDocuments];
@@ -224,7 +224,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
     NSString *imgFileName = [NSString stringWithFormat:@"/%@",imageName];
     NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
     [fileManager createFileAtPath:filePath contents:data attributes:nil];
-    return filePath;
+    return data.length;
 }
 
 + (UIImage *) getImageWithImageName:(NSString *) imageName{

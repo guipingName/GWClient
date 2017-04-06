@@ -9,6 +9,12 @@
 #import "SettingViewController.h"
 #import "ModifySignatureViewController.h"
 
+typedef NS_ENUM(NSInteger, SettingRowType) {
+    SettingRowTypeCache = 0,
+    SettingRowTypeAboutUs = 1,
+    SettingRowTypeFeedback = 2
+};
+
 @interface SettingViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *myTableView;
@@ -48,13 +54,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SETTING_CELL];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SETTING_CELL];
     }
     cell.textLabel.text = dataArray[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (indexPath.row == 0) {
+    if (indexPath.row == SettingRowTypeCache) {
         cell.detailTextLabel.text = detailArray[indexPath.row];
     }
     else{
@@ -65,13 +71,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
+    if (indexPath.row == SettingRowTypeCache) {
         [self clearFile];
     }
-    else if (indexPath.row == 1) {
+    else if (indexPath.row == SettingRowTypeAboutUs) {
         
     }
-    else if (indexPath.row == 2) {
+    else if (indexPath.row == SettingRowTypeFeedback) {
         ModifySignatureViewController *textVC = [[ModifySignatureViewController alloc] init];
         textVC.isfeedback = YES;
         textVC.titleStr = dataArray[indexPath.row];

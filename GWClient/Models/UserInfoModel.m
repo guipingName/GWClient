@@ -45,8 +45,6 @@
 }
 
 -(void)deleteAllRecord{
-    [[TaskManager sharedManager].uploadTaskArray removeAllObjects];
-    [[TaskManager sharedManager].downloadTaskArray removeAllObjects];
     [[DataBaseManager sharedManager] deleteAllRecord];
 }
 

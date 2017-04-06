@@ -10,21 +10,8 @@
 
 @implementation FileModel
 
-- (NSUInteger)fileSize {
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     
-    if (_fileType == FileTypePicture) {
-        if (_imagePath) {
-            UIImage *image = [Utils getImageWithImageName:_fileName];
-            NSData *data = UIImagePNGRepresentation(image);
-            return data.length;
-        }
-    }
-    if (_fileType == FileTypeVideo) {
-        if (_videoData) {
-            return  _videoData.length;
-        }
-    }
-    return _fileSize;
 }
 
 @end

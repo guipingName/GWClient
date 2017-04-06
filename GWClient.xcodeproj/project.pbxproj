@@ -61,6 +61,7 @@
 		382003941E8BB87000A3D20B /* RHSocketCallReply.m in Sources */ = {isa = PBXBuildFile; fileRef = 382003831E8BB87000A3D20B /* RHSocketCallReply.m */; };
 		382003951E8BB87000A3D20B /* RHSocketCallReplyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382003851E8BB87000A3D20B /* RHSocketCallReplyManager.m */; };
 		382003961E8BB87000A3D20B /* RHSocketChannelProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 382003881E8BB87000A3D20B /* RHSocketChannelProxy.m */; };
+		3820977F1E95DEC500BD60F7 /* TransferListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3820977E1E95DEC500BD60F7 /* TransferListTableViewCell.m */; };
 		382522C91E88AE8E0094C289 /* GPNetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382522C81E88AE8E0094C289 /* GPNetWorkManager.m */; };
 		382FA9CF1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382FA9CA1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle */; };
 		382FA9D01E8C92A100938F36 /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9CC1E8C92A100938F36 /* MBProgressHUD+JDragon.m */; };
@@ -118,7 +119,6 @@
 		38C7F04B1E7FF0BA00B1DBA8 /* tabbar_me@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F03B1E7FF0BA00B1DBA8 /* tabbar_me@3x.png */; };
 		38C7F04C1E7FF0BA00B1DBA8 /* tabbar_meHL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F03C1E7FF0BA00B1DBA8 /* tabbar_meHL@2x.png */; };
 		38C7F04D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C7F03D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png */; };
-		38C9B3281E851B0400638CF0 /* FileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C9B3271E851B0400638CF0 /* FileCollectionViewCell.m */; };
 		38DD08EB1E7BD70A00388CAE /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08E31E7BD70A00388CAE /* MMDrawerBarButtonItem.m */; };
 		38DD08EC1E7BD70A00388CAE /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08E61E7BD70A00388CAE /* MMDrawerController.m */; };
 		38DD08ED1E7BD70A00388CAE /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08E81E7BD70A00388CAE /* MMDrawerVisualState.m */; };
@@ -299,6 +299,8 @@
 		382003861E8BB87000A3D20B /* RHSocketCallReplyProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCallReplyProtocol.h; sourceTree = "<group>"; };
 		382003871E8BB87000A3D20B /* RHSocketChannelProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketChannelProxy.h; sourceTree = "<group>"; };
 		382003881E8BB87000A3D20B /* RHSocketChannelProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketChannelProxy.m; sourceTree = "<group>"; };
+		3820977D1E95DEC500BD60F7 /* TransferListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferListTableViewCell.h; sourceTree = "<group>"; };
+		3820977E1E95DEC500BD60F7 /* TransferListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransferListTableViewCell.m; sourceTree = "<group>"; };
 		382522C71E88AE8E0094C289 /* GPNetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPNetWorkManager.h; sourceTree = "<group>"; };
 		382522C81E88AE8E0094C289 /* GPNetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPNetWorkManager.m; sourceTree = "<group>"; };
 		382FA9CA1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "MBProgressHUD+JDragon.bundle"; sourceTree = "<group>"; };
@@ -375,8 +377,6 @@
 		38C7F03B1E7FF0BA00B1DBA8 /* tabbar_me@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_me@3x.png"; sourceTree = "<group>"; };
 		38C7F03C1E7FF0BA00B1DBA8 /* tabbar_meHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_meHL@2x.png"; sourceTree = "<group>"; };
 		38C7F03D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_meHL@3x.png"; sourceTree = "<group>"; };
-		38C9B3261E851B0400638CF0 /* FileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCollectionViewCell.h; sourceTree = "<group>"; };
-		38C9B3271E851B0400638CF0 /* FileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileCollectionViewCell.m; sourceTree = "<group>"; };
 		38DD08E21E7BD70A00388CAE /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
 		38DD08E31E7BD70A00388CAE /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
 		38DD08E41E7BD70A00388CAE /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
@@ -790,10 +790,10 @@
 				383CC0021E7F6DCE00C62B29 /* LeftVCTableViewCell.m */,
 				383CC0631E7FB52700C62B29 /* UserInfoTableViewCell.h */,
 				383CC0641E7FB52700C62B29 /* UserInfoTableViewCell.m */,
-				38C9B3261E851B0400638CF0 /* FileCollectionViewCell.h */,
-				38C9B3271E851B0400638CF0 /* FileCollectionViewCell.m */,
 				382003211E8B80C500A3D20B /* FileListTableViewCell.h */,
 				382003221E8B80C500A3D20B /* FileListTableViewCell.m */,
+				3820977D1E95DEC500BD60F7 /* TransferListTableViewCell.h */,
+				3820977E1E95DEC500BD60F7 /* TransferListTableViewCell.m */,
 				383FE1451E8E3A5F00D5637E /* PlayerView.h */,
 				383FE1461E8E3A5F00D5637E /* PlayerView.m */,
 				382003271E8B9CF200A3D20B /* NewsTableViewCell.h */,
@@ -1400,6 +1400,7 @@
 				382003501E8BA14400A3D20B /* SDWebImageDecoder.m in Sources */,
 				38DDFCA51E88FE6900CD9E3C /* TZVideoPlayerController.m in Sources */,
 				38367FED1E83A1C500CC7DDB /* LoginViewController.m in Sources */,
+				3820977F1E95DEC500BD60F7 /* TransferListTableViewCell.m in Sources */,
 				38DDFCA41E88FE6900CD9E3C /* TZProgressView.m in Sources */,
 				382003911E8BB87000A3D20B /* RHSocketPacketContext.m in Sources */,
 				382FA9D01E8C92A100938F36 /* MBProgressHUD+JDragon.m in Sources */,
@@ -1414,7 +1415,6 @@
 				38DD08EE1E7BD70A00388CAE /* UIViewController+MMDrawerController.m in Sources */,
 				38DD09471E7BE53900388CAE /* UIImage+RTTint.m in Sources */,
 				3820035E1E8BA6E000A3D20B /* NewDetailViewController.m in Sources */,
-				38C9B3281E851B0400638CF0 /* FileCollectionViewCell.m in Sources */,
 				382003921E8BB87000A3D20B /* RHSocketUtils.m in Sources */,
 				3817DBFE1E80CAA000FC72C1 /* ModifyNickNameViewController.m in Sources */,
 				383CC0651E7FB52700C62B29 /* UserInfoTableViewCell.m in Sources */,
@@ -1638,7 +1638,7 @@
 				INFOPLIST_FILE = GWClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.galaxyWind.warmwin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxyWind.warmwind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1653,7 +1653,7 @@
 				INFOPLIST_FILE = GWClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.galaxyWind.warmwin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxyWind.warmwind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

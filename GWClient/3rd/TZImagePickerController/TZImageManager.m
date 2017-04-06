@@ -199,7 +199,8 @@ static CGFloat TZScreenScale;
             }
         }];
         if (completion) completion(photoArr);
-    } else if ([result isKindOfClass:[ALAssetsGroup class]]) {
+    }
+    else if ([result isKindOfClass:[ALAssetsGroup class]]) {
         ALAssetsGroup *group = (ALAssetsGroup *)result;
         if (allowPickingImage && allowPickingVideo) {
             [group setAssetsFilter:[ALAssetsFilter allAssets]];

@@ -37,7 +37,7 @@ compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) pr
 
 + (UIImage *) getImageWithImageName:(NSString *) imageName;
 
-+ (NSString *) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName;
++ (NSUInteger) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName;
 
 + (void) saveVideoWithData:(NSData *)data videoName:(NSString *) videoName;
 

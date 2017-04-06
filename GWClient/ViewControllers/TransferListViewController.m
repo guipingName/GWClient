@@ -8,6 +8,7 @@
 
 #import "TransferListViewController.h"
 #import "PreviewPicViewController.h"
+#import "TransferListTableViewCell.h"
 #import "UpDownBtn.h"
 #import "FileModel.h"
 #import "Masonry.h"
@@ -160,7 +161,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TransferListCell *cell = [tableView dequeueReusableCellWithIdentifier:TRANSFERLISTCELL forIndexPath:indexPath];
+    TransferListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRANSFERLISTCELL forIndexPath:indexPath];
     FileModel *model = dataArray[indexPath.row];
     [cell configWithFileModel:model andCompelet:progressDic];
     return cell;
@@ -267,6 +268,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark - 懒加载
 - (UIScrollView *)scrollView
 {
@@ -290,11 +292,10 @@
 - (UITableView *)upTableView
 {
     if (!_upTableView) {
-        float widith = KSCREEN_WIDTH;
         float height = KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame) - 49;
         _upTableView = [UITableView new];
         _upTableView.tableFooterView = [UIView new];
-        _upTableView.frame = CGRectMake(0, 0, widith, height);
+        _upTableView.frame = CGRectMake(0, 0, KSCREEN_WIDTH, height);
     }
     return _upTableView;
 }
@@ -302,12 +303,10 @@
 - (UITableView *)downTableView
 {
     if (!_downTableView) {
-        float widith = KSCREEN_WIDTH;
         float height = KSCREEN_HEIGHT - CGRectGetMaxY(btnBackView.frame) - 49;
-        
         _downTableView = [UITableView new];
         _downTableView.tableFooterView = [UIView new];
-        _downTableView.frame = CGRectMake(widith, 0, widith, height);
+        _downTableView.frame = CGRectMake(KSCREEN_WIDTH, 0, KSCREEN_WIDTH, height);
     }
     return _downTableView;
 }
@@ -317,105 +316,10 @@
     _currentTableView = isUpButtonClicked ? self.upTableView : self.downTableView;
     _currentTableView.delegate = self;
     _currentTableView.dataSource = self;
-    [_currentTableView registerClass:[TransferListCell class] forCellReuseIdentifier:TRANSFERLISTCELL];
+    [_currentTableView registerClass:[TransferListTableViewCell class] forCellReuseIdentifier:TRANSFERLISTCELL];
     return _currentTableView;
 }
 @end
-#pragma mark - TransferListCell
 
 
-@interface TransferListCell()
 
-@property(nonatomic, strong)UIImageView *iconImage;
-@property(nonatomic, strong)UILabel *nameLabel;
-@property(nonatomic, strong)UILabel *sizeLabel;
-@property(nonatomic, strong)UILabel *compeletLabel;
-
-
-@end
-@implementation TransferListCell
-
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        _iconImage = [UIImageView new];
-        [self.contentView addSubview:_iconImage];
-        [_iconImage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(5);
-            make.top.equalTo(self.contentView).offset(5);
-            make.height.width.mas_equalTo(40);
-        }];
-        
-        
-        _nameLabel = [UILabel new];
-        _nameLabel.font = [UIFont systemFontOfSize:14];
-        [self.contentView addSubview:_nameLabel];
-        [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.contentView.mas_centerY).offset(-5);
-            make.left.equalTo(_iconImage.mas_right).offset(10);
-        }];
-        
-        _sizeLabel = [UILabel new];
-        _sizeLabel.font = [UIFont systemFontOfSize:10];
-        _sizeLabel.textColor = [UIColor lightGrayColor];
-        [self.contentView addSubview:_sizeLabel];
-        [_sizeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.contentView.mas_centerY).offset(5);
-            make.left.equalTo(_nameLabel);
-        }];
-        
-        _compeletLabel = [UILabel new];
-        _compeletLabel.font = [UIFont systemFontOfSize:14];
-        _compeletLabel.textColor = [UIColor lightGrayColor];
-        [self.contentView addSubview:_compeletLabel];
-        [_compeletLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(self.contentView);
-            make.right.equalTo(self.contentView).offset(-15);
-        }];
-        
-    }
-    return self;
-}
-
-- (void)configWithFileModel:(FileModel *)fileModel andCompelet: (NSDictionary *) dic
-{
-    NSNumber *done;
-    NSNumber *compelet;
-    if (dic) {
-        done = [dic valueForKey:@"done"];
-        compelet = [dic valueForKey:@"compelet"];
-    }
-    else {
-        done = @(0);
-        compelet = @(0);
-    }
-    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    _iconImage.image = [Utils getImageWithImageName:fileModel.fileName];
-    _nameLabel.text = fileModel.fileName;
-    if (fileModel.fileState == TransferStatusReady) {
-        _sizeLabel.text = [NSString stringWithFormat:@"正在等待..."];
-        if (appdelegate.netState != NetStatusViaWiFi) {
-            _sizeLabel.text = @"网络断开";
-            _sizeLabel.textColor = [UIColor redColor];
-        }
-        else{
-            _sizeLabel.textColor = [UIColor lightGrayColor];
-        }
-    } else if(fileModel.fileState == TransferStatusDuring) {
-        _sizeLabel.text = [NSString stringWithFormat:@"%ldk/%luK",[done integerValue]/1024,(unsigned long)fileModel.fileSize / 1024];
-        if (appdelegate.netState != NetStatusViaWiFi) {
-            _sizeLabel.text = @"网络断开";
-            _sizeLabel.textColor = [UIColor redColor];
-        }
-        else{
-             _sizeLabel.textColor = [UIColor lightGrayColor];
-        }
-        _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
-    } else {
-        _sizeLabel.text = [NSString stringWithFormat:@"已完成:%luK",(unsigned long)fileModel.fileSize / 1024];
-        _sizeLabel.textColor = [UIColor lightGrayColor];
-        _compeletLabel.text = [NSString stringWithFormat:@"100%%"];
-    }
-}
-@end
