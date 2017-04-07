@@ -17,10 +17,14 @@
                  onPort:(uint16_t )port
                 success:(void (^) (BOOL connectSuccess)) connectSucees
               backError:(void (^) (NSError *error)) backError;
-/**
- 进度百分比
- */
-@property(nonatomic, copy)void (^processBlock)(NSInteger done, NSInteger total, float percentage);
-
-@property(nonatomic, copy)void (^downProcessBlock)(NSInteger done, NSInteger total, float percentage);
+- (void)connectWithHost:(NSString *)host
+                 onPort:(uint16_t )port
+                success:(void (^) (BOOL connectSuccess)) connectSucees
+        compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
+              backError:(void (^) (NSError *error)) backError;
+- (void)connectWithHost:(NSString *)host
+                 onPort:(uint16_t )port
+                success:(void (^) (BOOL connectSuccess)) connectSucees
+        downLoadProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
+              backError:(void (^) (NSError *error)) backError;
 @end

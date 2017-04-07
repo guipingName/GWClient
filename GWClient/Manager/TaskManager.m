@@ -148,7 +148,7 @@
                              @"type":@(model.fileType),
                              @"filePaths":@[@(model.fileId)]
                              };
-    [Request GET:ApiTypeGetFile params:params succeed:^(id response) {
+    [Request downLoad:ApiTypeGetFile params:params succeed:^(id response) {
         if ([response[@"success"] boolValue]) {
             id newObj = [response[@"result"][@"files"] firstObject];
             if ([newObj isKindOfClass:[UIImage class]]) {
@@ -171,9 +171,12 @@
                 [MBProgressHUD showErrorMessage:@"下载失败"];
             });
         }
-    } fail:^(NSError *error) {
+    } fail:^(NSError * error) {
         
+    } downLoadProcess:^(NSInteger done, NSInteger total, float percentage) {
+        NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
     }];
+    
 //    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
 //    NSDictionary *params = @{@"userId":@(user.userId),
 //                             @"token":user.token,

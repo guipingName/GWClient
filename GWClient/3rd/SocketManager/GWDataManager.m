@@ -53,31 +53,34 @@
         failure(error);
     }];
 }
+
 // 有进度的请求
 - (void)GET:(ApiType)ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure compeletProcess:(void (^)(NSInteger, NSInteger, float))process
 {
-    process = [SocketManager sharedInstance].processBlock;
     [[SocketManager sharedInstance] connectWithHost:HOST_IP onPort:HOST_PORT success:^(BOOL connectSuccess) {
         GWSocketPacketRequest *request = [[GWSocketPacketRequest alloc] init];
         request.pid = ApiType;
         request.object = params;
         self.success = success;
         [self.encoder encode:request output:self];
+    } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
+        process(done,total,percentage);
     } backError:^(NSError *error) {
         failure(error);
     }];
 }
-// 有进度的下载
 
+// 有进度的下载
 - (void)downLoad:(ApiType)ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure downLoadProcess:(void (^)(NSInteger, NSInteger, float))process
 {
-    process = [SocketManager sharedInstance].downProcessBlock;
     [[SocketManager sharedInstance] connectWithHost:HOST_IP onPort:HOST_PORT success:^(BOOL connectSuccess) {
         GWSocketPacketRequest *request = [[GWSocketPacketRequest alloc] init];
         request.pid = ApiType;
         request.object = params;
         self.success = success;
         [self.encoder encode:request output:self];
+    } downLoadProcess:^(NSInteger done, NSInteger total, float percentage) {
+        process(done,total,percentage);
     } backError:^(NSError *error) {
         failure(error);
     }];

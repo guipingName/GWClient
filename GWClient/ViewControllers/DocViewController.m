@@ -20,7 +20,7 @@
 #import "LoginViewController.h"
 
 
-@interface DocViewController ()<UITableViewDelegate, UITableViewDataSource, TZImagePickerControllerDelegate>{
+@interface DocViewController ()<UITableViewDelegate, UITableViewDataSource, TZImagePickerControllerDelegate, NSStreamDelegate>{
     UITableView *myTableView;
     NSMutableArray *dataArray;
     NSMutableArray *_selectedAssets;
@@ -331,8 +331,17 @@
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
             NSURL *url = urlAsset.URL;
             NSData *data = [NSData dataWithContentsOfURL:url];
-            [Utils saveVideoWithData:data videoName:@"2017.MOV"];
-            NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
+            NSLog(@"22222222222");
+            
+            
+//            NSInputStream *readStream = [[NSInputStream alloc] initWithURL:url];
+//            readStream.delegate = self;
+//            // 这个runLoop就相当于死循环，一直会对这个流进行操作。
+//            [readStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+//            [readStream open];
+            
+//            [Utils saveVideoWithData:data videoName:fileName];
+//            NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
             
             // 准备上传视频
             FileModel *model = [[FileModel alloc] init];
@@ -356,6 +365,48 @@
     }
 }
 
+#pragma mark  NSStreamDelegate代理
+- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode{
+    NSLog(@"123");
+    switch (eventCode) {
+        case NSStreamEventHasSpaceAvailable:{ // 写
+            break;
+        }
+        case NSStreamEventHasBytesAvailable:{ // 读
+            uint8_t buf[1024 * 1024 * 2];
+            NSInputStream *reads = (NSInputStream *)aStream;
+            NSInteger blength = [reads read:buf maxLength:sizeof(buf)];
+            if (blength != 0) {
+                NSData *data = [NSData dataWithBytes:(void *)buf length:blength];
+                
+                NSLog(@"文件内容长度: %lu", (unsigned long)data.length);
+            }else{
+                [aStream close];
+            }
+            break;
+        }
+        case NSStreamEventErrorOccurred:{// 错误处理
+            NSLog(@"错误处理");
+            break;
+            
+        }
+        case NSStreamEventEndEncountered: {
+            [aStream close];
+            break;
+        }
+        case NSStreamEventNone:{// 无事件处理
+            
+            NSLog(@"无事件处理");
+            break;
+        }
+        case  NSStreamEventOpenCompleted:{// 打开完成
+            NSLog(@"打开文件");
+            break;
+        }
+        default:
+            break;
+    }
+}
 
 // Gif图片
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingGifImage:(UIImage *)animatedImage sourceAssets:(id)asset {

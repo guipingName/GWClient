@@ -19,6 +19,10 @@
 
 @implementation PreviewPicViewController
 
+-(void)dealloc{
+    NSLog(@"dealloc %s", object_getClassName(self));
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -52,10 +56,10 @@
 - (void) showPlayerView:(UIView *) superView{
     CGRect playerRect = CGRectMake(0, 0, KSCREEN_WIDTH, 200);
     NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/videos"];
-    NSString *imgFileName = [NSString stringWithFormat:@"/%@",@"2017.MOV"];
+    NSString *imgFileName = [NSString stringWithFormat:@"/%@",_model.fileName];
     NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
     
-    NSLog(@"%@", filePath);
+    //NSLog(@"%@", filePath);
     NSData *videoData = [NSData dataWithContentsOfFile:filePath];
     if (videoData) {
         PlayerView *playerView = [[PlayerView alloc]initWithFrame:playerRect playerUrl:filePath];

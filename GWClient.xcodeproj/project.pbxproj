@@ -56,11 +56,11 @@
 		382FA9D11E8C92A100938F36 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9CE1E8C92A100938F36 /* MBProgressHUD.m */; };
 		382FA9D61E8CF03E00938F36 /* TransforModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9D51E8CF03E00938F36 /* TransforModel.m */; };
 		382FA9D91E8D094200938F36 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9D81E8D094200938F36 /* TaskManager.m */; };
-		383018411E97940F00AD1A88 /* GWSocketPacketContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018351E97940F00AD1A88 /* GWSocketPacketContext.m */; };
-		383018421E97940F00AD1A88 /* GWVariableDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018371E97940F00AD1A88 /* GWVariableDecoder.m */; };
-		383018431E97940F00AD1A88 /* GWVariableEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018391E97940F00AD1A88 /* GWVariableEncoder.m */; };
-		383018441E97940F00AD1A88 /* GWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3830183B1E97940F00AD1A88 /* GWDataManager.m */; };
-		383018451E97940F00AD1A88 /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018401E97940F00AD1A88 /* SocketManager.m */; };
+		383018551E979AC200AD1A88 /* GWSocketPacketContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018491E979AC100AD1A88 /* GWSocketPacketContext.m */; };
+		383018561E979AC200AD1A88 /* GWVariableDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3830184B1E979AC100AD1A88 /* GWVariableDecoder.m */; };
+		383018571E979AC200AD1A88 /* GWVariableEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3830184D1E979AC100AD1A88 /* GWVariableEncoder.m */; };
+		383018581E979AC200AD1A88 /* GWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3830184F1E979AC200AD1A88 /* GWDataManager.m */; };
+		383018591E979AC200AD1A88 /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018541E979AC200AD1A88 /* SocketManager.m */; };
 		3834169B1E8248DE00546AB0 /* ModifyHeadIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3834169A1E8248DE00546AB0 /* ModifyHeadIconViewController.m */; };
 		38367FED1E83A1C500CC7DDB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38367FEA1E83A1C500CC7DDB /* LoginViewController.m */; };
 		38367FEE1E83A1C500CC7DDB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38367FEC1E83A1C500CC7DDB /* RegisterViewController.m */; };
@@ -273,18 +273,18 @@
 		382FA9D51E8CF03E00938F36 /* TransforModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransforModel.m; sourceTree = "<group>"; };
 		382FA9D71E8D094200938F36 /* TaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskManager.h; sourceTree = "<group>"; };
 		382FA9D81E8D094200938F36 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManager.m; sourceTree = "<group>"; };
-		383018341E97940F00AD1A88 /* GWSocketPacketContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketPacketContext.h; sourceTree = "<group>"; };
-		383018351E97940F00AD1A88 /* GWSocketPacketContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWSocketPacketContext.m; sourceTree = "<group>"; };
-		383018361E97940F00AD1A88 /* GWVariableDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVariableDecoder.h; sourceTree = "<group>"; };
-		383018371E97940F00AD1A88 /* GWVariableDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableDecoder.m; sourceTree = "<group>"; };
-		383018381E97940F00AD1A88 /* GWVariableEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVariableEncoder.h; sourceTree = "<group>"; };
-		383018391E97940F00AD1A88 /* GWVariableEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableEncoder.m; sourceTree = "<group>"; };
-		3830183A1E97940F00AD1A88 /* GWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWDataManager.h; sourceTree = "<group>"; };
-		3830183B1E97940F00AD1A88 /* GWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWDataManager.m; sourceTree = "<group>"; };
-		3830183D1E97940F00AD1A88 /* GWSocketCodecProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketCodecProtocol.h; sourceTree = "<group>"; };
-		3830183E1E97940F00AD1A88 /* GWSocketPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketPacket.h; sourceTree = "<group>"; };
-		3830183F1E97940F00AD1A88 /* SocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
-		383018401E97940F00AD1A88 /* SocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
+		383018481E979AC100AD1A88 /* GWSocketPacketContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketPacketContext.h; sourceTree = "<group>"; };
+		383018491E979AC100AD1A88 /* GWSocketPacketContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWSocketPacketContext.m; sourceTree = "<group>"; };
+		3830184A1E979AC100AD1A88 /* GWVariableDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVariableDecoder.h; sourceTree = "<group>"; };
+		3830184B1E979AC100AD1A88 /* GWVariableDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableDecoder.m; sourceTree = "<group>"; };
+		3830184C1E979AC100AD1A88 /* GWVariableEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVariableEncoder.h; sourceTree = "<group>"; };
+		3830184D1E979AC100AD1A88 /* GWVariableEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableEncoder.m; sourceTree = "<group>"; };
+		3830184E1E979AC200AD1A88 /* GWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWDataManager.h; sourceTree = "<group>"; };
+		3830184F1E979AC200AD1A88 /* GWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWDataManager.m; sourceTree = "<group>"; };
+		383018511E979AC200AD1A88 /* GWSocketCodecProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketCodecProtocol.h; sourceTree = "<group>"; };
+		383018521E979AC200AD1A88 /* GWSocketPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketPacket.h; sourceTree = "<group>"; };
+		383018531E979AC200AD1A88 /* SocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
+		383018541E979AC200AD1A88 /* SocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
 		383416991E8248DE00546AB0 /* ModifyHeadIconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyHeadIconViewController.h; sourceTree = "<group>"; };
 		3834169A1E8248DE00546AB0 /* ModifyHeadIconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyHeadIconViewController.m; sourceTree = "<group>"; };
 		38367FE91E83A1C500CC7DDB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -624,37 +624,37 @@
 			path = "MBProgressHUD+JDragon";
 			sourceTree = "<group>";
 		};
-		383018321E97940F00AD1A88 /* SocketManager */ = {
+		383018461E979AC100AD1A88 /* SocketManager */ = {
 			isa = PBXGroup;
 			children = (
-				383018331E97940F00AD1A88 /* EncoderAndDecoder */,
-				3830183A1E97940F00AD1A88 /* GWDataManager.h */,
-				3830183B1E97940F00AD1A88 /* GWDataManager.m */,
-				3830183C1E97940F00AD1A88 /* Protocol */,
-				3830183F1E97940F00AD1A88 /* SocketManager.h */,
-				383018401E97940F00AD1A88 /* SocketManager.m */,
+				383018471E979AC100AD1A88 /* EncoderAndDecoder */,
+				3830184E1E979AC200AD1A88 /* GWDataManager.h */,
+				3830184F1E979AC200AD1A88 /* GWDataManager.m */,
+				383018501E979AC200AD1A88 /* Protocol */,
+				383018531E979AC200AD1A88 /* SocketManager.h */,
+				383018541E979AC200AD1A88 /* SocketManager.m */,
 			);
 			path = SocketManager;
 			sourceTree = "<group>";
 		};
-		383018331E97940F00AD1A88 /* EncoderAndDecoder */ = {
+		383018471E979AC100AD1A88 /* EncoderAndDecoder */ = {
 			isa = PBXGroup;
 			children = (
-				383018341E97940F00AD1A88 /* GWSocketPacketContext.h */,
-				383018351E97940F00AD1A88 /* GWSocketPacketContext.m */,
-				383018361E97940F00AD1A88 /* GWVariableDecoder.h */,
-				383018371E97940F00AD1A88 /* GWVariableDecoder.m */,
-				383018381E97940F00AD1A88 /* GWVariableEncoder.h */,
-				383018391E97940F00AD1A88 /* GWVariableEncoder.m */,
+				383018481E979AC100AD1A88 /* GWSocketPacketContext.h */,
+				383018491E979AC100AD1A88 /* GWSocketPacketContext.m */,
+				3830184A1E979AC100AD1A88 /* GWVariableDecoder.h */,
+				3830184B1E979AC100AD1A88 /* GWVariableDecoder.m */,
+				3830184C1E979AC100AD1A88 /* GWVariableEncoder.h */,
+				3830184D1E979AC100AD1A88 /* GWVariableEncoder.m */,
 			);
 			path = EncoderAndDecoder;
 			sourceTree = "<group>";
 		};
-		3830183C1E97940F00AD1A88 /* Protocol */ = {
+		383018501E979AC200AD1A88 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				3830183D1E97940F00AD1A88 /* GWSocketCodecProtocol.h */,
-				3830183E1E97940F00AD1A88 /* GWSocketPacket.h */,
+				383018511E979AC200AD1A88 /* GWSocketCodecProtocol.h */,
+				383018521E979AC200AD1A88 /* GWSocketPacket.h */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -750,7 +750,7 @@
 		38DD07FB1E7BD4B700388CAE /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
-				383018321E97940F00AD1A88 /* SocketManager */,
+				383018461E979AC100AD1A88 /* SocketManager */,
 				382FA9C81E8C92A100938F36 /* MBProgressHUD */,
 				3820032A1E8BA14400A3D20B /* SDWebImage */,
 				3820030E1E8B5CDA00A3D20B /* FMDB */,
@@ -1312,8 +1312,8 @@
 				38E7A0E71E8A48C700B4A918 /* MASConstraint.m in Sources */,
 				38370B2E1E94DAA300A56EAE /* SexButton.m in Sources */,
 				3820034D1E8BA14400A3D20B /* NSData+ImageContentType.m in Sources */,
-				383018451E97940F00AD1A88 /* SocketManager.m in Sources */,
-				383018411E97940F00AD1A88 /* GWSocketPacketContext.m in Sources */,
+				383018591E979AC200AD1A88 /* SocketManager.m in Sources */,
+				383018551E979AC200AD1A88 /* GWSocketPacketContext.m in Sources */,
 				38DDFC4F1E88E62800CD9E3C /* ModifySexViewController.m in Sources */,
 				382FA9D61E8CF03E00938F36 /* TransforModel.m in Sources */,
 				3820031C1E8B5CDA00A3D20B /* FMDatabasePool.m in Sources */,
@@ -1326,12 +1326,12 @@
 				38DD09401E7BE0E300388CAE /* TransferListViewController.m in Sources */,
 				38DDFCA21E88FE6900CD9E3C /* TZPhotoPreviewCell.m in Sources */,
 				383FE0EF1E8E05DA00D5637E /* PreviewPicViewController.m in Sources */,
-				383018421E97940F00AD1A88 /* GWVariableDecoder.m in Sources */,
+				383018561E979AC200AD1A88 /* GWVariableDecoder.m in Sources */,
 				3817DBFD1E80CAA000FC72C1 /* ModifySignatureViewController.m in Sources */,
 				38DD09431E7BE0F300388CAE /* NewsViewController.m in Sources */,
 				383CC0031E7F6DCE00C62B29 /* LeftVCTableViewCell.m in Sources */,
 				38E7A0E61E8A48C700B4A918 /* MASCompositeConstraint.m in Sources */,
-				383018431E97940F00AD1A88 /* GWVariableEncoder.m in Sources */,
+				383018571E979AC200AD1A88 /* GWVariableEncoder.m in Sources */,
 				38367FEE1E83A1C500CC7DDB /* RegisterViewController.m in Sources */,
 				3820034E1E8BA14400A3D20B /* SDImageCache.m in Sources */,
 				3820035A1E8BA14400A3D20B /* UIImageView+WebCache.m in Sources */,
@@ -1345,7 +1345,7 @@
 				38DD093A1E7BE00600388CAE /* GWClientTabBarController.m in Sources */,
 				382003261E8B989200A3D20B /* NewsModel.m in Sources */,
 				38E7A0EF1E8A48C700B4A918 /* ViewController+MASAdditions.m in Sources */,
-				383018441E97940F00AD1A88 /* GWDataManager.m in Sources */,
+				383018581E979AC200AD1A88 /* GWDataManager.m in Sources */,
 				38DDFC9D1E88FE6900CD9E3C /* TZImageCropManager.m in Sources */,
 				3820031A1E8B5CDA00A3D20B /* FMDatabase.m in Sources */,
 				3817DC081E81066600FC72C1 /* Utils.m in Sources */,
