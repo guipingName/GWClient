@@ -49,11 +49,6 @@
 		3820035B1E8BA14400A3D20B /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3820034B1E8BA14400A3D20B /* UIView+WebCacheOperation.m */; };
 		3820035E1E8BA6E000A3D20B /* NewDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3820035D1E8BA6E000A3D20B /* NewDetailViewController.m */; };
 		3820977F1E95DEC500BD60F7 /* TransferListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3820977E1E95DEC500BD60F7 /* TransferListTableViewCell.m */; };
-		382097881E96350B00BD60F7 /* GWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382097821E96350B00BD60F7 /* GWDataManager.m */; };
-		382097891E96350B00BD60F7 /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382097871E96350B00BD60F7 /* SocketManager.m */; };
-		382097911E96365800BD60F7 /* GWSocketPacketContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3820978C1E96365800BD60F7 /* GWSocketPacketContext.m */; };
-		382097921E96365800BD60F7 /* GWVariableDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3820978E1E96365800BD60F7 /* GWVariableDecoder.m */; };
-		382097931E96365800BD60F7 /* GWVariableEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 382097901E96365800BD60F7 /* GWVariableEncoder.m */; };
 		382097971E9646D900BD60F7 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 382097961E9646D900BD60F7 /* download.png */; };
 		382522C91E88AE8E0094C289 /* GPNetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382522C81E88AE8E0094C289 /* GPNetWorkManager.m */; };
 		382FA9CF1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382FA9CA1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle */; };
@@ -61,6 +56,11 @@
 		382FA9D11E8C92A100938F36 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9CE1E8C92A100938F36 /* MBProgressHUD.m */; };
 		382FA9D61E8CF03E00938F36 /* TransforModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9D51E8CF03E00938F36 /* TransforModel.m */; };
 		382FA9D91E8D094200938F36 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9D81E8D094200938F36 /* TaskManager.m */; };
+		383018411E97940F00AD1A88 /* GWSocketPacketContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018351E97940F00AD1A88 /* GWSocketPacketContext.m */; };
+		383018421E97940F00AD1A88 /* GWVariableDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018371E97940F00AD1A88 /* GWVariableDecoder.m */; };
+		383018431E97940F00AD1A88 /* GWVariableEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018391E97940F00AD1A88 /* GWVariableEncoder.m */; };
+		383018441E97940F00AD1A88 /* GWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3830183B1E97940F00AD1A88 /* GWDataManager.m */; };
+		383018451E97940F00AD1A88 /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018401E97940F00AD1A88 /* SocketManager.m */; };
 		3834169B1E8248DE00546AB0 /* ModifyHeadIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3834169A1E8248DE00546AB0 /* ModifyHeadIconViewController.m */; };
 		38367FED1E83A1C500CC7DDB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38367FEA1E83A1C500CC7DDB /* LoginViewController.m */; };
 		38367FEE1E83A1C500CC7DDB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38367FEC1E83A1C500CC7DDB /* RegisterViewController.m */; };
@@ -261,18 +261,6 @@
 		3820035D1E8BA6E000A3D20B /* NewDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDetailViewController.m; sourceTree = "<group>"; };
 		3820977D1E95DEC500BD60F7 /* TransferListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferListTableViewCell.h; sourceTree = "<group>"; };
 		3820977E1E95DEC500BD60F7 /* TransferListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransferListTableViewCell.m; sourceTree = "<group>"; };
-		382097811E96350B00BD60F7 /* GWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWDataManager.h; sourceTree = "<group>"; };
-		382097821E96350B00BD60F7 /* GWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWDataManager.m; sourceTree = "<group>"; };
-		382097841E96350B00BD60F7 /* GWSocketCodecProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketCodecProtocol.h; sourceTree = "<group>"; };
-		382097851E96350B00BD60F7 /* GWSocketPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketPacket.h; sourceTree = "<group>"; };
-		382097861E96350B00BD60F7 /* SocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
-		382097871E96350B00BD60F7 /* SocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
-		3820978B1E96365800BD60F7 /* GWSocketPacketContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketPacketContext.h; sourceTree = "<group>"; };
-		3820978C1E96365800BD60F7 /* GWSocketPacketContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWSocketPacketContext.m; sourceTree = "<group>"; };
-		3820978D1E96365800BD60F7 /* GWVariableDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVariableDecoder.h; sourceTree = "<group>"; };
-		3820978E1E96365800BD60F7 /* GWVariableDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableDecoder.m; sourceTree = "<group>"; };
-		3820978F1E96365800BD60F7 /* GWVariableEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVariableEncoder.h; sourceTree = "<group>"; };
-		382097901E96365800BD60F7 /* GWVariableEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableEncoder.m; sourceTree = "<group>"; };
 		382097961E9646D900BD60F7 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
 		382522C71E88AE8E0094C289 /* GPNetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPNetWorkManager.h; sourceTree = "<group>"; };
 		382522C81E88AE8E0094C289 /* GPNetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPNetWorkManager.m; sourceTree = "<group>"; };
@@ -285,6 +273,18 @@
 		382FA9D51E8CF03E00938F36 /* TransforModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransforModel.m; sourceTree = "<group>"; };
 		382FA9D71E8D094200938F36 /* TaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskManager.h; sourceTree = "<group>"; };
 		382FA9D81E8D094200938F36 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManager.m; sourceTree = "<group>"; };
+		383018341E97940F00AD1A88 /* GWSocketPacketContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketPacketContext.h; sourceTree = "<group>"; };
+		383018351E97940F00AD1A88 /* GWSocketPacketContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWSocketPacketContext.m; sourceTree = "<group>"; };
+		383018361E97940F00AD1A88 /* GWVariableDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVariableDecoder.h; sourceTree = "<group>"; };
+		383018371E97940F00AD1A88 /* GWVariableDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableDecoder.m; sourceTree = "<group>"; };
+		383018381E97940F00AD1A88 /* GWVariableEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVariableEncoder.h; sourceTree = "<group>"; };
+		383018391E97940F00AD1A88 /* GWVariableEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVariableEncoder.m; sourceTree = "<group>"; };
+		3830183A1E97940F00AD1A88 /* GWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWDataManager.h; sourceTree = "<group>"; };
+		3830183B1E97940F00AD1A88 /* GWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWDataManager.m; sourceTree = "<group>"; };
+		3830183D1E97940F00AD1A88 /* GWSocketCodecProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketCodecProtocol.h; sourceTree = "<group>"; };
+		3830183E1E97940F00AD1A88 /* GWSocketPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketPacket.h; sourceTree = "<group>"; };
+		3830183F1E97940F00AD1A88 /* SocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
+		383018401E97940F00AD1A88 /* SocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
 		383416991E8248DE00546AB0 /* ModifyHeadIconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyHeadIconViewController.h; sourceTree = "<group>"; };
 		3834169A1E8248DE00546AB0 /* ModifyHeadIconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyHeadIconViewController.m; sourceTree = "<group>"; };
 		38367FE91E83A1C500CC7DDB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -595,41 +595,6 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
-		382097801E96350B00BD60F7 /* SocketManager */ = {
-			isa = PBXGroup;
-			children = (
-				3820978A1E96365800BD60F7 /* EncoderAndDecoder */,
-				382097811E96350B00BD60F7 /* GWDataManager.h */,
-				382097821E96350B00BD60F7 /* GWDataManager.m */,
-				382097831E96350B00BD60F7 /* Protocol */,
-				382097861E96350B00BD60F7 /* SocketManager.h */,
-				382097871E96350B00BD60F7 /* SocketManager.m */,
-			);
-			path = SocketManager;
-			sourceTree = "<group>";
-		};
-		382097831E96350B00BD60F7 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				382097841E96350B00BD60F7 /* GWSocketCodecProtocol.h */,
-				382097851E96350B00BD60F7 /* GWSocketPacket.h */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		3820978A1E96365800BD60F7 /* EncoderAndDecoder */ = {
-			isa = PBXGroup;
-			children = (
-				3820978B1E96365800BD60F7 /* GWSocketPacketContext.h */,
-				3820978C1E96365800BD60F7 /* GWSocketPacketContext.m */,
-				3820978D1E96365800BD60F7 /* GWVariableDecoder.h */,
-				3820978E1E96365800BD60F7 /* GWVariableDecoder.m */,
-				3820978F1E96365800BD60F7 /* GWVariableEncoder.h */,
-				382097901E96365800BD60F7 /* GWVariableEncoder.m */,
-			);
-			path = EncoderAndDecoder;
-			sourceTree = "<group>";
-		};
 		382522C61E88AE8E0094C289 /* NetworkState */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +622,41 @@
 				382FA9CC1E8C92A100938F36 /* MBProgressHUD+JDragon.m */,
 			);
 			path = "MBProgressHUD+JDragon";
+			sourceTree = "<group>";
+		};
+		383018321E97940F00AD1A88 /* SocketManager */ = {
+			isa = PBXGroup;
+			children = (
+				383018331E97940F00AD1A88 /* EncoderAndDecoder */,
+				3830183A1E97940F00AD1A88 /* GWDataManager.h */,
+				3830183B1E97940F00AD1A88 /* GWDataManager.m */,
+				3830183C1E97940F00AD1A88 /* Protocol */,
+				3830183F1E97940F00AD1A88 /* SocketManager.h */,
+				383018401E97940F00AD1A88 /* SocketManager.m */,
+			);
+			path = SocketManager;
+			sourceTree = "<group>";
+		};
+		383018331E97940F00AD1A88 /* EncoderAndDecoder */ = {
+			isa = PBXGroup;
+			children = (
+				383018341E97940F00AD1A88 /* GWSocketPacketContext.h */,
+				383018351E97940F00AD1A88 /* GWSocketPacketContext.m */,
+				383018361E97940F00AD1A88 /* GWVariableDecoder.h */,
+				383018371E97940F00AD1A88 /* GWVariableDecoder.m */,
+				383018381E97940F00AD1A88 /* GWVariableEncoder.h */,
+				383018391E97940F00AD1A88 /* GWVariableEncoder.m */,
+			);
+			path = EncoderAndDecoder;
+			sourceTree = "<group>";
+		};
+		3830183C1E97940F00AD1A88 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3830183D1E97940F00AD1A88 /* GWSocketCodecProtocol.h */,
+				3830183E1E97940F00AD1A88 /* GWSocketPacket.h */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		38367FE81E83A16600CC7DDB /* 登录注册 */ = {
@@ -750,7 +750,7 @@
 		38DD07FB1E7BD4B700388CAE /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
-				382097801E96350B00BD60F7 /* SocketManager */,
+				383018321E97940F00AD1A88 /* SocketManager */,
 				382FA9C81E8C92A100938F36 /* MBProgressHUD */,
 				3820032A1E8BA14400A3D20B /* SDWebImage */,
 				3820030E1E8B5CDA00A3D20B /* FMDB */,
@@ -1273,7 +1273,6 @@
 				3817DC0E1E811EC900FC72C1 /* UserLogin.m in Sources */,
 				38DDFC9A1E88FE6900CD9E3C /* TZAssetCell.m in Sources */,
 				38370B321E94DAB200A56EAE /* UITextView+YLTextView.m in Sources */,
-				382097891E96350B00BD60F7 /* SocketManager.m in Sources */,
 				38E7A0EC1E8A48C700B4A918 /* NSArray+MASAdditions.m in Sources */,
 				38E7A0EA1E8A48C700B4A918 /* MASViewAttribute.m in Sources */,
 				3817DBFF1E80CAA000FC72C1 /* UserInfoViewController.m in Sources */,
@@ -1284,7 +1283,6 @@
 				3820977F1E95DEC500BD60F7 /* TransferListTableViewCell.m in Sources */,
 				38DDFCA41E88FE6900CD9E3C /* TZProgressView.m in Sources */,
 				382FA9D01E8C92A100938F36 /* MBProgressHUD+JDragon.m in Sources */,
-				382097931E96365800BD60F7 /* GWVariableEncoder.m in Sources */,
 				382003231E8B80C500A3D20B /* FileListTableViewCell.m in Sources */,
 				38DDFCA61E88FE6900CD9E3C /* UIView+Layout.m in Sources */,
 				3820031D1E8B5CDA00A3D20B /* FMDatabaseQueue.m in Sources */,
@@ -1305,17 +1303,17 @@
 				382003511E8BA14400A3D20B /* SDWebImageDownloader.m in Sources */,
 				38DD08ED1E7BD70A00388CAE /* MMDrawerVisualState.m in Sources */,
 				382003581E8BA14400A3D20B /* UIImage+WebP.m in Sources */,
-				382097911E96365800BD60F7 /* GWSocketPacketContext.m in Sources */,
 				382522C91E88AE8E0094C289 /* GPNetWorkManager.m in Sources */,
 				38DDFC991E88FE6900CD9E3C /* NSBundle+TZImagePicker.m in Sources */,
 				38370B2F1E94DAA300A56EAE /* UpDownBtn.m in Sources */,
 				38DDFC9C1E88FE6900CD9E3C /* TZGifPhotoPreviewController.m in Sources */,
-				382097881E96350B00BD60F7 /* GWDataManager.m in Sources */,
 				383CC00B1E7F79C500C62B29 /* UserInfoModel.m in Sources */,
 				382003521E8BA14400A3D20B /* SDWebImageDownloaderOperation.m in Sources */,
 				38E7A0E71E8A48C700B4A918 /* MASConstraint.m in Sources */,
 				38370B2E1E94DAA300A56EAE /* SexButton.m in Sources */,
 				3820034D1E8BA14400A3D20B /* NSData+ImageContentType.m in Sources */,
+				383018451E97940F00AD1A88 /* SocketManager.m in Sources */,
+				383018411E97940F00AD1A88 /* GWSocketPacketContext.m in Sources */,
 				38DDFC4F1E88E62800CD9E3C /* ModifySexViewController.m in Sources */,
 				382FA9D61E8CF03E00938F36 /* TransforModel.m in Sources */,
 				3820031C1E8B5CDA00A3D20B /* FMDatabasePool.m in Sources */,
@@ -1324,15 +1322,16 @@
 				382003091E8B513600A3D20B /* HintView.m in Sources */,
 				38DD08F11E7BD77D00388CAE /* LeftViewController.m in Sources */,
 				38DDFCB21E892F7700CD9E3C /* YYClassInfo.m in Sources */,
-				382097921E96365800BD60F7 /* GWVariableDecoder.m in Sources */,
 				3820030D1E8B5C9800A3D20B /* DataBaseManager.m in Sources */,
 				38DD09401E7BE0E300388CAE /* TransferListViewController.m in Sources */,
 				38DDFCA21E88FE6900CD9E3C /* TZPhotoPreviewCell.m in Sources */,
 				383FE0EF1E8E05DA00D5637E /* PreviewPicViewController.m in Sources */,
+				383018421E97940F00AD1A88 /* GWVariableDecoder.m in Sources */,
 				3817DBFD1E80CAA000FC72C1 /* ModifySignatureViewController.m in Sources */,
 				38DD09431E7BE0F300388CAE /* NewsViewController.m in Sources */,
 				383CC0031E7F6DCE00C62B29 /* LeftVCTableViewCell.m in Sources */,
 				38E7A0E61E8A48C700B4A918 /* MASCompositeConstraint.m in Sources */,
+				383018431E97940F00AD1A88 /* GWVariableEncoder.m in Sources */,
 				38367FEE1E83A1C500CC7DDB /* RegisterViewController.m in Sources */,
 				3820034E1E8BA14400A3D20B /* SDImageCache.m in Sources */,
 				3820035A1E8BA14400A3D20B /* UIImageView+WebCache.m in Sources */,
@@ -1346,6 +1345,7 @@
 				38DD093A1E7BE00600388CAE /* GWClientTabBarController.m in Sources */,
 				382003261E8B989200A3D20B /* NewsModel.m in Sources */,
 				38E7A0EF1E8A48C700B4A918 /* ViewController+MASAdditions.m in Sources */,
+				383018441E97940F00AD1A88 /* GWDataManager.m in Sources */,
 				38DDFC9D1E88FE6900CD9E3C /* TZImageCropManager.m in Sources */,
 				3820031A1E8B5CDA00A3D20B /* FMDatabase.m in Sources */,
 				3817DC081E81066600FC72C1 /* Utils.m in Sources */,

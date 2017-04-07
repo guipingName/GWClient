@@ -33,9 +33,20 @@
  */
 @property (nonatomic, copy) void (^requestData) (NSData *request);
 
+// 没有进度的请求
+- (void)GET:(ApiType) ApiType params:(NSDictionary *)params
+   succeed:(void (^)(id))success
+      fail:(void (^)(NSError *))failure;
 // 有进度的请求
 - (void)GET:(ApiType) ApiType params:(NSDictionary *)params
-   succeed:(void (^)(id response))success
-      fail:(void (^)(NSError *error))failure;
+   succeed:(void (^)(id))success
+      fail:(void (^)(NSError *))failure
+compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
+// 有进度下载文件
+- (void)downLoad:(ApiType) ApiType params:(NSDictionary *)params
+        succeed:(void (^)(id))success
+           fail:(void (^)(NSError *))failure
+downLoadProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process;
+
 
 @end

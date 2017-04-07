@@ -17,7 +17,10 @@
                  onPort:(uint16_t )port
                 success:(void (^) (BOOL connectSuccess)) connectSucees
               backError:(void (^) (NSError *error)) backError;
+/**
+ 进度百分比
+ */
+@property(nonatomic, copy)void (^processBlock)(NSInteger done, NSInteger total, float percentage);
 
-- (void)disConnect;
-
+@property(nonatomic, copy)void (^downProcessBlock)(NSInteger done, NSInteger total, float percentage);
 @end

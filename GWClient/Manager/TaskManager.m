@@ -122,15 +122,9 @@
         }
     } fail:^(NSError *error) {
         
-    
+    } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
+        NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
     }];
-//compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
-//    NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
-//    self.done = done;
-//    self.compelet = percentage;
-//    if (self.processBlock) {
-//        self.processBlock(done, total, percentage);
-//    }
 }
 
 -(void)downLoadArray:(NSMutableArray *)downArray{

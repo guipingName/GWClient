@@ -331,7 +331,7 @@
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
             NSURL *url = urlAsset.URL;
             NSData *data = [NSData dataWithContentsOfURL:url];
-            //[Utils saveVideoWithData:data videoName:@"2017.MOV"];
+            [Utils saveVideoWithData:data videoName:@"2017.MOV"];
             NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
             
             // 准备上传视频
@@ -424,6 +424,7 @@
 - (void) creatRightItem{
     clearView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64 -49)];
     [self.view addSubview:clearView];
+    
     clearView.backgroundColor = [UIColor clearColor];
     clearView.hidden = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelView:)];

@@ -27,14 +27,17 @@
     
 }
 @property(nonatomic, strong) GCDAsyncSocket *gcdSocket;
-@property(nonatomic, assign) BOOL isConnected;
 @property(nonatomic, copy) void (^connectSuccess)(BOOL isConnect);
-@property(nonatomic, copy) void (^connectFailre)(NSError *error);
+@property(nonatomic, copy) void (^netError)(NSError *error);
+@property(nonatomic, strong)NSTimer *upTimer;
+@property(nonatomic, strong)NSTimer *downTimer;
+
 @end
 
 @implementation SocketManager
 
-+ (instancetype)sharedInstance {
++ (instancetype)sharedInstance
+{
     static SocketManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -42,12 +45,12 @@
     });
     return manager;
 }
-
-- (void)disConnect {
+- (void)disConnect
+{
     [_gcdSocket disconnect];
     [_gcdSocket setDelegate:nil];
     _gcdSocket = nil;
-    //NSLog(@"服务器关闭，断开连接");
+    NSLog(@"服务器关闭，断开连接");
 }
 #pragma mark - GCDAsyncSocketDelegate
 
@@ -56,25 +59,25 @@
                 success:(void (^) (BOOL connectSuccess)) connectSucees
               backError:(void (^) (NSError *error)) backError
 {
+    if ([self.gcdSocket isConnected]) {
+        [self disConnect];
+    }
     NSError *error = nil;
-    [self disConnect];
     self.connectSuccess = connectSucees;
-    self.connectFailre = backError;
+    self.netError = backError;
     [self.gcdSocket connectToHost:host onPort:port error:&error];
 }
-
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port{
-//    NSLog(@"socket连接成功");
-    NSLog(@"socket连接状态:%d",[self.gcdSocket isConnected]);
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
+{
+    NSLog(@"socket连接成功");
     [[GWDataManager sharedInstance] setRequestData:^(NSData *request) {
-//        NSLog(@"request长度:%lu",(unsigned long)request.length);
-        [sock writeData:request withTimeout:WRITE_TIMEOUT tag:SEND_TAG]; 
+        [sock writeData:request withTimeout:WRITE_TIMEOUT tag:SEND_TAG];
     }];
     self.connectSuccess(YES);
 }
 
-// 接收数据
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
     if (!currentPacketHead) {
         currentPacketHead = [NSJSONSerialization
                              JSONObjectWithData:data
@@ -98,27 +101,71 @@
 }
 
 #pragma mark - 返回数据重载函数
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag{
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _upTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateProcess:) userInfo:@(tag) repeats:YES];
+        _downTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateDownProcess:) userInfo:@(tag) repeats:YES];
+    });
+
      [self.gcdSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:SEND_TAG];
 }
+// 进度显示timer方法
+- (void)calculateProcess:(NSTimer *) sender
+{
+    long tag = [sender.userInfo integerValue];
+    NSUInteger done = 0;
+    NSUInteger total = 0;
+    float asign = [self.gcdSocket progressOfWriteReturningTag:&tag bytesDone:&done total:&total];
+    if (self.processBlock) {
+        self.processBlock(done,total,asign);
+    }
+    if (isnan(asign)) {
+        [sender invalidate];
+        sender = nil;
+        return;
+    }
+}
+- (void)calculateDownProcess:(NSTimer *) sender
+{
+    long tag = [sender.userInfo integerValue];
+    NSUInteger doweDone = 0;
+    NSUInteger downToal = 0;
+    float downAsign = [self.gcdSocket progressOfReadReturningTag:&tag bytesDone:&doweDone total:&downToal];
+    if (self.downProcessBlock) {
+        self.downProcessBlock(doweDone,downToal,downAsign);
+    }
+    if (isnan(downAsign) || (downAsign == 1.0)) {
+        [sender invalidate];
+        sender = nil;
+        return;
+    }
+}
+
 
 #pragma mark - 即将关闭函数
-- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutReadWithTag:(long)tag elapsed:(NSTimeInterval)elapsed bytesDone:(NSUInteger)length{
+
+
+- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutReadWithTag:(long)tag elapsed:(NSTimeInterval)elapsed bytesDone:(NSUInteger)length
+{
     if (elapsed <= READ_TIMEOUT) {
         return 0.0;
     }
     return 0.0;
 }
 
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err{
-    //NSLog(@"-------------断开连接,%@",err.localizedDescription);
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+    NSLog(@"-------------断开连接,%@",err.localizedDescription);
     if (err.localizedDescription) {
-       self.connectFailre(err);
+        self.netError(err);
     }
 }
 
 #pragma mark - 懒加载
-- (GCDAsyncSocket *)gcdSocket{
+- (GCDAsyncSocket *)gcdSocket
+{
     if (!_gcdSocket) {
         _gcdSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)];
     }

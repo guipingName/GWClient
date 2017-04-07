@@ -37,23 +37,54 @@
 }
 #pragma mark - 网络请求
 
-
--(void)GET:(ApiType)ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure{
+// 有进度的请求
+- (void)GET:(ApiType) ApiType
+     params:(NSDictionary *)params
+    succeed:(void (^)(id))success
+      fail:(void (^)(NSError *))failure
+{
     [[SocketManager sharedInstance] connectWithHost:HOST_IP onPort:HOST_PORT success:^(BOOL connectSuccess) {
         GWSocketPacketRequest *request = [[GWSocketPacketRequest alloc] init];
         request.pid = ApiType;
         request.object = params;
         self.success = success;
-        self.error = failure;
         [self.encoder encode:request output:self];
     } backError:^(NSError *error) {
-        NSLog(@"error.localizedDescription: %@", error.localizedDescription);
         failure(error);
     }];
 }
+// 有进度的请求
+- (void)GET:(ApiType)ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure compeletProcess:(void (^)(NSInteger, NSInteger, float))process
+{
+    process = [SocketManager sharedInstance].processBlock;
+    [[SocketManager sharedInstance] connectWithHost:HOST_IP onPort:HOST_PORT success:^(BOOL connectSuccess) {
+        GWSocketPacketRequest *request = [[GWSocketPacketRequest alloc] init];
+        request.pid = ApiType;
+        request.object = params;
+        self.success = success;
+        [self.encoder encode:request output:self];
+    } backError:^(NSError *error) {
+        failure(error);
+    }];
+}
+// 有进度的下载
 
+- (void)downLoad:(ApiType)ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure downLoadProcess:(void (^)(NSInteger, NSInteger, float))process
+{
+    process = [SocketManager sharedInstance].downProcessBlock;
+    [[SocketManager sharedInstance] connectWithHost:HOST_IP onPort:HOST_PORT success:^(BOOL connectSuccess) {
+        GWSocketPacketRequest *request = [[GWSocketPacketRequest alloc] init];
+        request.pid = ApiType;
+        request.object = params;
+        self.success = success;
+        [self.encoder encode:request output:self];
+    } backError:^(NSError *error) {
+        failure(error);
+    }];
 
+}
 #pragma mark - GWSocketEncoderOutputProtocol
+
 // 编码后输出结果
 - (void)didEncode:(NSData *)data timeout:(NSTimeInterval)timeout
 {
@@ -64,6 +95,7 @@
 }
 
 #pragma mark - GWSocketDecoderOutputProtocol
+
 // 解析后的数据
 - (void)didDecode:(id<GWResponesPacket>)decodedPacket
 {
