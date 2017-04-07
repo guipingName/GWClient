@@ -29,9 +29,7 @@
 
 + (NSString *)getTimeToShowWithTimestamp:(NSUInteger)timestamp;
 
-+ (NSString *) ImageNameWithFileType:(NSUInteger) fileType;
-
-+ (void) hintMessage:(NSString *) message time:(int)time isSuccess:(BOOL) isSuccess;
++ (UIImage *) ImageNameWithFileType:(NSUInteger) fileType;
 
 + (void) showMessage:(NSString *) message superView:(UIView *) superView;
 

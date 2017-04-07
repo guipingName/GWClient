@@ -173,7 +173,9 @@
             }
         }
         else{
-            [Utils hintMessage:@"下载失败" time:1 isSuccess:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showErrorMessage:@"下载失败"];
+            });
         }
     } fail:^(NSError *error) {
         

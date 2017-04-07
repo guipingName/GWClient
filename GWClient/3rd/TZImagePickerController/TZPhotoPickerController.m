@@ -80,7 +80,6 @@ static CGSize AssetGridThumbnailSize;
     }
     else {
         if (_showTakePhotoBtn || !iOS8Later || _isFirstAppear) {
-            NSLog(@"选择视频");
             [[TZImageManager manager] getAssetsFromFetchResult:_model.result allowPickingVideo:tzImagePickerVc.allowPickingVideo allowPickingImage:tzImagePickerVc.allowPickingImage completion:^(NSArray<TZAssetModel *> *models) {
                 _models = [NSMutableArray arrayWithArray:models];
                 [self initSubviews];

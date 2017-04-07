@@ -68,11 +68,12 @@
     NSLog(@"socket连接状态:%d",[self.gcdSocket isConnected]);
     [[GWDataManager sharedInstance] setRequestData:^(NSData *request) {
 //        NSLog(@"request长度:%lu",(unsigned long)request.length);
-        [sock writeData:request withTimeout:WRITE_TIMEOUT tag:SEND_TAG];
+        [sock writeData:request withTimeout:WRITE_TIMEOUT tag:SEND_TAG]; 
     }];
     self.connectSuccess(YES);
 }
 
+// 接收数据
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     if (!currentPacketHead) {
         currentPacketHead = [NSJSONSerialization
@@ -102,8 +103,6 @@
 }
 
 #pragma mark - 即将关闭函数
-
-
 - (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutReadWithTag:(long)tag elapsed:(NSTimeInterval)elapsed bytesDone:(NSUInteger)length{
     if (elapsed <= READ_TIMEOUT) {
         return 0.0;

@@ -134,6 +134,9 @@
                 if ([response[@"message"] isEqualToString:@"非法登录"]) {
                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"已在其它设备登录，请重新登录" preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *new = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+                        [userDef setBool:NO forKey:IS_HAS_LOGIN];
+                        [userDef synchronize];
                         LoginViewController *loginVC = [[LoginViewController alloc] init];
                         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
                         self.view.window.rootViewController = nav;
@@ -159,14 +162,16 @@
             });
         }
     } fail:^(NSError * error) {
-        NSLog(@"%@",error.localizedDescription);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"folder"] block:^{
-                [weakSelf fileList];
-            }];
-            myTableView.hidden = YES;
-            emptyView.hidden = NO;
-        });
+        NSLog(@"%ld %@",(long)error.code, error.localizedDescription);
+        if (error.code != NO_NETWORK) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"folder"] block:^{
+                    [weakSelf fileList];
+                }];
+                myTableView.hidden = YES;
+                emptyView.hidden = NO;
+            });
+        }
     }];
 }
 
@@ -330,20 +335,20 @@
             NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
             
             // 准备上传视频
-//            FileModel *model = [[FileModel alloc] init];
-//            model.fileState = TransferStatusReady;
-//            model.fileType = FileTypeVideo;
-//            model.fileName = fileName;
-//            model.videoData = data;
-//            model.fileSize = data.length;
-//            NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
-//            [temp addObject:model];
-//            [[TaskManager sharedManager] setSucess:^(BOOL success) {
-//                if (success) {
-//                    [weakSelf fileList];
-//                }
-//            }];
-//            [[TaskManager sharedManager] upArray:temp];
+            FileModel *model = [[FileModel alloc] init];
+            model.fileState = TransferStatusReady;
+            model.fileType = FileTypeVideo;
+            model.fileName = fileName;
+            model.videoData = data;
+            model.fileSize = data.length;
+            NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
+            [temp addObject:model];
+            [[TaskManager sharedManager] setSucess:^(BOOL success) {
+                if (success) {
+                    [weakSelf fileList];
+                }
+            }];
+            [[TaskManager sharedManager] upArray:temp];
         }];
     }
     else {
@@ -389,10 +394,12 @@
             }
         }
     } fail:^(NSError * error) {
-        NSLog(@"%@",error.localizedDescription);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD showErrorMessage:@"删除失败"];
-        });
+        NSLog(@"error.code:%ld %@", (long)error.code, error.localizedDescription);
+        if (error.code != NO_NETWORK) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showErrorMessage:@"删除失败"];
+            });
+        }
     }];
 }
 
@@ -402,15 +409,14 @@
     NSMutableArray *temp = [TaskManager sharedManager].downloadTaskArray;
     for (FileModel *model in temp) {
         if (model.fileId == file.fileId) {
-            NSLog(@"不能重复下载");
-            [Utils hintMessage:@"不能重复下载" time:1 isSuccess:NO];
+            [MBProgressHUD showErrorMessage:@"不能重复下载"];
             return;
         }
     }
     file.fileState = TransferStatusReady;
     [temp addObject:file];
     [[TaskManager sharedManager] downLoadArray:temp];
-    [Utils hintMessage:@"已加入下载列表" time:1 isSuccess:YES];
+    [MBProgressHUD showSuccessMessage:@"已加入下载列表"];
 }
 
 

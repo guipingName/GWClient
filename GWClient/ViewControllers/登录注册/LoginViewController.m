@@ -51,7 +51,7 @@
 - (void) doLogin:(UIButton *) sender{
     [tfUserName resignFirstResponder];
     [tfPassword resignFirstResponder];
-    //[MBProgressHUD showActivityMessageInView:@"正在登录"];
+    [MBProgressHUD showActivityMessageInView:@"正在登录"];
     //[Utils hiddenMBProgressAfterTenMinites];
     NSDictionary *paramDic = @{@"username":tfUserName.text,
                                @"password":tfPassword.text,
@@ -66,7 +66,9 @@
         });
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
-                [Utils hintMessage:@"登录成功" time:1 isSuccess:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccessMessage:@"登录成功"];
+                });
                 NSDictionary *dic = response[@"result"];
                 UserInfoModel *model = [UserInfoModel yy_modelWithDictionary:dic];
                 model.token = response[@"token"];
@@ -86,11 +88,19 @@
                 });
             }
             else{
-                [Utils hintMessage:response[@"message"] time:1 isSuccess:NO];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showErrorMessage:response[@"message"]];
+                });
             }
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
+        if (error.code != NO_NETWORK) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showErrorMessage:@"登录失败"];
+            });
+        }
     }];
 }
 

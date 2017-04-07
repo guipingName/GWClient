@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, SettingRowType) {
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
     NSArray *indexArray=[NSArray arrayWithObject:indexPath];
     [myTableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationAutomatic];
-    [Utils hintMessage:@"清理完成" time:1 isSuccess:YES];
+    [MBProgressHUD showSuccessMessage:@"清理完成"];
 }
 
 - (float)filePath {

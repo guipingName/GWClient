@@ -259,7 +259,7 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"修改用户信息--返回的Json串:\n%@", tempStr);
         if ([response[@"success"] boolValue]) {
-            [Utils hintMessage:@"修改成功" time:1 isSuccess:YES] ;
+            [MBProgressHUD showSuccessMessage:@"修改成功"];
             [Utils aCoder:model];
             if ([dic.allKeys.firstObject isEqualToString:@"gender"]) {
                 NSString *str = [dic.allValues.firstObject integerValue] == 1 ? @"男" : model.sex == 2 ? @"女":@"未知";

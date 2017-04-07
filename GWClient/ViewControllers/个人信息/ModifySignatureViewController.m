@@ -61,13 +61,13 @@
     }
     else if (_isfeedback) {
         if (textView.text.length > 0) {
-            [Utils hintMessage:@"提交成功" time:1 isSuccess:YES];
+            [MBProgressHUD showSuccessMessage:@"提交成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }
         else{
-            [Utils hintMessage:@"请输入您的建议" time:1 isSuccess:NO];
+            [MBProgressHUD showErrorMessage:@"请输入您的建议"];
         }
     }
 }

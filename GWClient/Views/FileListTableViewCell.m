@@ -43,11 +43,17 @@
     _nameLabel.text = model.fileName;
     _timeLabel.text = [Utils getTimeToShowWithTimestamp:model.fileTime];
     if (model.fileType == FileTypePicture) {
-        //_iconImage.image = model.thumbnail;
-        _iconImage.image = [Utils getImageWithImageName:model.fileName];
+        UIImage *image = [Utils getImageWithImageName:model.fileName];
+        NSData *data = UIImagePNGRepresentation(image);
+        if (data) {
+            _iconImage.image = image;
+        }
+        else{
+            _iconImage.image = model.thumbnail;
+        }
     }
     else{
-        _iconImage.image = [UIImage imageNamed:[Utils ImageNameWithFileType:model.fileType]];
+        _iconImage.image = [Utils ImageNameWithFileType:model.fileType];
     }
     if (model.fileSize > 1024 * 1024) {
         _sizeLabel.text = [NSString stringWithFormat:@"%.1f MB",(unsigned long)model.fileSize / (1024.0 * 1024.0)];

@@ -102,7 +102,7 @@
     MBProgressHUD *hud  =  [self createMBProgressHUDviewWithMessage:message isWindiw:isWindow];
     hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[@"MBProgressHUD+JDragon.bundle/MBProgressHUD" stringByAppendingPathComponent:iconName]]];
     hud.mode = MBProgressHUDModeCustomView;
-    [hud hide:YES afterDelay:1];
+    [hud hide:YES afterDelay:0.8];
 }
 + (void)hideHUD
 {

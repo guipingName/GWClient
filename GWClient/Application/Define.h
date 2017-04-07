@@ -27,14 +27,14 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define DEFAULT_HEAD_IMAGENAME      @"head"
 #define NAVIGATION_LEFTBAR          @"navigationbar_list_normal"
 
-#define HOST_IP                     @"10.134.42.1"
+#define HOST_IP                     @"10.134.20.1"
 #define HOST_PORT                   20173
 
 #define BTN_NEW_TAG                 800
 
 #define TRANSFERLISTCELL            @"transferListTableViewCell"
 #define SETTING_CELL                @"settingcell"
-
+#define NO_NETWORK                57
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s: %d \t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);

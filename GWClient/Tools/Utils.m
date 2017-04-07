@@ -21,20 +21,6 @@
     hud.userInteractionEnabled = NO;
 }
 
-+ (void) hintMessage:(NSString *) message time:(int)time isSuccess:(BOOL) isSuccess{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (isSuccess) {
-            [MBProgressHUD showSuccessMessage:message];
-        }
-        else{
-            [MBProgressHUD showErrorMessage:message];
-        }
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUD];
-    });
-}
 
 + (void) hintMessage:(NSString *) message superView:(UIView *) superView hud:(MBProgressHUD *) hud{
     if (![superView.subviews containsObject:hud]) {
@@ -152,7 +138,7 @@
     return publishString;
 }
 
-+ (NSString *) ImageNameWithFileType:(NSUInteger) fileType{
++ (UIImage *) ImageNameWithFileType:(NSUInteger) fileType{
     NSString *str = nil;
     switch (fileType) {
         case 1:
@@ -175,7 +161,7 @@
         default:
             break;
     }
-    return  str;
+    return [UIImage imageNamed:str];
 }
 
 + (UIView *) createHintViewWithFrame:(CGRect) frame superView:(UIView *) superView title:(NSString *) title imageName:(NSString *) imageName{

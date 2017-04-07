@@ -91,7 +91,12 @@
         compelet = @(0);
     }
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    _iconImage.image = [Utils getImageWithImageName:fileModel.fileName];
+    if (fileModel.fileType == FileTypePicture) {
+        _iconImage.image = [Utils getImageWithImageName:fileModel.fileName];
+    }
+    else{
+        _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
+    }
     _nameLabel.text = fileModel.fileName;
     if (fileModel.fileState == TransferStatusReady) {
         _sizeLabel.text = [NSString stringWithFormat:@"正在等待..."];
