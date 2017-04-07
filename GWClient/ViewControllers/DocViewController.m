@@ -160,6 +160,13 @@
         }
     } fail:^(NSError * error) {
         NSLog(@"%@",error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"folder"] block:^{
+                [weakSelf fileList];
+            }];
+            myTableView.hidden = YES;
+            emptyView.hidden = NO;
+        });
     }];
 }
 
@@ -353,7 +360,6 @@
 
 #pragma mark --------------- 删除文件 ----------------
 - (void) deleteFile:(FileModel *) file indexPaths:(NSArray<NSIndexPath *> *)indexPaths{
-    [Utils hintMessage:@"正在删除..." superView:self.view hud:hud];
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"deleteFileIds":@[@(file.fileId)],
                              @"token":user.token
@@ -362,29 +368,31 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"删除文件列表--返回的Json串:\n%@", tempStr);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
+                [dataArray removeObject:file];
+                selectRow = -1;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [dataArray removeObject:file];
-                    selectRow = -1;
+                    [MBProgressHUD showSuccessMessage:@"删除成功"];
                     [myTableView reloadData];
                     if (dataArray.count == 0) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            myTableView.hidden = YES;
-                            emptyView.hidden = NO;
-                        });
+                        [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:nil];
+                        myTableView.hidden = YES;
+                        emptyView.hidden = NO;
                     }
+                });
+            }
+            else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showErrorMessage:@"删除失败"];
                 });
             }
         }
     } fail:^(NSError * error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
         NSLog(@"%@",error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD showErrorMessage:@"删除失败"];
+        });
     }];
 }
 

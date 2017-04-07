@@ -37,7 +37,7 @@
 }
 #pragma mark - 网络请求
 
-// 有进度的请求
+
 -(void)GET:(ApiType)ApiType params:(NSDictionary *)params succeed:(void (^)(id))success fail:(void (^)(NSError *))failure{
     [[SocketManager sharedInstance] connectWithHost:HOST_IP onPort:HOST_PORT success:^(BOOL connectSuccess) {
         GWSocketPacketRequest *request = [[GWSocketPacketRequest alloc] init];

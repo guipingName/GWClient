@@ -78,7 +78,7 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    NSLog(@"添加到数据库");
+    //NSLog(@"添加到数据库");
     UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     NSArray *upArray = [TaskManager sharedManager].uploadTaskArray;
     for (FileModel *model in upArray) {
@@ -97,8 +97,8 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    NSLog(@"删除数据库");
-     [currentUser deleteAllRecord];
+    //NSLog(@"删除数据库");
+    [currentUser deleteAllRecord];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
