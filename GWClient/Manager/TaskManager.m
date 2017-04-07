@@ -148,6 +148,36 @@
 }
 
 - (void) downloadFile:(FileModel *) model{
+    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
+    NSDictionary *params = @{@"userId":@(user.userId),
+                             @"token":user.token,
+                             @"type":@(model.fileType),
+                             @"filePaths":@[@(model.fileId)]
+                             };
+    [Request GET:ApiTypeGetFile params:params succeed:^(id response) {
+        if ([response[@"success"] boolValue]) {
+            id newObj = [response[@"result"][@"files"] firstObject];
+            if ([newObj isKindOfClass:[UIImage class]]) {
+                NSLog(@"下载图片成功");
+                UIImage *image = [response[@"result"][@"files"] firstObject];
+                [Utils savePhotoWithImage:image imageName:model.fileName];
+                model.fileState = TransferStatusFinished;
+                [self download];
+            }
+            if ([newObj isKindOfClass:[NSData class]]) {
+                NSData *dataaa = (NSData *)newObj;
+                [Utils saveVideoWithData:dataaa videoName:model.fileName];
+                NSLog(@"下载视频成功 ");
+                model.fileState = TransferStatusFinished;
+                [self download];
+            }
+        }
+        else{
+            [Utils hintMessage:@"下载失败" time:1 isSuccess:NO];
+        }
+    } fail:^(NSError *error) {
+        
+    }];
 //    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
 //    NSDictionary *params = @{@"userId":@(user.userId),
 //                             @"token":user.token,

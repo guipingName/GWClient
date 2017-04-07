@@ -323,20 +323,20 @@
             NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
             
             // 准备上传视频
-            FileModel *model = [[FileModel alloc] init];
-            model.fileState = TransferStatusReady;
-            model.fileType = FileTypeVideo;
-            model.fileName = fileName;
-            model.videoData = data;
-            model.fileSize = data.length;
-            NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
-            [temp addObject:model];
-            [[TaskManager sharedManager] setSucess:^(BOOL success) {
-                if (success) {
-                    [weakSelf fileList];
-                }
-            }];
-            [[TaskManager sharedManager] upArray:temp];
+//            FileModel *model = [[FileModel alloc] init];
+//            model.fileState = TransferStatusReady;
+//            model.fileType = FileTypeVideo;
+//            model.fileName = fileName;
+//            model.videoData = data;
+//            model.fileSize = data.length;
+//            NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
+//            [temp addObject:model];
+//            [[TaskManager sharedManager] setSucess:^(BOOL success) {
+//                if (success) {
+//                    [weakSelf fileList];
+//                }
+//            }];
+//            [[TaskManager sharedManager] upArray:temp];
         }];
     }
     else {

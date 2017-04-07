@@ -29,6 +29,7 @@
 @property(nonatomic, strong) GCDAsyncSocket *gcdSocket;
 @property(nonatomic, assign) BOOL isConnected;
 @property(nonatomic, copy) void (^connectSuccess)(BOOL isConnect);
+@property(nonatomic, copy) void (^connectFailre)(NSError *error);
 @end
 
 @implementation SocketManager
@@ -47,7 +48,7 @@
     [_gcdSocket disconnect];
     [_gcdSocket setDelegate:nil];
     _gcdSocket = nil;
-    NSLog(@"服务器关闭，断开连接");
+    //NSLog(@"服务器关闭，断开连接");
 }
 #pragma mark - GCDAsyncSocketDelegate
 
@@ -57,21 +58,15 @@
               backError:(void (^) (NSError *error)) backError
 {
     NSError *error = nil;
-    NSLog(@"socket连接状态:%d",[self.gcdSocket isConnected]);
-    self.isConnected = [self.gcdSocket isConnected];
+    [self disConnect];
     self.connectSuccess = connectSucees;
-    if (!self.isConnected) {
-       self.isConnected = [self.gcdSocket connectToHost:host onPort:port error:&error];
-        if (backError) {
-            backError(error);
-        }
-    } else {
-        connectSucees(YES);
-    }
+    self.connectFailre = backError;
+    [self.gcdSocket connectToHost:host onPort:port error:&error];
 }
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
 //    NSLog(@"socket连接成功");
+    NSLog(@"socket连接状态:%d",[self.gcdSocket isConnected]);
     [[GWDataManager sharedInstance] setRequestData:^(NSData *request) {
 //        NSLog(@"request长度:%lu",(unsigned long)request.length);
         [sock writeData:request withTimeout:WRITE_TIMEOUT tag:SEND_TAG];
@@ -122,7 +117,10 @@
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-    NSLog(@"-------------断开连接,%@",err.localizedDescription);
+    //NSLog(@"-------------断开连接,%@",err.localizedDescription);
+    if (err.localizedDescription) {
+       self.connectFailre(err);
+    }
 }
 
 #pragma mark - 懒加载

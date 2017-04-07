@@ -35,7 +35,7 @@
 
 // 有进度的请求
 - (void)GET:(ApiType) ApiType params:(NSDictionary *)params
-   succeed:(void (^)(id))success
-      fail:(void (^)(NSError *))failure;
+   succeed:(void (^)(id response))success
+      fail:(void (^)(NSError *error))failure;
 
 @end

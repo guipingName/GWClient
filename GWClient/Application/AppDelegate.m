@@ -97,6 +97,7 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    NSLog(@"删除数据库");
      [currentUser deleteAllRecord];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
