@@ -176,9 +176,7 @@
 //        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
 //        NSLog(@"获取验证码--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showSuccessMessage:response[@"message"]];
-            });
+            [MBProgressHUD showSuccessMessage:response[@"message"]];
             if ([response[@"success"] boolValue]) {
                 NSDictionary *tempD = response[@"result"];
                 confirmStr = [tempD[@"verifiyCode"] stringValue];
@@ -192,16 +190,12 @@
             }
         }
         else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showErrorMessage:@"获取失败"];
-            });
+            [MBProgressHUD showErrorMessage:@"获取失败"];
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
         if (error.code != NO_NETWORK) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showErrorMessage:@"获取失败"];
-            });
+            [MBProgressHUD showErrorMessage:@"获取失败"];
         }
     }];
 }
@@ -221,9 +215,7 @@
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"注册--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showSuccessMessage:response[@"message"]];
-            });
+            [MBProgressHUD showSuccessMessage:response[@"message"]];
             if ([response[@"success"] boolValue]) {
                 UserLogin *model = [[UserLogin alloc] init];
                 model.email = tfEmail.text;
@@ -237,16 +229,12 @@
             }
         }
         else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showErrorMessage:@"注册失败"];
-            });
+            [MBProgressHUD showErrorMessage:@"注册失败"];
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
         if (error.code != NO_NETWORK) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showErrorMessage:@"注册失败"];
-            });
+            [MBProgressHUD showErrorMessage:@"注册失败"];
         }
     }];
 }

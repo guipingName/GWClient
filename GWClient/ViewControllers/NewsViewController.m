@@ -109,7 +109,6 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
         if ([response isKindOfClass:[NSDictionary class]]) {
-            
             if ([response[@"success"] boolValue]) {
                 NSDictionary *dic = response[@"result"];
                 NSArray *array = dic[@"list"];
@@ -134,9 +133,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
             }
         }
         else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showErrorMessage:@"获取失败"];
-            });
+            [MBProgressHUD showErrorMessage:@"获取失败"];
         }
     } fail:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{

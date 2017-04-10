@@ -61,14 +61,10 @@
         NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"登录--返回的Json串:\n%@", tempStr);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUD];
-        });
+        [MBProgressHUD hideHUD];
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showSuccessMessage:@"登录成功"];
-                });
+                [MBProgressHUD showSuccessMessage:@"登录成功"];
                 NSDictionary *dic = response[@"result"];
                 UserInfoModel *model = [UserInfoModel yy_modelWithDictionary:dic];
                 model.token = response[@"token"];
@@ -88,18 +84,14 @@
                 });
             }
             else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showErrorMessage:response[@"message"]];
-                });
+                [MBProgressHUD showErrorMessage:response[@"message"]];
             }
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
         if (error.code != NO_NETWORK) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-                [MBProgressHUD showErrorMessage:@"登录失败"];
-            });
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showErrorMessage:@"登录失败"];
         }
     }];
 }

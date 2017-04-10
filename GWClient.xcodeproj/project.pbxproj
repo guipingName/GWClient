@@ -117,7 +117,6 @@
 		38DD08ED1E7BD70A00388CAE /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08E81E7BD70A00388CAE /* MMDrawerVisualState.m */; };
 		38DD08EE1E7BD70A00388CAE /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08EA1E7BD70A00388CAE /* UIViewController+MMDrawerController.m */; };
 		38DD08F11E7BD77D00388CAE /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD08F01E7BD77D00388CAE /* LeftViewController.m */; };
-		38DD09241E7BDDBB00388CAE /* bimar关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09021E7BDDBB00388CAE /* bimar关于@3x.png */; };
 		38DD092E1E7BDDBB00388CAE /* bimar背景@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD090C1E7BDDBB00388CAE /* bimar背景@3x.png */; };
 		38DD09331E7BDDBB00388CAE /* 左侧栏背景@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DD09111E7BDDBB00388CAE /* 左侧栏背景@3x.png */; };
 		38DD093A1E7BE00600388CAE /* GWClientTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DD09391E7BE00600388CAE /* GWClientTabBarController.m */; };
@@ -362,7 +361,6 @@
 		38DD08EF1E7BD77D00388CAE /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
 		38DD08F01E7BD77D00388CAE /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		38DD08F21E7BDA4700388CAE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		38DD09021E7BDDBB00388CAE /* bimar关于@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar关于@3x.png"; sourceTree = "<group>"; };
 		38DD090C1E7BDDBB00388CAE /* bimar背景@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bimar背景@3x.png"; sourceTree = "<group>"; };
 		38DD09111E7BDDBB00388CAE /* 左侧栏背景@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "左侧栏背景@3x.png"; sourceTree = "<group>"; };
 		38DD09381E7BE00600388CAE /* GWClientTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWClientTabBarController.h; sourceTree = "<group>"; };
@@ -821,7 +819,6 @@
 				38C7F03B1E7FF0BA00B1DBA8 /* tabbar_me@3x.png */,
 				38C7F03C1E7FF0BA00B1DBA8 /* tabbar_meHL@2x.png */,
 				38C7F03D1E7FF0BA00B1DBA8 /* tabbar_meHL@3x.png */,
-				38DD09021E7BDDBB00388CAE /* bimar关于@3x.png */,
 				38DD090C1E7BDDBB00388CAE /* bimar背景@3x.png */,
 				38DD09111E7BDDBB00388CAE /* 左侧栏背景@3x.png */,
 				383CC0041E7F702D00C62B29 /* 箭头@3x.png */,
@@ -1149,7 +1146,6 @@
 				38E7A0E51E8A48C700B4A918 /* Info.plist in Resources */,
 				38DD092E1E7BDDBB00388CAE /* bimar背景@3x.png in Resources */,
 				38DD09331E7BDDBB00388CAE /* 左侧栏背景@3x.png in Resources */,
-				38DD09241E7BDDBB00388CAE /* bimar关于@3x.png in Resources */,
 				38C7F04A1E7FF0BA00B1DBA8 /* tabbar_me@2x.png in Resources */,
 				382003051E8B4F2000A3D20B /* download_64.png in Resources */,
 				38C7F03E1E7FF0BA00B1DBA8 /* tabbar_contacts@2x.png in Resources */,

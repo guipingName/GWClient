@@ -249,6 +249,8 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
     }
 }
 
+
+#pragma mark --------------- 修改用户信息 ----------------
 - (void) uploadDictionary:(NSDictionary *) dic section:(NSUInteger) section row:(NSUInteger) row{
     NSDictionary *paramDic = @{@"userId":@(model.userId),
                                @"token":model.token,
@@ -259,16 +261,20 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
         NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
         NSLog(@"修改用户信息--返回的Json串:\n%@", tempStr);
         if ([response[@"success"] boolValue]) {
+            [Utils aCoder:model];
             [MBProgressHUD showSuccessMessage:@"修改成功"];
-            [Utils aCoder:model];
-            if ([dic.allKeys.firstObject isEqualToString:@"gender"]) {
-                NSString *str = [dic.allValues.firstObject integerValue] == 1 ? @"男" : model.sex == 2 ? @"女":@"未知";
-                [self reloadTableViewWithSection:section row:row object:str];
-            }
-            else{
-                [self reloadTableViewWithSection:section row:row object:dic.allValues.firstObject];
-            }
-            [Utils aCoder:model];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([dic.allKeys.firstObject isEqualToString:@"gender"]) {
+                    NSString *str = [dic.allValues.firstObject integerValue] == 1 ? @"男" : model.sex == 2 ? @"女":@"未知";
+                    [self reloadTableViewWithSection:section row:row object:str];
+                }
+                else{
+                    [self reloadTableViewWithSection:section row:row object:dic.allValues.firstObject];
+                }
+            });
+        }
+        else{
+            [MBProgressHUD showErrorMessage:@"修改失败"];
         }
     } fail:^(NSError * error) {
         NSLog(@"%@",error.localizedDescription);

@@ -99,16 +99,20 @@
 }
 + (void)showCustomIcon:(NSString *)iconName message:(NSString *)message isWindow:(BOOL)isWindow
 {
-    MBProgressHUD *hud  =  [self createMBProgressHUDviewWithMessage:message isWindiw:isWindow];
-    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[@"MBProgressHUD+JDragon.bundle/MBProgressHUD" stringByAppendingPathComponent:iconName]]];
-    hud.mode = MBProgressHUDModeCustomView;
-    [hud hide:YES afterDelay:0.8];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        MBProgressHUD *hud  =  [self createMBProgressHUDviewWithMessage:message isWindiw:isWindow];
+        hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[@"MBProgressHUD+JDragon.bundle/MBProgressHUD" stringByAppendingPathComponent:iconName]]];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.8];
+    });
 }
 + (void)hideHUD
 {
-    UIView  *winView =(UIView*)[UIApplication sharedApplication].delegate.window;
-    [self hideHUDForView:winView animated:YES];
-    [self hideHUDForView:[self getCurrentUIVC].view animated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIView  *winView =(UIView*)[UIApplication sharedApplication].delegate.window;
+        [self hideHUDForView:winView animated:YES];
+        [self hideHUDForView:[self getCurrentUIVC].view animated:YES];
+    });
 }
 //获取当前屏幕显示的viewcontroller
 +(UIViewController *)getCurrentWindowVC

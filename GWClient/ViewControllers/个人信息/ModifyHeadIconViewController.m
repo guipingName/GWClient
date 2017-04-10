@@ -43,7 +43,7 @@
     [_imageView setCenter:self.view.center];
     [self.view addSubview:_imageView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"bimar关于"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClicked)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"修改头像" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClicked)];
     
 }
 -(void)viewWillDisappear:(BOOL)animated{
