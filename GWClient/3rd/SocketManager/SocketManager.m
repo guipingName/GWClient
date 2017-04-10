@@ -132,6 +132,7 @@
 {
      [self.gcdSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:SEND_TAG];
 }
+
 // 进度显示timer方法
 - (void)calculateProcess:(NSTimer *) sender
 {

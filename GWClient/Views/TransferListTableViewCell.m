@@ -107,6 +107,7 @@
         else{
             _sizeLabel.textColor = [UIColor lightGrayColor];
         }
+        _compeletLabel.text = @"0%%";
     }
     else if(fileModel.fileState == TransferStatusDuring) {
         _sizeLabel.text = [NSString stringWithFormat:@"%@/%@",[self fileSizeNumber:[done integerValue]], [self fileSizeNumber:fileModel.fileSize]];

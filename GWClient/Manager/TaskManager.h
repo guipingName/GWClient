@@ -18,8 +18,6 @@
 
 @property(nonatomic, copy)void (^sucess)(BOOL);
 
-//@property(nonatomic, assign)NSInteger done;
-//@property(nonatomic, assign)float compelet;
 
 @property(nonatomic, copy)void (^processBlock)(NSInteger done, NSInteger total, float percentage);
 

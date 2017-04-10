@@ -20,6 +20,20 @@
     return self;
 }
 
+-(NSMutableArray *)uploadTaskArray{
+    if (!_uploadTaskArray) {
+        _uploadTaskArray = [NSMutableArray array];
+    }
+    return _uploadTaskArray;
+}
+
+-(NSMutableArray *)downloadTaskArray{
+    if (!_downloadTaskArray) {
+        _downloadTaskArray = [NSMutableArray array];
+    }
+    return _downloadTaskArray;
+}
+
 - (instancetype) initPrivate{
     if (self = [super init]) {
         upArray = [NSMutableArray array];
@@ -119,6 +133,7 @@
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
                 // 上传成功 修改本地记录
+                NSLog(@"上传成功，即将上传下一个文件");
                 model.fileState = TransferStatusFinished;
                 [self upload];
             }
