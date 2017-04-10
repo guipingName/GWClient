@@ -426,10 +426,10 @@
         NSLog(@"删除文件列表--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
+                [MBProgressHUD showSuccessMessage:@"删除成功"];
                 [dataArray removeObject:file];
                 selectRow = -1;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showSuccessMessage:@"删除成功"];
                     [myTableView reloadData];
                     if (dataArray.count == 0) {
                         [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:nil];
@@ -439,17 +439,13 @@
                 });
             }
             else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showErrorMessage:@"删除失败"];
-                });
+                [MBProgressHUD showErrorMessage:@"删除失败"];
             }
         }
     } fail:^(NSError * error) {
         NSLog(@"error.code:%ld %@", (long)error.code, error.localizedDescription);
         if (error.code != NO_NETWORK) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showErrorMessage:@"删除失败"];
-            });
+            [MBProgressHUD showErrorMessage:@"删除失败"];
         }
     }];
 }

@@ -35,9 +35,8 @@
     });
     return manager;
 }
-#pragma mark - 网络请求
 
-// 有进度的请求
+#pragma mark - 网络请求
 - (void)GET:(ApiType) ApiType
      params:(NSDictionary *)params
     succeed:(void (^)(id))success

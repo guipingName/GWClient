@@ -96,22 +96,21 @@
             [self.currentTableView reloadData];
         }
     }
-    [[TaskManager sharedManager] setProcessBlock:^(NSInteger done, NSInteger total, float progress) {
+    [TaskManager sharedManager].processBlock = ^(NSInteger done, NSInteger total, float progress){
         progressDic = @{@"done":@(done),
-                        @"compelet":@(progress)};
-        NSLog(@"=======================\n compelet: %f\n=============",progress);
+                        @"compelet":@(progress)
+                        };
+        NSLog(@"======================= compelet: %f =============",progress);
         
         if (isnan(progress)) {
-            NSLog(@"#############################");
-            progressDic = @{@"done":@([TaskManager sharedManager].done),
+            progressDic = @{@"done":@(done),
                             @"compelet":@(1)};
             [timer invalidate];
         }
-            if (dataArray.count > 0) {
-                    [self.currentTableView reloadData];
-            }
-    }];
-    
+        if (dataArray.count > 0) {
+            [self.currentTableView reloadData];
+        }
+    };
 }
 
 - (void) createViews {

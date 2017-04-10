@@ -43,13 +43,14 @@
     _nameLabel.text = model.fileName;
     _timeLabel.text = [Utils getTimeToShowWithTimestamp:model.fileTime];
     if (model.fileType == FileTypePicture) {
-        UIImage *image = [Utils getImageWithImageName:model.fileName];
+        UIImage *image = model.thumbnail;
         NSData *data = UIImagePNGRepresentation(image);
         if (data) {
             _iconImage.image = image;
         }
         else{
-            _iconImage.image = model.thumbnail;
+            UIImage *image = [Utils getImageWithImageName:model.fileName];
+            _iconImage.image = image;
         }
     }
     else{

@@ -59,7 +59,7 @@
     //NSLog(@"服务器关闭，断开连接");
 }
 #pragma mark - GCDAsyncSocketDelegate
-
+// 上传
 - (void)connectWithHost:(NSString *)host
                  onPort:(uint16_t )port
                 success:(void (^) (BOOL connectSuccess)) connectSucees
@@ -74,25 +74,30 @@
     [self.gcdSocket connectToHost:host onPort:port error:&error];
 }
 
+// 有进度的上传
 - (void)connectWithHost:(NSString *)host onPort:(uint16_t)port success:(void (^)(BOOL))connectSucees compeletProcess:(void (^)(NSInteger, NSInteger, float))process backError:(void (^)(NSError *))backError
 {
     [self connectWithHost:host onPort:port success:connectSucees backError:backError];
     self.processBlock = process;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _upTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateProcess:) userInfo:nil repeats:YES];
+    });
 }
+
+// 有进度的下载
 - (void)connectWithHost:(NSString *)host onPort:(uint16_t)port success:(void (^)(BOOL))connectSucees downLoadProcess:(void (^)(NSInteger, NSInteger, float))process backError:(void (^)(NSError *))backError
 {
     [self connectWithHost:host onPort:port success:connectSucees backError:backError];
     self.downProcessBlock = process;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _downTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateDownProcess:) userInfo:nil repeats:YES];
+    });
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
     NSLog(@"socket连接成功");
     [[GWDataManager sharedInstance] setRequestData:^(NSData *request) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _upTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateProcess:) userInfo:nil repeats:YES];
-            _downTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateDownProcess:) userInfo:nil repeats:YES];
-        });
         [sock writeData:request withTimeout:WRITE_TIMEOUT tag:SEND_TAG];
     }];
     self.connectSuccess(YES);

@@ -88,6 +88,9 @@
             return i;
         }
     }
+    if (isUpload) {
+        NSLog(@"没有上传文件，即将刷新文件列表");
+    }
     if (self.sucess) {
        self.sucess(isUpload);
     }
@@ -123,7 +126,13 @@
     } fail:^(NSError *error) {
         
     } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
-        NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
+        if (isnan(percentage)) {
+            percentage = 1.000000;
+        }
+        NSLog(@"+++上传+++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
+        if (self.processBlock) {
+            self.processBlock(done, total, percentage);
+        }
     }];
 }
 
@@ -174,7 +183,13 @@
     } fail:^(NSError * error) {
         
     } downLoadProcess:^(NSInteger done, NSInteger total, float percentage) {
-        NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
+        if (isnan(percentage)) {
+            percentage = 1.000000;
+        }
+        NSLog(@"++++下载++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
+        if (self.processBlock) {
+            self.processBlock(done, total, percentage);
+        }
     }];
     
 //    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
