@@ -191,11 +191,18 @@
             }
         }
         else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showErrorMessage:@"下载失败"];
-            });
+            model.fileState = TransferStatusFailure;
+            if (self.downLoadError) {
+                self.downLoadError(nil);
+            }
+            [self download];
         }
     } fail:^(NSError * error) {
+        if (error.code != NO_NETWORK) {
+            if (self.downLoadError) {
+                self.downLoadError(error);
+            }
+        }
         
     } downLoadProcess:^(NSInteger done, NSInteger total, float percentage) {
         if (isnan(percentage)) {

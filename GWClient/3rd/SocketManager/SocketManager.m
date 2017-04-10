@@ -98,6 +98,7 @@
 {
     NSLog(@"socket连接成功");
     [[GWDataManager sharedInstance] setRequestData:^(NSData *request) {
+        // NSLog(@"上传数据长度:%lu", (unsigned long)request.length);
         [sock writeData:request withTimeout:WRITE_TIMEOUT tag:SEND_TAG];
     }];
     self.connectSuccess(YES);
@@ -125,14 +126,21 @@
                                                 @"command":[NSNumber numberWithInteger:reqestCommand]
                                                 };
     currentPacketHead = nil;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self stopTimer:_downTimer];
+    });
 }
 
 #pragma mark - 返回数据重载函数
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-     [self.gcdSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:SEND_TAG];
+    
+    //[self stopTimer:_upTimer];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self stopTimer:_upTimer];
+    });
+    [self.gcdSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:SEND_TAG];
 }
-
 // 进度显示timer方法
 - (void)calculateProcess:(NSTimer *) sender
 {
@@ -143,11 +151,6 @@
     if (self.processBlock) {
         self.processBlock(done,total,asign);
     }
-    if (isnan(asign)) {
-        [sender invalidate];
-        sender = nil;
-        return;
-    }
 }
 - (void)calculateDownProcess:(NSTimer *) sender
 {
@@ -157,11 +160,6 @@
     float downAsign = [self.gcdSocket progressOfReadReturningTag:&tag bytesDone:&doweDone total:&downToal];
     if (self.downProcessBlock) {
         self.downProcessBlock(doweDone,downToal,downAsign);
-    }
-    if (isnan(downAsign) || (downAsign == 1.0)) {
-        [sender invalidate];
-        sender = nil;
-        return;
     }
 }
 
@@ -175,15 +173,33 @@
     return 0.0;
 }
 
+- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutWriteWithTag:(long)tag elapsed:(NSTimeInterval)elapsed bytesDone:(NSUInteger)length
+{
+    if (elapsed <= WRITE_TIMEOUT) {
+        return 0.0;
+    }
+    return 0.0;
+}
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-    //NSLog(@"-------------断开连接,%@",err.localizedDescription);
+    NSLog(@"-------------断开连接,error.localizedDescription:%@",err.localizedDescription);
     if (err.localizedDescription) {
         self.netError(err);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self stopTimer:_downTimer];
+            [self stopTimer:_upTimer];
+        });
     }
 }
 
+- (void)stopTimer:(NSTimer *) sender
+{
+    if ([sender isValid]) {
+        [sender invalidate];
+        sender = nil;
+    }
+}
 #pragma mark - 懒加载
 - (GCDAsyncSocket *)gcdSocket
 {

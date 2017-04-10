@@ -107,7 +107,7 @@
         else{
             _sizeLabel.textColor = [UIColor lightGrayColor];
         }
-        _compeletLabel.text = @"0%%";
+        _compeletLabel.text = @"0%";
     }
     else if(fileModel.fileState == TransferStatusDuring) {
         _sizeLabel.text = [NSString stringWithFormat:@"%@/%@",[self fileSizeNumber:[done integerValue]], [self fileSizeNumber:fileModel.fileSize]];
@@ -117,13 +117,17 @@
         }
         else{
             _sizeLabel.textColor = [UIColor lightGrayColor];
+            _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
         }
-        _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
     }
-    else {
+    else if(fileModel.fileState == TransferStatusFinished) {
         _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
         _sizeLabel.textColor = [UIColor lightGrayColor];
-        _compeletLabel.text = [NSString stringWithFormat:@"100%%"];
+        _compeletLabel.text = @"100%";
+    }
+    else{
+        _sizeLabel.text = @"传输失败";
+        _sizeLabel.textColor = [UIColor redColor];
     }
 }
 

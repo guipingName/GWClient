@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSInteger, TransferStatus) {
     TransferStatusReady,
     TransferStatusDuring,
+    TransferStatusFailure,
     TransferStatusFinished,
 };
 

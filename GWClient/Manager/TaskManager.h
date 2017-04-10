@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSMutableArray *downloadTaskArray;
 
 @property(nonatomic, copy)void (^sucess)(BOOL);
-
+@property(nonatomic, copy)void (^downLoadError)(NSError * error);
 
 @property(nonatomic, copy)void (^processBlock)(NSInteger done, NSInteger total, float percentage);
 

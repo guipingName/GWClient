@@ -463,7 +463,13 @@
     file.fileState = TransferStatusReady;
     [temp addObject:file];
     [[TaskManager sharedManager] downLoadArray:temp];
-    [MBProgressHUD showSuccessMessage:@"已加入下载列表"];
+    
+    [MBProgressHUD showSuccessMessage:@"已添加到下载列表"];
+    
+    [TaskManager sharedManager].downLoadError = ^(NSError *error){
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showErrorMessage:@"下载失败"];
+    };
 }
 
 
