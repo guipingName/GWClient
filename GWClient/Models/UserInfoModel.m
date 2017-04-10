@@ -68,7 +68,7 @@
         [aCoder encodeObject:_nickName forKey:@"nickName"];
         [aCoder encodeObject:_headImgUrl forKey:@"headImgUrl"];
         [aCoder encodeInteger:_age forKey:@"age"];
-        [aCoder encodeInteger:_sex forKey:@"sex"];
+        [aCoder encodeInteger:_gender forKey:@"gender"];
         [aCoder encodeObject:_location forKey:@"location"];
         [aCoder encodeObject:_signature forKey:@"signature"];
     }
@@ -83,7 +83,7 @@
             _nickName = [aDecoder decodeObjectForKey:@"nickName"];
             _headImgUrl = [aDecoder decodeObjectForKey:@"headImgUrl"];
             _age = [aDecoder decodeIntegerForKey:@"age"];
-            _sex = [aDecoder decodeIntegerForKey:@"sex"];
+            _gender = [aDecoder decodeIntegerForKey:@"gender"];
             _location = [aDecoder decodeObjectForKey:@"location"];
             _signature = [aDecoder decodeObjectForKey:@"signature"];
         }

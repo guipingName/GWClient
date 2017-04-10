@@ -29,7 +29,7 @@
 @property (nonatomic, assign) NSUInteger age;
 
 /**性别(1男、2女、3未知)*/
-@property (nonatomic, assign) NSUInteger sex;
+@property (nonatomic, assign) NSUInteger gender;
 
 /**地区*/
 @property (nonatomic, copy) NSString *location;

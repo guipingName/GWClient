@@ -111,7 +111,7 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
         }];
     }
     nickNameStr = model.nickName;
-    sexStr = model.sex == 1 ? @"男" : model.sex == 2 ? @"女":@"未知";
+    sexStr = model.gender == 1 ? @"男" : model.gender == 2 ? @"女":@"未知";
     locationStr = model.location;
     signatureStr = model.signature;
     NSMutableArray *img = [@[headImage, nickNameStr] mutableCopy];
@@ -207,12 +207,12 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
                 return ;
             }
             if ([sexStra isEqualToString:@"男"]) {
-                model.sex = 1;
+                model.gender = 1;
             }
             else if ([sexStra isEqualToString:@"女"]){
-                model.sex = 2;
+                model.gender = 2;
             }
-            NSDictionary *dic = @{@"gender":@(model.sex)};
+            NSDictionary *dic = @{@"gender":@(model.gender)};
             [self uploadDictionary:dic section:indexPath.section row:indexPath.row];
         };
         [self.navigationController pushViewController:sexVC animated:YES];
@@ -265,7 +265,7 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
             [MBProgressHUD showSuccessMessage:@"修改成功"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([dic.allKeys.firstObject isEqualToString:@"gender"]) {
-                    NSString *str = [dic.allValues.firstObject integerValue] == 1 ? @"男" : model.sex == 2 ? @"女":@"未知";
+                    NSString *str = [dic.allValues.firstObject integerValue] == 1 ? @"男" : model.gender == 2 ? @"女":@"未知";
                     [self reloadTableViewWithSection:section row:row object:str];
                 }
                 else{

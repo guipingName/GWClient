@@ -198,7 +198,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    FileListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    FileListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FILELISTCELL forIndexPath:indexPath];
     cell.model = dataArray[indexPath.row];
     cell.cellOn = indexPath.row == selectRow ? NO : YES;
     [cell setOnOffBlock:^(BOOL on) {
@@ -527,7 +527,7 @@
     myTableView.dataSource = self;
     myTableView.hidden = YES;
     myTableView.tableFooterView = [[UIView alloc] init];
-    [myTableView registerClass:[FileListTableViewCell class] forCellReuseIdentifier:@"CELL"];
+    [myTableView registerClass:[FileListTableViewCell class] forCellReuseIdentifier:FILELISTCELL];
     
     emptyView = [[HintView alloc] initWithFrame:myTableView.frame];
     [self.view addSubview:emptyView];

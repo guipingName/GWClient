@@ -34,7 +34,8 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 
 #define TRANSFERLISTCELL            @"transferListTableViewCell"
 #define SETTING_CELL                @"settingcell"
-#define NO_NETWORK                57
+#define FILELISTCELL                @"FileListTableViewCell"
+#define NO_NETWORK                  57
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s: %d \t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
