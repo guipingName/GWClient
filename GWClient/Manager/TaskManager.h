@@ -22,6 +22,7 @@
 @property(nonatomic, assign)float compelet;
 
 @property(nonatomic, copy)void (^processBlock)(NSInteger done, NSInteger total, float percentage);
+
 + (instancetype) sharedManager;
 
 - (void)upArray:(NSMutableArray *) up;

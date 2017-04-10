@@ -147,21 +147,28 @@
                                @"fileDic":@{imageName:image}
                                };
     [Request GET:ApiTypeUpFile params:paramDic succeed:^(id response) {
-//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-//        NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUD];
-        });
+        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+        NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
+        [MBProgressHUD hideHUD];
         if ([response[@"success"] boolValue]) {
-            _imageView.image = image;
+            [MBProgressHUD showSuccessMessage:@"修改成功"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _imageView.image = image;
+            });
             [Utils savePhotoWithImage:image imageName:model.headImgUrl];
             model.headImgUrl = [response[@"result"][@"imagePaths"] firstObject];
             [Utils aCoder:model];
             //NSLog(@"model.headImgUrl  修改头像:%@", model.headImgUrl);
         }
+        else{
+            [MBProgressHUD showErrorMessage:@"修改失败"];
+        }
     } fail:^(NSError * error) {
         NSLog(@"%@",error.localizedDescription);
+        if (error.code != NO_NETWORK) {
+            [MBProgressHUD showErrorMessage:@"修改失败"];
+        }
     }];
 }
 

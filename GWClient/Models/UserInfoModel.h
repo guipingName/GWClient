@@ -8,8 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, GenderType) {
+    GenderTypeMan = 1,
+    GenderTypeWoman = 2,
+    GenderTypeUnknown = 3
+};
+
 @class FileModel;
 @interface UserInfoModel : NSObject<NSCoding>
+
 
 
 /**用户Id*/

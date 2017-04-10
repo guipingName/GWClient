@@ -131,14 +131,14 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.section == UserInfoSectionTypeBasic && indexPath.row == UserInfoSectionTypeBasicRowHead) {
         return 70;
     }
     return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
+    if (section == UserInfoSectionTypeBasic) {
         return 0.00001f;
     }
     return 40;
@@ -207,10 +207,10 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
                 return ;
             }
             if ([sexStra isEqualToString:@"男"]) {
-                model.gender = 1;
+                model.gender = GenderTypeMan;
             }
             else if ([sexStra isEqualToString:@"女"]){
-                model.gender = 2;
+                model.gender = GenderTypeWoman;
             }
             NSDictionary *dic = @{@"gender":@(model.gender)};
             [self uploadDictionary:dic section:indexPath.section row:indexPath.row];
@@ -265,7 +265,7 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
             [MBProgressHUD showSuccessMessage:@"修改成功"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([dic.allKeys.firstObject isEqualToString:@"gender"]) {
-                    NSString *str = [dic.allValues.firstObject integerValue] == 1 ? @"男" : model.gender == 2 ? @"女":@"未知";
+                    NSString *str = [dic.allValues.firstObject integerValue] == GenderTypeMan ? @"男" : model.gender == GenderTypeWoman ? @"女":@"未知";
                     [self reloadTableViewWithSection:section row:row object:str];
                 }
                 else{
