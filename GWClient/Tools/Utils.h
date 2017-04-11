@@ -21,9 +21,7 @@
 
 + (UIImage *) getImageWithImageName:(NSString *) imageName;
 
-+ (NSUInteger) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName;
-
-+ (void) saveVideoWithData:(NSData *)data videoName:(NSString *) videoName;
++ (NSUInteger) saveFileWithData:(NSData *)data fileName:(NSString *) fileName isPicture:(BOOL) isPicture;
 
 + (NSInteger)currentTimeStamp;
 

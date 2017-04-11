@@ -24,9 +24,9 @@
     NSMutableArray *dataArray;
     NSMutableArray *uploadArray;
     NSMutableArray *downloadArray;
-    HintView *emptyUpView; // 上传空View
-    HintView *emptyDownView;// 下载空View
-    BOOL isUpButtonClicked;// 上传选中
+    HintView *emptyUpView;          // 上传空View
+    HintView *emptyDownView;        // 下载空View
+    BOOL isUpButtonClicked;         // 上传选中
     UIView *btnBackView;
     UserInfoModel *user;
     NSDictionary *progressDic;
@@ -69,7 +69,6 @@
 - (void) loadData {
     uploadArray = [[TaskManager sharedManager].uploadTaskArray mutableCopy];
     downloadArray = [[TaskManager sharedManager].downloadTaskArray mutableCopy];
-    //NSLog(@"uploadArray.count: %lu downloadArray.count:%lu", (unsigned long)uploadArray.count, (unsigned long)downloadArray.count);
     if (isUpButtonClicked) {
         dataArray = uploadArray;
         if (dataArray.count == 0) {
@@ -98,14 +97,10 @@
     }
     [TaskManager sharedManager].upProcessBlock = ^(NSInteger done, NSInteger total, float progress){
         upDic = @{@"done":@(done),
-                        @"compelet":@(progress)
-                        };
+                  @"compelet":@(progress)
+                  };
         NSLog(@"========上传=============== compelet: %f =============",progress);
         
-        if (isnan(progress)) {
-            upDic = @{@"done":@(done),
-                      @"compelet":@(1)};
-        }
         if (dataArray.count > 0) {
             [self.currentTableView reloadData];
         }
@@ -113,14 +108,9 @@
     
     [TaskManager sharedManager].downProcessBlock = ^(NSInteger done, NSInteger total, float progress){
         downDic = @{@"done":@(done),
-                        @"compelet":@(progress)
-                        };
+                    @"compelet":@(progress)
+                    };
         NSLog(@"=========下载============== compelet: %f =============",progress);
-        
-        if (isnan(progress)) {
-            downDic = @{@"done":@(done),
-                            @"compelet":@(1)};
-        }
         if (dataArray.count > 0) {
             [self.currentTableView reloadData];
         }

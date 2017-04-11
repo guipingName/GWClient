@@ -156,7 +156,7 @@
 #pragma mark --------------- 缓存视频 ----------------
 - (void) cacheVideoWithData:(NSData *)data videoName:(NSString *) videoName{
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *pathDocuments = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches/"];
+    NSString *pathDocuments = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches"];
     NSString *createPath = [NSString stringWithFormat:@"%@/videos", pathDocuments];
     if (![fileManager fileExistsAtPath:createPath]) {
         [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -170,7 +170,7 @@
 - (void) cachePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName{
     NSData *data = UIImagePNGRepresentation(image);
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *pathDocuments = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches/"];
+    NSString *pathDocuments = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches"];
     NSString *createPath = [NSString stringWithFormat:@"%@/pictures", pathDocuments];
     if (![fileManager fileExistsAtPath:createPath]) {
         [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -190,7 +190,7 @@
         typeStr = @"videos";
     }
     NSString *aa = [NSString stringWithFormat:@"Documents/%@",typeStr];
-    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:aa];
+    NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:aa];
     NSString *imgFileName = [NSString stringWithFormat:@"/%@", fileName];
     NSString *downLoadfilePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
     //NSLog(@"downLoadfilePath:%@", downLoadfilePath);

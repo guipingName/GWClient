@@ -276,7 +276,8 @@
         model.fileType = FileTypePicture;
         model.fileName = imageNames[i];
         UIImage *image = ImageArray[i];
-        model.fileSize = [Utils savePhotoWithImage:image imageName:model.fileName];
+        NSData *data = UIImagePNGRepresentation(image);
+        model.fileSize = [Utils saveFileWithData:data fileName:model.fileName isPicture:YES];
         [newImages addObject:model];
     }
     
@@ -344,7 +345,6 @@
         fileName = [NSString stringWithFormat:@"%@.MOV", currentTime];
     }
     if (asset.mediaType == PHAssetMediaTypeVideo || asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
-        NSLog(@"111111111");
         PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
         options.version = PHImageRequestOptionsVersionCurrent;
         options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
@@ -354,8 +354,6 @@
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
             NSURL *url = urlAsset.URL;
             NSData *data = [NSData dataWithContentsOfURL:url];
-            NSLog(@"22222222222");
-            
             
 //            NSInputStream *readStream = [[NSInputStream alloc] initWithURL:url];
 //            readStream.delegate = self;

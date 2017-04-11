@@ -86,22 +86,6 @@
     });
 }
 
-
-+ (NSUInteger) savePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName{
-    NSData *data = UIImagePNGRepresentation(image);
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)objectAtIndex:0];
-    NSString *createPath = [NSString stringWithFormat:@"%@/pictures", pathDocuments];
-    if (![fileManager fileExistsAtPath:createPath]) {
-        [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/pictures"];
-    NSString *imgFileName = [NSString stringWithFormat:@"/%@",imageName];
-    NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
-    [fileManager createFileAtPath:filePath contents:data attributes:nil];
-    return data.length;
-}
-
 + (UIImage *) getImageWithImageName:(NSString *) imageName{
     NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/pictures"];
     NSString *imgFileName = [NSString stringWithFormat:@"/%@",imageName];
@@ -110,18 +94,23 @@
     return img;
 }
 
-
-+ (void) saveVideoWithData:(NSData *)data videoName:(NSString *) videoName{
++ (NSUInteger) saveFileWithData:(NSData *)data fileName:(NSString *) fileName isPicture:(BOOL) isPicture{
+    NSString *typeStr = nil;
+    if (isPicture) {
+        typeStr = @"pictures";
+    }
+    else{
+        typeStr = @"videos";
+    }
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)objectAtIndex:0];
-    NSString *createPath = [NSString stringWithFormat:@"%@/videos", pathDocuments];
-    //NSLog(@"createPath: %@", createPath);
+    NSString *createPath = [NSString stringWithFormat:@"%@/%@", pathDocuments, typeStr];
     if (![fileManager fileExistsAtPath:createPath]) {
         [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/videos"];
-    NSString *imgFileName = [NSString stringWithFormat:@"/%@",videoName];
-    [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:imgFileName] contents:data attributes:nil];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@",createPath,fileName];
+    [fileManager createFileAtPath:filePath contents:data attributes:nil];
+    return data.length;
 }
 
 +(NSInteger)currentTimeStamp{

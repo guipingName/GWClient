@@ -77,7 +77,8 @@ typedef NS_ENUM(NSInteger, LeftSectionTypeOtherRow) {
                     if (image) {
                         ImvUserhead.image = image;
                     }
-                    [Utils savePhotoWithImage:image imageName:currentUser.headImgUrl];
+                    NSData *data = UIImagePNGRepresentation(image);
+                    [Utils saveFileWithData:data fileName:currentUser.headImgUrl isPicture:YES];
                 });
             }
         } fail:^(NSError * error) {

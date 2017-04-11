@@ -132,19 +132,18 @@
 //        NSLog(@"上传图片--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
-                // 上传成功 修改本地记录
                 NSLog(@"上传成功，即将上传下一个文件");
                 model.fileState = TransferStatusFinished;
                 [weakSelf upload];
             }
         }
     } fail:^(NSError *error) {
-        
+        NSLog(@"%@", error.localizedDescription);
     } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
         if (isnan(percentage)) {
             percentage = 1.000000;
         }
-        NSLog(@"+++上传+++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
+        //NSLog(@"+++上传+++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
         if (weakSelf.upProcessBlock) {
             weakSelf.upProcessBlock(done, total, percentage);
         }
@@ -179,13 +178,14 @@
             if ([newObj isKindOfClass:[UIImage class]]) {
                 NSLog(@"下载图片成功");
                 UIImage *image = [response[@"result"][@"files"] firstObject];
-                [Utils savePhotoWithImage:image imageName:model.fileName];
+                NSData *data = UIImagePNGRepresentation(image);
+                [Utils saveFileWithData:data fileName:model.fileName isPicture:YES];
                 model.fileState = TransferStatusFinished;
                 [weakSelf download];
             }
             if ([newObj isKindOfClass:[NSData class]]) {
                 NSData *data = (NSData *)newObj;
-                [Utils saveVideoWithData:data videoName:model.fileName];
+                [Utils saveFileWithData:data fileName:model.fileName isPicture:NO];
                 NSLog(@"下载视频成功");
                 model.fileState = TransferStatusFinished;
                 [weakSelf download];
@@ -199,6 +199,7 @@
             [weakSelf download];
         }
     } fail:^(NSError * error) {
+        NSLog(@"%@", error.localizedDescription);
         if (error.code != NO_NETWORK) {
             if (weakSelf.downLoadError) {
                 weakSelf.downLoadError(error);
@@ -208,7 +209,7 @@
         if (isnan(percentage)) {
             percentage = 1.000000;
         }
-        NSLog(@"++++下载++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
+        //NSLog(@"++++下载++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
         if (weakSelf.downProcessBlock) {
             weakSelf.downProcessBlock(done, total, percentage);
         }

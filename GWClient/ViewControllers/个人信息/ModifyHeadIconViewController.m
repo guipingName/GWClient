@@ -156,7 +156,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 _imageView.image = image;
             });
-            [Utils savePhotoWithImage:image imageName:model.headImgUrl];
+            NSData *data = UIImagePNGRepresentation(image);
+            [Utils saveFileWithData:data fileName:model.headImgUrl isPicture:YES];
             model.headImgUrl = [response[@"result"][@"imagePaths"] firstObject];
             [Utils aCoder:model];
             //NSLog(@"model.headImgUrl  修改头像:%@", model.headImgUrl);

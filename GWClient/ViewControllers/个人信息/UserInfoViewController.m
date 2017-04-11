@@ -103,7 +103,8 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
                     if (image) {
                         headImage = image;
                     }
-                    [Utils savePhotoWithImage:image imageName:model.headImgUrl];
+                    NSData *data = UIImagePNGRepresentation(image);
+                    [Utils saveFileWithData:data fileName:model.headImgUrl isPicture:YES];
                 });
             }
         } fail:^(NSError * error) {

@@ -15,6 +15,9 @@
 #define HEAD_TAG 0
 #define CONTENT_TAG 1
 
+#define NORMALIDENTFY @"normalSocket"
+#define UPIENTFY @"upSocket"
+#define DOWNIDENTFY @"downSocket"
 
 #define HOST @"192.168.0.1"
 #define PORT 20173
@@ -95,7 +98,7 @@
     [self.upSocket connectToHost:host onPort:port error:&error];
     self.processBlock = process;
     dispatch_async(dispatch_get_main_queue(), ^{
-        _upTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateProcess:) userInfo:nil repeats:YES];
+        _upTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(calculateProcess:) userInfo:nil repeats:YES];
     });
 }
 
@@ -113,7 +116,7 @@
     [self.downSocket connectToHost:host onPort:port error:&error];
     self.downProcessBlock = process;
     dispatch_async(dispatch_get_main_queue(), ^{
-        _downTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateDownProcess:) userInfo:nil repeats:YES];
+        _downTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(calculateDownProcess:) userInfo:nil repeats:YES];
     });
 }
 
@@ -121,7 +124,7 @@
 {
     NSLog(@"socket连接成功");
     [[GWDataManager sharedInstance] setRequestData:^(NSData *request) {
-        NSLog(@"上传数据长度:%lu", (unsigned long)request.length);
+        //NSLog(@"上传数据长度:%lu", (unsigned long)request.length);
         [sock writeData:request withTimeout:WRITE_TIMEOUT tag:HEAD_TAG];
     }];
     self.connectSuccess(YES);
@@ -129,11 +132,11 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    NSString *host = sock.connectedHost;
+    //NSString *host = sock.connectedHost;
     uint16_t port = sock.connectedPort;
-    NSLog(@"读取数据的socket:  Host = %@, Port = %hu",host, port);
+    //NSLog(@"读取数据的socket:  Host = %@, Port = %hu",host, port);
     if (tag == HEAD_TAG) {
-        NSLog(@"头部tag:%ld",tag);
+        //NSLog(@"头部tag:%ld",tag);
         NSDictionary *currentPacketHead = [NSJSONSerialization
                                            JSONObjectWithData:data
                                            options:NSJSONReadingMutableContainers
@@ -142,19 +145,21 @@
             NSLog(@"error：当前数据包的头为空");
             return;
         }
-        [headsDic setObject:currentPacketHead forKey:[NSString stringWithFormat:@"%d", port]];
+        [headsDic setObject:currentPacketHead forKey:sock.userData];
         NSUInteger packetLength = [currentPacketHead[@"len"] integerValue];
         [sock readDataToLength:packetLength withTimeout:READ_TIMEOUT tag:CONTENT_TAG];
         
     } else {
         NSLog(@"内容tag:%ld, 数据长度%lu",tag, (unsigned long)data.length);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.downProcessBlock) {
-                self.downProcessBlock(0, 0, 1.0);
-            }
-            [self stopTimer:_downTimer];
-        });
-        NSNumber *reqestCommand = [headsDic valueForKey:[NSString stringWithFormat:@"%d", port]][@"command"];
+        if ([sock.userData isEqualToString:DOWNIDENTFY]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (self.downProcessBlock) {
+                    self.downProcessBlock(0, 0, 1.0);
+                }
+                [self stopTimer:_downTimer];
+            });
+        }
+        NSNumber *reqestCommand = [headsDic valueForKey:sock.userData][@"command"];
         [headsDic removeObjectForKey:[NSString stringWithFormat:@"%d", port]];
         // 处理客户端请求
         [GWDataManager sharedInstance].response = @{@"data":data,
@@ -166,13 +171,15 @@
 #pragma mark - 返回数据重载函数
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    [self stopTimer:_upTimer];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.processBlock) {
-            self.processBlock(0, 0, 1.0);
-        }
-    });
-    
+    NSLog(@"userData: %@", sock.userData);
+    if ([sock.userData isEqualToString:UPIENTFY]) {
+        [self stopTimer:_upTimer];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.processBlock) {
+                self.processBlock(0, 0, 1.0);
+            }
+        });
+    }
     [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:HEAD_TAG];
 }
 // 进度显示timer方法
@@ -237,6 +244,7 @@
 {
     if (!_gcdSocket) {
         _gcdSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)];
+        _gcdSocket.userData = NORMALIDENTFY;
     }
     return _gcdSocket;
 }
@@ -245,6 +253,7 @@
 {
     if (!_upSocket) {
         _upSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)];
+        _upSocket.userData = UPIENTFY;
     }
     return _upSocket;
 }
@@ -253,6 +262,7 @@
 {
     if (!_downSocket) {
         _downSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)];
+        _downSocket.userData = DOWNIDENTFY;
     }
     return _downSocket;
 }
