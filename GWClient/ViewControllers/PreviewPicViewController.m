@@ -86,7 +86,6 @@
                 id newObj = [response[@"result"][@"files"] firstObject];
                 if ([newObj isKindOfClass:[NSData class]]) {
                     [weakSelf cacheVideoWithData:(NSData *)newObj videoName:_model.fileName];
-                    NSLog(@"下载视频成功 ");
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [weakSelf showPlayerView:superView];
                     });
@@ -131,7 +130,6 @@
             if ([response[@"success"] boolValue]) {
                 id newObj = [response[@"result"][@"files"] firstObject];
                 if ([newObj isKindOfClass:[UIImage class]]) {
-                    NSLog(@"图片下载成功 " );
                     UIImage *image = [response[@"result"][@"files"] firstObject];
                     [weakSelf cachePhotoWithImage:image imageName:_model.fileName];
                     dispatch_async(dispatch_get_main_queue(), ^{

@@ -92,47 +92,64 @@
     }
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     if (fileModel.fileType == FileTypePicture) {
-        _iconImage.image = [Utils getImageWithImageName:fileModel.fileName];
+//        UIImage *image = [Utils getImageWithImageName:fileModel.fileName];
+//        NSData *data = UIImagePNGRepresentation(image);
+//        if (data) {
+//            _iconImage.image = image;
+//        }
+//        else{
+            _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
+//        }
     }
     else{
         _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
     }
     _nameLabel.text = fileModel.fileName;
-    if (fileModel.fileState == TransferStatusReady) {
-        _sizeLabel.text = [NSString stringWithFormat:@"正在等待..."];
-        if (appdelegate.netState != NetStatusViaWiFi) {
-            _sizeLabel.text = @"网络断开";
-            _sizeLabel.textColor = [UIColor redColor];
-        }
-        else{
-            _sizeLabel.textColor = [UIColor lightGrayColor];
-        }
-        _compeletLabel.text = @"0%";
-    }
-    else if(fileModel.fileState == TransferStatusDuring) {
-        _sizeLabel.text = [NSString stringWithFormat:@"%@/%@",[self fileSizeNumber:[done integerValue]], [self fileSizeNumber:fileModel.fileSize]];
-        if (appdelegate.netState != NetStatusViaWiFi) {
-            _sizeLabel.text = @"网络断开";
-            _sizeLabel.textColor = [UIColor redColor];
-        }
-        else{
-            _sizeLabel.textColor = [UIColor lightGrayColor];
-            _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
-            if ([compelet integerValue]) {
-                _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
+    switch (fileModel.fileState) {
+        case TransferStatusReady:
+        {
+            if (appdelegate.netState != NetStatusViaWiFi) {
+                _sizeLabel.text = @"网络断开";
+                _sizeLabel.textColor = [UIColor redColor];
+            }
+            else{
+                _sizeLabel.text = @"正在等待...";
                 _sizeLabel.textColor = [UIColor lightGrayColor];
-                _compeletLabel.text = @"100%";
+            }
+            _compeletLabel.text = @"0%";
+        }
+            break;
+        case TransferStatusDuring:
+        {
+            if (appdelegate.netState != NetStatusViaWiFi) {
+                _sizeLabel.text = @"网络断开";
+                _sizeLabel.textColor = [UIColor redColor];
+            }
+            else{
+                _sizeLabel.text = [NSString stringWithFormat:@"%@/%@",[self fileSizeNumber:[done integerValue]], [self fileSizeNumber:fileModel.fileSize]];
+                _sizeLabel.textColor = [UIColor lightGrayColor];
+                _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
+                if ([compelet integerValue]) {
+                    _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
+                    _sizeLabel.textColor = [UIColor lightGrayColor];
+                    _compeletLabel.text = @"100%";
+                }
             }
         }
-    }
-    else if(fileModel.fileState == TransferStatusFinished) {
-        _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
-        _sizeLabel.textColor = [UIColor lightGrayColor];
-        _compeletLabel.text = @"100%";
-    }
-    else{
-        _sizeLabel.text = @"传输失败";
-        _sizeLabel.textColor = [UIColor redColor];
+            break;
+        case TransferStatusFinished:
+        {
+            _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
+            _sizeLabel.textColor = [UIColor lightGrayColor];
+            _compeletLabel.text = @"100%";
+        }
+            break;
+        default:
+        {
+            _sizeLabel.text = @"传输失败";
+            _sizeLabel.textColor = [UIColor redColor];
+        }
+            break;
     }
 }
 

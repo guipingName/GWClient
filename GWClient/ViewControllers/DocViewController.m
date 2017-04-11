@@ -280,38 +280,14 @@
         model.fileSize = [Utils saveFileWithData:data fileName:model.fileName isPicture:YES];
         [newImages addObject:model];
     }
-    
-    // 过滤上传中的图片重复上传
     NSMutableArray *oldTask = [TaskManager sharedManager].uploadTaskArray;
-    NSMutableArray *newTask = [NSMutableArray array];
-    for (FileModel *newPic in newImages) {
-        if (oldTask.count == 0) {
-            [newTask addObject:newPic];
-        }
-        else{
-            for (FileModel *tempModel in oldTask) {
-                if ([tempModel.fileName isEqualToString:newPic.fileName]) {
-                    if (tempModel.fileState == TransferStatusReady || tempModel.fileState == TransferStatusDuring) {
-                        continue;
-                    }
-                    else{
-                        [newTask addObject:newPic];
-                    }
-                }
-                else{
-                    [newTask addObject:newPic];
-                }
-            }
-        }
-    }
-    
-    [oldTask addObjectsFromArray:newTask];
+    [oldTask addObjectsFromArray:newImages];
+    [[TaskManager sharedManager] upArray:oldTask];
     [[TaskManager sharedManager] setSucess:^(BOOL success) {
         if (success) {
             [self fileList];
         }
     }];
-    [[TaskManager sharedManager] upArray:oldTask];
 }
 
 

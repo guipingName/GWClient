@@ -12,7 +12,7 @@
 
 @implementation TaskManager
 {
-    NSMutableArray *upArray;
+    NSMutableArray *tempUpArray;
     NSMutableArray *tempDownArray;
 }
 - (instancetype) init{
@@ -36,7 +36,7 @@
 
 - (instancetype) initPrivate{
     if (self = [super init]) {
-        upArray = [NSMutableArray array];
+        tempUpArray = [NSMutableArray array];
         tempDownArray = [NSMutableArray array];
         _uploadTaskArray = [NSMutableArray array];
     }
@@ -63,7 +63,7 @@
 }
 
 - (void)upArray:(NSMutableArray *) up {
-    upArray = up;
+    tempUpArray = up;
     [self upload];
     
 //    NSOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
@@ -75,10 +75,10 @@
 }
 
 - (void) upload {
-    _uploadTaskArray = upArray;
-    NSInteger index = [self lookFor:upArray isUpload:YES];
+    _uploadTaskArray = tempUpArray;
+    NSInteger index = [self lookFor:tempUpArray isUpload:YES];
     if (index != -1) {
-        FileModel *temp = upArray[index];
+        FileModel *temp = tempUpArray[index];
         [self uploadFile:temp];
     }
 }
@@ -142,6 +142,13 @@
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
+        if (error.code == NO_NETWORK) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (weakSelf.upProcessBlock) {
+                    weakSelf.upProcessBlock(0, 0, 0.1);
+                }
+            });
+        }
     } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
         if (isnan(percentage)) {
             percentage = 1.000000;
@@ -204,9 +211,11 @@
     } fail:^(NSError * error) {
         NSLog(@"%@", error.localizedDescription);
         if (error.code == NO_NETWORK) {
-            if (weakSelf.downProcessBlock) {
-                weakSelf.downProcessBlock(0, 0, 0.1);
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (weakSelf.downProcessBlock) {
+                    weakSelf.downProcessBlock(0, 0, 0.0);
+                }
+            });
         }
         else{
             if (weakSelf.downLoadError) {
