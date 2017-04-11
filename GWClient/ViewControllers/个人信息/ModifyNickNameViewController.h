@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *titleStr;
 @property (nonatomic, copy) NSString *nickName;
+@property (nonatomic, assign) BOOL isLocation;
 @property (nonatomic, copy) void(^nameStrBlock)(NSString *);
 
 @end

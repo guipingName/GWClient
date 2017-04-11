@@ -220,6 +220,7 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
     else if (indexPath.section == UserInfoSectionTypeOther && indexPath.row == UserInfoSectionTypeOtherLocation) {
         // 修改地区
         ModifyNickNameViewController *locationVC = [[ModifyNickNameViewController alloc] init];
+        locationVC.isLocation = YES;
         locationVC.titleStr = titleArray[indexPath.section][indexPath.row];
         locationVC.nickName = titleInfoArray[indexPath.section][indexPath.row];
         locationVC.nameStrBlock = ^(NSString *newStr){

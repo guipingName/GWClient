@@ -125,6 +125,7 @@
                 }
                 else{
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:nil];
                         myTableView.hidden = YES;
                         emptyView.hidden = NO;
                     });

@@ -26,9 +26,6 @@
     self.title = @"性别";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(done)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
-    
     btnMan = [SexButton buttonWithType:UIButtonTypeCustom];
     btnMan.frame = CGRectMake(0, 64, KSCREEN_WIDTH, 40);
     [btnMan setImage:[UIImage imageNamed:@"sex_sel"] forState:UIControlStateSelected];
@@ -67,12 +64,14 @@
     btnWoman.selected = NO;
     sender.selected = YES;
     sex = @"男";
+    [self done];
 }
 
 - (void) btnWomanClicked:(UIButton *) sender {
     btnMan.selected = NO;
     sender.selected = YES;
     sex = @"女";
+    [self done];
 }
 
 - (void) done{

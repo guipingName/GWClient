@@ -183,9 +183,9 @@
                 [self download];
             }
             if ([newObj isKindOfClass:[NSData class]]) {
-                NSData *dataaa = (NSData *)newObj;
-                [Utils saveVideoWithData:dataaa videoName:model.fileName];
-                NSLog(@"下载视频成功 ");
+                NSData *data = (NSData *)newObj;
+                [Utils saveVideoWithData:data videoName:model.fileName];
+                NSLog(@"下载视频成功");
                 model.fileState = TransferStatusFinished;
                 [self download];
             }

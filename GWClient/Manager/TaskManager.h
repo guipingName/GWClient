@@ -20,6 +20,7 @@
 @property(nonatomic, copy)void (^downLoadError)(NSError * error);
 
 @property(nonatomic, copy)void (^processBlock)(NSInteger done, NSInteger total, float percentage);
+@property(nonatomic, copy)void (^downprocessBlock)(NSInteger done, NSInteger total, float percentage);
 
 + (instancetype) sharedManager;
 

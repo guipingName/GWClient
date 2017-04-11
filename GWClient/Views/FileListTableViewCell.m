@@ -50,7 +50,13 @@
         }
         else{
             UIImage *image = [Utils getImageWithImageName:model.fileName];
-            _iconImage.image = image;
+            NSData *data1 = UIImagePNGRepresentation(image);
+            if (data1) {
+                _iconImage.image = image;
+            }
+            else{
+                _iconImage.image = [UIImage imageNamed:DEFAULT_HEAD_IMAGENAME];
+            }
         }
     }
     else{

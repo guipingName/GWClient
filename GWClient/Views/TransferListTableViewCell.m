@@ -118,6 +118,11 @@
         else{
             _sizeLabel.textColor = [UIColor lightGrayColor];
             _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
+            if ([compelet integerValue]) {
+                _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
+                _sizeLabel.textColor = [UIColor lightGrayColor];
+                _compeletLabel.text = @"100%";
+            }
         }
     }
     else if(fileModel.fileState == TransferStatusFinished) {

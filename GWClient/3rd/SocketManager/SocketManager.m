@@ -126,19 +126,24 @@
                                                 @"command":[NSNumber numberWithInteger:reqestCommand]
                                                 };
     currentPacketHead = nil;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self stopTimer:_downTimer];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.downProcessBlock) {
+            self.downProcessBlock(0, 0, 1.0);
+        }
     });
+    [self stopTimer:_downTimer];
 }
 
 #pragma mark - 返回数据重载函数
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    
-    //[self stopTimer:_upTimer];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self stopTimer:_upTimer];
+    [self stopTimer:_upTimer];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.processBlock) {
+           self.processBlock(0, 0, 1.0);
+        }
     });
+
     [self.gcdSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:SEND_TAG];
 }
 // 进度显示timer方法
@@ -186,10 +191,8 @@
     NSLog(@"-------------断开连接,error.localizedDescription:%@",err.localizedDescription);
     if (err.localizedDescription) {
         self.netError(err);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self stopTimer:_downTimer];
-            [self stopTimer:_upTimer];
-        });
+        [self stopTimer:_downTimer];
+        [self stopTimer:_upTimer];
     }
 }
 

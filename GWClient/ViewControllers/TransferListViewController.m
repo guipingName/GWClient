@@ -30,7 +30,6 @@
     UIView *btnBackView;
     UserInfoModel *user;
     NSDictionary *progressDic;
-    NSTimer *timer;
 }
 
 @property(nonatomic, strong)UIScrollView *scrollView;
@@ -48,7 +47,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"传输列表";
     [self createViews];
-    timer.fireDate = [NSDate distantFuture];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
     self.navigationController.navigationBar.barTintColor = THEME_COLOR;
     
@@ -105,7 +103,6 @@
         if (isnan(progress)) {
             progressDic = @{@"done":@(done),
                             @"compelet":@(1)};
-            [timer invalidate];
         }
         if (dataArray.count > 0) {
             [self.currentTableView reloadData];
