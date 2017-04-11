@@ -30,4 +30,5 @@
 
 - (void) downLoadArray:(NSMutableArray *) downArray;
 
+- (void) reDownload;
 @end

@@ -312,7 +312,6 @@
         }
     }];
     [[TaskManager sharedManager] upArray:oldTask];
-    //[MBProgressHUD showActivityMessageInView:@"正在上传" timer:1];
 }
 
 
@@ -354,15 +353,13 @@
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
             NSURL *url = urlAsset.URL;
             NSData *data = [NSData dataWithContentsOfURL:url];
+            [Utils saveFileWithData:data fileName:fileName isPicture:NO];
             
 //            NSInputStream *readStream = [[NSInputStream alloc] initWithURL:url];
 //            readStream.delegate = self;
 //            // 这个runLoop就相当于死循环，一直会对这个流进行操作。
 //            [readStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 //            [readStream open];
-            
-//            [Utils saveVideoWithData:data videoName:fileName];
-//            NSLog(@"%@  data.length:%.2f M",url, (unsigned long)data.length /(1024.0 * 1024));
             
             // 准备上传视频
             FileModel *model = [[FileModel alloc] init];
@@ -371,6 +368,7 @@
             model.fileName = fileName;
             model.videoData = data;
             model.fileSize = data.length;
+            
             NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
             [temp addObject:model];
             [[TaskManager sharedManager] setSucess:^(BOOL success) {

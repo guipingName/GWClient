@@ -150,7 +150,7 @@
         [sock readDataToLength:packetLength withTimeout:READ_TIMEOUT tag:CONTENT_TAG];
         
     } else {
-        NSLog(@"内容tag:%ld, 数据长度%lu",tag, (unsigned long)data.length);
+        //NSLog(@"内容tag:%ld, 数据长度%lu",tag, (unsigned long)data.length);
         if ([sock.userData isEqualToString:DOWNIDENTFY]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (self.downProcessBlock) {
@@ -171,7 +171,7 @@
 #pragma mark - 返回数据重载函数
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    NSLog(@"userData: %@", sock.userData);
+    //NSLog(@"userData: %@", sock.userData);
     if ([sock.userData isEqualToString:UPIENTFY]) {
         [self stopTimer:_upTimer];
         dispatch_async(dispatch_get_main_queue(), ^{

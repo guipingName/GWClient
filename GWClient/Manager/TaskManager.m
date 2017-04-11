@@ -58,33 +58,24 @@
     [self upArray:_uploadTaskArray];
 }
 
+- (void)reDownload{
+    [self downLoadArray:_downloadTaskArray];
+}
 
 - (void)upArray:(NSMutableArray *) up {
-    
     upArray = up;
-    //[self upload];
-    NSOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
-        [self upload];
-    }];
-//    NSOperation *op2 = [NSBlockOperation blockOperationWithBlock:^{
+    [self upload];
+    
+//    NSOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
 //        [self upload];
 //    }];
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    queue.maxConcurrentOperationCount = 2;
-    [queue addOperation:op1];
-    //[queue addOperation:op2];
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    queue.maxConcurrentOperationCount = 2;
+//    [queue addOperation:op1];
 }
 
 - (void) upload {
-    NSInteger readyCount = 0;
     _uploadTaskArray = upArray;
-    for (FileModel *temp in upArray) {
-        if (temp.fileState == TransferStatusReady ||
-            temp.fileState == TransferStatusDuring) {
-            readyCount++;
-        }
-    }
-    
     NSInteger index = [self lookFor:upArray isUpload:YES];
     if (index != -1) {
         FileModel *temp = upArray[index];
@@ -119,7 +110,19 @@
         fileDic = @{model.fileName:[Utils getImageWithImageName:model.fileName]};
     }
     else if (model.fileType == FileTypeVideo) {
-        fileDic = @{model.fileName:model.videoData};
+        NSString *aa = [NSString stringWithFormat:@"Documents/%@",@"videos"];
+        NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:aa];
+        NSString *imgFileName = [NSString stringWithFormat:@"/%@", model.fileName];
+        NSString *downLoadfilePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:downLoadfilePath]) {
+            model.videoData = [NSData dataWithContentsOfFile:downLoadfilePath];
+            fileDic = @{model.fileName:model.videoData};
+        }
+        else{
+            model.fileState = TransferStatusFailure;
+            [self upload];
+            return;
+        }
     }
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token,
@@ -200,7 +203,12 @@
         }
     } fail:^(NSError * error) {
         NSLog(@"%@", error.localizedDescription);
-        if (error.code != NO_NETWORK) {
+        if (error.code == NO_NETWORK) {
+            if (weakSelf.downProcessBlock) {
+                weakSelf.downProcessBlock(0, 0, 0.1);
+            }
+        }
+        else{
             if (weakSelf.downLoadError) {
                 weakSelf.downLoadError(error);
             }
