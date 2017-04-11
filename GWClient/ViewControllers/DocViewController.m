@@ -115,7 +115,6 @@
                     FileModel *model = [FileModel yy_modelWithDictionary:ddic];
                     [dataArray addObject:model];
                 }
-                //NSLog(@"文件列表个数: %lu", (unsigned long)dataArray.count);
                 if (dataArray.count) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         emptyView.hidden = YES;
@@ -270,7 +269,7 @@
         [imageNames addObject:fileName];
     }
     [ImageArray addObjectsFromArray:photos];
-    NSMutableArray *images = [NSMutableArray array];
+    NSMutableArray *newImages = [NSMutableArray array];
     for (int i=0; i<ImageArray.count; i++) {
         FileModel *model = [[FileModel alloc] init];
         model.fileState = TransferStatusReady;
@@ -278,17 +277,40 @@
         model.fileName = imageNames[i];
         UIImage *image = ImageArray[i];
         model.fileSize = [Utils savePhotoWithImage:image imageName:model.fileName];
-        [images addObject:model];
+        [newImages addObject:model];
     }
     
-    NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
-    [temp addObjectsFromArray:images];
+    // 过滤上传中的图片重复上传
+    NSMutableArray *oldTask = [TaskManager sharedManager].uploadTaskArray;
+    NSMutableArray *newTask = [NSMutableArray array];
+    for (FileModel *newPic in newImages) {
+        if (oldTask.count == 0) {
+            [newTask addObject:newPic];
+        }
+        else{
+            for (FileModel *tempModel in oldTask) {
+                if ([tempModel.fileName isEqualToString:newPic.fileName]) {
+                    if (tempModel.fileState == TransferStatusReady || tempModel.fileState == TransferStatusDuring) {
+                        continue;
+                    }
+                    else{
+                        [newTask addObject:newPic];
+                    }
+                }
+                else{
+                    [newTask addObject:newPic];
+                }
+            }
+        }
+    }
+    
+    [oldTask addObjectsFromArray:newTask];
     [[TaskManager sharedManager] setSucess:^(BOOL success) {
         if (success) {
             [self fileList];
         }
     }];
-    [[TaskManager sharedManager] upArray:temp];
+    [[TaskManager sharedManager] upArray:oldTask];
     //[MBProgressHUD showActivityMessageInView:@"正在上传" timer:1];
 }
 

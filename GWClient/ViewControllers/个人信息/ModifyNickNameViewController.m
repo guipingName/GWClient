@@ -51,8 +51,10 @@
         
         UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10, 95, KSCREEN_WIDTH - 20, 46)];
         [self.view addSubview:bgView];
-        bgView.backgroundColor = [UIColor lightGrayColor];
         bgView.layer.cornerRadius = 5;
+        bgView.layer.masksToBounds = YES;
+        bgView.layer.borderWidth = 0.5;
+        bgView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         
         
         
@@ -137,7 +139,7 @@
                 if (!cityName) {
                     cityName = placemark.administrativeArea;
                 }
-                lbLocation.text = [NSString stringWithFormat:@"%@%@", cityName, placemark.subLocality];
+                lbLocation.text = [NSString stringWithFormat:@"%@%@%@", cityName, placemark.subLocality,placemark.thoroughfare];
             }
             else if (error == nil && [array count] == 0) {
                 NSLog(@"No results were returned.");

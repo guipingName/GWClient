@@ -23,7 +23,7 @@
     }
     NSDictionary *requestDic = [NSKeyedUnarchiver unarchiveObjectWithData:object];
     //去除数据长度后的数据内容
-    GWSocketPacketRequest *ctx = [[GWSocketPacketRequest alloc] init];
+    GWSocketPacketResponse *ctx = [[GWSocketPacketResponse alloc] init];
     ctx.pid = responseStreamPacket.pid;
     ctx.object = requestDic;
     // 输出结果

@@ -84,7 +84,6 @@
             readyCount++;
         }
     }
-    NSLog(@"未上传个数: %ld", (long)readyCount);
     
     NSInteger index = [self lookFor:upArray isUpload:YES];
     if (index != -1) {
@@ -113,6 +112,7 @@
 
 
 - (void) uploadFile:(FileModel *) model{
+    __weak typeof(self) weakSelf = self;
     UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     NSDictionary *fileDic = [NSDictionary dictionary];
     if (model.fileType == FileTypePicture) {
@@ -135,7 +135,7 @@
                 // 上传成功 修改本地记录
                 NSLog(@"上传成功，即将上传下一个文件");
                 model.fileState = TransferStatusFinished;
-                [self upload];
+                [weakSelf upload];
             }
         }
     } fail:^(NSError *error) {
@@ -145,8 +145,8 @@
             percentage = 1.000000;
         }
         NSLog(@"+++上传+++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
-        if (self.processBlock) {
-            self.processBlock(done, total, percentage);
+        if (weakSelf.upProcessBlock) {
+            weakSelf.upProcessBlock(done, total, percentage);
         }
     }];
 }
@@ -166,6 +166,7 @@
 }
 
 - (void) downloadFile:(FileModel *) model{
+    __weak typeof(self) weakSelf = self;
     UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token,
@@ -180,76 +181,37 @@
                 UIImage *image = [response[@"result"][@"files"] firstObject];
                 [Utils savePhotoWithImage:image imageName:model.fileName];
                 model.fileState = TransferStatusFinished;
-                [self download];
+                [weakSelf download];
             }
             if ([newObj isKindOfClass:[NSData class]]) {
                 NSData *data = (NSData *)newObj;
                 [Utils saveVideoWithData:data videoName:model.fileName];
                 NSLog(@"下载视频成功");
                 model.fileState = TransferStatusFinished;
-                [self download];
+                [weakSelf download];
             }
         }
         else{
             model.fileState = TransferStatusFailure;
-            if (self.downLoadError) {
-                self.downLoadError(nil);
+            if (weakSelf.downLoadError) {
+                weakSelf.downLoadError(nil);
             }
-            [self download];
+            [weakSelf download];
         }
     } fail:^(NSError * error) {
         if (error.code != NO_NETWORK) {
-            if (self.downLoadError) {
-                self.downLoadError(error);
+            if (weakSelf.downLoadError) {
+                weakSelf.downLoadError(error);
             }
         }
-        
     } downLoadProcess:^(NSInteger done, NSInteger total, float percentage) {
         if (isnan(percentage)) {
             percentage = 1.000000;
         }
         NSLog(@"++++下载++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
-        if (self.processBlock) {
-            self.processBlock(done, total, percentage);
+        if (weakSelf.downProcessBlock) {
+            weakSelf.downProcessBlock(done, total, percentage);
         }
     }];
-    
-//    UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
-//    NSDictionary *params = @{@"userId":@(user.userId),
-//                             @"token":user.token,
-//                             @"type":@(model.fileType),
-//                             @"filePaths":@[@(model.fileId)]
-//                             };
-//    [Utils downLoad:ApiTypeGetFile params:params succeed:^(id response) {
-//        if ([response[@"success"] boolValue]) {
-//            id newObj = [response[@"result"][@"files"] firstObject];
-//            if ([newObj isKindOfClass:[UIImage class]]) {
-//                NSLog(@"下载图片成功");
-//                UIImage *image = [response[@"result"][@"files"] firstObject];
-//                [Utils savePhotoWithImage:image imageName:model.fileName];
-//                model.fileState = TransferStatusFinished;
-//                [self download];
-//            }
-//            if ([newObj isKindOfClass:[NSData class]]) {
-//                NSData *dataaa = (NSData *)newObj;
-//                [Utils saveVideoWithData:dataaa videoName:model.fileName];
-//                NSLog(@"下载视频成功 ");
-//                model.fileState = TransferStatusFinished;
-//                [self download];
-//            }
-//        }
-//        else{
-//            //[Utils hintMessage:@"下载失败" time:1 isSuccess:NO];
-//        }
-//    } fail:^(NSError * error) {
-//        NSLog(@"%@",error.localizedDescription);
-//    } downLoadProcess:^(NSInteger done, NSInteger total, float percentage) {
-//        NSLog(@"++++++++++++ 完成=%ld --------全部=%ld,============进度=%f",(long)done, (long)total, percentage);
-//        self.done = done;
-//        self.compelet = percentage;
-//        if (self.processBlock) {
-//            self.processBlock(done, total, percentage);
-//    }
-//}];
 }
 @end

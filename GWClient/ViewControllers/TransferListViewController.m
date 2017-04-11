@@ -30,6 +30,8 @@
     UIView *btnBackView;
     UserInfoModel *user;
     NSDictionary *progressDic;
+    NSDictionary *upDic;
+    NSDictionary *downDic;
 }
 
 @property(nonatomic, strong)UIScrollView *scrollView;
@@ -94,14 +96,29 @@
             [self.currentTableView reloadData];
         }
     }
-    [TaskManager sharedManager].processBlock = ^(NSInteger done, NSInteger total, float progress){
-        progressDic = @{@"done":@(done),
+    [TaskManager sharedManager].upProcessBlock = ^(NSInteger done, NSInteger total, float progress){
+        upDic = @{@"done":@(done),
                         @"compelet":@(progress)
                         };
-        NSLog(@"======================= compelet: %f =============",progress);
+        NSLog(@"========上传=============== compelet: %f =============",progress);
         
         if (isnan(progress)) {
-            progressDic = @{@"done":@(done),
+            upDic = @{@"done":@(done),
+                      @"compelet":@(1)};
+        }
+        if (dataArray.count > 0) {
+            [self.currentTableView reloadData];
+        }
+    };
+    
+    [TaskManager sharedManager].downProcessBlock = ^(NSInteger done, NSInteger total, float progress){
+        downDic = @{@"done":@(done),
+                        @"compelet":@(progress)
+                        };
+        NSLog(@"=========下载============== compelet: %f =============",progress);
+        
+        if (isnan(progress)) {
+            downDic = @{@"done":@(done),
                             @"compelet":@(1)};
         }
         if (dataArray.count > 0) {
@@ -308,6 +325,7 @@
 - (UITableView *)currentTableView
 {
     _currentTableView = isUpButtonClicked ? self.upTableView : self.downTableView;
+    progressDic = isUpButtonClicked ? upDic: downDic;
     _currentTableView.delegate = self;
     _currentTableView.dataSource = self;
     [_currentTableView registerClass:[TransferListTableViewCell class] forCellReuseIdentifier:TRANSFERLISTCELL];

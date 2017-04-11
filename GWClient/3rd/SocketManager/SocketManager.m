@@ -12,7 +12,8 @@
 #define READ_HEAD_TIMEOUT -1
 #define READ_TIMEOUT -1
 #define WRITE_TIMEOUT -1
-#define SEND_TAG 0
+#define HEAD_TAG 0
+#define CONTENT_TAG 1
 
 
 #define HOST @"192.168.0.1"
@@ -22,11 +23,13 @@
 
 {
     NSData *backData;
-    NSInteger reqestCommand;
-    NSDictionary *currentPacketHead;
+    NSMutableDictionary *headsDic;
     
 }
 @property(nonatomic, strong) GCDAsyncSocket *gcdSocket;
+@property(nonatomic, strong) GCDAsyncSocket *upSocket;
+@property(nonatomic, strong) GCDAsyncSocket *downSocket;
+
 @property(nonatomic, copy) void (^connectSuccess)(BOOL isConnect);
 @property(nonatomic, copy) void (^netError)(NSError *error);
 @property(nonatomic, strong)NSTimer *upTimer;
@@ -51,12 +54,14 @@
     });
     return manager;
 }
-- (void)disConnect
+
+- (instancetype)init
 {
-    [_gcdSocket disconnect];
-    [_gcdSocket setDelegate:nil];
-    _gcdSocket = nil;
-    //NSLog(@"服务器关闭，断开连接");
+    self = [super init];
+    if (self) {
+        headsDic = [NSMutableDictionary dictionary];
+    }
+    return self;
 }
 #pragma mark - GCDAsyncSocketDelegate
 // 上传
@@ -65,8 +70,10 @@
                 success:(void (^) (BOOL connectSuccess)) connectSucees
               backError:(void (^) (NSError *error)) backError
 {
-    if ([self.gcdSocket isConnected]) {
-        [self disConnect];
+    if (_gcdSocket) {
+        [_gcdSocket disconnect];
+        [_gcdSocket setDelegate:nil];
+        _gcdSocket = nil;
     }
     NSError *error = nil;
     self.connectSuccess = connectSucees;
@@ -77,7 +84,15 @@
 // 有进度的上传
 - (void)connectWithHost:(NSString *)host onPort:(uint16_t)port success:(void (^)(BOOL))connectSucees compeletProcess:(void (^)(NSInteger, NSInteger, float))process backError:(void (^)(NSError *))backError
 {
-    [self connectWithHost:host onPort:port success:connectSucees backError:backError];
+    if (_upSocket) {
+        [_upSocket disconnect];
+        [_upSocket setDelegate:nil];
+        _upSocket = nil;
+    }
+    NSError *error = nil;
+    self.connectSuccess = connectSucees;
+    self.netError = backError;
+    [self.upSocket connectToHost:host onPort:port error:&error];
     self.processBlock = process;
     dispatch_async(dispatch_get_main_queue(), ^{
         _upTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateProcess:) userInfo:nil repeats:YES];
@@ -87,7 +102,15 @@
 // 有进度的下载
 - (void)connectWithHost:(NSString *)host onPort:(uint16_t)port success:(void (^)(BOOL))connectSucees downLoadProcess:(void (^)(NSInteger, NSInteger, float))process backError:(void (^)(NSError *))backError
 {
-    [self connectWithHost:host onPort:port success:connectSucees backError:backError];
+    if (_downSocket) {
+        [_downSocket disconnect];
+        [_downSocket setDelegate:nil];
+        _downSocket = nil;
+    }
+    NSError *error = nil;
+    self.connectSuccess = connectSucees;
+    self.netError = backError;
+    [self.downSocket connectToHost:host onPort:port error:&error];
     self.downProcessBlock = process;
     dispatch_async(dispatch_get_main_queue(), ^{
         _downTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(calculateDownProcess:) userInfo:nil repeats:YES];
@@ -98,40 +121,46 @@
 {
     NSLog(@"socket连接成功");
     [[GWDataManager sharedInstance] setRequestData:^(NSData *request) {
-        // NSLog(@"上传数据长度:%lu", (unsigned long)request.length);
-        [sock writeData:request withTimeout:WRITE_TIMEOUT tag:SEND_TAG];
+        NSLog(@"上传数据长度:%lu", (unsigned long)request.length);
+        [sock writeData:request withTimeout:WRITE_TIMEOUT tag:HEAD_TAG];
     }];
     self.connectSuccess(YES);
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    if (!currentPacketHead) {
-        currentPacketHead = [NSJSONSerialization
-                             JSONObjectWithData:data
-                             options:NSJSONReadingMutableContainers
-                             error:nil];
+    NSString *host = sock.connectedHost;
+    uint16_t port = sock.connectedPort;
+    NSLog(@"读取数据的socket:  Host = %@, Port = %hu",host, port);
+    if (tag == HEAD_TAG) {
+        NSLog(@"头部tag:%ld",tag);
+        NSDictionary *currentPacketHead = [NSJSONSerialization
+                                           JSONObjectWithData:data
+                                           options:NSJSONReadingMutableContainers
+                                           error:nil];
         if (!currentPacketHead) {
             NSLog(@"error：当前数据包的头为空");
             return;
         }
+        [headsDic setObject:currentPacketHead forKey:[NSString stringWithFormat:@"%d", port]];
         NSUInteger packetLength = [currentPacketHead[@"len"] integerValue];
-        reqestCommand = [currentPacketHead[@"command"] integerValue];
+        [sock readDataToLength:packetLength withTimeout:READ_TIMEOUT tag:CONTENT_TAG];
         
-        //        NSLog(@"收到数据包传输长度:%lu",(unsigned long)packetLength);
-        [sock readDataToLength:packetLength withTimeout:READ_TIMEOUT tag:SEND_TAG];
-        return;
+    } else {
+        NSLog(@"内容tag:%ld, 数据长度%lu",tag, (unsigned long)data.length);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.downProcessBlock) {
+                self.downProcessBlock(0, 0, 1.0);
+            }
+            [self stopTimer:_downTimer];
+        });
+        NSNumber *reqestCommand = [headsDic valueForKey:[NSString stringWithFormat:@"%d", port]][@"command"];
+        [headsDic removeObjectForKey:[NSString stringWithFormat:@"%d", port]];
+        // 处理客户端请求
+        [GWDataManager sharedInstance].response = @{@"data":data,
+                                                    @"command":reqestCommand
+                                                    };
     }
-    [GWDataManager sharedInstance].response = @{@"data":data,
-                                                @"command":[NSNumber numberWithInteger:reqestCommand]
-                                                };
-    currentPacketHead = nil;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.downProcessBlock) {
-            self.downProcessBlock(0, 0, 1.0);
-        }
-    });
-    [self stopTimer:_downTimer];
 }
 
 #pragma mark - 返回数据重载函数
@@ -140,11 +169,11 @@
     [self stopTimer:_upTimer];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.processBlock) {
-           self.processBlock(0, 0, 1.0);
+            self.processBlock(0, 0, 1.0);
         }
     });
-
-    [self.gcdSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:SEND_TAG];
+    
+    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:HEAD_TAG];
 }
 // 进度显示timer方法
 - (void)calculateProcess:(NSTimer *) sender
@@ -152,7 +181,7 @@
     long tag = 0;
     NSUInteger done = 0;
     NSUInteger total = 0;
-    float asign = [self.gcdSocket progressOfWriteReturningTag:&tag bytesDone:&done total:&total];
+    float asign = [self.upSocket progressOfWriteReturningTag:&tag bytesDone:&done total:&total];
     if (self.processBlock) {
         self.processBlock(done,total,asign);
     }
@@ -162,7 +191,7 @@
     long tag = 0;
     NSUInteger doweDone = 0;
     NSUInteger downToal = 0;
-    float downAsign = [self.gcdSocket progressOfReadReturningTag:&tag bytesDone:&doweDone total:&downToal];
+    float downAsign = [self.downSocket progressOfReadReturningTag:&tag bytesDone:&doweDone total:&downToal];
     if (self.downProcessBlock) {
         self.downProcessBlock(doweDone,downToal,downAsign);
     }
@@ -210,6 +239,22 @@
         _gcdSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)];
     }
     return _gcdSocket;
+}
+
+- (GCDAsyncSocket *)upSocket
+{
+    if (!_upSocket) {
+        _upSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)];
+    }
+    return _upSocket;
+}
+
+- (GCDAsyncSocket *)downSocket
+{
+    if (!_downSocket) {
+        _downSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)];
+    }
+    return _downSocket;
 }
 
 @end
