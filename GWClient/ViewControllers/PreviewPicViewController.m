@@ -19,9 +19,6 @@
 
 @implementation PreviewPicViewController
 
--(void)dealloc{
-    NSLog(@"dealloc %s", object_getClassName(self));
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,15 +50,19 @@
     }
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc{
+    NSLog(@"dealloc %s", object_getClassName(self));
+}
+
 - (void) showPlayerView:(UIView *) superView{
     CGRect playerRect = CGRectMake(0, 0, KSCREEN_WIDTH, 200);
-    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/videos"];
-    NSString *imgFileName = [NSString stringWithFormat:@"/%@",_model.fileName];
-    NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
-    
-    //NSLog(@"%@", filePath);
-    NSData *videoData = [NSData dataWithContentsOfFile:filePath];
-    if (videoData) {
+    NSString *filePath = [self fileExistPathfileName:_model.fileName isPicture:NO];
+    if (filePath) {
         PlayerView *playerView = [[PlayerView alloc]initWithFrame:playerRect playerUrl:filePath];
         playerView.center = CGPointMake(KSCREEN_WIDTH / 2, superView.bounds.size.height / 2);
         playerView.videoTitle = _model.fileName;
@@ -69,6 +70,7 @@
         [playerView play];
     }
     else{
+        __weak typeof(self) weakSelf = self;
         [activityIndicator startAnimating];
         UserInfoModel *currentUser = [DataBaseManager sharedManager].currentUser;
         NSDictionary *params = @{@"userId":@(currentUser.userId),
@@ -83,39 +85,39 @@
             if ([response[@"success"] boolValue]) {
                 id newObj = [response[@"result"][@"files"] firstObject];
                 if ([newObj isKindOfClass:[NSData class]]) {
-                    NSData *data = (NSData *)newObj;
-                    [Utils saveVideoWithData:data videoName:_model.fileName];
+                    [weakSelf cacheVideoWithData:(NSData *)newObj videoName:_model.fileName];
                     NSLog(@"下载视频成功 ");
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self showPlayerView:superView];
+                        [weakSelf showPlayerView:superView];
                     });
                 }
             }
             else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showErrorMessage:@"下载失败"];
-                });
+                [MBProgressHUD showErrorMessage:@"查看失败"];
             }
         } fail:^(NSError * error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [activityIndicator stopAnimating];
+            });
             NSLog(@"%@",error.localizedDescription);
         }];
     }
 }
 
-
-
 - (void) showImageView:(UIView *) superView{
     imageView = [[UIImageView alloc] init];
     imageView.backgroundColor = [UIColor blackColor];
     [superView addSubview:imageView];
-    UIImage *image = [Utils getImageWithImageName:_model.fileName];
-    if (image) {
+    NSString *filePath = [self fileExistPathfileName:_model.fileName isPicture:YES];
+    if (filePath) {
+        UIImage *image = [UIImage imageWithContentsOfFile:filePath];
         imageView.frame = CGRectMake(0, 0, image.size.width > KSCREEN_WIDTH ? KSCREEN_WIDTH:image.size.width, image.size.width>KSCREEN_WIDTH?image.size.height * KSCREEN_WIDTH / image.size.width:image.size.height);
         imageView.center = CGPointMake(KSCREEN_WIDTH / 2, superView.bounds.size.height / 2);
         imageView.image = image;
     }
     else{
         [activityIndicator stopAnimating];
+        __weak typeof(self) weakSelf = self;
         UserInfoModel *currentUser = [DataBaseManager sharedManager].currentUser;
         NSDictionary *params = @{@"userId":@(currentUser.userId),
                                  @"token":currentUser.token,
@@ -131,7 +133,7 @@
                 if ([newObj isKindOfClass:[UIImage class]]) {
                     NSLog(@"图片下载成功 " );
                     UIImage *image = [response[@"result"][@"files"] firstObject];
-                    [Utils savePhotoWithImage:image imageName:_model.fileName];
+                    [weakSelf cachePhotoWithImage:image imageName:_model.fileName];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         imageView.frame = CGRectMake(0, 0, image.size.width > KSCREEN_WIDTH ? KSCREEN_WIDTH:image.size.width, image.size.width>KSCREEN_WIDTH?image.size.height * KSCREEN_WIDTH / image.size.width:image.size.height);
                         imageView.center = CGPointMake(KSCREEN_WIDTH / 2, superView.bounds.size.height / 2);
@@ -140,20 +142,73 @@
                 }
             }
             else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showErrorMessage:@"下载失败"];
-                });
+                [MBProgressHUD showErrorMessage:@"查看失败"];
             }
         } fail:^(NSError * error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [activityIndicator stopAnimating];
+            });
             NSLog(@"%@",error.localizedDescription);
         }];
     }
 }
 
+#pragma mark --------------- 缓存视频 ----------------
+- (void) cacheVideoWithData:(NSData *)data videoName:(NSString *) videoName{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *pathDocuments = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches/"];
+    NSString *createPath = [NSString stringWithFormat:@"%@/videos", pathDocuments];
+    if (![fileManager fileExistsAtPath:createPath]) {
+        [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString *DocumentsPath = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches/videos/"];
+    NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,videoName];
+    [fileManager createFileAtPath:filePath contents:data attributes:nil];
+}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark --------------- 缓存图片 ----------------
+- (void) cachePhotoWithImage:(UIImage *)image imageName:(NSString *) imageName{
+    NSData *data = UIImagePNGRepresentation(image);
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *pathDocuments = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches/"];
+    NSString *createPath = [NSString stringWithFormat:@"%@/pictures", pathDocuments];
+    if (![fileManager fileExistsAtPath:createPath]) {
+        [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString *DocumentsPath = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches/pictures/"];
+    NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imageName];
+    [fileManager createFileAtPath:filePath contents:data attributes:nil];
+}
+
+#pragma mark --------------- 从沙盒中查找文件 ----------------
+- (NSString *) fileExistPathfileName:(NSString *) fileName isPicture:(BOOL) isPicture{
+    NSString *typeStr = nil;
+    if (isPicture) {
+        typeStr = @"pictures";
+    }
+    else{
+        typeStr = @"videos";
+    }
+    NSString *aa = [NSString stringWithFormat:@"Documents/%@",typeStr];
+    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:aa];
+    NSString *imgFileName = [NSString stringWithFormat:@"/%@", fileName];
+    NSString *downLoadfilePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
+    //NSLog(@"downLoadfilePath:%@", downLoadfilePath);
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *cachePath = [NSHomeDirectory() stringByAppendingFormat:@"/Library/Caches"];
+    NSString *cacheFilePath = [NSString stringWithFormat:@"%@/%@/%@",cachePath, typeStr, fileName];
+    //NSLog(@"cacheFilePath:%@", cacheFilePath);
+    
+    NSString *filePath = nil;
+    if ([fileManager fileExistsAtPath:downLoadfilePath]) {
+        filePath = downLoadfilePath;
+    }
+    else if ([fileManager fileExistsAtPath:cacheFilePath]) {
+        filePath = cacheFilePath;
+    }
+    NSLog(@"filePath:%@", filePath);
+    return filePath;
 }
 
 /*
