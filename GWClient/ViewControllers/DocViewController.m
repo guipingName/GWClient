@@ -478,7 +478,7 @@
 
 #pragma mark --------------- createViews ----------------
 - (void) creatRightItem{
-    clearView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64 -49)];
+    clearView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64 - 49)];
     [self.view addSubview:clearView];
     
     clearView.backgroundColor = [UIColor clearColor];

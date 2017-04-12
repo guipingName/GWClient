@@ -90,8 +90,8 @@ typedef NS_ENUM(NSInteger, LeftSectionTypeOtherRow) {
     NSArray *systemInfo = @[@"个人信息", @"设置"];
     NSArray *WiFi = @[@"退出"];
     dataArray = @[systemInfo, WiFi];
-    NSArray *img = @[@"personal", @"setting"];
-    NSArray *img1 = @[@"logOut"];
+    NSArray *img = @[@"tabbar_me", @"setting"];
+    NSArray *img1 = @[@"logout"];
     imageNamesArray = @[img, img1];
     [myTableView reloadData];
 }

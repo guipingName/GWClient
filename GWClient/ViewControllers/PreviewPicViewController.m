@@ -92,7 +92,7 @@
                 }
             }
             else{
-                [MBProgressHUD showErrorMessage:@"查看失败"];
+                [MBProgressHUD showErrorMessage:PREVIEW_ERROR];
             }
         } fail:^(NSError * error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -142,7 +142,7 @@
                 }
             }
             else{
-                [MBProgressHUD showErrorMessage:@"查看失败"];
+                [MBProgressHUD showErrorMessage:PREVIEW_ERROR];
             }
         } fail:^(NSError * error) {
             NSLog(@"%@",error.localizedDescription);

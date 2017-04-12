@@ -44,7 +44,8 @@
         btnRegister.enabled = NO;
         btnRegister.backgroundColor = BTN_ENABLED_BGCOLOR;
     }
-    if (tfEmail.text.length > 0){
+    
+    if (tfEmail.text.length > 0 && ![tfEmail.text isEqualToString:confirmStr]){
         btnConfim.enabled = YES;
         btnConfim.backgroundColor = THEME_COLOR;
     }
@@ -178,8 +179,7 @@
         if ([response isKindOfClass:[NSDictionary class]]) {
             [MBProgressHUD showSuccessMessage:response[@"message"]];
             if ([response[@"success"] boolValue]) {
-                NSDictionary *tempD = response[@"result"];
-                confirmStr = [tempD[@"verifiyCode"] stringValue];
+                confirmStr = tfEmail.text;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     btnConfim.enabled = NO;
                     btnConfim.backgroundColor = BTN_ENABLED_BGCOLOR;
@@ -190,7 +190,7 @@
             }
         }
         else{
-            [MBProgressHUD showErrorMessage:@"获取失败"];
+            [MBProgressHUD showErrorMessage:GET_ERROR];
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
@@ -198,7 +198,7 @@
             [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
         }
         else if (error.code != NO_NETWORK) {
-            [MBProgressHUD showErrorMessage:@"获取失败"];
+            [MBProgressHUD showErrorMessage:GET_ERROR];
         }
     }];
 }
@@ -210,9 +210,9 @@
                                @"password":tfPassword.text
                                };
     [Request GET:ApiTypeRegister params:paramDic succeed:^(id response) {
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"注册--返回的Json串:\n%@", tempStr);
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"注册--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
             [MBProgressHUD showSuccessMessage:response[@"message"]];
             if ([response[@"success"] boolValue]) {

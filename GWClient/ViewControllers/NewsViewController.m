@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
             }
         }
         else{
-            [MBProgressHUD showErrorMessage:@"获取失败"];
+            [MBProgressHUD showErrorMessage:GET_ERROR];
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);

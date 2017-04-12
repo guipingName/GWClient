@@ -75,7 +75,7 @@ typedef NS_ENUM(NSInteger, SettingRowType) {
         [self clearFile];
     }
     else if (indexPath.row == SettingRowTypeAboutUs) {
-        
+        [MBProgressHUD showErrorMessage:@"暂无此功能"];
     }
     else if (indexPath.row == SettingRowTypeFeedback) {
         ModifySignatureViewController *textVC = [[ModifySignatureViewController alloc] init];

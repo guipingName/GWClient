@@ -139,7 +139,15 @@
                 if (!cityName) {
                     cityName = placemark.administrativeArea;
                 }
-                lbLocation.text = [NSString stringWithFormat:@"%@%@%@", cityName, placemark.subLocality,placemark.thoroughfare];
+                if (placemark.thoroughfare) {
+                    lbLocation.text = [NSString stringWithFormat:@"%@%@%@", cityName, placemark.subLocality,placemark.thoroughfare];
+                }
+                else if (placemark.subLocality) {
+                    lbLocation.text = [NSString stringWithFormat:@"%@%@", cityName, placemark.subLocality];
+                }
+                else{
+                    lbLocation.text = cityName;
+                }
             }
             else if (error == nil && [array count] == 0) {
                 NSLog(@"No results were returned.");

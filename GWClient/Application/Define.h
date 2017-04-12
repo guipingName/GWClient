@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 
 
 #define USERINFOCELL                @"UserInfoTableViewCell"
-#define DEFAULT_HEAD_IMAGENAME      @"head"
+#define DEFAULT_HEAD_IMAGENAME      @"default"
 #define NAVIGATION_LEFTBAR          @"navigationbar_list_normal"
 
 #define HOST_IP                     @"10.134.42.1"
@@ -40,6 +40,9 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define SOCKET_CLOSED               7
 #define CONNECTION_REFUSED_STR      @"服务器已断开"
 #define NO_NETWORK_STR              @"网络断开"
+
+#define GET_ERROR                   @"获取失败"
+#define PREVIEW_ERROR               @"查看失败"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s: %d \t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);

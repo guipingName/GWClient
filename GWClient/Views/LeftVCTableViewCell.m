@@ -29,12 +29,12 @@
         leftImageView = [[UIImageView alloc]init];
         [self.contentView addSubview:leftImageView];
     }
-    if (_isLogOut) {
-        leftImageView.image = [[UIImage imageNamed:_imageName] rt_tintedImageWithColor:[UIColor redColor]];
-    }
-    else{
+//    if (_isLogOut) {
+//        leftImageView.image = [[UIImage imageNamed:_imageName] rt_tintedImageWithColor:[UIColor redColor]];
+//    }
+//    else{
         leftImageView.image = [[UIImage imageNamed:_imageName] rt_tintedImageWithColor:[UIColor lightGrayColor]];
-    }
+//    }
     leftImageView.frame = CGRectMake(10, (CGRectGetHeight(self.frame) - 25) / 2, 25, 25);
     
     // 标题

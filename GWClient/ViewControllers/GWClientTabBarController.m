@@ -30,7 +30,7 @@
     
     self.viewControllers = @[[self addNavigationItemForViewController:docVC],[self addNavigationItemForViewController:transferVC],[self addNavigationItemForViewController:newsVC]];
     NSArray *titles = @[@"网盘", @"传输列表", @"资讯"];
-    NSArray *images = @[@"tabbar_mainframe", @"arrow_down111", @"tabbar_discover"];
+    NSArray *images = @[@"tabbar_me", @"arrow_up_down", @"tabbar_discover"];
     UIColor *normalColor = [UIColor whiteColor];
     UIColor *selectedColor = THEME_COLOR;
     [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop) {
@@ -40,7 +40,7 @@
         [item setTitleTextAttributes:@{NSForegroundColorAttributeName: selectedColor} forState:UIControlStateSelected];
         item.selectedImage = [[[UIImage imageNamed:images[idx]] rt_tintedImageWithColor:selectedColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }];
-    self.selectedIndex = 0;
+    //self.selectedIndex = 0;
 }
 
 
