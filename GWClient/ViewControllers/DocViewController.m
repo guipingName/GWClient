@@ -163,7 +163,10 @@
         }
     } fail:^(NSError * error) {
         NSLog(@"%ld %@",(long)error.code, error.localizedDescription);
-        if (error.code != NO_NETWORK) {
+        if (error.code == CONNECTION_REFUSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+        }
+        else if (error.code != NO_NETWORK) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"folder"] block:^{
                     [weakSelf fileList];
@@ -439,7 +442,10 @@
         }
     } fail:^(NSError * error) {
         NSLog(@"error.code:%ld %@", (long)error.code, error.localizedDescription);
-        if (error.code != NO_NETWORK) {
+        if (error.code == CONNECTION_REFUSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+        }
+        else if (error.code != NO_NETWORK) {
             [MBProgressHUD showErrorMessage:@"删除失败"];
         }
     }];
@@ -447,7 +453,6 @@
 
 #pragma mark --------------- 下载文件 ----------------
 - (void) downLoadFile:(FileModel *) file{
-    
     NSMutableArray *temp = [TaskManager sharedManager].downloadTaskArray;
     for (FileModel *model in temp) {
         if (model.fileId == file.fileId) {
@@ -458,12 +463,15 @@
     file.fileState = TransferStatusReady;
     [temp addObject:file];
     [[TaskManager sharedManager] downLoadArray:temp];
-    
     [MBProgressHUD showSuccessMessage:@"已添加到下载列表"];
-    
     [TaskManager sharedManager].downLoadError = ^(NSError *error){
         [MBProgressHUD hideHUD];
-        [MBProgressHUD showErrorMessage:@"下载失败"];
+        if (error.code == CONNECTION_REFUSED || error.code == SOCKET_CLOSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+        }
+        else{
+            [MBProgressHUD showErrorMessage:@"下载失败"];
+        }
     };
 }
 

@@ -194,7 +194,10 @@
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
-        if (error.code != NO_NETWORK) {
+        if (error.code == CONNECTION_REFUSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+        }
+        else if (error.code != NO_NETWORK) {
             [MBProgressHUD showErrorMessage:@"获取失败"];
         }
     }];
@@ -202,10 +205,6 @@
 
 
 - (void) Register:(UIButton *) sender{
-//    if (![tfConfirm.text isEqualToString:confirmStr]) {
-//        [Utils hintMessage:@"验证码不正确" time:1 isSuccess:NO];
-//        return;
-//    }
     NSDictionary *paramDic = @{@"username":tfEmail.text,
                                @"verifyCode":tfConfirm.text,
                                @"password":tfPassword.text
@@ -233,7 +232,10 @@
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
-        if (error.code != NO_NETWORK) {
+        if (error.code == CONNECTION_REFUSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+        }
+        else if (error.code != NO_NETWORK) {
             [MBProgressHUD showErrorMessage:@"注册失败"];
         }
     }];

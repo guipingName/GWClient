@@ -8,6 +8,7 @@
 
 #import "SocketManager.h"
 #import "GWDataManager.h"
+#import "AppDelegate.h"
 
 #define READ_HEAD_TIMEOUT -1
 #define READ_TIMEOUT -1
@@ -123,11 +124,19 @@
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
     NSLog(@"socket连接成功");
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    app.severAvailable = YES;
     [[GWDataManager sharedInstance] setRequestData:^(NSData *request) {
         //NSLog(@"上传数据长度:%lu", (unsigned long)request.length);
         [sock writeData:request withTimeout:WRITE_TIMEOUT tag:HEAD_TAG];
     }];
     self.connectSuccess(YES);
+}
+
+-(void)disconnected{
+    [_gcdSocket disconnect];
+    [_upSocket disconnect];
+    [_downSocket disconnect];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
@@ -226,6 +235,10 @@
 {
     NSLog(@"-------------断开连接,error.localizedDescription:%@",err.localizedDescription);
     if (err.localizedDescription) {
+        if (err.code == SOCKET_CLOSED) {
+            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            app.severAvailable = NO;
+        }
         self.netError(err);
         [self stopTimer:_downTimer];
         [self stopTimer:_upTimer];

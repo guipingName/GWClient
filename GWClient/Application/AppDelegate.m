@@ -31,7 +31,7 @@
     currentUser = [DataBaseManager sharedManager].currentUser;
     [TaskManager sharedManager].uploadTaskArray = [[currentUser upLoadList] mutableCopy];
     [TaskManager sharedManager].downloadTaskArray = [[currentUser downLoadList] mutableCopy];
-    NSLog(@"uploadTaskArray:%lu  downloadTaskArray:%lu",(unsigned long)[TaskManager sharedManager].uploadTaskArray.count,(unsigned long)[TaskManager sharedManager].downloadTaskArray.count);
+    //NSLog(@"uploadTaskArray:%lu  downloadTaskArray:%lu",(unsigned long)[TaskManager sharedManager].uploadTaskArray.count,(unsigned long)[TaskManager sharedManager].downloadTaskArray.count);
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if ([userDef boolForKey:IS_HAS_LOGIN]) {

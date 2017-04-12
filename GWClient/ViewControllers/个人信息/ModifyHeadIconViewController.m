@@ -147,9 +147,9 @@
                                @"fileDic":@{imageName:image}
                                };
     [Request GET:ApiTypeUpFile params:paramDic succeed:^(id response) {
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"修改用户头像--返回的Json串:\n%@", tempStr);
         [MBProgressHUD hideHUD];
         if ([response[@"success"] boolValue]) {
             [MBProgressHUD showSuccessMessage:@"修改成功"];
@@ -160,14 +160,16 @@
             [Utils saveFileWithData:data fileName:model.headImgUrl isPicture:YES];
             model.headImgUrl = [response[@"result"][@"imagePaths"] firstObject];
             [Utils aCoder:model];
-            //NSLog(@"model.headImgUrl  修改头像:%@", model.headImgUrl);
         }
         else{
             [MBProgressHUD showErrorMessage:@"修改失败"];
         }
     } fail:^(NSError * error) {
         NSLog(@"%@",error.localizedDescription);
-        if (error.code != NO_NETWORK) {
+        if (error.code == CONNECTION_REFUSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+        }
+        else if (error.code != NO_NETWORK) {
             [MBProgressHUD showErrorMessage:@"修改失败"];
         }
     }];

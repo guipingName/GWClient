@@ -14,6 +14,7 @@
 #import "UserInfoViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "TaskManager.h"
+#import "SocketManager.h"
 
 typedef NS_ENUM(NSInteger, LeftSectionType) {
     LeftSectionTypeOther = 0,    
@@ -164,6 +165,7 @@ typedef NS_ENUM(NSInteger, LeftSectionTypeOtherRow) {
         [[TaskManager sharedManager].uploadTaskArray removeAllObjects];
         [[TaskManager sharedManager].downloadTaskArray removeAllObjects];
         [currentUser deleteAllRecord];
+        [[SocketManager sharedInstance] disconnected];
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setBool:NO forKey:IS_HAS_LOGIN];
         [userDef synchronize];

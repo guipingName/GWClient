@@ -103,7 +103,7 @@
         upDic = @{@"done":@(done),
                   @"compelet":@(progress)
                   };
-        NSLog(@"========上传=============== compelet: %f =============",progress);
+        //NSLog(@"========上传=============== compelet: %f =============",progress);
         if (dataArray.count > 0) {
             [self.currentTableView reloadData];
         }
@@ -113,7 +113,7 @@
         downDic = @{@"done":@(done),
                     @"compelet":@(progress)
                     };
-        NSLog(@"=========下载============== compelet: %f =============",progress);
+        //NSLog(@"=========下载============== compelet: %f =============",progress);
         if (dataArray.count > 0) {
             [self.currentTableView reloadData];
         }

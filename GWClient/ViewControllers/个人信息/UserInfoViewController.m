@@ -109,6 +109,9 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
             }
         } fail:^(NSError * error) {
             NSLog(@"%@",error.localizedDescription);
+            if (error.code == CONNECTION_REFUSED) {
+                [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+            }
         }];
     }
     nickNameStr = model.nickName;
@@ -280,6 +283,9 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
         }
     } fail:^(NSError * error) {
         NSLog(@"%@",error.localizedDescription);
+        if (error.code == CONNECTION_REFUSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+        }
     }];
 }
 

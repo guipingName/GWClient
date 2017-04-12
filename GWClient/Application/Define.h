@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define DEFAULT_HEAD_IMAGENAME      @"head"
 #define NAVIGATION_LEFTBAR          @"navigationbar_list_normal"
 
-#define HOST_IP                     @"10.134.20.1"
+#define HOST_IP                     @"10.134.42.1"
 #define HOST_PORT                   20173
 
 #define BTN_NEW_TAG                 800
@@ -36,6 +36,10 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define SETTING_CELL                @"settingcell"
 #define FILELISTCELL                @"FileListTableViewCell"
 #define NO_NETWORK                  57
+#define CONNECTION_REFUSED          61
+#define SOCKET_CLOSED               7
+#define CONNECTION_REFUSED_STR      @"服务器已断开"
+#define NO_NETWORK_STR              @"网络断开"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s: %d \t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);

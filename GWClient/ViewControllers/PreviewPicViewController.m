@@ -98,7 +98,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [activityIndicator stopAnimating];
             });
-            NSLog(@"%@",error.localizedDescription);
+            if (error.code == CONNECTION_REFUSED || error.code == SOCKET_CLOSED) {
+                [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+            }
         }];
     }
 }
@@ -143,10 +145,13 @@
                 [MBProgressHUD showErrorMessage:@"查看失败"];
             }
         } fail:^(NSError * error) {
+            NSLog(@"%@",error.localizedDescription);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [activityIndicator stopAnimating];
             });
-            NSLog(@"%@",error.localizedDescription);
+            if (error.code == CONNECTION_REFUSED || error.code == SOCKET_CLOSED) {
+                [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+            }
         }];
     }
 }

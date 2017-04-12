@@ -141,13 +141,23 @@
             }
         }
     } fail:^(NSError *error) {
-        NSLog(@"%@", error.localizedDescription);
+        //NSLog(@"%@", error.localizedDescription);
+        if (error.code == SOCKET_CLOSED) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (weakSelf.upProcessBlock) {
+                    weakSelf.upProcessBlock(0, 0, 0.0);
+                }
+            });
+        }
         if (error.code == NO_NETWORK) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (weakSelf.upProcessBlock) {
-                    weakSelf.upProcessBlock(0, 0, 0.1);
+                    weakSelf.upProcessBlock(0, 0, 0.0);
                 }
             });
+        }
+        else if (error.code == CONNECTION_REFUSED || error.code == SOCKET_CLOSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
         }
     } compeletProcess:^(NSInteger done, NSInteger total, float percentage) {
         if (isnan(percentage)) {
@@ -209,7 +219,14 @@
             [weakSelf download];
         }
     } fail:^(NSError * error) {
-        NSLog(@"%@", error.localizedDescription);
+        //NSLog(@"%ld %@", (long)error.code, error.localizedDescription);
+        if (error.code == SOCKET_CLOSED) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (weakSelf.downProcessBlock) {
+                    weakSelf.downProcessBlock(0, 0, 0.0);
+                }
+            });
+        }
         if (error.code == NO_NETWORK) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (weakSelf.downProcessBlock) {

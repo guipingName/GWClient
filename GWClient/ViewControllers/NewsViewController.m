@@ -136,10 +136,13 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
             [MBProgressHUD showErrorMessage:@"获取失败"];
         }
     } fail:^(NSError *error) {
+        NSLog(@"%@", error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
-        NSLog(@"%@", error.localizedDescription);
+        if (error.code == CONNECTION_REFUSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+        }
     }];
 
 }

@@ -89,20 +89,18 @@
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
-        if (error.code != NO_NETWORK) {
-            [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUD];
+        if (error.code == CONNECTION_REFUSED) {
+            [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+        }
+        else if (error.code != NO_NETWORK) {
             [MBProgressHUD showErrorMessage:@"登录失败"];
         }
     }];
 }
 
 
-- (void)doTestJsonCodecButtonAction:(NSString *) userName password:(NSString *) password{
-    
-}
-
 - (void) dobtnRegister:(UIButton *) sender{
-    NSLog(@"注册");
     RegisterViewController *registerVC = [[RegisterViewController alloc] init];
     registerVC.loginBlock = ^(UserLogin *model){
         tfUserName.text = model.email;
@@ -111,7 +109,6 @@
         btnLogin.backgroundColor = THEME_COLOR;
     };
     [self.navigationController pushViewController:registerVC animated:YES];
-    //[self presentViewController:registerVC animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

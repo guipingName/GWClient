@@ -27,4 +27,6 @@
                 success:(void (^) (BOOL connectSuccess)) connectSucees
         downLoadProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
               backError:(void (^) (NSError *error)) backError;
+
+-(void) disconnected;
 @end

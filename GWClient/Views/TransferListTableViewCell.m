@@ -22,6 +22,88 @@
 
 @implementation TransferListTableViewCell
 
+- (void)configWithFileModel:(FileModel *)fileModel andCompelet: (NSDictionary *) dic{
+    NSNumber *done;
+    NSNumber *compelet;
+    if (dic) {
+        done = [dic valueForKey:@"done"];
+        compelet = [dic valueForKey:@"compelet"];
+    }
+    else {
+        done = @(0);
+        compelet = @(0);
+    }
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (fileModel.fileType == FileTypePicture) {
+        //        UIImage *image = [Utils getImageWithImageName:fileModel.fileName];
+        //        NSData *data = UIImagePNGRepresentation(image);
+        //        if (data) {
+        //            _iconImage.image = image;
+        //        }
+        //        else{
+        _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
+        //        }
+    }
+    else{
+        _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
+    }
+    _nameLabel.text = fileModel.fileName;
+    switch (fileModel.fileState) {
+        case TransferStatusReady:
+        {
+            if (appdelegate.netState != NetStatusViaWiFi) {
+                _sizeLabel.text = NO_NETWORK_STR;
+                _sizeLabel.textColor = [UIColor redColor];
+            }
+            else if (!appdelegate.severAvailable) {
+                _sizeLabel.text = CONNECTION_REFUSED_STR;
+                _sizeLabel.textColor = [UIColor redColor];
+            }
+            else{
+                _sizeLabel.text = @"正在等待...";
+                _sizeLabel.textColor = [UIColor lightGrayColor];
+            }
+            _compeletLabel.text = @"0%";
+        }
+            break;
+        case TransferStatusDuring:
+        {
+            if (appdelegate.netState != NetStatusViaWiFi) {
+                _sizeLabel.text = NO_NETWORK_STR;
+                _sizeLabel.textColor = [UIColor redColor];
+            }
+            else if (!appdelegate.severAvailable) {
+                _sizeLabel.text = CONNECTION_REFUSED_STR;
+                _sizeLabel.textColor = [UIColor redColor];
+            }
+            else{
+                _sizeLabel.text = [NSString stringWithFormat:@"%@/%@",[self fileSizeNumber:[done integerValue]], [self fileSizeNumber:fileModel.fileSize]];
+                _sizeLabel.textColor = [UIColor lightGrayColor];
+                _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
+                if ([compelet integerValue]) {
+                    _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
+                    _sizeLabel.textColor = [UIColor lightGrayColor];
+                    _compeletLabel.text = @"100%";
+                }
+            }
+        }
+            break;
+        case TransferStatusFinished:
+        {
+            _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
+            _sizeLabel.textColor = [UIColor lightGrayColor];
+            _compeletLabel.text = @"100%";
+        }
+            break;
+        default:
+        {
+            _sizeLabel.text = @"传输失败";
+            _sizeLabel.textColor = [UIColor redColor];
+        }
+            break;
+    }
+}
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -79,79 +161,6 @@
     return self;
 }
 
-- (void)configWithFileModel:(FileModel *)fileModel andCompelet: (NSDictionary *) dic{
-    NSNumber *done;
-    NSNumber *compelet;
-    if (dic) {
-        done = [dic valueForKey:@"done"];
-        compelet = [dic valueForKey:@"compelet"];
-    }
-    else {
-        done = @(0);
-        compelet = @(0);
-    }
-    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (fileModel.fileType == FileTypePicture) {
-//        UIImage *image = [Utils getImageWithImageName:fileModel.fileName];
-//        NSData *data = UIImagePNGRepresentation(image);
-//        if (data) {
-//            _iconImage.image = image;
-//        }
-//        else{
-            _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
-//        }
-    }
-    else{
-        _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
-    }
-    _nameLabel.text = fileModel.fileName;
-    switch (fileModel.fileState) {
-        case TransferStatusReady:
-        {
-            if (appdelegate.netState != NetStatusViaWiFi) {
-                _sizeLabel.text = @"网络断开";
-                _sizeLabel.textColor = [UIColor redColor];
-            }
-            else{
-                _sizeLabel.text = @"正在等待...";
-                _sizeLabel.textColor = [UIColor lightGrayColor];
-            }
-            _compeletLabel.text = @"0%";
-        }
-            break;
-        case TransferStatusDuring:
-        {
-            if (appdelegate.netState != NetStatusViaWiFi) {
-                _sizeLabel.text = @"网络断开";
-                _sizeLabel.textColor = [UIColor redColor];
-            }
-            else{
-                _sizeLabel.text = [NSString stringWithFormat:@"%@/%@",[self fileSizeNumber:[done integerValue]], [self fileSizeNumber:fileModel.fileSize]];
-                _sizeLabel.textColor = [UIColor lightGrayColor];
-                _compeletLabel.text = [NSString stringWithFormat:@"%.f%%",[compelet floatValue] * 100];
-                if ([compelet integerValue]) {
-                    _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
-                    _sizeLabel.textColor = [UIColor lightGrayColor];
-                    _compeletLabel.text = @"100%";
-                }
-            }
-        }
-            break;
-        case TransferStatusFinished:
-        {
-            _sizeLabel.text = [NSString stringWithFormat:@"已完成:%@",[self fileSizeNumber:fileModel.fileSize]];
-            _sizeLabel.textColor = [UIColor lightGrayColor];
-            _compeletLabel.text = @"100%";
-        }
-            break;
-        default:
-        {
-            _sizeLabel.text = @"传输失败";
-            _sizeLabel.textColor = [UIColor redColor];
-        }
-            break;
-    }
-}
 
 - (NSString *) fileSizeNumber:(NSUInteger) size{
     if (size > 1024 * 1024) {
