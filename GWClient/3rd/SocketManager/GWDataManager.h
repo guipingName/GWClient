@@ -31,7 +31,7 @@
 /**
  用户请求回调
  */
-@property (nonatomic, copy) void (^requestData) (NSData *request);
+@property (nonatomic, copy) void (^requestData) (NSData *request, NSTimeInterval timeOut);
 
 // 没有进度的请求
 - (void)GET:(ApiType) ApiType params:(NSDictionary *)params

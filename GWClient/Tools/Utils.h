@@ -29,4 +29,5 @@
 
 + (UIImage *) ImageNameWithFileType:(NSUInteger) fileType;
 
++ (void) quitToLoginViewControllerFrom:(UIViewController *) viewController;
 @end

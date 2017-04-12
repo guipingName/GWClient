@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "EXTScope.h"
 #import "AppDelegate.h"
+#import "LoginViewController.h"
 
 @implementation Utils
 
@@ -49,8 +50,8 @@
 + (void)addDialogueBoxWithSuperView:(UIView *)superView Content:(NSString *)content{
     UILabel * label = [[UILabel alloc]init];
     label.text = content;
-    label.font = [UIFont systemFontOfSize:22];
-    CGRect rect = [content boundingRectWithSize:CGSizeMake(0, 0) options:1 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22]} context:nil];
+    label.font = [UIFont systemFontOfSize:15];
+    CGRect rect = [content boundingRectWithSize:CGSizeMake(0, 0) options:1 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
     label.frame = CGRectMake(15, 10, rect.size.width, rect.size.height);
     label.textColor = [UIColor whiteColor];
     
@@ -137,21 +138,20 @@
     return [UIImage imageNamed:str];
 }
 
-+ (UIView *) createHintViewWithFrame:(CGRect) frame superView:(UIView *) superView title:(NSString *) title imageName:(NSString *) imageName{
-    UIView *view = [[UIView alloc] initWithFrame:frame];
-    [superView addSubview:view];
-    view.backgroundColor = [UIColor whiteColor];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
-    [view addSubview:imageView];
-    imageView.center = CGPointMake(view.bounds.size.width / 2, view.bounds.size.height / 2);
-    imageView.image = [UIImage imageNamed:imageName];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame), view.bounds.size.width, 30)];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = title;
-    [view addSubview:label];
-    view.hidden = YES;
-    return view;
++ (void) quitToLoginViewControllerFrom:(UIViewController *) viewController{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"已在其它设备登录，请重新登录" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *new = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+            [userDef setBool:NO forKey:IS_HAS_LOGIN];
+            [userDef synchronize];
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+            viewController.view.window.rootViewController = nav;
+        }];
+        [alertController addAction:new];
+        [viewController presentViewController:alertController animated:YES completion:nil];
+    });
 }
-
 
 @end

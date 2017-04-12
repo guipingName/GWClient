@@ -131,18 +131,8 @@
                 }
             }
             else{
-                if ([response[@"message"] isEqualToString:@"非法登录"]) {
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"已在其它设备登录，请重新登录" preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *new = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-                        [userDef setBool:NO forKey:IS_HAS_LOGIN];
-                        [userDef synchronize];
-                        LoginViewController *loginVC = [[LoginViewController alloc] init];
-                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-                        self.view.window.rootViewController = nav;
-                    }];
-                    [alertController addAction:new];
-                    [self presentViewController:alertController animated:YES completion:nil];
+                if ([response[@"message"] isEqualToString:LOGIN_ERROR]) {
+                    [Utils quitToLoginViewControllerFrom:self];
                 }
                 else{
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -435,6 +425,9 @@
                         emptyView.hidden = NO;
                     }
                 });
+            }
+            else if ([response[@"message"] isEqualToString:LOGIN_ERROR]){
+                [Utils quitToLoginViewControllerFrom:self];
             }
             else{
                 [MBProgressHUD showErrorMessage:@"删除失败"];

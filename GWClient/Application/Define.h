@@ -40,9 +40,9 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define SOCKET_CLOSED               7
 #define CONNECTION_REFUSED_STR      @"服务器已断开"
 #define NO_NETWORK_STR              @"网络断开"
-
 #define GET_ERROR                   @"获取失败"
 #define PREVIEW_ERROR               @"查看失败"
+#define LOGIN_ERROR                 @"非法登录"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s: %d \t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);

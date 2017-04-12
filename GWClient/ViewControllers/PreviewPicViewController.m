@@ -91,6 +91,9 @@
                     });
                 }
             }
+            else if ([response[@"message"] isEqualToString:LOGIN_ERROR]){
+                [Utils quitToLoginViewControllerFrom:self];
+            }
             else{
                 [MBProgressHUD showErrorMessage:PREVIEW_ERROR];
             }
@@ -100,6 +103,9 @@
             });
             if (error.code == CONNECTION_REFUSED || error.code == SOCKET_CLOSED) {
                 [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+            }
+            else{
+                [MBProgressHUD showErrorMessage:PREVIEW_ERROR];
             }
         }];
     }
@@ -117,7 +123,7 @@
         imageView.image = image;
     }
     else{
-        [activityIndicator stopAnimating];
+        [activityIndicator startAnimating];
         __weak typeof(self) weakSelf = self;
         UserInfoModel *currentUser = [DataBaseManager sharedManager].currentUser;
         NSDictionary *params = @{@"userId":@(currentUser.userId),
@@ -141,16 +147,22 @@
                     });
                 }
             }
+            else if ([response[@"message"] isEqualToString:LOGIN_ERROR]){
+                [Utils quitToLoginViewControllerFrom:self];
+            }
             else{
                 [MBProgressHUD showErrorMessage:PREVIEW_ERROR];
             }
         } fail:^(NSError * error) {
-            NSLog(@"%@",error.localizedDescription);
+            //NSLog(@"%@",error.localizedDescription);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [activityIndicator stopAnimating];
             });
             if (error.code == CONNECTION_REFUSED || error.code == SOCKET_CLOSED) {
                 [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+            }
+            else{
+                [MBProgressHUD showErrorMessage:PREVIEW_ERROR];
             }
         }];
     }

@@ -161,6 +161,9 @@
             model.headImgUrl = [response[@"result"][@"imagePaths"] firstObject];
             [Utils aCoder:model];
         }
+        else if ([response[@"message"] isEqualToString:LOGIN_ERROR]){
+            [Utils quitToLoginViewControllerFrom:self];
+        }
         else{
             [MBProgressHUD showErrorMessage:@"修改失败"];
         }

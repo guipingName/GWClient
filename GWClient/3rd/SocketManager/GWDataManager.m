@@ -46,6 +46,7 @@
         GWSocketPacketRequest *request = [[GWSocketPacketRequest alloc] init];
         request.pid = ApiType;
         request.object = params;
+        //request.timeout = 1;
         self.success = success;
         [self.encoder encode:request output:self];
     } backError:^(NSError *error) {
@@ -92,7 +93,7 @@
 {
 //    NSLog(@"打包后的data长度:%d",data.length);
     if (data.length > 0) {
-        self.requestData(data);
+        self.requestData(data, timeout);
     }
 }
 
@@ -107,8 +108,8 @@
     }
 //    NSLog(@"返回数据: %@", decodedPacket.object);
 }
-#pragma mark - 解析返回数据
 
+#pragma mark - 解析返回数据
 - (void)setResponse:(NSDictionary *)response
 {
     NSData *requestData = [response valueForKey:@"data"];
@@ -121,7 +122,6 @@
 }
 
 #pragma mark - 懒加载
-
 - (id<GWSocketEncoderProtocol>)encoder
 {
     if (!_encoder) {

@@ -278,6 +278,9 @@ typedef NS_ENUM(NSInteger, UserInfoSectionTypeOtherRow) {
                 }
             });
         }
+        else if ([response[@"message"] isEqualToString:LOGIN_ERROR]){
+            [Utils quitToLoginViewControllerFrom:self];
+        }
         else{
             [MBProgressHUD showErrorMessage:@"修改失败"];
         }

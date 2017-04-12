@@ -74,13 +74,17 @@
                 NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
                 [userDef setBool:YES forKey:IS_HAS_LOGIN];
                 [userDef synchronize];
-                LeftViewController *leftVC = [[LeftViewController alloc] init];
-                MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
-                [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-                [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-                [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    self.view.window.rootViewController = drawerController;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    LeftViewController *leftVC = [[LeftViewController alloc] init];
+                    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[[GWClientTabBarController alloc] init] leftDrawerViewController:leftVC];
+                    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+                    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+                    [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            self.view.window.rootViewController = drawerController;
+                        });
+                    });
                 });
             }
             else{

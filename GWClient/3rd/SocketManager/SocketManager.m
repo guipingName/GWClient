@@ -15,6 +15,7 @@
 #define WRITE_TIMEOUT -1
 #define HEAD_TAG 0
 #define CONTENT_TAG 1
+#define RESPONSE_TIME 15
 
 #define NORMALIDENTFY @"normalSocket"
 #define UPIENTFY @"upSocket"
@@ -126,9 +127,9 @@
     NSLog(@"socket连接成功");
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     app.severAvailable = YES;
-    [[GWDataManager sharedInstance] setRequestData:^(NSData *request) {
+    [[GWDataManager sharedInstance] setRequestData:^(NSData *request, NSTimeInterval timeOut) {
         //NSLog(@"上传数据长度:%lu", (unsigned long)request.length);
-        [sock writeData:request withTimeout:WRITE_TIMEOUT tag:HEAD_TAG];
+        [sock writeData:request withTimeout:timeOut tag:HEAD_TAG];
     }];
     self.connectSuccess(YES);
 }
@@ -156,7 +157,12 @@
         }
         [headsDic setObject:currentPacketHead forKey:sock.userData];
         NSUInteger packetLength = [currentPacketHead[@"len"] integerValue];
-        [sock readDataToLength:packetLength withTimeout:READ_TIMEOUT tag:CONTENT_TAG];
+        if ([sock.userData isEqualToString:UPIENTFY] || [sock.userData isEqualToString:DOWNIDENTFY]) {
+            [sock readDataToLength:packetLength withTimeout:READ_TIMEOUT tag:CONTENT_TAG];
+        }
+        else{
+            [sock readDataToLength:packetLength withTimeout:RESPONSE_TIME tag:CONTENT_TAG];
+        }
         
     } else {
         //NSLog(@"内容tag:%ld, 数据长度%lu",tag, (unsigned long)data.length);
@@ -191,6 +197,7 @@
     }
     [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:HEAD_TAG];
 }
+
 // 进度显示timer方法
 - (void)calculateProcess:(NSTimer *) sender
 {
