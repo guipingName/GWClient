@@ -14,23 +14,6 @@
 
 @implementation Utils
 
-+ (void) showMessage:(NSString *) message superView:(UIView *) superView{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:superView animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = @"加载中...";
-    hud.userInteractionEnabled = NO;
-}
-
-
-+ (void) hintMessage:(NSString *) message superView:(UIView *) superView hud:(MBProgressHUD *) hud{
-    if (![superView.subviews containsObject:hud]) {
-        hud = [MBProgressHUD showHUDAddedTo:superView animated:YES];
-    }
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = message;
-    hud.userInteractionEnabled = NO;
-}
-
 +(void)aCoder:(UserInfoModel *) model{
     NSMutableData *mData = [NSMutableData data];
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:mData];
@@ -66,18 +49,19 @@
 + (void)addDialogueBoxWithSuperView:(UIView *)superView Content:(NSString *)content{
     UILabel * label = [[UILabel alloc]init];
     label.text = content;
-    label.font = [UIFont systemFontOfSize:15];
-    CGRect rect = [content boundingRectWithSize:CGSizeMake(0, 0) options:1 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
-    label.frame = CGRectMake(15, 5, rect.size.width, rect.size.height);
+    label.font = [UIFont systemFontOfSize:22];
+    CGRect rect = [content boundingRectWithSize:CGSizeMake(0, 0) options:1 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22]} context:nil];
+    label.frame = CGRectMake(15, 10, rect.size.width, rect.size.height);
     label.textColor = [UIColor whiteColor];
+    
     UIView * view = [[UIView alloc]init];
-    view.frame = CGRectMake(0, 0, rect.size.width + 30, rect.size.height + 10);
+    view.frame = CGRectMake(0, 0, rect.size.width + 30, rect.size.height + 20);
     view.center = CGPointMake(KSCREEN_WIDTH / 2 , KSCREEN_HEIGHT * 3 / 4);
     view.backgroundColor = UICOLOR_RGBA(0, 0, 0,0.8);
-    view.layer.cornerRadius = 8;
+    view.layer.cornerRadius = 10;
     [superView addSubview:view];
     [view addSubview:label];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:0.4 animations:^{
             view.alpha = 0;
         } completion:^(BOOL finished) {

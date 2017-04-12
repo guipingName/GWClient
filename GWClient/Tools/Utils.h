@@ -29,7 +29,4 @@
 
 + (UIImage *) ImageNameWithFileType:(NSUInteger) fileType;
 
-+ (void) showMessage:(NSString *) message superView:(UIView *) superView;
-
-+ (void) hintMessage:(NSString *) message superView:(UIView *) superView hud:(MBProgressHUD *) hud;
 @end

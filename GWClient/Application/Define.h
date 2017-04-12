@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 
 
 #define USERINFOCELL                @"UserInfoTableViewCell"
-#define DEFAULT_HEAD_IMAGENAME      @"default"
+#define DEFAULT_HEAD_IMAGENAME      @"head"
 #define NAVIGATION_LEFTBAR          @"navigationbar_list_normal"
 
 #define HOST_IP                     @"10.134.42.1"
