@@ -324,9 +324,10 @@
             NSData *data = [NSData dataWithContentsOfURL:url];
             [Utils saveFileWithData:data fileName:fileName isPicture:NO];
             
+           
+            
 //            NSInputStream *readStream = [[NSInputStream alloc] initWithURL:url];
 //            readStream.delegate = self;
-//            // 这个runLoop就相当于死循环，一直会对这个流进行操作。
 //            [readStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 //            [readStream open];
             
@@ -353,6 +354,8 @@
     }
 }
 
+
+
 #pragma mark  NSStreamDelegate代理
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode{
     NSLog(@"123");
@@ -361,7 +364,7 @@
             break;
         }
         case NSStreamEventHasBytesAvailable:{ // 读
-            uint8_t buf[1024 * 1024 * 2];
+            uint8_t buf[1024];
             NSInputStream *reads = (NSInputStream *)aStream;
             NSInteger blength = [reads read:buf maxLength:sizeof(buf)];
             if (blength != 0) {
@@ -409,9 +412,9 @@
                              @"token":user.token
                              };
     [Request GET:ApiTypeDeleteFiles params:params succeed:^(id response) {
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"删除文件列表--返回的Json串:\n%@", tempStr);
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"删除文件列表--返回的Json串:\n%@", tempStr);
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
                 [MBProgressHUD showSuccessMessage:@"删除成功"];
@@ -538,7 +541,7 @@
 
 - (UIImage *)drawTriangle {
     int Trianglewidth = 3;
-    UIGraphicsBeginImageContextWithOptions( CGSizeMake(2 * Trianglewidth, 2 * Trianglewidth), NO, 0);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(2 * Trianglewidth, 2 * Trianglewidth), NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, Trianglewidth, 0);
     CGContextAddLineToPoint(context, 2 * Trianglewidth, 2 * Trianglewidth);

@@ -58,20 +58,25 @@
     [manager setReachabilityStatusChangeBlock:^(HSReachabilityStatus status) {
         switch (status) {
             case HSReachabilityStatusNotReachable:
+            {
                 [Utils addDialogueBoxWithSuperView:_window Content:@"未连接网络"];
                 _netState = NetStatussNone;
                 break;
+            }
             case HSReachabilityStatusReachableViaWWAN:
+            {
                 [Utils addDialogueBoxWithSuperView:_window Content:@"蜂窝移动网络"];
                 _netState = NetStatusViaWWAN;
                 break;
+            }
             case HSReachabilityStatusReachableViaWiFi:
+            {
                 [Utils addDialogueBoxWithSuperView:_window Content:@"Wi-Fi在线"];
                 _netState = NetStatusViaWiFi;
                 [[TaskManager sharedManager] reUpload];
                 [[TaskManager sharedManager] reDownload];
-                
                 break;
+            }
             default:
                 break;
         }

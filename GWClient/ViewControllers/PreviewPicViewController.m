@@ -10,7 +10,8 @@
 #import "FileModel.h"
 #import "PlayerView.h"
 
-@interface PreviewPicViewController (){
+@interface PreviewPicViewController ()<UIGestureRecognizerDelegate>
+{
     UIImageView *imageView;
     UIActivityIndicatorView *activityIndicator;
 }
@@ -111,10 +112,21 @@
     }
 }
 
+
 - (void) showImageView:(UIView *) superView{
     imageView = [[UIImageView alloc] init];
     imageView.backgroundColor = [UIColor blackColor];
     [superView addSubview:imageView];
+    
+    UIRotationGestureRecognizer *rotate = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(doRotate:)];
+    imageView.userInteractionEnabled = YES;
+    [imageView addGestureRecognizer:rotate];
+    
+    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
+    pinch.delegate = self;
+    [imageView addGestureRecognizer:pinch];
+    
+    
     NSString *filePath = [self fileExistPathfileName:_model.fileName isPicture:YES];
     if (filePath) {
         UIImage *image = [UIImage imageWithContentsOfFile:filePath];
@@ -224,6 +236,21 @@
     }
     NSLog(@"filePath:%@", filePath);
     return filePath;
+}
+
+#pragma mark --------------- UIGestureRecognizerDelegate ----------------
+-(void) doRotate:(UIRotationGestureRecognizer *) sender{
+    imageView.transform = CGAffineTransformRotate(imageView.transform, sender.rotation);
+    sender.rotation = 0;
+}
+
+-(void) doPinch:(UIPinchGestureRecognizer *) sender{
+    imageView.transform = CGAffineTransformScale(imageView.transform, sender.scale, sender.scale);
+    sender.scale = 1;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
 }
 
 /*

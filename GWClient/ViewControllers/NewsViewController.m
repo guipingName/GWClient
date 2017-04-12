@@ -127,7 +127,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
                 });
             }
             else{
-                NSLog(@"新闻列表获取失败");
+                [MBProgressHUD showErrorMessage:GET_ERROR];
             }
         }
         else{

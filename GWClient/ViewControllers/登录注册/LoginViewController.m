@@ -58,9 +58,9 @@
                                @"deviceId":[[[UIDevice currentDevice] identifierForVendor] UUIDString]
                                };
     [Request GET:ApiTypeLogin params:paramDic succeed:^(id response) {
-        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
-        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        NSLog(@"登录--返回的Json串:\n%@", tempStr);
+//        NSData *tempData = [NSJSONSerialization dataWithJSONObject:response options:0 error:nil];
+//        NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+//        NSLog(@"登录--返回的Json串:\n%@", tempStr);
         [MBProgressHUD hideHUD];
         if ([response isKindOfClass:[NSDictionary class]]) {
             if ([response[@"success"] boolValue]) {
