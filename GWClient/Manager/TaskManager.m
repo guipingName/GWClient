@@ -66,13 +66,6 @@
 - (void)upArray:(NSMutableArray *) up {
     tempUpArray = up;
     [self upload];
-    
-//    NSOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
-//        [self upload];
-//    }];
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//    queue.maxConcurrentOperationCount = 2;
-//    [queue addOperation:op1];
 }
 
 - (void) upload {
@@ -93,9 +86,9 @@
             return i;
         }
     }
-    if (isUpload) {
-        NSLog(@"没有上传文件，即将刷新文件列表");
-    }
+//    if (isUpload) {
+//        NSLog(@"没有上传文件，即将刷新文件列表");
+//    }
     if (self.sucess) {
        self.sucess(isUpload);
     }

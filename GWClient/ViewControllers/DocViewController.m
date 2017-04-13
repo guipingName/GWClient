@@ -99,6 +99,7 @@
 }
 
 - (void) fileList{
+    selectRow = -1;
     __weak typeof(self) weakSelf = self;
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token

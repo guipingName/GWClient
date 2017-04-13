@@ -72,7 +72,7 @@
 }
 
 + (UIImage *) getImageWithImageName:(NSString *) imageName{
-    NSString * DocumentsPath = [NSHomeDirectory()stringByAppendingPathComponent:@"Documents/pictures"];
+    NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/pictures"];
     NSString *imgFileName = [NSString stringWithFormat:@"/%@",imageName];
     NSString *filePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
     UIImage *img = [UIImage imageWithContentsOfFile:filePath];
