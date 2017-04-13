@@ -157,8 +157,8 @@
                 _imageView.image = image;
             });
             NSData *data = UIImagePNGRepresentation(image);
-            [Utils saveFileWithData:data fileName:model.headImgUrl isPicture:YES];
             model.headImgUrl = [response[@"result"][@"imagePaths"] firstObject];
+            [Utils saveFileWithData:data fileName:model.headImgUrl isPicture:YES];
             [Utils aCoder:model];
         }
         else if ([response[@"message"] isEqualToString:LOGIN_ERROR]){

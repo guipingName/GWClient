@@ -83,7 +83,8 @@
     NSError *error = nil;
     self.connectSuccess = connectSucees;
     self.netError = backError;
-    [self.gcdSocket connectToHost:host onPort:port error:&error];
+    //[self.gcdSocket connectToHost:host onPort:port error:&error];
+    [self.gcdSocket connectToHost:host onPort:port withTimeout:RESPONSE_TIME error:&error];
 }
 
 // 有进度的上传

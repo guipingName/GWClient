@@ -22,16 +22,12 @@
 @interface DocViewController ()<UITableViewDelegate, UITableViewDataSource, TZImagePickerControllerDelegate, NSStreamDelegate>{
     UITableView *myTableView;
     NSMutableArray *dataArray;
-    NSMutableArray *_selectedAssets;
-    BOOL isEditing;
     BOOL isClickedRight;
-    
     NSInteger selectRow;
     float selectRowHeight;
     HintView *emptyView;
     UserInfoModel *user;
     UIView *clearView;
-    MBProgressHUD *hud;
 }
 
 @end
@@ -92,6 +88,14 @@
     else{
         clearView.hidden = YES;
     }
+}
+
+- (void) uploadImages:(UIButton *) sedner{
+    [self pushImagePickerController:YES];
+}
+
+- (void) uploadVodeos:(UIButton *) sedner{
+    [self pushImagePickerController:NO];
 }
 
 - (void) fileList{
@@ -172,14 +176,6 @@
     }];
 }
 
-- (void) uploadImages:(UIButton *) sedner{
-    [self pushImagePickerController:YES];
-}
-
-- (void) uploadVodeos:(UIButton *) sedner{
-    [self pushImagePickerController:NO];
-}
-
 
 #pragma mark --------------- UITableViewDelegate ----------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -230,7 +226,7 @@
 #pragma mark --------------- TZImagePickerController ----------------
 - (void)pushImagePickerController:(BOOL) isPicture {
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 columnNumber:4 delegate:self pushPhotoPickerVc:YES];
-    imagePickerVc.allowTakePicture = NO; // 在内部显示拍照按钮
+    imagePickerVc.allowTakePicture = NO;
     imagePickerVc.navigationBar.barTintColor = THEME_COLOR;
     if (isPicture) {
         imagePickerVc.allowPickingImage = YES;
@@ -244,7 +240,6 @@
     [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
 
-// 图片回调
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
     [self printAssets:assets photos:photos];
 }

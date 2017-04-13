@@ -20,12 +20,26 @@
     return self;
 }
 
+-(NSMutableArray *)uploadTaskArray{
+    if (!_uploadTaskArray) {
+        _uploadTaskArray = [NSMutableArray array];
+    }
+    return _uploadTaskArray;
+}
+
+-(NSMutableArray *)downloadTaskArray{
+    if (!_downloadTaskArray) {
+        _downloadTaskArray = [NSMutableArray array];
+    }
+    return _downloadTaskArray;
+}
+
 - (instancetype) initPrivate{
     if (self = [super init]) {
         tempUpArray = [NSMutableArray array];
         tempDownArray = [NSMutableArray array];
-        _uploadTaskArray = [NSMutableArray array];
-        _downloadTaskArray = [NSMutableArray array];
+        //_uploadTaskArray = [NSMutableArray array];
+        //_downloadTaskArray = [NSMutableArray array];
     }
     return self;
 }

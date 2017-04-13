@@ -46,7 +46,6 @@
         GWSocketPacketRequest *request = [[GWSocketPacketRequest alloc] init];
         request.pid = ApiType;
         request.object = params;
-        //request.timeout = 1;
         self.success = success;
         [self.encoder encode:request output:self];
     } backError:^(NSError *error) {
