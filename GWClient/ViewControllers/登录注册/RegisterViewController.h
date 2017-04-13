@@ -11,6 +11,6 @@
 @class UserLogin;
 @interface RegisterViewController : UIViewController
 
-@property (nonatomic, copy) void(^loginBlock)(UserLogin *);
+@property (nonatomic, copy) void(^userLogin)(NSString *userName, NSString *password);
 
 @end

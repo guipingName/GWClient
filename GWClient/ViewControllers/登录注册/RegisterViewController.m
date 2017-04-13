@@ -7,7 +7,6 @@
 //
 
 #import "RegisterViewController.h"
-#import "UserLogin.h"
 
 @interface RegisterViewController ()<UITextFieldDelegate>
 {
@@ -179,11 +178,13 @@
         if ([response isKindOfClass:[NSDictionary class]]) {
             [MBProgressHUD showSuccessMessage:response[@"message"]];
             if ([response[@"success"] boolValue]) {
+                NSDictionary *dic = response[@"result"];
+                NSString *str = dic[@"verifiyCode"];
                 confirmStr = tfEmail.text;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     btnConfim.enabled = NO;
                     btnConfim.backgroundColor = BTN_ENABLED_BGCOLOR;
-                    lbConfirm.text = [NSString stringWithFormat:@"验证码: %@ ", confirmStr];
+                    lbConfirm.text = [NSString stringWithFormat:@"验证码: %@ ", str];
                     [lbConfirm setAlignmentLeftAndRight];
                     lbConfirm.hidden = NO;
                 });
@@ -216,12 +217,9 @@
         if ([response isKindOfClass:[NSDictionary class]]) {
             [MBProgressHUD showSuccessMessage:response[@"message"]];
             if ([response[@"success"] boolValue]) {
-                UserLogin *model = [[UserLogin alloc] init];
-                model.email = tfEmail.text;
-                model.password = tfPassword.text;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    if (_loginBlock) {
-                        _loginBlock(model);
+                    if (_userLogin) {
+                        _userLogin(tfEmail.text, tfPassword.text);
                     }
                     [self.navigationController popViewControllerAnimated:YES];
                 });

@@ -13,7 +13,6 @@
 #import "MMDrawerController.h"
 #import "UILabel+GPAligment.h"
 #import "RegisterViewController.h"
-#import "UserLogin.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 {
@@ -106,9 +105,9 @@
 
 - (void) dobtnRegister:(UIButton *) sender{
     RegisterViewController *registerVC = [[RegisterViewController alloc] init];
-    registerVC.loginBlock = ^(UserLogin *model){
-        tfUserName.text = model.email;
-        tfPassword.text = model.password;
+    registerVC.userLogin = ^(NSString *userName, NSString *password){
+        tfUserName.text = userName;
+        tfPassword.text = password;
         btnLogin.enabled = YES;
         btnLogin.backgroundColor = THEME_COLOR;
     };

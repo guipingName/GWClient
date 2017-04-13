@@ -16,7 +16,6 @@
 		3817DBFE1E80CAA000FC72C1 /* ModifyNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFA1E80CAA000FC72C1 /* ModifyNickNameViewController.m */; };
 		3817DBFF1E80CAA000FC72C1 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DBFC1E80CAA000FC72C1 /* UserInfoViewController.m */; };
 		3817DC081E81066600FC72C1 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DC071E81066600FC72C1 /* Utils.m */; };
-		3817DC0E1E811EC900FC72C1 /* UserLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3817DC0D1E811EC900FC72C1 /* UserLogin.m */; };
 		382003021E8B42D700A3D20B /* sex_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 382003011E8B42D700A3D20B /* sex_sel.png */; };
 		382003051E8B4F2000A3D20B /* download_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 382003031E8B4F2000A3D20B /* download_64.png */; };
 		382003061E8B4F2000A3D20B /* upload_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 382003041E8B4F2000A3D20B /* upload_64.png */; };
@@ -179,8 +178,6 @@
 		3817DBFC1E80CAA000FC72C1 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		3817DC061E81066600FC72C1 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		3817DC071E81066600FC72C1 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-		3817DC0C1E811EC900FC72C1 /* UserLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLogin.h; sourceTree = "<group>"; };
-		3817DC0D1E811EC900FC72C1 /* UserLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLogin.m; sourceTree = "<group>"; };
 		382003011E8B42D700A3D20B /* sex_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sex_sel.png; sourceTree = "<group>"; };
 		382003031E8B4F2000A3D20B /* download_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download_64.png; sourceTree = "<group>"; };
 		382003041E8B4F2000A3D20B /* upload_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload_64.png; sourceTree = "<group>"; };
@@ -700,8 +697,6 @@
 				383CC00A1E7F79C500C62B29 /* UserInfoModel.m */,
 				382003241E8B989200A3D20B /* NewsModel.h */,
 				382003251E8B989200A3D20B /* NewsModel.m */,
-				3817DC0C1E811EC900FC72C1 /* UserLogin.h */,
-				3817DC0D1E811EC900FC72C1 /* UserLogin.m */,
 				38DDFCA81E892DAD00CD9E3C /* FileModel.h */,
 				38DDFCA91E892DAD00CD9E3C /* FileModel.m */,
 			);
@@ -1197,7 +1192,6 @@
 				382003561E8BA14400A3D20B /* UIImage+GIF.m in Sources */,
 				38E7A0EE1E8A48C700B4A918 /* View+MASAdditions.m in Sources */,
 				383CBFFF1E7F68A000C62B29 /* UILabel+GPAligment.m in Sources */,
-				3817DC0E1E811EC900FC72C1 /* UserLogin.m in Sources */,
 				38DDFC9A1E88FE6900CD9E3C /* TZAssetCell.m in Sources */,
 				38370B321E94DAB200A56EAE /* UITextView+YLTextView.m in Sources */,
 				38E7A0EC1E8A48C700B4A918 /* NSArray+MASAdditions.m in Sources */,

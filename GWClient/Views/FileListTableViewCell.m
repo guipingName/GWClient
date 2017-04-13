@@ -101,6 +101,7 @@
         [topView addSubview:_nameLabel];
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(topView.mas_centerY).offset(-5);
+            make.right.mas_equalTo(topView).offset(-48);
             make.left.equalTo(_iconImage.mas_right).offset(10);
         }];
         
