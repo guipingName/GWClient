@@ -14,7 +14,6 @@
 #import "TZImageManager.h"
 #import "FileModel.h"
 #import "FileListTableViewCell.h"
-#import "TransforModel.h"
 #import "TaskManager.h"
 #import "PreviewPicViewController.h"
 #import "LoginViewController.h"
@@ -272,7 +271,7 @@
         FileModel *model = [[FileModel alloc] init];
         model.fileState = TransferStatusReady;
         model.fileType = FileTypePicture;
-        model.fileName = [NSString stringWithFormat:@"%lu_%@",(unsigned long)user.userId, imageNames[i]];
+        model.fileName = [NSString stringWithFormat:@"%@_%lu_%@",[[[UIDevice currentDevice] identifierForVendor] UUIDString],(unsigned long)user.userId, imageNames[i]];
         UIImage *image = ImageArray[i];
         NSData *data = UIImagePNGRepresentation(image);
         model.fileSize = [Utils saveFileWithData:data fileName:model.fileName isPicture:YES];
@@ -308,7 +307,8 @@
     }
     NSString *fileName = nil;
     if (resource.originalFilename) {
-        fileName = resource.originalFilename;
+        NSString *str = resource.originalFilename;
+        fileName = [NSString stringWithFormat:@"%@_%lu_%@",[[[UIDevice currentDevice] identifierForVendor] UUIDString],(unsigned long)user.userId, [str componentsSeparatedByString:@"_"].lastObject];
     }
     if (!fileName) {
         NSDate *datenow = [NSDate date];
@@ -384,14 +384,12 @@
         case NSStreamEventErrorOccurred:{// 错误处理
             NSLog(@"错误处理");
             break;
-            
         }
         case NSStreamEventEndEncountered: {
             [aStream close];
             break;
         }
         case NSStreamEventNone:{// 无事件处理
-            
             NSLog(@"无事件处理");
             break;
         }

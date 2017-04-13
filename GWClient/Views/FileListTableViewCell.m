@@ -40,7 +40,7 @@
 
 - (void)setModel:(FileModel *)model {
     _model = model;
-    _nameLabel.text = model.fileName;
+    _nameLabel.text = [NSString stringWithFormat:@"IMG_%@", model.fileName];
     _timeLabel.text = [Utils getTimeToShowWithTimestamp:model.fileTime];
     if (model.fileType == FileTypePicture) {
         UIImage *image = model.thumbnail;

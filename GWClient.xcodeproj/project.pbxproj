@@ -54,7 +54,6 @@
 		382FA9CF1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382FA9CA1E8C92A100938F36 /* MBProgressHUD+JDragon.bundle */; };
 		382FA9D01E8C92A100938F36 /* MBProgressHUD+JDragon.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9CC1E8C92A100938F36 /* MBProgressHUD+JDragon.m */; };
 		382FA9D11E8C92A100938F36 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9CE1E8C92A100938F36 /* MBProgressHUD.m */; };
-		382FA9D61E8CF03E00938F36 /* TransforModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9D51E8CF03E00938F36 /* TransforModel.m */; };
 		382FA9D91E8D094200938F36 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FA9D81E8D094200938F36 /* TaskManager.m */; };
 		383018551E979AC200AD1A88 /* GWSocketPacketContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 383018491E979AC100AD1A88 /* GWSocketPacketContext.m */; };
 		383018561E979AC200AD1A88 /* GWVariableDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3830184B1E979AC100AD1A88 /* GWVariableDecoder.m */; };
@@ -252,8 +251,6 @@
 		382FA9CC1E8C92A100938F36 /* MBProgressHUD+JDragon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+JDragon.m"; sourceTree = "<group>"; };
 		382FA9CD1E8C92A100938F36 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		382FA9CE1E8C92A100938F36 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		382FA9D41E8CF03E00938F36 /* TransforModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransforModel.h; sourceTree = "<group>"; };
-		382FA9D51E8CF03E00938F36 /* TransforModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransforModel.m; sourceTree = "<group>"; };
 		382FA9D71E8D094200938F36 /* TaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskManager.h; sourceTree = "<group>"; };
 		382FA9D81E8D094200938F36 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManager.m; sourceTree = "<group>"; };
 		383018481E979AC100AD1A88 /* GWSocketPacketContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSocketPacketContext.h; sourceTree = "<group>"; };
@@ -707,8 +704,6 @@
 				3817DC0D1E811EC900FC72C1 /* UserLogin.m */,
 				38DDFCA81E892DAD00CD9E3C /* FileModel.h */,
 				38DDFCA91E892DAD00CD9E3C /* FileModel.m */,
-				382FA9D41E8CF03E00938F36 /* TransforModel.h */,
-				382FA9D51E8CF03E00938F36 /* TransforModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1247,7 +1242,6 @@
 				383018591E979AC200AD1A88 /* SocketManager.m in Sources */,
 				383018551E979AC200AD1A88 /* GWSocketPacketContext.m in Sources */,
 				38DDFC4F1E88E62800CD9E3C /* ModifySexViewController.m in Sources */,
-				382FA9D61E8CF03E00938F36 /* TransforModel.m in Sources */,
 				3820031C1E8B5CDA00A3D20B /* FMDatabasePool.m in Sources */,
 				382003551E8BA14400A3D20B /* UIButton+WebCache.m in Sources */,
 				38E700551E7A895600336BDB /* main.m in Sources */,

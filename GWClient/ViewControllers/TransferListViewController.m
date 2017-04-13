@@ -12,7 +12,6 @@
 #import "UpDownBtn.h"
 #import "FileModel.h"
 #import "Masonry.h"
-#import "TransforModel.h"
 #import "TaskManager.h"
 #import "AppDelegate.h"
 

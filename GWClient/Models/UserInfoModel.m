@@ -51,15 +51,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
 // 归档时要使用的方法
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     if (aCoder) {

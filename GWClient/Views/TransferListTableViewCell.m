@@ -47,7 +47,8 @@
     else{
         _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
     }
-    _nameLabel.text = fileModel.fileName;
+    NSString *str = [fileModel.fileName componentsSeparatedByString:@"_"].lastObject;
+    _nameLabel.text = [NSString stringWithFormat:@"IMG_%@",str];
     switch (fileModel.fileState) {
         case TransferStatusReady:
         {
