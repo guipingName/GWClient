@@ -19,28 +19,31 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doTap:)];
         self.userInteractionEnabled = YES;
         [self addGestureRecognizer:tap];
+        if (!imageView) {
+            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+            [self addSubview:imageView];
+        }
         
+        imageView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+        if (!label) {
+            label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame), self.bounds.size.width, 30)];
+            [self addSubview:label];
+        }
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor grayColor];
+        label.font = [UIFont systemFontOfSize:14];
+        self.hidden = YES;
     }
     return self;
 }
 
 - (void)createHintViewWithTitle:(NSString *)title image:(UIImage *)image block:(void (^)())block{
     self.block = block;
-    if (!imageView) {
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    }
-    [self addSubview:imageView];
-    imageView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-    imageView.image = image;
-    if (!label) {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame), self.bounds.size.width, 30)];
-    }
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = title;
-    label.textColor = [UIColor grayColor];
-    label.font = [UIFont systemFontOfSize:14];
-    [self addSubview:label];
-    self.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        imageView.image = image;
+        label.text = title;
+    });
+    
 }
 
 - (void) doTap:(UITapGestureRecognizer *) sender{

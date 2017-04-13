@@ -124,7 +124,7 @@
                 }
                 else{
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:nil];
+                        [emptyView createHintViewWithTitle:EMPTY image:[UIImage imageNamed:@"folder"] block:nil];
                         myTableView.hidden = YES;
                         emptyView.hidden = NO;
                     });
@@ -136,7 +136,7 @@
                 }
                 else{
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"folder"] block:^{
+                        [emptyView createHintViewWithTitle:LOAD_ERROR image:[UIImage imageNamed:@"folder"] block:^{
                             [weakSelf fileList];
                         }];
                         myTableView.hidden = YES;
@@ -155,10 +155,15 @@
         NSLog(@"%ld %@",(long)error.code, error.localizedDescription);
         if (error.code == CONNECTION_REFUSED) {
             [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
+            [emptyView createHintViewWithTitle:SERVER_DISCONNECT image:[UIImage imageNamed:@"folder"] block:^{
+                [weakSelf fileList];
+            }];
+            myTableView.hidden = YES;
+            emptyView.hidden = NO;
         }
-        else if (error.code != NO_NETWORK) {
+        else if (error.code != NO_NETWORK && error.code != SOCKET_CLOSED) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [emptyView createHintViewWithTitle:@"加载失败，点击再试一次" image:[UIImage imageNamed:@"folder"] block:^{
+                [emptyView createHintViewWithTitle:LOAD_ERROR image:[UIImage imageNamed:@"folder"] block:^{
                     [weakSelf fileList];
                 }];
                 myTableView.hidden = YES;
@@ -267,7 +272,7 @@
         FileModel *model = [[FileModel alloc] init];
         model.fileState = TransferStatusReady;
         model.fileType = FileTypePicture;
-        model.fileName = imageNames[i];
+        model.fileName = [NSString stringWithFormat:@"%lu_%@",(unsigned long)user.userId, imageNames[i]];
         UIImage *image = ImageArray[i];
         NSData *data = UIImagePNGRepresentation(image);
         model.fileSize = [Utils saveFileWithData:data fileName:model.fileName isPicture:YES];
@@ -423,9 +428,9 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [myTableView reloadData];
                     if (dataArray.count == 0) {
-                        [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:nil];
                         myTableView.hidden = YES;
                         emptyView.hidden = NO;
+                        [emptyView createHintViewWithTitle:EMPTY image:[UIImage imageNamed:@"folder"] block:nil];
                     }
                 });
             }
@@ -433,16 +438,16 @@
                 [Utils quitToLoginViewControllerFrom:self];
             }
             else{
-                [MBProgressHUD showErrorMessage:@"删除失败"];
+                [MBProgressHUD showErrorMessage:DELETE_ERROR];
             }
         }
     } fail:^(NSError * error) {
         NSLog(@"error.code:%ld %@", (long)error.code, error.localizedDescription);
-        if (error.code == CONNECTION_REFUSED) {
+        if (error.code == CONNECTION_REFUSED || error.code == SOCKET_CLOSED) {
             [MBProgressHUD showErrorMessage:CONNECTION_REFUSED_STR];
         }
         else if (error.code != NO_NETWORK) {
-            [MBProgressHUD showErrorMessage:@"删除失败"];
+            [MBProgressHUD showErrorMessage:DELETE_ERROR];
         }
     }];
 }
@@ -533,8 +538,8 @@
     emptyView = [[HintView alloc] initWithFrame:myTableView.frame];
     [self.view addSubview:emptyView];
     
-    [emptyView createHintViewWithTitle:@"这里是空的~" image:[UIImage imageNamed:@"folder"] block:nil];
-    emptyView.hidden = NO;
+    [emptyView createHintViewWithTitle:EMPTY image:[UIImage imageNamed:@"folder"] block:nil];
+    //emptyView.hidden = NO;
 }
 
 

@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define DEFAULT_HEAD_IMAGENAME      @"head"
 #define NAVIGATION_LEFTBAR          @"navigationbar_list_normal"
 
-#define HOST_IP                     @"10.134.42.1"
+#define HOST_IP                     @"10.134.20.1"
 #define HOST_PORT                   20173
 
 #define BTN_NEW_TAG                 800
@@ -43,6 +43,10 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define GET_ERROR                   @"获取失败"
 #define PREVIEW_ERROR               @"查看失败"
 #define LOGIN_ERROR                 @"非法登录"
+#define SERVER_DISCONNECT           @"服务器已断开，请稍后再试"
+#define LOAD_ERROR                  @"加载失败，点击再试一次"
+#define DELETE_ERROR                @"删除失败"
+#define EMPTY                       @"这里是空的~"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s: %d \t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
