@@ -40,6 +40,7 @@
         [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
         [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
         [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
+        drawerController.shouldStretchDrawer = NO;
         _window.rootViewController = drawerController;
     }
     else{

@@ -322,16 +322,19 @@
         [manager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
             NSURL *url = urlAsset.URL;
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            [Utils saveFileWithData:data fileName:fileName isPicture:NO];
+//            NSData *data = [NSData dataWithContentsOfURL:url];
+//            [Utils saveFileWithData:data fileName:fileName isPicture:NO];
             // 这里最好直接保存url，不用转成NSData再保存
+            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+            [def setObject:url.absoluteString forKey:fileName];
+            [def synchronize];
             
             FileModel *model = [[FileModel alloc] init];
             model.fileState = TransferStatusReady;
             model.fileType = FileTypeVideo;
             model.fileName = fileName;
-            model.videoData = data;
-            model.fileSize = data.length;
+            //model.videoData = data;
+            //model.fileSize = data.length;
             
             NSMutableArray *temp = [TaskManager sharedManager].uploadTaskArray;
             [temp addObject:model];

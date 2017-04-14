@@ -98,25 +98,45 @@
 
 - (void) uploadFile:(FileModel *) model{
     __weak typeof(self) weakSelf = self;
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     UserInfoModel *user = [DataBaseManager sharedManager].currentUser;
     NSDictionary *fileDic = [NSDictionary dictionary];
     if (model.fileType == FileTypePicture) {
         fileDic = @{model.fileName:[Utils getImageWithImageName:model.fileName]};
     }
     else if (model.fileType == FileTypeVideo) {
-        NSString *aa = [NSString stringWithFormat:@"Documents/%@",@"videos"];
-        NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:aa];
-        NSString *imgFileName = [NSString stringWithFormat:@"/%@", model.fileName];
-        NSString *downLoadfilePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
-        if ([[NSFileManager defaultManager] fileExistsAtPath:downLoadfilePath]) {
-            model.videoData = [NSData dataWithContentsOfFile:downLoadfilePath];
+        if (model.videoData) {
             fileDic = @{model.fileName:model.videoData};
         }
         else{
-            model.fileState = TransferStatusFailure;
-            [self upload];
-            return;
+            NSString *str = [def objectForKey:model.fileName];
+            NSURL *url = [NSURL URLWithString:str];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            if (data) {
+                model.videoData = data;
+                model.fileSize = data.length;
+                fileDic = @{model.fileName:model.videoData};
+            }
+            else{
+                model.fileState = TransferStatusFailure;
+                [self upload];
+                return;
+            }
+            
         }
+//        NSString *aa = [NSString stringWithFormat:@"Documents/%@",@"videos"];
+//        NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:aa];
+//        NSString *imgFileName = [NSString stringWithFormat:@"/%@", model.fileName];
+//        NSString *downLoadfilePath = [[NSString alloc] initWithFormat:@"%@%@",DocumentsPath,imgFileName];
+//        if ([[NSFileManager defaultManager] fileExistsAtPath:downLoadfilePath]) {
+//            model.videoData = [NSData dataWithContentsOfFile:downLoadfilePath];
+//            fileDic = @{model.fileName:model.videoData};
+//        }
+//        else{
+//            model.fileState = TransferStatusFailure;
+//            [self upload];
+//            return;
+//        }
     }
     NSDictionary *params = @{@"userId":@(user.userId),
                              @"token":user.token,
@@ -131,7 +151,8 @@
             if ([response[@"success"] boolValue]) {
                 NSLog(@"上传成功，即将上传下一个文件");
                 model.fileState = TransferStatusFinished;
-                [weakSelf upload];
+                [def removeObjectForKey:model.fileName];
+                 [weakSelf upload];
             }
         }
     } fail:^(NSError *error) {

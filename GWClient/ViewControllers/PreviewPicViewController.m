@@ -79,7 +79,7 @@
                                  @"type":@(_model.fileType),
                                  @"filePaths":@[@(_model.fileId)]
                                  };
-        [Request GET:ApiTypeGetFile params:params succeed:^(id response) {
+        [Request downLoad:ApiTypeGetFile params:params succeed:^(id response) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [activityIndicator stopAnimating];
             });
@@ -98,7 +98,7 @@
             else{
                 [MBProgressHUD showErrorMessage:PREVIEW_ERROR];
             }
-        } fail:^(NSError * error) {
+        } fail:^(NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [activityIndicator stopAnimating];
             });
@@ -108,6 +108,8 @@
             else{
                 [MBProgressHUD showErrorMessage:PREVIEW_ERROR];
             }
+        } downLoadProcess:^(NSInteger done, NSInteger total, float percentage) {
+            
         }];
     }
 }

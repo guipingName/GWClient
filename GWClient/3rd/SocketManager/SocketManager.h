@@ -17,11 +17,13 @@
                  onPort:(uint16_t )port
                 success:(void (^) (BOOL connectSuccess)) connectSucees
               backError:(void (^) (NSError *error)) backError;
+
 - (void)connectWithHost:(NSString *)host
                  onPort:(uint16_t )port
                 success:(void (^) (BOOL connectSuccess)) connectSucees
         compeletProcess:(void (^)(NSInteger done, NSInteger total, float percentage)) process
               backError:(void (^) (NSError *error)) backError;
+
 - (void)connectWithHost:(NSString *)host
                  onPort:(uint16_t )port
                 success:(void (^) (BOOL connectSuccess)) connectSucees

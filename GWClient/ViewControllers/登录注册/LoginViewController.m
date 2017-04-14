@@ -51,7 +51,6 @@
     [tfUserName resignFirstResponder];
     [tfPassword resignFirstResponder];
     [MBProgressHUD showActivityMessageInView:@"正在登录"];
-    //[Utils hiddenMBProgressAfterTenMinites];
     NSDictionary *paramDic = @{@"username":tfUserName.text,
                                @"password":tfPassword.text,
                                @"deviceId":[[[UIDevice currentDevice] identifierForVendor] UUIDString]
@@ -79,6 +78,7 @@
                     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
                     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
                     [drawerController setMaximumLeftDrawerWidth:LEFTVC_WIDTH];
+                    drawerController.shouldStretchDrawer = NO;
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         dispatch_async(dispatch_get_main_queue(), ^{
                             self.view.window.rootViewController = drawerController;
