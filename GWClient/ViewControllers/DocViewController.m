@@ -324,15 +324,8 @@
             NSURL *url = urlAsset.URL;
             NSData *data = [NSData dataWithContentsOfURL:url];
             [Utils saveFileWithData:data fileName:fileName isPicture:NO];
+            // 这里最好直接保存url，不用装成NSData再保存
             
-           
-            
-//            NSInputStream *readStream = [[NSInputStream alloc] initWithURL:url];
-//            readStream.delegate = self;
-//            [readStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-//            [readStream open];
-            
-            // 准备上传视频
             FileModel *model = [[FileModel alloc] init];
             model.fileState = TransferStatusReady;
             model.fileType = FileTypeVideo;
@@ -353,54 +346,6 @@
     else {
         NSLog(@"失败");
     }
-}
-
-
-
-#pragma mark  NSStreamDelegate代理
-- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode{
-    NSLog(@"123");
-    switch (eventCode) {
-        case NSStreamEventHasSpaceAvailable:{ // 写
-            break;
-        }
-        case NSStreamEventHasBytesAvailable:{ // 读
-            uint8_t buf[1024];
-            NSInputStream *reads = (NSInputStream *)aStream;
-            NSInteger blength = [reads read:buf maxLength:sizeof(buf)];
-            if (blength != 0) {
-                NSData *data = [NSData dataWithBytes:(void *)buf length:blength];
-                
-                NSLog(@"文件内容长度: %lu", (unsigned long)data.length);
-            }else{
-                [aStream close];
-            }
-            break;
-        }
-        case NSStreamEventErrorOccurred:{// 错误处理
-            NSLog(@"错误处理");
-            break;
-        }
-        case NSStreamEventEndEncountered: {
-            [aStream close];
-            break;
-        }
-        case NSStreamEventNone:{// 无事件处理
-            NSLog(@"无事件处理");
-            break;
-        }
-        case  NSStreamEventOpenCompleted:{// 打开完成
-            NSLog(@"打开文件");
-            break;
-        }
-        default:
-            break;
-    }
-}
-
-// Gif图片
-- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingGifImage:(UIImage *)animatedImage sourceAssets:(id)asset {
-    
 }
 
 
