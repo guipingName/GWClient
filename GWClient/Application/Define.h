@@ -45,6 +45,7 @@ typedef NS_ENUM(NSUInteger, ApiType) {
 #define FILELISTCELL                @"FileListTableViewCell"
 #define LEFTCELL                    @"LeftVCTableViewCell"
 #define USERINFOCELL                @"UserInfoTableViewCell"
+#define NEWSCELL                    @"NewsTableViewCell"
 
 #define CONNECTION_REFUSED_STR      @"服务器已断开"
 #define NO_NETWORK_STR              @"网络断开"

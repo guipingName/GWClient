@@ -12,12 +12,12 @@
 #import "UpDownBtn.h"
 #import "NewsModel.h"
 
-typedef NS_ENUM(NSInteger, BimarOperateButton) {
-    BimarOperateButtonTime,                         // 定时设置
-    BimarOperateButtonOnOff,                        // 开关
-    BimarOperateButtonIncreaseTemperature,          // 增加温度
-    BimarOperateButtonWind,                         // 风速控制
-    BimarOperateButtonMAX
+typedef NS_ENUM(NSInteger, NewsTypeButton) {
+    NewsTypeButtonTheLatest,
+    NewsTypeButtonNews,
+    NewsTypeButtonPE,
+    NewsTypeButtonNBA,
+    NewsTypeButtonMAX
 };
 
 @interface NewsViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
     lineView.backgroundColor = [UIColor grayColor];
     [btnBackView addSubview:lineView];
     NSArray *btnNames = @[@"头条",@"新闻", @"体育", @"NBA"];
-    for (int i=0; i<BimarOperateButtonMAX; i++) {
+    for (int i=0; i<NewsTypeButtonMAX; i++) {
         UIButton *button = [self createButton:btnNames[i]];
         if (i == 0) {
             button.selected = YES;
@@ -68,7 +68,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
     newTableView.dataSource = self;
     newTableView.rowHeight = 100;
     newTableView.tableFooterView = [[UIView alloc] init];
-    [newTableView registerClass:[NewsTableViewCell class] forCellReuseIdentifier:@"NewsTableViewCell"];
+    [newTableView registerClass:[NewsTableViewCell class] forCellReuseIdentifier:NEWSCELL];
     
     [self getNews:btnNames.firstObject];
 }
@@ -79,14 +79,14 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsTableViewCell" forIndexPath:indexPath];
+    NewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NEWSCELL forIndexPath:indexPath];
     cell.model = dataArray[indexPath.row];
     return cell;
 }
 
 
 - (void) btnTypeClicked:(UIButton *) sender{
-    for (int i=BTN_NEW_TAG; i<BTN_NEW_TAG + BimarOperateButtonMAX; i++) {
+    for (int i=BTN_NEW_TAG; i<BTN_NEW_TAG + NewsTypeButtonMAX; i++) {
         UIButton *button = [self.view viewWithTag:i];
         button.selected = NO;
     }

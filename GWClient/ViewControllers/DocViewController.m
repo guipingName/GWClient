@@ -324,7 +324,7 @@
             NSURL *url = urlAsset.URL;
             NSData *data = [NSData dataWithContentsOfURL:url];
             [Utils saveFileWithData:data fileName:fileName isPicture:NO];
-            // 这里最好直接保存url，不用装成NSData再保存
+            // 这里最好直接保存url，不用转成NSData再保存
             
             FileModel *model = [[FileModel alloc] init];
             model.fileState = TransferStatusReady;
