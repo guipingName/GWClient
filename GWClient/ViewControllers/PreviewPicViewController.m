@@ -152,7 +152,7 @@
             if ([response[@"success"] boolValue]) {
                 id newObj = [response[@"result"][@"files"] firstObject];
                 if ([newObj isKindOfClass:[UIImage class]]) {
-                    UIImage *image = [response[@"result"][@"files"] firstObject];
+                    UIImage *image = (UIImage *)newObj;
                     [weakSelf cachePhotoWithImage:image imageName:_model.fileName];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         imageView.frame = CGRectMake(0, 0, image.size.width > KSCREEN_WIDTH ? KSCREEN_WIDTH:image.size.width, image.size.width>KSCREEN_WIDTH?image.size.height * KSCREEN_WIDTH / image.size.width:image.size.height);

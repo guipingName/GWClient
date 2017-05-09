@@ -269,8 +269,11 @@
         model.fileType = FileTypePicture;
         model.fileName = [NSString stringWithFormat:@"%@_%lu_%@",[[[UIDevice currentDevice] identifierForVendor] UUIDString],(unsigned long)user.userId, imageNames[i]];
         UIImage *image = ImageArray[i];
+        UIImage *imageScale = [Utils scaleToSize:image size:CGSizeMake(30, 30)];
         NSData *data = UIImagePNGRepresentation(image);
+        NSData *dataa = UIImagePNGRepresentation(imageScale);
         model.fileSize = [Utils saveFileWithData:data fileName:model.fileName isPicture:YES];
+        [Utils saveFileWithData:dataa fileName:[NSString stringWithFormat:@"scale_%@", model.fileName] isPicture:YES];
         [newImages addObject:model];
     }
     NSMutableArray *oldTask = [TaskManager sharedManager].uploadTaskArray;

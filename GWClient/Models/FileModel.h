@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, FileTransferType) {
 @property (nonatomic, assign) FileTransferType fileOperateType;
 
 /**图片url(如果是图片)*/
-//@property (nonatomic, copy) NSString *imagePath;
+@property (nonatomic, strong) UIImage *scaleImage;
 
 /**视频数据(如果是视频)*/
 @property (nonatomic, strong) NSData *videoData;

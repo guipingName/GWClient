@@ -72,6 +72,17 @@
 - (void) loadData {
     uploadArray = [[TaskManager sharedManager].uploadTaskArray mutableCopy];
     downloadArray = [[TaskManager sharedManager].downloadTaskArray mutableCopy];
+    for (FileModel *temp in uploadArray) {
+        if (temp.fileType == FileTypePicture) {
+            temp.scaleImage = [Utils getImageWithImageName:[NSString stringWithFormat:@"scale_%@", temp.fileName]];
+        }
+    }
+    for (FileModel *temp in downloadArray) {
+        if (temp.fileType == FileTypePicture) {
+            temp.scaleImage = [Utils getImageWithImageName:[NSString stringWithFormat:@"scale_%@", temp.fileName]];
+        }
+    }
+    
     if (isUpButtonClicked) {
         dataArray = uploadArray;
         if (dataArray.count == 0) {
@@ -194,8 +205,12 @@
     NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)objectAtIndex:0];
     NSString *createPath = [NSString stringWithFormat:@"%@/%@", pathDocuments, typeStr];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@",createPath,model.fileName];
+    NSString *filePath1 = [NSString stringWithFormat:@"%@/%@",createPath,[NSString stringWithFormat:@"scale_%@", model.fileName]];
     if ([fileManager fileExistsAtPath:filePath]) {
         [fileManager removeItemAtPath:filePath error:nil];
+    }
+    if ([fileManager fileExistsAtPath:filePath1]) {
+        [fileManager removeItemAtPath:filePath1 error:nil];
     }
 }
 

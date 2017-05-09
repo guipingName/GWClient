@@ -41,8 +41,15 @@
         //            _iconImage.image = image;
         //        }
         //        else{
-        _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
+        //_iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
         //        }
+        
+        if (fileModel.scaleImage) {
+            _iconImage.image = fileModel.scaleImage;
+        }
+        else{
+            _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];
+        }
     }
     else{
         _iconImage.image = [Utils ImageNameWithFileType:fileModel.fileType];

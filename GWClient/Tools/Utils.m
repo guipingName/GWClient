@@ -79,6 +79,14 @@
     return img;
 }
 
++(UIImage *)scaleToSize:(UIImage *)img size:(CGSize)size{
+    UIGraphicsBeginImageContext(size);
+    [img drawInRect:CGRectMake(0,0, size.width, size.height)];
+    UIImage* scaledImage =UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+
 + (NSUInteger) saveFileWithData:(NSData *)data fileName:(NSString *) fileName isPicture:(BOOL) isPicture{
     NSString *typeStr = nil;
     if (isPicture) {
@@ -149,6 +157,7 @@
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
             viewController.view.window.rootViewController = nav;
         }];
+
         [alertController addAction:new];
         [viewController presentViewController:alertController animated:YES completion:nil];
     });
